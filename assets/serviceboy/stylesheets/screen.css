@@ -1,0 +1,41 @@
+.h-100vh {
+    height: 100vh;
+}
+
+.h-20vh {
+    height: 20vh;
+}
+
+.h-32vh {
+    height: 32vh;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.mt-6 {
+    margin-top: 6rem;
+}
+
+.text-gray{
+    color: #666;
+}
+
+.f-35{
+    font-size: 50px!important;
+}
+
+.border-1{
+    border:1px solid #f1f1f1;
+}
+
+.btn-primary {
+    background-color: blueviolet;
+    border-color: blueviolet;
+}
+
+.btn-primary:hover {
+    background-color: blueviolet;
+    border-color: blueviolet;
+}

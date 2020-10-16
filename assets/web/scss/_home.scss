@@ -1,0 +1,42 @@
+.bg-home {
+  background-color: $black;
+  background-image: url(../img/bg.jpg);
+  background-size: cover;
+  background-position: center;
+  background-color: $black;
+  // animation: shrink 5s infinite alternate;
+  height: 100vh;
+}
+@keyframes shrink {
+  0% {
+    background-size: 110% 110%;
+  }
+  100% {
+    background-size: 100% 100%;
+  }
+}
+
+.main-search {
+  input {
+    height: 50px;
+  }
+  button {
+    height: 50px;
+    min-width: 120px;
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.select-service-type{
+ .s-card{
+   min-width: 200px;
+   height: 100px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+}

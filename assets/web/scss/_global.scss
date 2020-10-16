@@ -1,0 +1,154 @@
+// Global component styles
+
+html {
+  position: relative;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  height: 100%;
+}
+
+a {
+  &:focus {
+    outline: none;
+  }
+}
+
+/* The emerging W3C standard
+   that is currently Firefox-only */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $gray-100 $primary;
+}
+
+// Main page wrapper
+#wrapper {
+  display: flex;
+  #content-wrapper {
+    background-color: $gray-100;
+    width: 100%;
+    overflow-x: hidden;
+    #content {
+      flex: 1 0 auto;
+    }
+  }
+}
+
+// Set container padding to match gutter width instead of default 15px
+.container,
+.container-fluid {
+  padding-left: $grid-gutter-width;
+  padding-right: $grid-gutter-width;
+}
+
+// Scroll to top button
+.scroll-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  text-align: center;
+  color: $white;
+  background: fade-out($gray-800, 0.5);
+  line-height: 46px;
+  &:focus,
+  &:hover {
+    color: white;
+  }
+  &:hover {
+    background: $gray-800;
+  }
+  i {
+    font-weight: 800;
+  }
+}
+
+.logo {
+  height: 50px;
+}
+.bg-dark {
+  background-color: $black !important;
+}
+
+.nav {
+  transition: all 0.4s;
+  left: 0;
+}
+
+.filter {
+  .nav-item {
+    .nav-link {
+      color: $black;
+      text-transform: capitalize;
+      font-size: 13px;
+    }
+  }
+}
+
+.servoce-catogory {
+  .list-group {
+    height: 600px;
+    overflow: hidden;
+    &:hover {
+      overflow-y: scroll;
+    }
+  }
+}
+
+/* Works on Chrome/Edge/Safari */
+.list-group::-webkit-scrollbar {
+  width: 3px;
+}
+.list-group::-webkit-scrollbar-track {
+  background: $gray-100;
+}
+.list-group::-webkit-scrollbar-thumb {
+  background-color: $gray-100;
+  border-radius: 20px;
+  border: 3px solid $primary;
+}
+
+.sticky-top {
+  top: 30px;
+}
+
+.bg-gradient-primary {
+  background-image: url(../img/bg.jpg) !important;
+}
+
+.numb{
+  display: flex!important;
+  align-items: center!important;
+  justify-content: center;
+  height: 48vw;
+}
+
+@media (min-width: 992px) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg {
+    max-width: 1170px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .s-card {
+    min-width: 100%!important;
+  }
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+  .s-card {
+    min-width: 100%!important;
+  }
+}
+
+
+
+
