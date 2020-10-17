@@ -148,4 +148,8 @@ button:disabled {
       color: $white;
     }
   }
+  .active{
+    background-color: $primary!important;
+    color: $white!important;
+  }
 }

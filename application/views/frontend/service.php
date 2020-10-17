@@ -173,14 +173,14 @@
             <div class="modal-dialog">
               <!-- Modal content-->
               <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header text-center">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                   <h4 class="modal-title">Modal Header</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body d-flex justify-content-center text-center">
                     <div class="small d-block mt-2">
                         <!-- No. of Persons -->
-                        <div class="mt-4 text-left h6 text-gray-900 mb-4 font-weight-bold">No. of Persons</div>
+                        <div class="mt-4 text-center h6 text-gray-900 mb-4 font-weight-bold">No. of Persons</div>
                         <div class="wrapper d-flex align-items-center">
                             <div class="control shadow" id="minus">-</div>
                             <div id="number">0</div>

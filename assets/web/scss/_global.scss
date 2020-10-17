@@ -42,6 +42,17 @@ a {
   padding-left: $grid-gutter-width;
   padding-right: $grid-gutter-width;
 }
+.social {
+  background-color: #000;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  border-radius: 160px;
+}
 
 // Scroll to top button
 .scroll-to-top {
@@ -120,11 +131,19 @@ a {
   background-image: url(../img/bg.jpg) !important;
 }
 
-.numb{
-  display: flex!important;
-  align-items: center!important;
+.numb {
+  display: flex !important;
+  align-items: center !important;
   justify-content: center;
   height: 48vw;
+}
+
+.list-group-item {
+  padding: 0px !important;
+  a {
+    padding: 0.75rem 1.25rem !important;
+    display: block!important;
+  }
 }
 
 @media (min-width: 992px) {
@@ -138,17 +157,13 @@ a {
 
 @media (max-width: 575.98px) {
   .s-card {
-    min-width: 100%!important;
+    min-width: 100% !important;
   }
 }
 
 // Small devices (landscape phones, less than 768px)
 @media (max-width: 767.98px) {
   .s-card {
-    min-width: 100%!important;
+    min-width: 100% !important;
   }
 }
-
-
-
-

@@ -3975,11 +3975,12 @@ input[type="button"].btn-block {
 .list-group-item {
   position: relative;
   display: block;
-  padding: 0.75rem 1.25rem;
+  padding: 0px !important;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.125); }
   .list-group-item a {
-    color: #858796; }
+    color: #858796;
+    padding: 0.75rem 1.25rem !important; }
   .list-group-item:first-child {
     border-top-left-radius: inherit;
     border-top-right-radius: inherit; }
@@ -7909,6 +7910,17 @@ a:focus {
   padding-left: 1.5rem;
   padding-right: 1.5rem; }
 
+.social {
+  background-color: #000;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  border-radius: 160px; }
+
 .scroll-to-top {
   position: fixed;
   right: 1rem;
@@ -7944,7 +7956,9 @@ a:focus {
 
 .servoce-catogory .list-group {
   height: 600px;
-  overflow-y: scroll; }
+  overflow: hidden; }
+  .servoce-catogory .list-group:hover {
+    overflow-y: scroll; }
 
 /* Works on Chrome/Edge/Safari */
 .list-group::-webkit-scrollbar {
@@ -7961,6 +7975,32 @@ a:focus {
 .sticky-top {
   top: 30px; }
 
+.bg-gradient-primary {
+  background-image: url(../img/bg.jpg) !important; }
+
+.numb {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center;
+  height: 48vw; }
+
+.list-group-item {
+  padding: 0px !important; }
+  .list-group-item a {
+    padding: 0.75rem 1.25rem !important; }
+
+@media (min-width: 992px) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg {
+    max-width: 1170px; } }
+@media (max-width: 575.98px) {
+  .s-card {
+    min-width: 100% !important; } }
+@media (max-width: 767.98px) {
+  .s-card {
+    min-width: 100% !important; } }
 @keyframes growIn {
   0% {
     transform: scale(0.9);
@@ -8172,6 +8212,12 @@ a:focus {
 .pb-7 {
   padding-bottom: 70px; }
 
+.w-320 {
+  min-width: 320px !important; }
+
+.mt-7 {
+  margin-top: 7rem !important; }
+
 .bg-home {
   background-color: #000;
   background-image: url(../img/bg.jpg);
@@ -8192,6 +8238,13 @@ a:focus {
   min-width: 120px; }
   .main-search button a:hover {
     text-decoration: none; }
+
+.select-service-type .s-card {
+  min-width: 200px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
 
 .inner {
   width: 300px;
@@ -8315,6 +8368,9 @@ button:disabled {
     .time-list li:hover {
       background-color: #8443FF;
       color: #fff; }
+  .time-list .active {
+    background-color: #8443FF;
+    color: #fff; }
 
 .dropdown .dropdown-menu {
   font-size: 0.85rem; }
@@ -8773,13 +8829,39 @@ button:disabled {
     padding-right: 1.725rem;
     line-height: 51px;
     font-weight: 900;
-    content: '\f107';
-    font-family: 'Font Awesome 5 Free';
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
     color: #d1d3e2; }
   .card .card-header[data-toggle="collapse"].collapsed {
     border-radius: 0.35rem; }
     .card .card-header[data-toggle="collapse"].collapsed::after {
-      content: '\f105'; }
+      content: "\f105"; }
+
+.circle-wizard {
+  display: flex;
+  justify-content: space-between;
+  padding: 5rem 0;
+  width: 100%;
+  margin-top: 3rem; }
+  .circle-wizard li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; }
+    .circle-wizard li i {
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      border-radius: 160px;
+      background-color: #f1f1f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0px; }
+    .circle-wizard li .active {
+      background-color: #1cc88a;
+      color: #fff; }
 
 .chart-area {
   position: relative;
@@ -8806,7 +8888,7 @@ button:disabled {
       height: calc(20rem - 43px) !important; } }
 
 .bg-login-image {
-  background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
+  background: url(../img/login.jpg);
   background-position: center;
   background-size: cover; }
 
@@ -8824,11 +8906,11 @@ form.user .custom-checkbox.small label {
   line-height: 1.5rem; }
 form.user .form-control-user {
   font-size: 0.8rem;
-  border-radius: 10rem;
+  border-radius: 6px;
   padding: 1.5rem 1rem; }
 form.user .btn-user {
   font-size: 0.8rem;
-  border-radius: 10rem;
+  border-radius: 6px;
   padding: 0.75rem 1rem; }
 
 .btn-google {
@@ -8888,47 +8970,47 @@ form.user .btn-user {
 
 @keyframes noise-anim {
   0% {
-    clip: rect(6px, 9999px, 94px, 0); }
+    clip: rect(42px, 9999px, 24px, 0); }
   5% {
-    clip: rect(15px, 9999px, 25px, 0); }
+    clip: rect(88px, 9999px, 59px, 0); }
   10% {
-    clip: rect(97px, 9999px, 19px, 0); }
+    clip: rect(83px, 9999px, 2px, 0); }
   15% {
-    clip: rect(19px, 9999px, 70px, 0); }
+    clip: rect(38px, 9999px, 61px, 0); }
   20% {
-    clip: rect(48px, 9999px, 49px, 0); }
+    clip: rect(23px, 9999px, 100px, 0); }
   25% {
-    clip: rect(1px, 9999px, 23px, 0); }
+    clip: rect(71px, 9999px, 28px, 0); }
   30% {
-    clip: rect(26px, 9999px, 87px, 0); }
+    clip: rect(11px, 9999px, 3px, 0); }
   35% {
-    clip: rect(85px, 9999px, 99px, 0); }
+    clip: rect(4px, 9999px, 46px, 0); }
   40% {
-    clip: rect(100px, 9999px, 56px, 0); }
+    clip: rect(33px, 9999px, 46px, 0); }
   45% {
-    clip: rect(67px, 9999px, 67px, 0); }
+    clip: rect(11px, 9999px, 52px, 0); }
   50% {
-    clip: rect(43px, 9999px, 72px, 0); }
+    clip: rect(89px, 9999px, 25px, 0); }
   55% {
-    clip: rect(73px, 9999px, 28px, 0); }
+    clip: rect(45px, 9999px, 46px, 0); }
   60% {
-    clip: rect(79px, 9999px, 48px, 0); }
+    clip: rect(47px, 9999px, 81px, 0); }
   65% {
-    clip: rect(65px, 9999px, 96px, 0); }
+    clip: rect(18px, 9999px, 68px, 0); }
   70% {
-    clip: rect(71px, 9999px, 35px, 0); }
+    clip: rect(47px, 9999px, 10px, 0); }
   75% {
-    clip: rect(59px, 9999px, 50px, 0); }
+    clip: rect(68px, 9999px, 53px, 0); }
   80% {
-    clip: rect(14px, 9999px, 75px, 0); }
+    clip: rect(4px, 9999px, 73px, 0); }
   85% {
-    clip: rect(100px, 9999px, 96px, 0); }
+    clip: rect(64px, 9999px, 27px, 0); }
   90% {
-    clip: rect(32px, 9999px, 68px, 0); }
+    clip: rect(90px, 9999px, 58px, 0); }
   95% {
-    clip: rect(53px, 9999px, 63px, 0); }
+    clip: rect(83px, 9999px, 76px, 0); }
   100% {
-    clip: rect(41px, 9999px, 29px, 0); } }
+    clip: rect(87px, 9999px, 24px, 0); } }
 .error:after {
   content: attr(data-text);
   position: absolute;
@@ -8943,47 +9025,47 @@ form.user .btn-user {
 
 @keyframes noise-anim-2 {
   0% {
-    clip: rect(28px, 9999px, 41px, 0); }
+    clip: rect(73px, 9999px, 43px, 0); }
   5% {
-    clip: rect(30px, 9999px, 87px, 0); }
+    clip: rect(15px, 9999px, 31px, 0); }
   10% {
-    clip: rect(60px, 9999px, 83px, 0); }
+    clip: rect(12px, 9999px, 81px, 0); }
   15% {
-    clip: rect(78px, 9999px, 18px, 0); }
+    clip: rect(7px, 9999px, 41px, 0); }
   20% {
-    clip: rect(62px, 9999px, 86px, 0); }
+    clip: rect(55px, 9999px, 80px, 0); }
   25% {
-    clip: rect(52px, 9999px, 19px, 0); }
+    clip: rect(80px, 9999px, 97px, 0); }
   30% {
-    clip: rect(74px, 9999px, 87px, 0); }
+    clip: rect(74px, 9999px, 88px, 0); }
   35% {
-    clip: rect(93px, 9999px, 94px, 0); }
+    clip: rect(97px, 9999px, 1px, 0); }
   40% {
-    clip: rect(39px, 9999px, 16px, 0); }
+    clip: rect(23px, 9999px, 100px, 0); }
   45% {
-    clip: rect(95px, 9999px, 47px, 0); }
+    clip: rect(68px, 9999px, 59px, 0); }
   50% {
-    clip: rect(59px, 9999px, 20px, 0); }
+    clip: rect(97px, 9999px, 16px, 0); }
   55% {
-    clip: rect(42px, 9999px, 86px, 0); }
+    clip: rect(15px, 9999px, 80px, 0); }
   60% {
-    clip: rect(67px, 9999px, 50px, 0); }
+    clip: rect(14px, 9999px, 34px, 0); }
   65% {
-    clip: rect(44px, 9999px, 18px, 0); }
+    clip: rect(30px, 9999px, 41px, 0); }
   70% {
-    clip: rect(70px, 9999px, 15px, 0); }
+    clip: rect(86px, 9999px, 55px, 0); }
   75% {
-    clip: rect(87px, 9999px, 39px, 0); }
+    clip: rect(55px, 9999px, 32px, 0); }
   80% {
-    clip: rect(55px, 9999px, 30px, 0); }
+    clip: rect(11px, 9999px, 89px, 0); }
   85% {
-    clip: rect(100px, 9999px, 80px, 0); }
+    clip: rect(45px, 9999px, 3px, 0); }
   90% {
-    clip: rect(38px, 9999px, 6px, 0); }
+    clip: rect(3px, 9999px, 56px, 0); }
   95% {
-    clip: rect(80px, 9999px, 95px, 0); }
+    clip: rect(11px, 9999px, 50px, 0); }
   100% {
-    clip: rect(37px, 9999px, 21px, 0); } }
+    clip: rect(39px, 9999px, 64px, 0); } }
 .error:before {
   content: attr(data-text);
   position: absolute;

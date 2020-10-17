@@ -73,18 +73,29 @@
 
         </div>
       </div>
-      <div class="d-flex justify-content-end fixed-bottom mr-5 mb-5">
-        <button class="btn btn-primary btn-circle btn-circle-lg m-1 align-items-center d-flex">
-          <i class="far fa-question-circle h3"></i>
-        </button>
-        <button class="btn btn-success btn-circle btn-circle-lg m-1">
-          <a href="https://api.whatsapp.com/send?phone=971564849878&text=book%20your%20service%20though%20whatsapp" class="align-items-center d-flex text-decoration-none text-white">
+      <div>
+        <button class="d-block">
+          <a href="https://api.whatsapp.com/send?phone=971564849878&text=book%20your%20service%20though%20whatsapp" target="_blank" class="align-items-center d-flex text-decoration-none text-white"
+          style="border: 0px!important; z-index: 2147483639!important; position: fixed!important; bottom: 19px!important;
+  border-radius: 160px; width: 60px!important; height: 60px!important; overflow: hidden!important; opacity: 1!important; max-width: 100%!important; right: 96px!important;
+  max-height: 100%!important; text-align: center; justify-content: center; display: flex; align-items: center; background: #1cc88a;"
+          >
             <i class="fab fa-whatsapp h3"></i>
           </a>
         </button>
       </div>
     </div>
 
-
+      <!-- Start of ChatBot (www.chatbot.com) code -->
+        <script type="text/javascript">
+          window.__be = window.__be || {};
+          window.__be.id = "5f8b16e60485e900068a4c93";
+          (function () {
+              var be = document.createElement('script'); be.type = 'text/javascript'; be.async = true;
+              be.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.chatbot.com/widget/plugin.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(be, s);
+          })();
+        </script>
+      <!-- End of ChatBot code -->
 
   </section>

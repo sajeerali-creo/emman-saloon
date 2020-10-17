@@ -3,7 +3,7 @@
     <style type="text/css">
         #map {
               width: 100%;
-              height: 500px; 
+              height: 100vw; 
         }
     </style>
     <script type="">
@@ -93,13 +93,12 @@
 <section class="bg-home">
 
         <div class="card text-center">
-            <div class="card-header p-3 bg-dark fixed-top">
+            <div class="card-header p-3 bg-dark border-0">
                 <h2 class="text-white">Selct Your Location</h2>
+                <p class="m-0">Click on a location on the map to select it. Drag the marker to change location.</p>
             </div>
             <div class="card-body p-0 h-100vh">
-                <h1>Select a location!</h1>
-                <p>Click on a location on the map to select it. Drag the marker to change location.</p>
-                
+                <!-- <h1>Select a location!</h1> -->
                 <!--map div-->
                 <div id="map"></div>
             </div>
