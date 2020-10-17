@@ -93,13 +93,17 @@
 }
 
 </style>
-<div id="notfound">
-<div class="notfound">
-<div class="notfound-404">
-<h1>4<span></span>4</h1>
+
+<!-- Begin Page Content -->
+<div class="container-fluid h-80vh justify-content-center align-items-center d-flex">
+
+<!-- 404 Error Text -->
+<div class="text-center">
+  <div class="error mx-auto" data-text="404">404</div>
+  <p class="lead text-gray-800 mb-5">Page Not Found</p>
+  <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
+  <a href="<?php echo base_url(); ?>">&larr; Back to Dashboard</a>
 </div>
-<h2>Oops! Page Not Be Found</h2>
-<p>Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable</p>
-<a href="<?php echo base_url(); ?>">Back to homepage</a>
+
 </div>
-</div>
+<!-- /.container-fluid -->
