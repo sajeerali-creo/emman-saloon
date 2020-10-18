@@ -47,7 +47,7 @@
                         ?><!-- loop -->
                         <div class="card p-3 shadow mb-2">
                             <div class="text-gray-900 font-weight-bold"><?php echo ucwords(strtolower($value["serviceCatName"])) . " " . $value["serviceName"]; ?></div>
-                            <small>1h - <?php echo $value["person"]; ?>person - <?php echo $value["service_time"] . "," . $value["service_date"]; ?></small>
+                            <small><?php echo $value["person"]; ?>person - <?php echo $value["service_time"] . "," . $value["service_date"]; ?></small>
                         </div><?php
                     }
                 }
