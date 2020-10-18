@@ -33,7 +33,7 @@
             }
             else{
                 ?><li class="nav-item">
-                  <a class="nav-link text-white" href="<?php echo base_url() ?>logout">Logout</a>
+                  <a class="btn btn-dark" href="<?php echo base_url() ?>logout">Logout</a>
                 </li><?php
             }
           ?></ul>
