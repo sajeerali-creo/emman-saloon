@@ -129,7 +129,7 @@
                                 foreach ($selectedService["serviceids"] as $key => $arrValue) {
                                     if(empty($arrValue) || is_null($arrValue)) continue;
 
-                                    ?><div class="card-single-item" id="card-item-<?php echo $arrValue['serviceId']; ?>"><div class="d-flex justify-content-between"><div><div class="font-weight-bold text-gray-900 card-persion-name"><?php echo $arrValue['name']; ?></div><div class="small card-persion-count">1h - <?php echo $arrValue['persion']; ?>person</div></div><div><div class="small text-right">From</div><div class="text-right font-weight-bold text-gray-900 card-persion-price">AED <?php echo $arrValue['price']; ?></div></div></div><div><hr></div></div><?php
+                                    ?><div class="card-single-item" id="card-item-<?php echo $arrValue['serviceId']; ?>"><div class="d-flex justify-content-between"><div><div class="font-weight-bold text-gray-900 card-persion-name"><?php echo $arrValue['name']; ?></div><div class="small card-persion-count"><?php echo $arrValue['persion']; ?>person</div></div><div><div class="small text-right">From</div><div class="text-right font-weight-bold text-gray-900 card-persion-price">AED <?php echo $arrValue['price']; ?></div></div></div><div><hr></div></div><?php
 
                                     $totalPrice += ($arrValue['persion'] * $arrValue['price']);
                                 }
@@ -192,7 +192,7 @@
                         <!-- end No. of Persons -->
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer mb-3">
                   <button type="button" id="btnConfirmService" class="btn btn-success" data-dismiss="modal">Confirm</button>
                   <button type="button" id="btnCancelService" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                   <button type="button" id="btnCloseService" class="btn btn-danger" data-dismiss="modal">Close</button>

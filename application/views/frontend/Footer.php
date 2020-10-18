@@ -171,7 +171,7 @@
 				$(".show-on-empty-cart").hide();
 
 				if(typeof strCookie.serviceids[serviceId] !== "undefined" && strCookie.serviceids[serviceId] !== null){
-					$("#card-item-" + serviceId).html('<div class="d-flex justify-content-between"><div><div class="font-weight-bold text-gray-900 card-persion-name">' + objSer.attr("data-label") + '</div><div class="small card-persion-count">1h - ' + objSer.attr("data-persion") + 'person</div></div><div><div class="small text-right">From</div><div class="text-right font-weight-bold text-gray-900 card-persion-price">AED ' + objSer.attr("data-price") + '</div></div></div><div><hr></div>');
+					$("#card-item-" + serviceId).html('<div class="d-flex justify-content-between"><div><div class="font-weight-bold text-gray-900 card-persion-name">' + objSer.attr("data-label") + '</div><div class="small card-persion-count">' + objSer.attr("data-persion") + 'person</div></div><div><div class="small text-right">From</div><div class="text-right font-weight-bold text-gray-900 card-persion-price">AED ' + objSer.attr("data-price") + '</div></div></div><div><hr></div>');
 
 					strCookie.serviceids[serviceId] = {
 														"serviceId": serviceId, 
@@ -181,7 +181,7 @@
 													};
 				}
 				else{
-					$("#service-card-box .card-item-custom").append('<div class="card-single-item" id="card-item-' + serviceId + '"><div class="d-flex justify-content-between"><div><div class="font-weight-bold text-gray-900 card-persion-name">' + objSer.attr("data-label") + '</div><div class="small card-persion-count">1h - ' + objSer.attr("data-persion") + 'person</div></div><div><div class="small text-right">From</div><div class="text-right font-weight-bold text-gray-900 card-persion-price">AED ' + objSer.attr("data-price") + '</div></div></div><div><hr></div></div>');
+					$("#service-card-box .card-item-custom").append('<div class="card-single-item" id="card-item-' + serviceId + '"><div class="d-flex justify-content-between"><div><div class="font-weight-bold text-gray-900 card-persion-name">' + objSer.attr("data-label") + '</div><div class="small card-persion-count">' + objSer.attr("data-persion") + 'person</div></div><div><div class="small text-right">From</div><div class="text-right font-weight-bold text-gray-900 card-persion-price">AED ' + objSer.attr("data-price") + '</div></div></div><div><hr></div></div>');
 
 					strCookie.serviceids[serviceId] = {
 														"serviceId": serviceId, 
