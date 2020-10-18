@@ -94,7 +94,7 @@
                                     <div>
                                         <div class="small text-right">From</div>
                                         <div class="text-gray-600 h6 font-weight-bold text-right">AED <?php echo $value->price; ?></div>
-                                        <div class="persion-count" style="display: <?php echo $strPersonBoxDisplay; ?>; cursor: pointer;"><span><?php echo $strPerson; ?></span>person</div>
+                                        <div class="persion-count badge badge-success" style="display: <?php echo $strPersonBoxDisplay; ?>; cursor: pointer;"><small class="fas fa-pen text-small"></small>&nbsp;<span><?php echo $strPerson; ?></span>person</div>
                                     </div>
                                 </div>
                             </div><?php
@@ -184,7 +184,7 @@
                     <div class="small d-block mt-2">
                         <!-- No. of Persons -->
                         <div class="mt-4 text-center h6 text-gray-900 mb-4 font-weight-bold">No. of Persons</div>
-                        <div class="wrapper d-flex align-items-center">
+                        <div class="wrapper d-flex align-items-center mb-3">
                             <div class="control shadow" id="minus">-</div>
                             <div id="number">0</div>
                             <div class="control shadow" id="plus">+</div>
@@ -193,9 +193,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" id="btnCloseService" class="btn btn-dark" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnCancelService" class="btn btn-dark" data-dismiss="modal">Cancel</button>
                   <button type="button" id="btnConfirmService" class="btn btn-success" data-dismiss="modal">Confirm</button>
-                  <button type="button" id="btnCancelService" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                  <button type="button" id="btnCloseService" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
               </div>
               
