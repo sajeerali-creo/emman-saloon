@@ -9099,3 +9099,11 @@ body.sidebar-toggled footer.sticky-footer {
 .mt-8{
   margin-top:8rem; 
 }
+@media (max-width: 767.98px) {
+  .s-card {
+    min-width: 100% !important;
+  }
+  .servoce-catogory .list-group {
+      height: 198px;
+  }
+}
