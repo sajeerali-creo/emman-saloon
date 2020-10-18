@@ -69,10 +69,9 @@
 
           <div class="mt-8">
             <div class="d-flex">
-              <i class="fab fa-facebook-f social"></i>
-              <i class="fab fa-twitter social"></i>
-              <i class="fab fa-google-plus-g social"></i>
-              <i class="fab fa-instagram social"></i>
+              <a href="https://www.facebook.com/emansalondubai" target="_blank"><i class="fab fa-facebook-f social"></i></a>
+              <a href="https://twitter.com/emansalondubai" target="_blank"><i class="fab fa-twitter social"></i></a>
+              <a href="https://www.instagram.com/eman_salon/?ref=badge" target="_blank"><i class="fab fa-instagram social"></i></a>
             </div>
           </div>
 
