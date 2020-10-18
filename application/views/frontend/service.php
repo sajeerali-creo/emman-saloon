@@ -109,7 +109,7 @@
                 <div class="sticky-top">
                     <div class="card shadow">
                         <div class="card-header d-flex align-items-center justify-content-center">
-                            <img src="<?php echo base_url() ?>assets/web/img/logo-black.png">
+                            <img src="<?php echo base_url() ?>assets/web/img/logo-dark.png" style="width:51px;">
                         </div><?php
 
 
