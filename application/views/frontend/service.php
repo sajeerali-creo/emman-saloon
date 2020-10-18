@@ -10,13 +10,16 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarText">
-                <ul class="nav">
-                    <li class="nav-item"><?php
-                        if(isset($frontLogin) && $frontLogin == true){
-                            ?><a class="nav-link text-white" href="<?php echo base_url() ?>order-history" target="_blank">Booking History</a><?php
-                        }
-                    ?></li>
-                </ul>
+                <ul class="nav"><?php
+                    if(isset($frontLogin) && $frontLogin == true){
+                        ?><li class="nav-item">
+                            <a class="nav-link text-white" href="<?php echo base_url() ?>order-history">Booking History</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="<?php echo base_url() ?>logout">Logout</a>
+                        </li><?php
+                    }
+                ?></ul>
             </div>
         </div>
     </nav>
@@ -174,7 +177,7 @@
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header text-center">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
                   <h4 class="modal-title">Modal Header</h4>
                 </div>
                 <div class="modal-body d-flex justify-content-center text-center">
@@ -190,7 +193,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" id="btnConfirmService" class="btn btn-success" data-dismiss="modal">Confirm</button>
+                  <button type="button" id="btnCancelService" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                  <button type="button" id="btnCloseService" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
               </div>
               

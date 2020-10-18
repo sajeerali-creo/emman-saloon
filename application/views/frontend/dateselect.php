@@ -10,13 +10,16 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarText">
-                <ul class="nav">
-                    <li class="nav-item"><?php
-                        if(isset($frontLogin) && $frontLogin == true){
-                            ?><a class="nav-link text-white" href="<?php echo base_url() ?>order-history" target="_blank">Booking History</a><?php
-                        }
-                    ?></li>
-                </ul>
+                <ul class="nav"><?php
+                    if(isset($frontLogin) && $frontLogin == true){
+                        ?><li class="nav-item">
+                            <a class="nav-link text-white" href="<?php echo base_url() ?>order-history">Booking History</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="<?php echo base_url() ?>logout">Logout</a>
+                        </li><?php
+                    }
+                ?></ul>
             </div>
         </div>
     </nav>

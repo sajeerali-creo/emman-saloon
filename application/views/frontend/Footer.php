@@ -53,8 +53,19 @@
             		$("#myModal .modal-title").text($(this).data('label'));
             		$("#myModal .modal-title").attr("data-serviceid", $(this).val());
             		number = parseInt($(this).attr('data-persion'));
+            		if(number > 0){
+            			$("#btnCancelService").show();
+            			$("#btnCloseService").hide();
+            		}
+            		else{
+            			$("#btnCancelService").hide();
+            			$("#btnCloseService").show();
+            		}
             		setNumber(number);
-        	      	$("#myModal").modal();
+        	      	$("#myModal").modal({
+					    backdrop: 'static',
+					    keyboard: false
+					});
         	    }
         	    else{
         	    	$(this).attr('data-persion', 0);
@@ -73,10 +84,22 @@
         		number = parseInt(chkObj.attr("data-persion"));
         		setNumber(number);
 
-    	      	$("#myModal").modal();
+        		if(number > 0){
+        			$("#btnCancelService").show();
+        			$("#btnCloseService").hide();
+        		}
+        		else{
+        			$("#btnCancelService").hide();
+        			$("#btnCloseService").show();
+        		}
+
+    	      	$("#myModal").modal({
+				    backdrop: 'static',
+				    keyboard: false
+				});
             });
 
-            $('#myModal').on('hidden.bs.modal', function () {
+            $("#btnConfirmService").click(function(){
             	let serviceid = $("#myModal .modal-title").attr("data-serviceid");
             	$("#customCheck" + serviceid).attr("data-persion", $("#number").text());
             	$(".service-card-" + serviceid + " .persion-count span").text($("#number").text());
@@ -89,8 +112,25 @@
 	            	$(".service-card-" + serviceid + " .persion-count").hide();
 	            	$("#customCheck" + serviceid).click();
 	            	jsRemoveFromCart(serviceid);
-	            }            	
-			});
+	            }     
+            });
+
+            $("#btnCloseService").click(function(){
+            	$("#number").text("0");
+            	let serviceid = $("#myModal .modal-title").attr("data-serviceid");
+            	$("#customCheck" + serviceid).attr("data-persion", $("#number").text());
+            	$(".service-card-" + serviceid + " .persion-count span").text($("#number").text());
+
+            	if(parseInt($("#number").text()) > 0){
+	            	$(".service-card-" + serviceid + " .persion-count").show();
+	            	jsAddIntoCart(serviceid);
+	            }
+	            else{
+	            	$(".service-card-" + serviceid + " .persion-count").hide();
+	            	$("#customCheck" + serviceid).click();
+	            	jsRemoveFromCart(serviceid);
+	            }     
+            });
 
 			function setCookie(cname, cvalue, exdays) {
 	            var d = new Date();

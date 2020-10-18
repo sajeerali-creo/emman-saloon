@@ -25,10 +25,15 @@
             </li><?php 
             if(!isset($frontLogin) || $frontLogin != true){
                 ?><li class="nav-item">
-                  <a class="nav-link text-white btn btn-success mr-md-2 ml-md-2 mb-1" href="<?php echo base_url() ?>login" target="_blank">Login</a>
+                  <a class="nav-link text-white btn btn-success mr-md-2 ml-md-2 mb-1" href="<?php echo base_url() ?>login">Login</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link text-white btn btn-primary" href="<?php echo base_url() ?>register" target="_blank">Register</a>
+                </li><?php
+            }
+            else{
+                ?><li class="nav-item">
+                  <a class="nav-link text-white" href="<?php echo base_url() ?>logout">Logout</a>
                 </li><?php
             }
           ?></ul>
