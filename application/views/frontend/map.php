@@ -93,7 +93,7 @@
 <section class="bg-home">
 
         <div class="card text-center">
-            <div class="card-header p-3 bg-dark border-0">
+            <div class="p-3 bg-dark border-0">
                 <h2 class="text-white">Selct Your Location</h2>
                 <p class="m-0">Click on a location on the map to select it. Drag the marker to change location.</p>
             </div>

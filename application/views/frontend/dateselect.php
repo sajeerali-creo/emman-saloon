@@ -88,7 +88,7 @@
                 <div>
                     <hr>
                 </div>
-                <button type="button" class="btn btn-primary d-flex align-items-center" id="dateselect-continue">
+                <button type="button" class="btn btn-lg btn-primary d-flex align-items-center" id="dateselect-continue">
                     <a href="javascript:;" data-href="<?php echo base_url() ?>add-personal-info" class="text-white text-decoration-none">Continue</a>
                 </button>
             </div>
@@ -99,7 +99,7 @@
                 <div class="sticky-top">
                     <div class="card shadow">
                         <div class="card-header d-flex align-items-center justify-content-center">
-                            <img src="<?php echo base_url() ?>assets/web/img/logo-black.png">
+                        <img src="<?php echo base_url() ?>assets/web/img/logo-dark.png" style="width:51px;">
                         </div><?php
 
 
@@ -127,10 +127,10 @@
                             ?></div>
                             <div class="d-flex justify-content-between hide-on-empty-cart" style="<?php echo $styleOfNonEmptyCartElement; ?>">
                                 <div>
-                                    <div class="font-weight-bold text-gray-900">Vat</div>
+                                    <div class="text-gray-900">Vat</div>
                                 </div>
                                 <div>
-                                    <div class="text-right font-weight-bold text-gray-900">5%</div>
+                                    <div class="text-right text-gray-900">5%</div>
                                 </div>
                             </div>
 
@@ -146,7 +146,7 @@
                             <div class="font-weight-bold text-gray-900">
                                 Total
                             </div>
-                            <div class="text-gray-900" id="card-total-price">
+                            <div class="font-weight-bold text-gray-900" id="card-total-price">
                                 AED <?php echo $totalPrice; ?>
                             </div>
                         </div>

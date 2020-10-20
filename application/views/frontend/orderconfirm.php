@@ -78,7 +78,7 @@
 
                         <div class="col-md-12">
                             <div>
-                                <button type="button" class="btn btn-primary d-flex align-items-center" id="btnConfirmOrder">
+                                <button type="button" class="btn btn-lg btn-primary d-flex align-items-center" id="btnConfirmOrder">
                                     <span class="text-white text-decoration-none">
                                         Confirm
                                     </span>

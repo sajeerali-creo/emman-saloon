@@ -23,9 +23,9 @@
         <!-- Custom styles for this template-->
         <link href="<?php echo base_url() ?>assets/web/css/sb-admin-2.min.css" rel="stylesheet">
     </head>
-    <body class="bg-gradient-primary h-100vh d-flex align-items-center">
+    <body class="bg-gradient-primary h-100vh d-flex align-items-center h-sm-auto">
         <div class="container">
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center mt-sm-6">
                 <a class="navbar-brand" href="<?php echo base_url() ?>">
                 <img src="<?php echo base_url() ?>assets/web/img/logo.png">
                 </a>

@@ -443,6 +443,11 @@
 			function validatePassword(value){
 				return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$/.test( value )
 			}
-        </script>
+		</script>
+		
+		<script src="<?php echo base_url() ?>assets/web/js/jquery.slicknav.js"></script>
+		<script src="<?php echo base_url() ?>assets/web/js/owl.carousel.min.js"></script>
+		<script src="<?php echo base_url() ?>assets/web/js/slick.min.js"></script>
+		<script src="<?php echo base_url() ?>assets/web/js/main.js"></script>
 	</body>
 </html>

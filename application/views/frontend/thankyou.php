@@ -47,7 +47,7 @@
                     </small>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary d-flex align-items-center">
+                    <button type="button" class="btn btn-lg btn-primary d-flex align-items-center">
                         <a href="<?php echo base_url() ?>service" class="text-white text-decoration-none">
                             Book Again
                         </a>

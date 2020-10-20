@@ -13,13 +13,14 @@
                 <ul class="nav"><?php
                     if(isset($frontLogin) && $frontLogin == true){
                         ?><li class="nav-item">
-                            <a class="nav-link text-white" href="<?php echo base_url() ?>order-history">Booking History</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-dark" href="<?php echo base_url() ?>logout">Logout</a>
-                        </li><?php
+                        <a class="nav-link text-white" href="<?php echo base_url() ?>order-history">Booking History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-dark" href="<?php echo base_url() ?>logout">Logout</a>
+                    </li><?php
                     }
-                ?></ul>
+                ?>
+                </ul>
             </div>
         </div>
     </nav>
@@ -29,12 +30,14 @@
             Step 1 of 4
         </div>
         <div class="h3 text-gray-900 font-weight-bold">
-            Select Services
+            Select Services<br>
+            <h6>Home Services</h6>
         </div>
         <div class="small d-block mt-2">
-            <i class="fas fa-map-marker-alt text-primary"></i>&nbsp;<?php echo $user_address; ?> <a href="<?php echo base_url() ?>map">Change</a>
+            <i class="fas fa-map-marker-alt text-primary"></i>&nbsp;<?php echo $user_address; ?> <a
+                href="<?php echo base_url() ?>map">Change</a>
         </div>
-        <div class="row mt-5 ">
+        <div class="row mt-5">
             <!-- service list -->
             <div class="col-md-3 mb-3 servoce-catogory">
                 <div class="card sticky-top">
@@ -45,8 +48,8 @@
                             $key1 = strtolower($key);
                             $id = preg_replace("/[^a-zA-Z0-9]/i", '', $key1);
                             ?><li class="list-group-item<?php echo $strActiveClass; ?>">
-                                <a href="#<?php echo $id; ?>"><?php echo ucwords($key1); ?></a>
-                            </li><?php
+                            <a href="#<?php echo $id; ?>"><?php echo ucwords($key1); ?></a>
+                        </li><?php
                             $strActiveClass = "";
                         }
                         ?>
@@ -66,7 +69,8 @@
                         $key1 = strtolower($key);
                         $id = preg_replace("/[^a-zA-Z0-9]/i", '', $key1);
 
-                        ?><div class="h6 font-weight-bold mb-3 bg-secondary p-2 text-white rounded" id="<?php echo $id; ?>"><?php echo $key; ?></div><?php
+                        ?><div class="h6 font-weight-bold mb-3 bg-secondary p-2 text-white rounded"
+                        id="<?php echo $id; ?>"><?php echo $key; ?></div><?php
 
                         foreach ($arrSer as $value) {
 
@@ -80,24 +84,34 @@
                                 $strPerson = "0";
                                 $strPersonBoxDisplay = "none";
                             }
-                            ?><!-- loop -->
-                            <div class="card mb-1 p-3 chk-service-card service-card-<?php echo $value->id; ?>">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <div class="text-gray-600 font-weight-bold">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input chkService" id="customCheck<?php echo $value->id; ?>" name="chkService" value="<?php echo $value->id; ?>" data-label="<?php echo $value->title; ?>" data-persion='<?php echo $strPerson; ?>' data-price="<?php echo $value->price; ?>" <?php echo $strCheck; ?>>
-                                                <label class="custom-control-label" for="customCheck<?php echo $value->id; ?>"><?php echo $value->title; ?></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-right">From</div>
-                                        <div class="text-gray-600 h6 font-weight-bold text-right">AED <?php echo $value->price; ?></div>
-                                        <div class="persion-count badge badge-success" style="display: <?php echo $strPersonBoxDisplay; ?>; cursor: pointer;"><small class="fas fa-pen text-small"></small>&nbsp;<span><?php echo $strPerson; ?></span>person</div>
+                            ?>
+                    <!-- loop -->
+                    <div class="card mb-1 p-3 chk-service-card service-card-<?php echo $value->id; ?>">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="text-gray-600 font-weight-bold">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input chkService"
+                                            id="customCheck<?php echo $value->id; ?>" name="chkService"
+                                            value="<?php echo $value->id; ?>" data-label="<?php echo $value->title; ?>"
+                                            data-persion='<?php echo $strPerson; ?>'
+                                            data-price="<?php echo $value->price; ?>" <?php echo $strCheck; ?>>
+                                        <label class="custom-control-label"
+                                            for="customCheck<?php echo $value->id; ?>"><?php echo $value->title; ?></label>
                                     </div>
                                 </div>
-                            </div><?php
+                            </div>
+                            <div>
+                                <div class="small text-right">From</div>
+                                <div class="text-gray-600 h6 font-weight-bold text-right">AED
+                                    <?php echo $value->price; ?></div>
+                                <div class="persion-count badge badge-success"
+                                    style="display: <?php echo $strPersonBoxDisplay; ?>; cursor: pointer;"><small
+                                        class="fas fa-pen text-small"></small>&nbsp;<span><?php echo $strPerson; ?></span>person
+                                </div>
+                            </div>
+                        </div>
+                    </div><?php
                         }
                     }
                     ?>
@@ -122,50 +136,75 @@
                             $styleOfNonEmptyCartElement = ' display:none !important; ';
                         }
 
-                        ?><!-- bill generated -->
+                        ?>
+                        <!-- bill generated -->
                         <div class="card-body">
-                            <div class="card-item-custom hide-on-empty-cart" style="<?php echo $styleOfNonEmptyCartElement; ?>"><?php 
+                            <div class="card-item-custom hide-on-empty-cart"
+                                style="<?php echo $styleOfNonEmptyCartElement; ?>"><?php 
                                 $totalPrice = 0;
                                 foreach ($selectedService["serviceids"] as $key => $arrValue) {
                                     if(empty($arrValue) || is_null($arrValue)) continue;
 
-                                    ?><div class="card-single-item" id="card-item-<?php echo $arrValue['serviceId']; ?>"><div class="d-flex justify-content-between"><div><div class="font-weight-bold text-gray-900 card-persion-name"><?php echo $arrValue['name']; ?></div><div class="small card-persion-count"><?php echo $arrValue['persion']; ?>person</div></div><div><div class="small text-right">From</div><div class="text-right font-weight-bold text-gray-900 card-persion-price">AED <?php echo $arrValue['price']; ?></div></div></div><div><hr></div></div><?php
+                                    ?><div class="card-single-item"
+                                    id="card-item-<?php echo $arrValue['serviceId']; ?>">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <div class="font-weight-bold text-gray-900 card-persion-name">
+                                                <?php echo $arrValue['name']; ?></div>
+                                            <div class="small card-persion-count">
+                                                <?php echo $arrValue['persion']; ?>person</div>
+                                        </div>
+                                        <div>
+                                            <div class="small text-right">From</div>
+                                            <div class="text-right font-weight-bold text-gray-900 card-persion-price">
+                                                AED <?php echo $arrValue['price']; ?></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <hr>
+                                    </div>
+                                </div><?php
 
                                     $totalPrice += ($arrValue['persion'] * $arrValue['price']);
                                 }
 
                                 $totalPrice += $totalPrice * 0.05;
                             ?></div>
-                            <div class="d-flex justify-content-between hide-on-empty-cart" style="<?php echo $styleOfNonEmptyCartElement; ?>">
+                            <div class="d-flex justify-content-between hide-on-empty-cart"
+                                style="<?php echo $styleOfNonEmptyCartElement; ?>">
                                 <div>
-                                    <div class="font-weight-bold text-gray-900">Vat</div>
+                                    <div class="text-gray-900">Vat</div>
                                 </div>
                                 <div>
-                                    <div class="text-right font-weight-bold text-gray-900">5%</div>
+                                    <div class="text-right text-gray-900">5%</div>
                                 </div>
                             </div>
 
                             <!-- no bill generated -->
-                            <div class="p-5 text-center show-on-empty-cart" style="<?php echo $styleOfEmptyCartElement; ?>">
+                            <div class="p-5 text-center show-on-empty-cart"
+                                style="<?php echo $styleOfEmptyCartElement; ?>">
                                 No services selected yet
                             </div>
                         </div>
 
-                        
 
-                        <div class="card-footer text-muted d-flex justify-content-between hide-on-empty-cart" style="<?php echo $styleOfNonEmptyCartElement; ?>">
+
+                        <div class="card-footer text-muted d-flex justify-content-between hide-on-empty-cart"
+                            style="<?php echo $styleOfNonEmptyCartElement; ?>">
                             <div class="font-weight-bold text-gray-900">
                                 Total
                             </div>
-                            <div class="text-gray-900" id="card-total-price">
+                            <div class="text-gray-900 font-weight-bold" id="card-total-price">
                                 AED <?php echo $totalPrice; ?>
                             </div>
                         </div>
                     </div>
 
                     <!-- button -->
-                    <button class="btn btn-primary btn-lg btn-block mt-3 hide-on-empty-cart" id="service-booknow" style="<?php echo $styleOfNonEmptyCartElement; ?>">
-                        <a href="javascript:;" data-href="<?php echo base_url() ?>date-select" class="text-white text-decoration-none">
+                    <button class="btn btn-primary btn-lg btn-block mt-3 hide-on-empty-cart" id="service-booknow"
+                        style="<?php echo $styleOfNonEmptyCartElement; ?>">
+                        <a href="javascript:;" data-href="<?php echo base_url() ?>date-select"
+                            class="text-white text-decoration-none">
                             Book Now
                         </a>
                     </button>
@@ -174,35 +213,39 @@
         </div>
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header text-center">
-                  <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-                  <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body d-flex justify-content-center text-center">
-                    <div class="small d-block mt-2">
-                        <!-- No. of Persons -->
-                        <div class="mt-4 text-center h6 text-gray-900 mb-4 font-weight-bold">No. of Persons</div>
-                        <div class="wrapper d-flex align-items-center mb-3">
-                            <div class="control shadow" id="minus">-</div>
-                            <div id="number">0</div>
-                            <div class="control shadow" id="plus">+</div>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body d-flex justify-content-center text-center">
+                        <div class="small d-block mt-2">
+                            <!-- No. of Persons -->
+                            <div class="text-center h6 text-gray-900 mb-4 font-weight-bold">No. of Persons</div>
+                            <div class="wrapper d-flex align-items-center mb-3">
+                                <div class="control shadow" id="minus">-</div>
+                                <div id="number">0</div>
+                                <div class="control shadow" id="plus">+</div>
+                            </div>
+                            <!-- end No. of Persons -->
                         </div>
-                        <!-- end No. of Persons -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnCloseService" class="btn btn-dark"
+                            data-dismiss="modal">Close</button>
+                        <button type="button" id="btnCancelService" class="btn btn-dark"
+                            data-dismiss="modal">Cancel</button>
+                        <button type="button" id="btnConfirmService" class="btn btn-primary"
+                            data-dismiss="modal">Confirm</button>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" id="btnCloseService" class="btn btn-dark" data-dismiss="modal">Close</button>
-                    <button type="button" id="btnCancelService" class="btn btn-dark" data-dismiss="modal">Cancel</button>
-                  <button type="button" id="btnConfirmService" class="btn btn-success" data-dismiss="modal">Confirm</button>
-                </div>
-              </div>
-              
+
             </div>
         </div>
         <!-- delet services -->
-        <div class="modal fade" id="delete-service" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="delete-service" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body text-center f-24">
