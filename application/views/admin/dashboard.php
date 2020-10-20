@@ -4,8 +4,8 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Overview</h1>
-            <div class="d-none">
-                <div class="form-group mr-1 d-none">
+            <div class="">
+                <div class="form-group">
                     <button class="btn btn-light btn-sm line-height-normal p-3" id="reportrange">
                         <i class="mr-2 text-primary" data-feather="calendar"></i>
                         <span></span>
@@ -18,7 +18,7 @@
                     </form>
                     
                 </div>
-                <a href="#" class="d-sm-inline-block btn btn-md btn-primary shadow-sm h-40 d-none"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                <a href="#" class="d-sm-inline-block btn btn-md btn-primary shadow-sm h-40"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
             </div>
         </div>
 
