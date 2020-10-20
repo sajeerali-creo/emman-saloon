@@ -3,11 +3,11 @@
     #content nav.navbar{
         display: none;
     }
-</style><div class="container mb-3 mt-3">
+</style><div class="container mb-3 mt-3 h-100vh">
     <!-- loop -->
     <div class="row mb-1">
         <!-- header -->
-        <div class="d-flex justify-content-between mt-3 w-100 col-md-12">
+        <div class="d-flex justify-content-between mt-3 mb-3 w-100 col-md-12">
             <div class="text-primary f-24">Notification</div>
             <a href="<?php echo base_url(); ?>securepanel" class="btn btn-dark">Back</a>
         </div>

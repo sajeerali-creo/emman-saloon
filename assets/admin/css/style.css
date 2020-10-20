@@ -1,0 +1,41 @@
+.daterangepicker .ranges li.active{
+    background-color: #8443FF!important;
+}
+.daterangepicker td.active, .daterangepicker td.active:hover{
+    background-color: #8443FF!important;
+}
+.daterangepicker td.in-range{
+    background-color: #eee6ff!important;
+}
+.daterangepicker td.active, .daterangepicker td.active:hover{
+    background-color: #8443FF!important;
+    color: #fff!important;
+}
+
+.btn-primary, .btn-dark, .btn-success, .btn-secondary{
+    padding: 0.375rem 1rem!important;
+    border-radius: 35px;
+    min-width: 100px;
+}
+
+.modal-header{
+  background-color: #000 !important;
+  color: #fff;
+}
+.close{
+    color: #fff;
+    text-shadow: none;
+}
+.close:hover{
+    color: #fff;
+    text-shadow: none;
+}
+.modal-footer {
+  background-color: #f7f7f9 !important
+}
+.modal-content {
+  border-radius: 4px !important;
+}
+form.user .form-control-user{
+    border-radius: 0px;
+}

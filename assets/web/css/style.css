@@ -3145,16 +3145,31 @@ ol {
   }
 }
 
-.modal-header,
 .card-header {
   background-color: #efe9fb !important;
 }
+.modal-header {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+.modal-title{
+    color: #fff !important;
+}
+.close {
+  color: #fff;
+  text-shadow: none;
+}
+.close:hover {
+  color: #fff;
+  text-shadow: none;
+}
 .modal-footer {
-  background-color: #efe9fb !important;
+  background-color: #f7f7f9 !important;
 }
 .modal-content {
   border-radius: 4px !important;
 }
+
 .btn-lg,
 .btn-group-lg > .btn {
   border-radius: 35px !important;
@@ -3166,40 +3181,35 @@ ol {
 form.user .btn-user {
   border-radius: 35px !important;
 }
-.form-control-lg{
-    border-radius: 35px!important;
+.form-control-lg {
+  border-radius: 0.35rem !important;
 }
-.time-list li{
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #fff;
-    border: 1px solid #f1f1f1;
-    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
-    margin-right: 5px;
-    margin-bottom: 10px;
-    border-radius: 35px;
+.time-list li {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  border-radius: 35px;
 }
-.time-list li:hover{
-    cursor: pointer;
+.time-list li:hover {
+  cursor: pointer;
 }
-.time-list li:hover{
-    background-color: #000000 !important;
+.time-list li:hover {
+  background-color: #000000 !important;
 }
-.time-list .active{
-    background-color: #000000 !important;
+.time-list .active {
+  background-color: #000000 !important;
 }
-input[type=text] {
-    border-radius: 35px!important;
-}
-input[type=email] {
-    border-radius: 35px!important;
-}
-input[type=password] {
-    border-radius: 35px!important;
-}
-input[type=phone] {
-    border-radius: 35px!important;
-}
-input[type=tel] {
-    border-radius: 35px!important;
+
+
+.btn-primary,
+.btn-dark,
+.btn-success,
+.btn-secondary {
+  padding: 0.375rem 1rem !important;
+  border-radius: 35px;
+  min-width: 100px;
 }

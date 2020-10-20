@@ -8908,7 +8908,7 @@ form.user .custom-checkbox.small label {
   line-height: 1.5rem; }
 form.user .form-control-user {
   font-size: 0.8rem;
-  border-radius: 35px;
+  border-radius: 0.35rem;
   padding: 1.5rem 1rem; }
 form.user .btn-user {
   font-size: 0.8rem;

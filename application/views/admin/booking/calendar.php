@@ -11,7 +11,7 @@
                     <span class="text-gray-600">Bookings</span>
                 </h6>
                 <div>
-                    <a href="<?php echo base_url(); ?>securepanel/booking" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"> <i class="fas fa-table"></i>&nbsp;Table View</a>
+                    <a href="<?php echo base_url(); ?>securepanel/booking" class="d-none d-sm-inline-block btn btn-md btn-dark shadow-sm"> <i class="fas fa-table"></i>&nbsp;Table View</a>
                     <a href="<?php echo base_url(); ?>securepanel/add-booking" class="d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"><i class="fas fa-plus"></i>&nbsp;Add New Bookings</a>
                 </div>
             </div>
