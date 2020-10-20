@@ -1,4 +1,9 @@
-<div class="container mb-3">
+<style>
+    #accordionSidebar,
+    #content nav.navbar{
+        display: none;
+    }
+</style><div class="container mb-3">
     <!-- header -->
     <div class="d-flex justify-content-between mt-3">
         <div class="text-primary f-24">Add New Team Member</div>
@@ -203,7 +208,7 @@
                         }
                         $strChecked = (in_array($key, $chkCapabilities) ? ' checked="checked"' : '')
                         ?><div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="chkCap<?php echo $key; ?>" name="chkCapabilities[]" required value="<?php echo $key; ?>"<?php echo $strChecked; ?>>
+                            <input type="checkbox" class="custom-control-input" id="chkCap<?php echo $key; ?>" name="chkCapabilities[]" value="<?php echo $key; ?>"<?php echo $strChecked; ?>>
                             <label class="custom-control-label" for="chkCap<?php echo $key; ?>"><?php echo $value; ?></label>
                         </div><?php
 

@@ -1,8 +1,13 @@
-<div class="container mb-3">
+<style>
+    #accordionSidebar,
+    #content nav.navbar{
+        display: none;
+    }
+</style><div class="container mb-3">
     <!-- header -->
     <div class="d-flex justify-content-between mt-3">
-        <div class="text-primary f-24">Add New Service</div>
-        <a href="<?php echo base_url() ?>securepanel/services" class="btn btn-dark">Back</a>
+        <div class="text-primary f-24">Add New Booking</div>
+        <a href="<?php echo base_url() ?>securepanel/booking" class="btn btn-dark">Back</a>
     </div>
     <div>
         <hr>
@@ -10,64 +15,222 @@
     <!-- end header -->
     <div class="row">
         <div class="mt-2 col-md-8">
-            <form name="frmAddForm" id="frmAddForm" class="user" action="<?php echo base_url(); ?>securepanel/add-service-info" method="post"  enctype="multipart/form-data"><?php
-                $txtTitle = isset($txtTitle) ? $txtTitle : '';
-                $txtPrice = isset($txtPrice) ? $txtPrice : '';
-                ?><!-- name of services -->
+            <?php $this->load->helper("form"); ?>
+            <?php
+                $this->load->helper('form');
+                $error = $this->session->flashdata('error');
+                if ($error) {
+                ?>
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <?php echo $this->session->flashdata('error'); ?>                    
+            </div>
+            <?php
+                } ?>
+            <?php
+                $success = $this->session->flashdata('success');
+                if ($success) {
+                ?>
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <?php echo $this->session->flashdata('success'); ?>
+            </div>
+            <?php
+                } ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php echo validation_errors('<div class="alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?>
+                </div>
+            </div>
+            <form name="frmAddForm" id="frmAddForm" class="user" action="<?php echo base_url(); ?>securepanel/add-booking-info" method="post"  enctype="multipart/form-data">
+                <!-- type of services -->
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Name Of Service</label>
-                        <input type="text" class="form-control" value="<?php echo $txtTitle; ?>" id="txtTitle" name="txtTitle" maxlength="300" placeholder="Short"
-                            required>
+                        <label class="text-primary">Select Service Type</label>
+                        <div class="clearfix"></div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdServiceTypeHS" name="rdServiceType" class="custom-control-input" checked value="HS">
+                            <label class="custom-control-label" for="rdServiceTypeHS">Home Service</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdServiceTypeSS" name="rdServiceType" class="custom-control-input"  value="SS">
+                            <label class="custom-control-label" for="rdServiceTypeSS">Saloon Service</label>
+                        </div>
                     </div>
                 </div>
-                <!-- end name of services -->
-
-                <!-- category -->
+                <!-- end type of services -->
+                <?php //echo "<pre>"; print_r($productInfo); die(); ?>
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Select Category</label>
-                        <select class="custom-select" name="lstCategory" id="lstCategory">
-                            <option selected>Select</option>
-                            <option value="1">BLOWDRY</option>
-                            <option value="2">HAIR CUT</option>
-                            <option value="3">HAIR TREATMENT</option>
-                            <option value="4">HAIR RINSING DYE</option>
-                            <option value="5">HAMAM CREAM</option>
-                            <option value="6">ABSOLUTE TREATMENT POWER DOSE</option>
-                            <option value="7">BOTOX TREATMENT</option>
-                        </select>
+                        <div id="div_service_count_main">
+                            <div id="div_service_count_1" class="row mb-2">
+                                <div class="form-group col-md-12 col-sm-12 mb-2">
+                                    <label class="text-primary">Select Service</label>
+                                    <select class="custom-select" name="lstService[]" id="lstService1" required>
+                                        <option value="">Select</option><?php
+                                        foreach ($serviceInfo as $key => $value) {
+                                            ?><optgroup label="<?php echo $value['categoryName']; ?>"><?php
+                                                foreach ($value['services'] as $service) {
+                                                    ?><option value="<?php echo $service['id']; ?>" data-price="<?php echo $service['price']; ?>"><?php echo $service['title']; ?></option><?php
+                                                }
+                                            ?></optgroup><?php
+                                        }
+                                    ?></select>
+                                    <input type="hidden" name="hdServiceJsonInfo" id="hdServiceJsonInfo" value='<?php echo(json_encode($serviceInfo)); ?>'>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 mb-2">
+                                    <input type="text" class="form-control" name="txtPersonCount[]" id="txtPersonCount1" value="" required placeholder="Number of Person">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="hdServiceCount" id="hdServiceCount" value="1">
+                        <button type="button" class="btn btn-primary" id="btnAddMoreService">Add More Service</button>
+                    </div>
+                </div>                
+
+                <!-- Select date of Service -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Select date of Service</label>
+                        <div class="date-picker"><?php 
+                            $defDate = date("Y-m-d");
+                            ?><input type="date" class="form-control form-control-lg text-left" placeholder="mm/dd/yyyy"  min='<?php echo date("Y-m-d"); ?>' style="text-align:center;" id="txtBookingDate" name="txtBookingDate" value="<?php echo $defDate; ?>">
+                        </div>
                     </div>
                 </div>
-                <!-- end category -->
+                <!-- end Select date of Service -->
 
+                <!-- Select time of Service -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-12 col-sm-12"><?php
+                        
+                        $defTime = '';
+
+                        ?><label class="text-primary">Select time of Service</label>
+                        <div id="available-time-list">
+                            <button data-val="9:00 AM" type="button" class="btn btn-outline-primary mr-1 mb-1">9:00AM</button>
+                            <button data-val="9:30 AM" type="button" class="btn btn-outline-primary mr-1 mb-1">9:30 AM</button>
+                            <button data-val="10:00 AM" type="button" class="btn btn-outline-primary mr-1 mb-1">10:00 AM</button>
+                            <button data-val="10:30 AM" type="button" class="btn btn-outline-primary mr-1 mb-1">10:30 AM</button>
+                            <button data-val="11:00 AM" type="button" class="btn btn-outline-primary mr-1 mb-1">11:00 AM</button>
+                            <button data-val="11:30 AM" type="button" class="btn btn-outline-primary mr-1 mb-1">11:30 AM</button>
+                            <button data-val="12:00 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">12:00 PM</button>
+                            <button data-val="12:30 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">12:30 PM</button>
+                            <button data-val="1:00 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">1:00 PM</button>
+                            <button data-val="1:30 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">1:30 PM</button>
+                            <button data-val="2:00 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">2:00 PM</button>
+                            <button data-val="2:30 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">2:30 PM</button>
+                            <button data-val="3:00 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">3:00 PM</button>
+                            <input type="hidden" name="hdAvailableTime" id="hdAvailableTime" value="">
+                        </div>
+                    </div>
+                </div>
+                <!-- end Select time of Service -->
+
+                <!-- Beautician / Massager / Hairdresser -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Beautician / Massager / Hairdresser<br>
+                            <small class="text-gray-600">you can select multiple servicer</small>
+                        </label>
+                        <div id="div_servicer_product_main">
+                            <div id="div_servicer_product_1" class="row mb-2">
+                                <div class="form-group col-md-12 col-sm-12 mb-2">
+                                    <select class="custom-select" name="lstServicer[]" id="lstServicer1" required>
+                                        <option value="">Select servicer</option><?php
+                                        foreach ($teamInfo as $key => $value) {
+                                            ?><option value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></option><?php
+                                        }
+                                    ?></select>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 mb-2">
+                                    <select class="custom-select" name="lstProduct[]" id="lstProduct1">
+                                        <option value="">Select Product</option><?php 
+                                        foreach ($productInfo as $key => $value) {
+                                            ?><option value="<?php echo $value['id']; ?>"><?php echo $value['title']; ?></option><?php
+                                        }
+                                    ?></select>
+                                </div>
+                                <input type="hidden" name="hdServicerJsonInfo" id="hdServicerJsonInfo" value='<?php echo(json_encode($teamInfo)); ?>'>
+                                <input type="hidden" name="hdProductJsonInfo" id="hdProductJsonInfo" value='<?php echo(json_encode($productInfo)); ?>'>
+                            </div>
+                        </div>
+                        <input type="hidden" name="hdServicerProductCount" id="hdServicerProductCount" value="1">
+                        <button type="button" class="btn btn-primary" id="btnAddMoreServicer">Add More Servicer</button>
+                    </div>
+                </div>
+                <!-- end Beautician / Massager / Hairdresser -->
+
+                <!-- If any service charge extra? -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">If any service charge extra?</label>
+                        <input type="text" class="form-control" id="txtServiceCharge" name="txtServiceCharge" value="" placeholder="Service Charge" >
+                    </div>
+                </div>
+                <!-- end If any service charge extra? -->
+                <!-- If any discount? -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">If any Discount?</label>
+                        <input type="text" class="form-control" id="txtDiscount" name="txtDiscount" value="" placeholder="Discount">
+                    </div>
+                </div>
+                <!-- end If any service charge extra? -->
+                <!-- If any discount? -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Vat</label>
+                        <input type="text" class="form-control" id="txtVat" name="txtVat" value="5" placeholder="Vat Percentage">
+                    </div>
+                </div>
+                <!-- end If any service charge extra? -->
+
+                <div class="text-dark">
+                    <label class="text-primary">Customer Details</label>
+                </div>
+                <div>
+                    <hr>
+                </div>
                 <!-- persons -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Price (AED)</label>
-                        <input type="text" class="form-control" value="<?php echo $txtPrice; ?>" id="txtPrice" name="txtPrice" maxlength="50" placeholder="AED" required>
+                        <label class="text-primary">Name of Customers</label>
+                        <input type="text" class="form-control" id="txtCustomerName" name="txtCustomerName" value="" placeholder="Name" required>
+                    </div>
+                </div>
+                <!-- end persons -->
+                <!-- persons -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Email</label>
+                        <input type="email" class="form-control" id="txtCustomerEmail" name="txtCustomerEmail" value="" placeholder="abc@example.com" required>
+                    </div>
+                </div>
+                <!-- end persons -->
+                <!-- persons -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Phone Number</label>
+                        <input type="tel" class="form-control" id="txtCustomerPhone" name="txtCustomerPhone" value="" placeholder="+971" required>
+                    </div>
+                </div>
+                <!-- end persons -->
+                <!-- persons -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">If Home Service - Location Details</label>
+                        <div class="form-group">
+                            <textarea class="form-control" id="taCustomerLocation" name="taCustomerLocation" rows="3"></textarea>
+                        </div>
                     </div>
                 </div>
                 <!-- end persons -->
 
                 <div class="row mb-2">
-                    <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Status</label><br>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="rdStatusAC" name="rdStatus"
-                                class="custom-control-input" checked value="AC">
-                            <label class="custom-control-label" for="rdStatusAC">Active</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="rdStatusIN" name="rdStatus"
-                                class="custom-control-input" value="IN">
-                            <label class="custom-control-label" for="rdStatusIN">Inactive</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-2">
                     <div class="col-md-6 col-sm-12">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                        <!-- type="button" -->
+                        <button  id="btnAddBooking" class="btn btn-primary btn-lg btn-block">
                             <span class="text-white text-decoration-none">
                                 Create
                             </span>
@@ -78,6 +241,76 @@
         </div>
 
 
+
+        <!-- bill -->
+        <div class="col-md-4 mb-3 mt-3 d-none">
+            <div class="sticky-top">
+                <div class="card shadow">
+                    <div class="card-header d-flex align-items-center justify-content-center">
+                        <img src="<?php echo base_url(); ?>assets/admin/img/logo-black.png">
+                    </div>
+                    <!-- bill generated -->
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="font-weight-bold text-gray-900"> Hair Cut Full</div>
+                                <div class="small">1person</div>
+                            </div>
+                            <div>
+                                <div class="text-right font-weight-bold text-gray-900">AED 300</div>
+                            </div>
+                        </div>
+                        <div>
+                            <hr>
+                        </div>
+                        <!-- vat -->
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="font-weight-bold text-gray-900">Vat</div>
+                            </div>
+                            <div>
+                                <div class="text-right font-weight-bold text-gray-900">5%</div>
+                            </div>
+                        </div>
+                        <div>
+                            <hr>
+                        </div>
+                        <!-- service charge -->
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="font-weight-bold text-gray-900">Service Charge</div>
+                            </div>
+                            <div>
+                                <div class="text-right font-weight-bold text-gray-900">AED 100</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- no bill generated -->
+                    <!-- <div class="card-body">
+                        <div class="p-5 text-center">
+                            No services selected yet
+                        </div>
+                    </div> -->
+                    <div class="card-footer text-muted d-flex justify-content-between">
+                        <div class="font-weight-bold text-gray-900">
+                            Total
+                        </div>
+                        <div class="text-gray-900 font-weight-bold">
+                            AED 400.00
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-12 col-sm-12 mt-2">
+                        <button class="btn btn-success btn-lg btn-block">
+                            <a href="date-select.html" class="text-white text-decoration-none">
+                                <i class="fas fa-print"></i>&nbsp;Print Recipt
+                            </a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- End of Page Wrapper -->

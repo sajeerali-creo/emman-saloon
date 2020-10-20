@@ -3,8 +3,8 @@
 require APPPATH . '/libraries/BaseController.php';
 
 /**
- * Class : Suppliers (UserController)
- * Suppliers Class to control all user related operations.
+ * Class : Products (UserController)
+ * Products Class to control all user related operations.
  * @author : Ansi
  * @version : 1.1
  * @since : 14 July 2020
@@ -18,6 +18,7 @@ class Invetory extends BaseController
     {
         parent::__construct();
         $this->load->model('invetory_model');
+        $this->load->model('supplier_model');
         $this->isLoggedIn();   
     }
    
@@ -29,7 +30,7 @@ class Invetory extends BaseController
         }
         else
         {        
-            $data['dataRecords'] = $this->invetory_model->supplierListing();
+            $data['dataRecords'] = $this->invetory_model->productListing();
                         
             $this->global['pageTitle'] = PROJECT_NAME . ' : Inventory';
             
@@ -37,7 +38,7 @@ class Invetory extends BaseController
         }
     }
 
-    function addNewSupplier($searchUserId = NULL)
+    function addNewProduct($searchUserId = NULL)
     {
         if($this->isAdminCommon() == TRUE)
         {
@@ -46,14 +47,15 @@ class Invetory extends BaseController
         else
         {
             $data['pageTitle'] = '';
+            $data['supplierRecords'] = $this->getAllSupplierInfo();
             
-            $this->global['pageTitle'] = PROJECT_NAME . ' : Add New Supplier';
+            $this->global['pageTitle'] = PROJECT_NAME . ' : Add New Product';
 
-            $this->loadViews("admin/suppliers/addSupplier", $this->global, $data, NULL);
+            $this->loadViews("admin/invetory/add", $this->global, $data, NULL);
         }
     }
 
-    function addNewSupplierInformation()
+    function addNewProductInformation()
     {
         if($this->isAdminCommon() == TRUE)
         {
@@ -62,65 +64,72 @@ class Invetory extends BaseController
         else
         {
             $this->load->library('form_validation');
+
+            /*echo "<pre>";
+            print_r($_REQUEST);
+            die();*/
             
-            $this->form_validation->set_rules('txtTitle','Name Of Supplers','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtCountry','Country','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtCity','City','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtPostCode','Post Code','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtPhone','Phone','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtFax','Fax','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtWeb','Web','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtEmail','Email','trim|required|valid_email|max_length[250]');
-            $this->form_validation->set_rules('txtCatogory','Catogory','trim|required|max_length[250]');
+            $this->form_validation->set_rules('txtInvoiceNumber','Invoice Number','trim|required|max_length[250]');
+            $this->form_validation->set_rules('lstSupplier','Supplier','trim|required|max_length[250]');
+            $this->form_validation->set_rules('lstCategory','Catogory','trim|required|max_length[250]');
+            $this->form_validation->set_rules('txtName','Name Of Product','trim|required|max_length[250]');
+            $this->form_validation->set_rules('txtQuantity','Quantity','trim|required|max_length[50]');
+            $this->form_validation->set_rules('txtDate','Date Of added','trim|required|max_length[20]');
+            $this->form_validation->set_rules('txtCostOfBuy','Cost of Buy','trim|required|max_length[50]');
+            $this->form_validation->set_rules('txtBuyTax','Buy Tax','trim|required|max_length[50]');
+            $this->form_validation->set_rules('txtCostOfSell','Cost of Sell','trim|required|max_length[50]');
+            $this->form_validation->set_rules('txtSellTax','Sell Tax','trim|required|max_length[50]');
             $this->form_validation->set_rules('rdStatus', 'Status', 'trim|required');
          
             if($this->form_validation->run() == FALSE)
             {
-                $this->addNewSurvey();
+                $this->addNewProduct();
             }
             else
             {
-                $txtTitle =$this->security->xss_clean($this->input->post('txtTitle'));
-                $txtCountry =$this->security->xss_clean($this->input->post('txtCountry'));
-                $txtCity =$this->security->xss_clean($this->input->post('txtCity'));
-                $txtPostCode =$this->security->xss_clean($this->input->post('txtPostCode'));
-                $txtPhone =$this->security->xss_clean($this->input->post('txtPhone'));
-                $txtFax =$this->security->xss_clean($this->input->post('txtFax'));
-                $txtWeb =$this->security->xss_clean($this->input->post('txtWeb'));
-                $txtEmail =$this->security->xss_clean($this->input->post('txtEmail'));
-                $txtCatogory =$this->security->xss_clean($this->input->post('txtCatogory'));
+                $txtInvoiceNumber =$this->security->xss_clean($this->input->post('txtInvoiceNumber'));
+                $lstSupplier =$this->security->xss_clean($this->input->post('lstSupplier'));
+                $lstCategory =$this->security->xss_clean($this->input->post('lstCategory'));
+                $txtName =$this->security->xss_clean($this->input->post('txtName'));
+                $txtQuantity =$this->security->xss_clean($this->input->post('txtQuantity'));
+                $txtDate =$this->security->xss_clean($this->input->post('txtDate'));
+                $txtCostOfBuy =$this->security->xss_clean($this->input->post('txtCostOfBuy'));
+                $txtBuyTax =$this->security->xss_clean($this->input->post('txtBuyTax'));
+                $txtCostOfSell =$this->security->xss_clean($this->input->post('txtCostOfSell'));
+                $txtSellTax =$this->security->xss_clean($this->input->post('txtSellTax'));
                 $rdStatus =$this->security->xss_clean($this->input->post('rdStatus'));
                         
                 
-                $supplierInfo = array('title'=> $txtTitle, 
-                                'country'=> $txtCountry, 
-                                'city'=> $txtCity, 
-                                'postcode'=> $txtPostCode, 
-                                'phone'=> $txtPhone, 
-                                'fax'=> $txtFax, 
-                                'web'=> $txtWeb, 
-                                'email'=> $txtEmail, 
-                                'category'=> $txtCatogory, 
+                $productInfo = array('invoice_number'=> $txtInvoiceNumber, 
+                                'suppliers_id'=> $lstSupplier, 
+                                'category_id'=> $lstCategory, 
+                                'title'=> $txtName, 
+                                'quantity'=> $txtQuantity, 
+                                'date_of_add'=> $txtDate, 
+                                'cost_of_buy'=> $txtCostOfBuy, 
+                                'buy_tax'=> $txtBuyTax, 
+                                'cost_of_sell'=> $txtCostOfSell, 
+                                'sell_tax' => $txtSellTax, 
                                 'status' => $rdStatus, 
                                 'created_by'=>$this->vendorId, 
                                 'add_date' => date('Y-m-d H:i:s'));                
           
-                $result = $this->invetory_model->addNewSupplier($supplierInfo);
+                $result = $this->invetory_model->addNewProduct($productInfo);
                 if($result > 0){
                     $this->session->set_flashdata('success', 'Record is added successfully');
-                    redirect('securepanel/suppliers');
+                    redirect('securepanel/invetory');
                 }
                 else
                 {
                     $this->session->set_flashdata('error', 'Record is NOT updated successfully');
-                    redirect('securepanel/suppliers');
+                    redirect('securepanel/invetory');
                 }
 
             }
         }
     }
 
-    function editSupplier($supplierId = NULL)
+    function editProduct($productId = NULL)
     {
         if($this->isAdminCommon() == TRUE)
         {
@@ -128,26 +137,27 @@ class Invetory extends BaseController
         }
         else
         {
-            if($supplierId == null)
+            if($productId == null)
             {
-                redirect('securepanel/suppliers');
+                redirect('securepanel/invetory');
             }
             
             
-            $data['supplierInfo'] = $this->invetory_model->getSupplierInfo($supplierId);
+            $data['productInfo'] = $this->invetory_model->getProductInfo($productId);
 
-            if(empty($data['supplierInfo']))
+            if(empty($data['productInfo']))
             {
-                redirect('securepanel/suppliers');
+                redirect('securepanel/invetory');
             }
+
+            $data['supplierRecords'] = $this->getAllSupplierInfo();
+            $this->global['pageTitle'] = PROJECT_NAME . ' : Edit Product';
             
-            $this->global['pageTitle'] = PROJECT_NAME . ' : Edit Supplier';
-            
-            $this->loadViews("admin/suppliers/editSupplier", $this->global, $data, NULL);
+            $this->loadViews("admin/invetory/edit", $this->global, $data, NULL);
         }
     }
     
-    function updateSupplier()
+    function updateProduct()
     {
         if($this->isAdminCommon() == TRUE)
         {
@@ -157,65 +167,68 @@ class Invetory extends BaseController
         {
             $this->load->library('form_validation');
         
-            $supplierId = $this->input->post('supplierId');
+            $productId = $this->input->post('productId');
             
-            $this->form_validation->set_rules('txtTitle','Name Of Supplers','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtCountry','Country','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtCity','City','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtPostCode','Post Code','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtPhone','Phone','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtFax','Fax','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtWeb','Web','trim|required|max_length[250]');
-            $this->form_validation->set_rules('txtEmail','Email','trim|required|valid_email|max_length[250]');
-            $this->form_validation->set_rules('txtCatogory','Catogory','trim|required|max_length[250]');
+            $this->form_validation->set_rules('txtInvoiceNumber','Invoice Number','trim|required|max_length[250]');
+            $this->form_validation->set_rules('lstSupplier','Supplier','trim|required|max_length[250]');
+            $this->form_validation->set_rules('lstCategory','Catogory','trim|required|max_length[250]');
+            $this->form_validation->set_rules('txtName','Name Of Product','trim|required|max_length[250]');
+            $this->form_validation->set_rules('txtQuantity','Quantity','trim|required|max_length[50]');
+            $this->form_validation->set_rules('txtDate','Date Of added','trim|required|max_length[20]');
+            $this->form_validation->set_rules('txtCostOfBuy','Cost of Buy','trim|required|max_length[50]');
+            $this->form_validation->set_rules('txtBuyTax','Buy Tax','trim|required|max_length[50]');
+            $this->form_validation->set_rules('txtCostOfSell','Cost of Sell','trim|required|max_length[50]');
+            $this->form_validation->set_rules('txtSellTax','Sell Tax','trim|required|max_length[50]');
             $this->form_validation->set_rules('rdStatus', 'Status', 'trim|required');
             
             if($this->form_validation->run() == FALSE)
             {
-               $this->editSupplier($supplierId);
+               $this->editProduct($productId);
             }
             else
             {
                 
-                $txtTitle =$this->security->xss_clean($this->input->post('txtTitle'));
-                $txtCountry =$this->security->xss_clean($this->input->post('txtCountry'));
-                $txtCity =$this->security->xss_clean($this->input->post('txtCity'));
-                $txtPostCode =$this->security->xss_clean($this->input->post('txtPostCode'));
-                $txtPhone =$this->security->xss_clean($this->input->post('txtPhone'));
-                $txtFax =$this->security->xss_clean($this->input->post('txtFax'));
-                $txtWeb =$this->security->xss_clean($this->input->post('txtWeb'));
-                $txtEmail =$this->security->xss_clean($this->input->post('txtEmail'));
-                $txtCatogory =$this->security->xss_clean($this->input->post('txtCatogory'));
+                $txtInvoiceNumber =$this->security->xss_clean($this->input->post('txtInvoiceNumber'));
+                $lstSupplier =$this->security->xss_clean($this->input->post('lstSupplier'));
+                $lstCategory =$this->security->xss_clean($this->input->post('lstCategory'));
+                $txtName =$this->security->xss_clean($this->input->post('txtName'));
+                $txtQuantity =$this->security->xss_clean($this->input->post('txtQuantity'));
+                $txtDate =$this->security->xss_clean($this->input->post('txtDate'));
+                $txtCostOfBuy =$this->security->xss_clean($this->input->post('txtCostOfBuy'));
+                $txtBuyTax =$this->security->xss_clean($this->input->post('txtBuyTax'));
+                $txtCostOfSell =$this->security->xss_clean($this->input->post('txtCostOfSell'));
+                $txtSellTax =$this->security->xss_clean($this->input->post('txtSellTax'));
                 $rdStatus =$this->security->xss_clean($this->input->post('rdStatus'));
-                             
-                $supplierInfo = array('title'=> $txtTitle, 
-                                    'country'=> $txtCountry, 
-                                    'city'=> $txtCity, 
-                                    'postcode'=> $txtPostCode, 
-                                    'phone'=> $txtPhone, 
-                                    'fax'=> $txtFax, 
-                                    'web'=> $txtWeb, 
-                                    'email'=> $txtEmail, 
-                                    'category'=> $txtCatogory, 
-                                    'status' => $rdStatus,
-                                    'updated_by' => $this->vendorId, 
-                                    'update_date' => date('Y-m-d H:i:s'));  
+                
+                $productInfo = array('invoice_number'=> $txtInvoiceNumber, 
+                                'suppliers_id'=> $lstSupplier, 
+                                'category_id'=> $lstCategory, 
+                                'title'=> $txtName, 
+                                'quantity'=> $txtQuantity, 
+                                'date_of_add'=> $txtDate, 
+                                'cost_of_buy'=> $txtCostOfBuy, 
+                                'buy_tax'=> $txtBuyTax, 
+                                'cost_of_sell'=> $txtCostOfSell, 
+                                'sell_tax' => $txtSellTax, 
+                                'status' => $rdStatus,
+                                'updated_by' => $this->vendorId, 
+                                'update_date' => date('Y-m-d H:i:s'));    
                         
-                $result = $this->invetory_model->updateSupplier($supplierInfo, $supplierId);
+                $result = $this->invetory_model->updateProduct($productInfo, $productId);
                 if($result){                    
                     $this->session->set_flashdata('success', 'Record is updated successfully');
-                     redirect('securepanel/suppliers');
+                     redirect('securepanel/invetory');
                 }
                 else
                 {
                     $this->session->set_flashdata('error', 'Record is NOT updated successfully');
-                    $this->editSupplier($supplierId);
+                    $this->editProduct($productId);
                 }
             }           
         }
     }
 
-    function deleteSupplier()
+    function deleteProduct()
     {
         if($this->isAdminCommon() == TRUE)
         {
@@ -223,11 +236,63 @@ class Invetory extends BaseController
         }
         else
         {
-            $supplierId = $this->input->post('supplierId');
-            $supplierInfo = array('is_deleted' => '1', 'updated_by' => $this->vendorId, 'deleted_date' => date('Y-m-d H:i:s'));
+            $productId = $this->input->post('productId');
+            $productInfo = array('is_deleted' => '1', 'updated_by' => $this->vendorId, 'deleted_date' => date('Y-m-d H:i:s'));
             
             
-            $result = $this->invetory_model->deleteSupplier($supplierId, $supplierInfo);
+            $result = $this->invetory_model->deleteProduct($productId, $productInfo);
+            
+            if ($result > 0) { 
+                        
+                echo(json_encode(array('status'=>TRUE))); 
+            }
+            else { 
+                echo(json_encode(array('status'=>FALSE))); 
+            }
+        }
+    }
+
+    function sellProduct(){
+        if($this->isAdminCommon() == TRUE)
+        {
+            $this->loadThis();
+        }
+        else
+        {
+            $data['pageTitle'] = '';
+            $data['productsInfo'] = $this->invetory_model->productListing();
+            
+            $this->global['pageTitle'] = PROJECT_NAME . ' : Sell Product';
+
+            $this->loadViews("admin/invetory/sell", $this->global, $data, NULL);
+        }
+    }
+
+    function addSellProductInformation(){
+        if($this->isAdminCommon() == TRUE) {
+            echo(json_encode(array('status'=>'access')));
+        }
+        else {
+            $lstProduct =$this->security->xss_clean($this->input->post('lstProduct'));
+            $txtCustomerName =$this->security->xss_clean($this->input->post('txtCustomerName'));
+            $txtQuantity =$this->security->xss_clean($this->input->post('txtQuantity'));
+            $txtPrice =$this->security->xss_clean($this->input->post('txtPrice'));
+            $hdTaxRate =$this->security->xss_clean($this->input->post('hdTaxRate'));
+
+            $totalPrice = $txtQuantity * $txtPrice;
+            $totalPrice += $totalPrice * ($hdTaxRate / 100);
+
+            $productInfo = array('product_id' => $lstProduct,
+                                'customer_name' => $txtCustomerName,
+                                'quantity' => $txtQuantity,
+                                'item_price' => $txtPrice,
+                                'tax' => $hdTaxRate,
+                                'total_price' => $totalPrice,
+                                'status' => 'AC', 
+                                'created_by'=>$this->vendorId, 
+                                'add_date' => date('Y-m-d H:i:s'));
+
+            $result = $this->invetory_model->addSellProduct($productInfo);
             
             if ($result > 0) { 
                         
@@ -252,10 +317,10 @@ class Invetory extends BaseController
         }
         else{
 
-            $supplierId = $this->input->post('supplierId');
+            $productId = $this->input->post('productId');
             $stat = $this->input->post('stat'); 
           
-            if(!empty($supplierId) && ($stat == 0 || $stat == 1)) {
+            if(!empty($productId) && ($stat == 0 || $stat == 1)) {
 
                 if($stat == '0'){
                     $statN = 'IN';
@@ -265,7 +330,7 @@ class Invetory extends BaseController
                 }
 
                 $statusInfo = array('status' => $statN,'updated_by' => $this->vendorId, 'update_date' => date('Y-m-d H:i:s'));           
-                $result = $this->invetory_model->updatSurvey($statusInfo, $supplierId);
+                $result = $this->invetory_model->updatSurvey($statusInfo, $productId);
                 
 
                 if($result == true){
@@ -280,6 +345,34 @@ class Invetory extends BaseController
                 echo(json_encode(array('status'=>FALSE))); 
             }          
         }
+    }
+
+    function addDummyProduct(){
+        $productInfo = array('status' => 'IN', 
+                        'created_by'=>$this->vendorId, 
+                        'add_date' => date('Y-m-d H:i:s'));                
+  
+        $productId = $this->invetory_model->addNewProduct($productInfo);
+
+        return $productId;
+    }
+
+    function getAllSupplierInfo(){
+        $objSupplierInfo = $this->supplier_model->supplierListing(/*"AC"*/);
+
+        $arrReturn = array();
+
+        foreach ($objSupplierInfo as $key => $value) {
+            $arrReturn[$value->id] = (array)$value;
+            $arrCategory = explode(',_,_,', $value->category);
+            $arrReturn[$value->id]['category'] = $arrCategory;
+        }
+
+        /*echo "<pre>";
+        print_r($arrReturn);
+        die();*/
+
+        return $arrReturn;
     }
 }
 

@@ -13,6 +13,7 @@ class User extends BaseController
         parent::__construct();
         $this->load->model('user_model');
         $this->load->model('login_model');
+        $this->load->model('cart_model');
         $this->isLoggedIn();   
         
     }
@@ -29,9 +30,102 @@ class User extends BaseController
         if(isset($arrCompletedCourse)){
             $data['arrCompletedCourse'] = $arrCompletedCourse;
         }*/
+
+
         
+        $data['totalSales'] = $this->fnFindTotalSales();
+        $data['totalBooking'] = $this->fnFindTotalBooking();
+        $data['totalConfirmBooking'] = $this->fnFindTotalConfirmBooking();
+        $data['totalPendingBooking'] = $this->fnFindTotalPendingBooking();
+        $data['totalCompletedBooking'] = $this->fnFindTotalCompletedBooking();
+        $data['totalHomeServices'] = $this->fnFindTotalHomeServices();
+        $data['totalSaloonServices'] = $this->fnFindTotalSaloonServices();
+        $data['totalProductSale'] = $this->fnFindTotalProductSale();
+        $data['totalProductUse'] = $this->fnFindTotalProductUse();
+        $data['totalTeam'] = $this->fnFindTotalTeam();
+        $data['totalActiveTeam'] = $this->fnFindTotalActiveTeam();
+        $data['totalOffTeam'] = $this->fnFindTotalOffTeam();
+        $data['totalCustomers'] = $this->fnFindTotalCustomers();
+        $data['totalSuppliers'] = $this->fnFindTotalSuppliers();
+        
+
+        /*echo "<pre>";
+        print_r( $data);
+        die();
+        */
         
         $this->loadViews("admin/dashboard", $this->global, $data , NULL);
+    }
+
+    
+    function fnFindTotalSales(){
+        $objRp = $this->cart_model->getTotalSales();
+        return number_format($objRp->totalPrice, 2);
+    }
+
+    function fnFindTotalBooking(){
+        $objRp = $this->cart_model->getTotalBooking();
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalConfirmBooking(){
+        $objRp = $this->cart_model->getTotalConfirmBooking();
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalPendingBooking(){
+        $objRp = $this->cart_model->getTotalPendingBooking();
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalCompletedBooking(){
+        $objRp = $this->cart_model->getTotalCompletedBooking();
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalHomeServices(){
+        $objRp = $this->cart_model->getTotalHomeServices();
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalSaloonServices(){
+        $objRp = $this->cart_model->getTotalHomeServices();
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalProductSale(){
+        $objRp = $this->cart_model->getProductSales();
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalProductUse(){
+        $objRp = $this->cart_model->getTotalProductUse();
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalTeam(){
+        $objRp = $this->cart_model->getTotalTeam();
+        return $objRp->totalCount;
+    }
+    
+    function fnFindTotalActiveTeam(){
+        $objRp = $this->cart_model->getTotalActiveTeam();
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalOffTeam(){
+        $objRp = $this->cart_model->getTotalOffTeam();
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalCustomers(){
+        $objRp = $this->cart_model->getTotalCustomers();
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalSuppliers(){
+        $objRp = $this->cart_model->getTotalSuppliers();
+        return $objRp->totalCount;
     }
     
     /**

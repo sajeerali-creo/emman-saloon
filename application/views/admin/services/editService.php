@@ -6,7 +6,12 @@ $txtPrice = isset($txtPrice) ? $txtPrice : $serviceInfo->price;
 $rdStatus = isset($rdStatus) ? $rdStatus : $serviceInfo->status;
 
 
-?><div class="container mb-3">
+?><style>
+    #accordionSidebar,
+    #content nav.navbar{
+        display: none;
+    }
+</style><div class="container mb-3">
     <!-- header -->
     <div class="d-flex justify-content-between mt-3">
         <div class="text-primary f-24">Edit Service</div>

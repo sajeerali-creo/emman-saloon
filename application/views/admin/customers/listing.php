@@ -11,8 +11,7 @@
                     <span class="text-gray-600">Customers</span>
                 </h6>
                 <div>
-                    <a href="#" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm">
-                        <i class="fas fa-file-download"></i>&nbsp;Export Report</a>
+                    <a href="#" id="btPrintReport" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm"><i class="fas fa-file-download"></i>&nbsp;Export Report</a>
                 </div>
             </div>
             <div class="card-body">
@@ -49,7 +48,7 @@
                                         }
                                         
                                         ?><th class="text-right">
-                                            <a data-toggle="modal" data-target="#delete-service"
+                                            <a data-toggle="modal" data-target="#delete-customer"
                                                 class="btn btn-light deleteCustomer" data-recordid="<?php echo $record->id; ?>">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
@@ -75,7 +74,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body text-center f-24">
-                Are you sure to delete this item?
+                Are you sure to delete this customer?
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>

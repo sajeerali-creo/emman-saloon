@@ -2,9 +2,9 @@
 
 class Team_model extends CI_Model
 {
-    function supplierListing($selectedActiveStatus = '')
+    function teamListing($selectedActiveStatus = '')
     {
-        $this->db->select('id, first_name, last_name, level, gender, joining_date, experience, commission, basic_salary, hourly_rate, taxation, phone, email, address, post_code, positioning, capabilities, status, add_date');
+        $this->db->select('id, team_id, first_name, last_name, level, gender, joining_date, experience, commission, basic_salary, hourly_rate, taxation, phone, email, address, post_code, positioning, capabilities, status, add_date');
         $this->db->from('tbl_team');
 
         if(!empty($selectedActiveStatus)){           
@@ -33,7 +33,7 @@ class Team_model extends CI_Model
 	
     function getTeamInfo($teamId)
     {
-        $this->db->select('id, first_name, last_name, level, gender, joining_date, experience, commission, basic_salary, hourly_rate, taxation, phone, email, address, post_code, positioning, capabilities, status');
+        $this->db->select('id, team_id, first_name, last_name, level, gender, joining_date, experience, commission, basic_salary, hourly_rate, taxation, phone, email, address, post_code, positioning, capabilities, status');
         $this->db->from('tbl_team');
         $this->db->where('is_deleted', '0');	
         $this->db->where('id', $teamId);
@@ -56,6 +56,43 @@ class Team_model extends CI_Model
 		
         return $this->db->affected_rows();
     } 
+
+    function teamOrderListing()
+    {
+        $this->db->select('t.id teamId, t.first_name teamFName, t.last_name teamLName, cm.id as cartMasterId, s.title as serviceName, sc.category_name as serviceCategory, cm.service_date, cm.service_time, c.person, c.id as cartId');
+        $this->db->from('tbl_team t');
+        $this->db->join('tbl_cart_servicer_product csp', 'csp.team_id = t.id');
+        $this->db->join('tbl_cartmaster cm', 'csp.cartmaster_id = cm.id');
+        $this->db->join('tbl_cart c', 'c.cartmaster_id = cm.id');
+        $this->db->join('tbl_services as s', 's.id = c.service_id');
+        $this->db->join('tbl_services_category as sc', 'sc.id = s.category_id');
+        $this->db->where('t.is_deleted', '0');
+        $this->db->where('csp.is_deleted', '0');
+        $this->db->where('cm.is_deleted', '0');
+        $this->db->where('c.is_deleted', '0');
+        $this->db->where('s.is_deleted', '0');
+        $this->db->where('sc.is_deleted', '0');
+        $this->db->order_by("t.id", "DESC");
+        $this->db->order_by("cm.add_date", "DESC");
+
+        $query = $this->db->get();
+
+        $result = $query->result();
+
+        
+
+        $arrReturn = array();
+        if(!empty($result)){
+            foreach ($result as $key => $objCart) {
+                $arrReturn[$objCart->teamId]['booking'][$objCart->cartId] = (array)$objCart;
+                $arrReturn[$objCart->teamId]['info'] = (array)$objCart;
+            }
+        }
+
+        //echo "<pre>"; print_r($arrReturn); print_r($this->db->last_query());    die();
+
+        return $arrReturn;
+    }
 }
 
   

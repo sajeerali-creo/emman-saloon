@@ -116,7 +116,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="mt-3 col-md-12">Already have a booker account <a href="<?php echo base_url(); ?>login">Login</a>
+                            <div class="mt-3 col-md-12">Already have a booker account <a href="<?php echo base_url(); ?>login?flfrm=chkot">Login</a>
                                 now</div>
                         </div>
                     </form><?php

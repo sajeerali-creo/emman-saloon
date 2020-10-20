@@ -11,6 +11,7 @@
                     <span class="text-gray-600">Team</span>
                 </h6>
                 <div>
+                    <a href="#" id="btPrintReport" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm"><i class="fas fa-file-download"></i>&nbsp;Export Report</a>
                     <a href="<?php echo base_url(); ?>securepanel/calender-team"
                         class="d-none d-sm-inline-block btn btn-md btn-dark shadow-sm">
                         <i class="fas fa-calendar-alt"></i>&nbsp;Calender View</a>

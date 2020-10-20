@@ -18,7 +18,12 @@ $lstPositioning = isset($lstPositioning) ? $lstPositioning : $teamInfo->position
 $chkCapabilities = isset($chkCapabilities) ? $chkCapabilities : json_decode($teamInfo->capabilities, 1);
 $rdStatus = isset($rdStatus) ? $rdStatus : $teamInfo->status;
 
-?><div class="container mb-3">
+?><style>
+    #accordionSidebar,
+    #content nav.navbar{
+        display: none;
+    }
+</style><div class="container mb-3">
     <!-- header -->
     <div class="d-flex justify-content-between mt-3">
         <div class="text-primary f-24">Detail: <?php echo $txtFName . " " . $txtLName; ?></div>

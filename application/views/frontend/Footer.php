@@ -406,13 +406,13 @@
 			$("#btnConfirmOrder").click(function(){
 				let taOrderNotes = $("#taOrderNotes").val();
 
-				if (taOrderNotes == "") {
+				/*if (taOrderNotes == "") {
 					alert("Please enter Order Notes");
 					$("#taOrderNotes").focus();
 				}
-				else{
+				else{*/
 					$("#frmAddForm").submit();
-				}
+				//}
 			});
 
 			$('#txtPhone').bind('paste', function() {

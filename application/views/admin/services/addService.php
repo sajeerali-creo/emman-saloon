@@ -1,4 +1,9 @@
-<div class="container mb-3">
+<style>
+    #accordionSidebar,
+    #content nav.navbar{
+        display: none;
+    }
+</style><div class="container mb-3">
     <!-- header -->
     <div class="d-flex justify-content-between mt-3">
         <div class="text-primary f-24">Add New Service</div>

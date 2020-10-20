@@ -35,21 +35,39 @@ if(!isset($lstServicer)){
 
 
 ?><style>
+    @media print {
+        /* Hide everything in the body when printing... */
+        /*body.printing * { display: none; }*/
+        body.printing #accordionSidebar,
+        body.printing #content .nav,
+        body.printing #content #pageSellProduct .hide-print{
+            display: none;
+        }
+        /* ...except our special div. */
+        body.printing #print-me { display: block; }
+    }
+
+    @media screen {
+        /* Hide the special layer from the screen. */
+        #print-me { display: none; }
+    }
+</style>
+<style>
     #accordionSidebar,
     #content nav.navbar{
         display: none;
     }
-</style><div class="container mb-3">
+</style><div class="container mb-3" id="pageViewBooking">
     <!-- header -->
-    <div class="d-flex justify-content-between mt-3">
-        <div class="text-primary f-24">Edit Booking</div>
-        <a href="<?php echo base_url() ?>securepanel/booking" class="btn btn-dark">Back</a>
+    <div class="d-flex justify-content-between mt-3 hide-print">
+        <div class="text-primary f-24 hide-print">Edit Booking</div>
+        <a href="<?php echo base_url() ?>securepanel/booking" class="btn btn-dark hide-print">Back</a>
     </div>
-    <div>
+    <div class=" hide-print">
         <hr>
     </div>
 
-    <div class="card text-white bg-dark mb-3 col-md-12">
+    <div class="card text-white bg-dark mb-3 col-md-12 hide-print">
         <div class="card-body">
             <h5 class="card-title">Customer Details</h5>
             <h6 class="card-subtitle mb-2 ">Name: <?php echo $name; ?></h6>
@@ -59,8 +77,8 @@ if(!isset($lstServicer)){
     </div>
     <!-- end header -->
     <div class="row">
-        <div class="mt-2 col-md-8">
-            <form name="frmAddForm" id="frmAddForm" class="user" action="<?php echo base_url(); ?>securepanel/update-booking" method="post"  enctype="multipart/form-data">
+        <div class="mt-2 col-md-8 hide-print">
+            <form name="frmAddForm" id="frmAddForm" class="user" action="<?php echo base_url(); ?>securepanel/confirm-booking" method="post"  enctype="multipart/form-data">
                 <!-- type of services -->
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-12">
@@ -92,14 +110,12 @@ if(!isset($lstServicer)){
                     <div class="form-group col-md-6 col-sm-12">
                         <div id="div_service_count_main"><?php
                             $intCount = 1;
+                            $arrSelectedServiceInfo = array();
                             foreach ($lstService as $index => $serviceVal) {
                                 ?><div id="div_service_count_<?php echo $intCount; ?>" class="row mb-2">
                                     <div class="form-group col-md-12 col-sm-12 mb-2">
-                                        <label class="text-primary">Select Service</label><?php
-                                        if($intCount > 1){
-                                            ?><span onclick="javascript: jsRemoveThis('div_service_count_<?php echo $intCount; ?>');" class="badge badge-danger ml-2">remove this service</span><?php
-                                        }
-                                        ?><select class="custom-select" name="lstService[]" id="lstService1" required>
+                                        <label class="text-primary">Select Service</label>
+                                        <select class="custom-select" name="lstService[]" id="lstService1" required>
                                             <option value="">Select</option><?php
                                             foreach ($serviceInfo as $key => $value) {
                                                 ?><optgroup label="<?php echo $value['categoryName']; ?>"><?php
@@ -107,6 +123,7 @@ if(!isset($lstServicer)){
                                                         $strChecked = '';
                                                         if($serviceVal == $service['id']){
                                                             $strChecked = ' selected="selected" ';
+                                                            $arrSelectedServiceInfo[$index]['service'] = $service;
                                                         }
                                                         ?><option value="<?php echo $service['id']; ?>" data-price="<?php echo $service['price']; ?>" <?php echo $strChecked; ?>><?php echo $service['title']; ?></option><?php
                                                     }
@@ -119,13 +136,13 @@ if(!isset($lstServicer)){
                                         <input type="hidden" name="hdCartIds[]" value="<?php echo ($hdCartIds[$index]); ?>">
                                     </div>
                                 </div><?php
+                                $arrSelectedServiceInfo[$index]['person'] = $txtPersonCount[$index];
                                 $intCount++;
                             }
                             ?>
                         </div>
                         <input type="hidden" name="hdServiceJsonInfo" id="hdServiceJsonInfo" value='<?php echo(json_encode($serviceInfo)); ?>'>
                         <input type="hidden" name="hdServiceCount" id="hdServiceCount" value="<?php echo ($intCount - 1); ?>">
-                        <button type="button" class="btn btn-primary" id="btnAddMoreService">Add More Service</button>
                     </div>
                 </div>  
 
@@ -146,19 +163,7 @@ if(!isset($lstServicer)){
                     <div class="form-group col-md-12 col-sm-12">
                         <label class="text-primary">Select time of Service</label>
                         <div id="available-time-list">
-                            <button data-val="9:00 AM" type="button" class="btn <?php echo ($hdAvailableTime == '9:00 AM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">9:00AM</button>
-                            <button data-val="9:30 AM" type="button" class="btn <?php echo ($hdAvailableTime == '9:30 AM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">9:30 AM</button>
-                            <button data-val="10:00 AM" type="button" class="btn <?php echo ($hdAvailableTime == '10:00 AM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">10:00 AM</button>
-                            <button data-val="10:30 AM" type="button" class="btn <?php echo ($hdAvailableTime == '10:30 AM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">10:30 AM</button>
-                            <button data-val="11:00 AM" type="button" class="btn <?php echo ($hdAvailableTime == '11:00 AM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">11:00 AM</button>
-                            <button data-val="11:30 AM" type="button" class="btn <?php echo ($hdAvailableTime == '11:30 AM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">11:30 AM</button>
-                            <button data-val="12:00 PM" type="button" class="btn <?php echo ($hdAvailableTime == '12:00 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">12:00 PM</button>
-                            <button data-val="12:30 PM" type="button" class="btn <?php echo ($hdAvailableTime == '12:30 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">12:30 PM</button>
-                            <button data-val="1:00 PM" type="button" class="btn <?php echo ($hdAvailableTime == '1:00 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">1:00 PM</button>
-                            <button data-val="1:30 PM" type="button" class="btn <?php echo ($hdAvailableTime == '1:30 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">1:30 PM</button>
-                            <button data-val="2:00 PM" type="button" class="btn <?php echo ($hdAvailableTime == '2:00 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">2:00 PM</button>
-                            <button data-val="2:30 PM" type="button" class="btn <?php echo ($hdAvailableTime == '2:30 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">2:30 PM</button>
-                            <button data-val="3:00 PM" type="button" class="btn <?php echo ($hdAvailableTime == '3:00 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">3:00 PM</button>
+                            <button data-val="<?php echo $hdAvailableTime; ?>" type="button" class="btn btn-primary mr-1 mb-1"><?php echo $hdAvailableTime; ?></button>
                             <input type="hidden" name="hdAvailableTime" id="hdAvailableTime" value="<?php echo $hdAvailableTime; ?>">
                         </div>
                     </div>
@@ -178,7 +183,7 @@ if(!isset($lstServicer)){
                                 ?><div id="div_servicer_product_<?php echo $intCount; ?>" class="row mb-2">
                                     <div class="form-group col-md-12 col-sm-12 mb-2"><?php
                                         if($intCount > 1){
-                                            ?><label class="text-primary">Beautician / Massager / Hairdresser</label><span onclick="javascript: jsRemoveThis('div_servicer_product_<?php echo $intCount; ?>');" class="badge badge-danger ml-2">remove this service</span><?php
+                                            ?><label class="text-primary">Beautician / Massager / Hairdresser</label><?php
                                         }
                                         ?><select class="custom-select" name="lstServicer[]" id="lstServicer<?php echo $intCount; ?>" required>
                                             <option value="">Select servicer</option><?php
@@ -212,7 +217,6 @@ if(!isset($lstServicer)){
                         <input type="hidden" name="hdServicerJsonInfo" id="hdServicerJsonInfo" value='<?php echo(json_encode($teamInfo)); ?>'>
                         <input type="hidden" name="hdProductJsonInfo" id="hdProductJsonInfo" value='<?php echo(json_encode($productInfo)); ?>'>
                         <input type="hidden" name="hdServicerProductCount" id="hdServicerProductCount" value="<?php echo ($intCount - 1); ?>">
-                        <button type="button" class="btn btn-primary" id="btnAddMoreServicer">Add More Servicer</button>
                     </div>
                 </div>
                 <!-- end Beautician / Massager / Hairdresser -->
@@ -244,9 +248,9 @@ if(!isset($lstServicer)){
 
                 <div class="row mb-2">
                     <div class="col-md-6 col-sm-12">
-                        <button  id="btnUpdateBooking" class="btn btn-primary btn-lg btn-block">
+                        <button  id="btnConfirmBooking" class="btn btn-primary btn-lg btn-block">
                             <span class="text-white text-decoration-none">
-                                Update & Confirm
+                                Confirm
                             </span>
                         </button>
                         <input type="hidden" value="<?php echo $bookingId; ?>" id="bookingId"  name="bookingId" /> 
@@ -257,15 +261,35 @@ if(!isset($lstServicer)){
 
         <!-- bill -->
         <!-- bill -->
-        <div class="col-md-4 mb-3 mt-3 d-none">
+        <div class="col-md-4 mb-3 mt-3">
             <div class="sticky-top">
                 <div class="card shadow">
                     <div class="card-header d-flex align-items-center justify-content-center">
                         <img src="<?php echo base_url(); ?>assets/admin/img/logo-black.png">
                     </div>
                     <!-- bill generated -->
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
+                    <div class="card-body"><?php
+                        /*echo "<pre>";
+                        print_r($arrSelectedServiceInfo);
+                        die();*/
+                        $intTotal = 0;
+                        foreach ($arrSelectedServiceInfo as $key => $arrValue) {
+                            ?><div class="d-flex justify-content-between">
+                                <div>
+                                    <div class="font-weight-bold text-gray-900"><?php echo $arrValue['service']['title']; ?></div>
+                                    <div class="small"><?php echo $arrValue['person']; ?>person</div>
+                                </div>
+                                <div>
+                                    <div class="text-right font-weight-bold text-gray-900">AED <?php echo $arrValue['service']['price']; ?></div>
+                                </div>
+                            </div>
+                            <div>
+                                <hr>
+                            </div><?php
+
+                            $intTotal += $arrValue['person'] * $arrValue['service']['price'];
+                        }
+                        ?><div class="d-flex justify-content-between">
                             <div>
                                 <div class="font-weight-bold text-gray-900"> Hair Cut Full</div>
                                 <div class="small">1person</div>
@@ -283,7 +307,7 @@ if(!isset($lstServicer)){
                                 <div class="font-weight-bold text-gray-900">Vat</div>
                             </div>
                             <div>
-                                <div class="text-right font-weight-bold text-gray-900">5%</div>
+                                <div class="text-right font-weight-bold text-gray-900"><?php echo $txtVat; ?>%</div>
                             </div>
                         </div>
                         <div>
@@ -295,7 +319,7 @@ if(!isset($lstServicer)){
                                 <div class="font-weight-bold text-gray-900">Service Charge</div>
                             </div>
                             <div>
-                                <div class="text-right font-weight-bold text-gray-900">AED 100</div>
+                                <div class="text-right font-weight-bold text-gray-900">AED <?php echo $txtServiceCharge; ?></div>
                             </div>
                         </div>
                     </div>
@@ -309,20 +333,27 @@ if(!isset($lstServicer)){
                         <div class="font-weight-bold text-gray-900">
                             Total
                         </div>
-                        <div class="text-gray-900 font-weight-bold">
-                            AED 400.00
+                        <div class="text-gray-900 font-weight-bold"><?php
+                            $intTotal += $txtServiceCharge;
+                            $intTotal += ($intTotal * ($txtVat / 100));
+                            ?>AED <?php echo $intTotal; ?>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12 col-sm-12 mt-2">
-                        <button class="btn btn-success btn-lg btn-block">
-                            <a href="date-select.html" class="text-white text-decoration-none">
+                        <button class="btn btn-success btn-lg btn-block" id="btnSellProductPrint">
+                            <span class="text-white text-decoration-none">
                                 <i class="fas fa-print"></i>&nbsp;Print Recipt
-                            </a>
+                            </span>
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div id="print-me" class="row">
+            <div class="col-md-12">
             </div>
         </div>
     </div>

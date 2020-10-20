@@ -29,7 +29,7 @@ class Team extends BaseController
         }
         else
         {        
-            $data['dataRecords'] = $this->team_model->supplierListing();
+            $data['dataRecords'] = $this->team_model->teamListing();
 
             $this->global['arrCapabilities'] = $this->getAllCapabilities();
             $this->global['arrCommission'] = $this->getAllCommission();
@@ -50,7 +50,7 @@ class Team extends BaseController
         }
         else
         {        
-            $data['dataRecords'] = $this->team_model->supplierListing();
+            $data['arrFinalCalendarData'] = $this->getTeamCalendarViewInfo();
 
             $this->global['arrCapabilities'] = $this->getAllCapabilities();
             $this->global['arrCommission'] = $this->getAllCommission();
@@ -114,7 +114,7 @@ class Team extends BaseController
          
             if($this->form_validation->run() == FALSE)
             {
-                $this->addNewSurvey();
+                $this->addNewTeam();
             }
             else
             {
@@ -159,6 +159,9 @@ class Team extends BaseController
           
                 $result = $this->team_model->addNewTeam($teamInfo);
                 if($result > 0){
+
+                    $result = $this->team_model->updateTeam(array("team_id" => "ES" . $result), $result);
+
                     $this->session->set_flashdata('success', 'Record is added successfully');
                     redirect('securepanel/team');
                 }
@@ -258,7 +261,8 @@ class Team extends BaseController
                 $chkCapabilities =$this->security->xss_clean($this->input->post('chkCapabilities'));
                 $rdStatus =$this->security->xss_clean($this->input->post('rdStatus'));
                              
-                $teamInfo = array('first_name'=> $txtFName, 
+                $teamInfo = array('team_id'=> "ES" . $teamId, 
+                                'first_name'=> $txtFName, 
                                 'last_name'=> $txtLName, 
                                 'level'=> $lstLevel, 
                                 'gender'=> $lstGender, 
@@ -433,6 +437,23 @@ class Team extends BaseController
         return array("M" => "Male", 
             "F" => "Female", 
             "OT" => "Other");
+    }
+
+    function getTeamCalendarViewInfo(){
+        $dataRecords = $this->team_model->teamOrderListing();
+        foreach ($dataRecords as $teamId => $arrCartInfo) {
+            foreach ($arrCartInfo['booking'] as $key => $value) {
+                $arrFinalCalendarData[] = array(
+                                                "title" => ucwords(strtolower($value['teamFName'])) . " " . strtolower($value['teamLName']) . " - " . ucwords(strtolower($value['serviceCategory'])) . " " . strtolower($value['serviceName']),
+                                                "strDateTime" => date("Y-m-d H:i:s", strtotime($value['service_date'] . " " . $value['service_time'])),
+                                                "person" => $value['person']
+                                            );
+            }
+            
+        }
+
+        //echo "<pre>"; print_r($arrFinalCalendarData);   die();
+        return $arrFinalCalendarData;
     }
 }
 

@@ -11,7 +11,14 @@ $txtEmail       = isset($txtEmail) ? $txtEmail : $supplierInfo->email;
 $txtCatogory    = isset($txtCatogory) ? $txtCatogory : $supplierInfo->category;
 $rdStatus       = isset($rdStatus) ? $rdStatus : $supplierInfo->status;
 
-?><div class="container mb-3">
+?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+/>
+<style>
+    #accordionSidebar,
+    #content nav.navbar{
+        display: none;
+    }
+</style><div class="container mb-3">
     <!-- header -->
     <div class="d-flex justify-content-between mt-3">
         <div class="text-primary f-24">Edit Suppliers</div>
@@ -82,11 +89,6 @@ $rdStatus       = isset($rdStatus) ? $rdStatus : $supplierInfo->status;
                         <input type="text" class="form-control" id="txtCatogory" name="txtCatogory" value="<?php echo $txtCatogory; ?>" placeholder="- - -" required>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group col-md-12 col-sm-12">
-                        <button class="btn btn-primary" id="btn2">Add More Catogory</button>
-                    </div>
-                </div>
                 <!-- end Web --><?php
 
                 if($rdStatus == 'AC'){
@@ -131,3 +133,4 @@ $rdStatus       = isset($rdStatus) ? $rdStatus : $supplierInfo->status;
     </div>
 </div>
 <!-- End of Page Wrapper -->
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>

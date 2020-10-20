@@ -7,13 +7,13 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    2,500&nbsp;
+                    <?php echo count($dataRecords); ?>&nbsp;
                     <span class="text-gray-600">Bookings</span>
                 </h6>
                 <div>
-                    <a href="#" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm"><i class="fas fa-file-download"></i>&nbsp;Report</a>
-                    <a href="calender-booking.html" class="d-none d-sm-inline-block btn btn-md btn-dark shadow-sm"> <i class="fas fa-calendar-alt"></i>&nbsp;Calender View</a>
-                    <a href="new-booking.html" class="d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"><i class="fas fa-plus"></i>&nbsp;Add New Bookings</a>
+                    <a href="#" id="btPrintReport" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm"><i class="fas fa-file-download"></i>&nbsp;Export Report</a>
+                    <a href="<?php echo base_url(); ?>securepanel/booking-calendar" class="d-none d-sm-inline-block btn btn-md btn-dark shadow-sm"> <i class="fas fa-calendar-alt"></i>&nbsp;Calender View</a>
+                    <a href="<?php echo base_url(); ?>securepanel/add-booking" class="d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"><i class="fas fa-plus"></i>&nbsp;Add New Bookings</a>
                 </div>
             </div>
             <div class="card-body">
@@ -21,8 +21,10 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>Id</th>
                                 <th>Customer</th>
                                 <th>Services</th>
+                                <th>Service Date & Time</th>
                                 <th>Booking Date & Time</th>
                                 <th>Location</th>
                                 <th>Price</th>
@@ -32,8 +34,10 @@
                         </thead>
                         <tbody><?php
                             if(!empty($dataRecords)){
+                                $intCount = 1;
                                 foreach($dataRecords as $record){
                                     ?><tr class="row_<?php echo $record['info']['cartMasterId']; ?>">
+                                        <th><?php echo $intCount++; ?></th>
                                         <th>
                                             <div class="text-primary"><?php echo $record['info']['first_name'] . " " . $record['info']['last_name']; ?></div>
                                             <div class="text-gray font-weight-normal"><?php echo $record['info']['email']; ?></div>
@@ -47,10 +51,20 @@
                                             echo $strInfo;
                                         ?></th>
                                         <th><?php echo $record['info']['service_date'] . " - " . $record['info']['service_time']; ?></th>
+                                        <th><?php echo $record['info']['addDate']; ?></th>
                                         <th><?php echo $record['info']['address']; ?></th>
                                         <th>AED <?php echo $record['info']['total_price']; ?></th><?php
                                         if ($record['info']['status'] == 'PN') {
                                             ?><th class="text-warning">Pending</th><?php
+                                        }
+                                        else if ($record['info']['status'] == 'CN') {
+                                            ?><th class="text-info">Confirmed</th><?php
+                                        }
+                                        else if ($record['info']['status'] == 'SBR') {
+                                            ?><th class="text-info">Servicer Rejected</th><?php
+                                        }
+                                        else if ($record['info']['status'] == 'SBC') {
+                                            ?><th class="text-info">Servicer Confirmed</th><?php
                                         }
                                         else{
                                             ?><th class="text-success">Completed</th><?php

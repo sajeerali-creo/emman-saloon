@@ -33,6 +33,7 @@ class BaseController extends CI_Controller {
 	 * This function used to check the user is logged in or not
 	 */
 	function isLoggedIn() {
+		$this->global['notificationCount'] = $this->getNotificationCount();
 		$isLoggedIn = $this->session->userdata ( 'isLoggedIn' );
 		
 		if (! isset ( $isLoggedIn ) || $isLoggedIn != TRUE) {
@@ -154,6 +155,12 @@ class BaseController extends CI_Controller {
 		$this->session->sess_destroy ();
 		
 		redirect ( 'securepanel/login' );
+	}
+
+	function getNotificationCount(){
+		$this->load->model('cart_model');
+
+		return $this->cart_model->getNotificationCount("admin");
 	}
 
 	/**

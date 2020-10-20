@@ -10,7 +10,10 @@
                     <?php echo count($serviceRecords); ?>&nbsp;
                     <span class="text-gray-600">Services</span>
                 </h6>
-                <a href="<?php echo base_url(); ?>securepanel/add-service" class="d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"> <i class="fas fa-plus"></i>&nbsp;Add New Services</a>
+                <div>
+                    <a href="#" id="btPrintReport" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm"><i class="fas fa-file-download"></i>&nbsp;Export Report</a>
+                    <a href="<?php echo base_url(); ?>securepanel/add-service" class="d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"> <i class="fas fa-plus"></i>&nbsp;Add New Services</a>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

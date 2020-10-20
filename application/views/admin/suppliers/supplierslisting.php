@@ -11,6 +11,7 @@
                     <span class="text-gray-600">Suppliers</span>
                 </h6>
                 <div>
+                    <a href="#" id="btPrintReport" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm"><i class="fas fa-file-download"></i>&nbsp;Export Report</a>
                     <a href="<?php echo base_url(); ?>securepanel/add-supplier" class="d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"> <i class="fas fa-plus"></i>&nbsp;Add New Suppliers</a>
                 </div>
             </div>
@@ -35,7 +36,7 @@
                                 foreach($supplierRecords as $record){
                                     ?><tr class="row_<?php echo $record->id; ?>">
                                         <th><?php echo $record->title; ?></th>
-                                        <th><?php echo $record->category; ?></th>
+                                        <th><?php echo str_ireplace(",_,_,", ', ', $record->category); ?></th>
                                         <th><?php echo $record->city; ?>, <?php echo $record->country; ?></th>
                                         <th><?php echo $record->postcode; ?></th>
                                         <th><?php echo $record->phone; ?></th>

@@ -46,6 +46,7 @@ class Suppliers extends BaseController
         else
         {
             $data['pageTitle'] = '';
+            $this->global['pagePath'] = 'supplier';
             
             $this->global['pageTitle'] = PROJECT_NAME . ' : Add New Supplier';
 
@@ -140,7 +141,7 @@ class Suppliers extends BaseController
             {
                 redirect('securepanel/suppliers');
             }
-            
+            $this->global['pagePath'] = 'supplier';
             $this->global['pageTitle'] = PROJECT_NAME . ' : Edit Supplier';
             
             $this->loadViews("admin/suppliers/editSupplier", $this->global, $data, NULL);

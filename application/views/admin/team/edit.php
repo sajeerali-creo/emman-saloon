@@ -1,5 +1,6 @@
 <?php
 $teamId = $teamInfo->id;
+$team_id = $teamInfo->team_id;
 $txtFName = isset($txtFName) ? $txtFName : $teamInfo->first_name;
 $txtLName = isset($txtLName) ? $txtLName : $teamInfo->last_name;
 $lstLevel = isset($lstLevel) ? $lstLevel : $teamInfo->level;
@@ -18,7 +19,12 @@ $lstPositioning = isset($lstPositioning) ? $lstPositioning : $teamInfo->position
 $chkCapabilities = isset($chkCapabilities) ? $chkCapabilities : json_decode($teamInfo->capabilities, 1);
 $rdStatus = isset($rdStatus) ? $rdStatus : $teamInfo->status;
 
-?><div class="container mb-3">
+?><style>
+    #accordionSidebar,
+    #content nav.navbar{
+        display: none;
+    }
+</style><div class="container mb-3">
     <!-- header -->
     <div class="d-flex justify-content-between mt-3">
         <div class="text-primary f-24">Edit Team Member</div>
@@ -37,8 +43,7 @@ $rdStatus = isset($rdStatus) ? $rdStatus : $teamInfo->status;
                 <div class="row">
                     <div class="form-group col-md-4 col-sm-12">
                         <label class="text-primary">ID</label>
-                        <input type="text" class="form-control" id="disabledTextInput" placeholder="ES<?php echo $teamId; ?>"
-                            disabled>
+                        <input type="text" class="form-control" id="disabledTextInput" placeholder="<?php echo $team_id; ?>" disabled>
                     </div>
                 </div>
                 <!-- end name of services -->
@@ -204,7 +209,7 @@ $rdStatus = isset($rdStatus) ? $rdStatus : $teamInfo->status;
                         }
                         $strChecked = (in_array($key, $chkCapabilities) ? ' checked="checked"' : '')
                         ?><div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="chkCap<?php echo $key; ?>" name="chkCapabilities[]" required value="<?php echo $key; ?>"<?php echo $strChecked; ?>>
+                            <input type="checkbox" class="custom-control-input" id="chkCap<?php echo $key; ?>" name="chkCapabilities[]" value="<?php echo $key; ?>"<?php echo $strChecked; ?>>
                             <label class="custom-control-label" for="chkCap<?php echo $key; ?>"><?php echo $value; ?></label>
                         </div><?php
 

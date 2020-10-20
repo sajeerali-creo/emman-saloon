@@ -73,7 +73,7 @@ class Frontcontroller extends CI_Controller{
         $this->checkServiceCartCookieIsEmpty();
         $this->processCookieData();
 
-        $this->jsCheckMapCookieNotSet();
+        $this->fnCheckMapCookieNotSet();
 
         $data['title'] = PROJECT_NAME;
         $data['description'] = PROJECT_NAME . ' - Service';  
@@ -91,7 +91,7 @@ class Frontcontroller extends CI_Controller{
     public function dateSelect(){
         $this->processCookieData();
 
-        $this->jsCheckServiceCookieNotSet();
+        $this->fnCheckServiceCookieNotSet();
 
         $data['title'] = PROJECT_NAME;
         $data['description'] = PROJECT_NAME . ' - Select Date and Time';  
@@ -109,7 +109,7 @@ class Frontcontroller extends CI_Controller{
     public function addPersonalInfo(){
         $this->processCookieData();
 
-        $this->jsCheckCartDetailsCookieNotSet();
+        $this->fnCheckCartDetailsCookieNotSet();
 
         $data['frontLogin'] = $this->frontLogin;    
         $data['frontUsername'] = $this->frontUsername;    
@@ -237,7 +237,7 @@ class Frontcontroller extends CI_Controller{
     public function orderConfirm(){
         $this->processCookieData();
 
-        $this->jsCheckCartDetailsCookieNotSet();
+        $this->fnCheckCartDetailsCookieNotSet();
 
         $data['frontLogin'] = $this->frontLogin;    
         $data['frontUsername'] = $this->frontUsername;    
@@ -257,12 +257,12 @@ class Frontcontroller extends CI_Controller{
         $this->processCookieData();
         $this->load->library('form_validation');
             
-        $this->form_validation->set_rules('taOrderNotes','Booking Notes','trim|required');
+        /*$this->form_validation->set_rules('taOrderNotes','Booking Notes','trim|required');
 
         if($this->form_validation->run() == FALSE){
             redirect('order-confirm');
         }
-        else {
+        else {*/
             $taOrderNotes = strtolower($this->security->xss_clean($this->input->post('taOrderNotes')));
 
             if($this->saveCartInfo($taOrderNotes)){
@@ -271,7 +271,7 @@ class Frontcontroller extends CI_Controller{
             else{
                 redirect('order-confirm');
             }
-        }
+        //}
     }
 
     public function thankyou(){
@@ -295,6 +295,10 @@ class Frontcontroller extends CI_Controller{
 
     public function login(){
         $isFrontLoggedIn = $this->session->userdata('isFrontLoggedIn');
+
+        if(isset($_REQUEST['flfrm']) && $_REQUEST['flfrm'] == 'chkot'){
+            $this->session->set_userdata('loginRedirectIntoPersonalInfo', 'Y');
+        }
         
         if(!isset($isFrontLoggedIn) || $isFrontLoggedIn != TRUE){
             $data = array();
@@ -370,8 +374,15 @@ class Frontcontroller extends CI_Controller{
                 $cookie_name  = 'cartUserInfo';  
                 $cookie_name_value = json_encode($arrPersonalInfo);
                 setcookie($cookie_name, $cookie_name_value, time() + (86400 * 7), "/"); // one day example
-            
-                redirect('/', 'refresh');
+                
+                $flFromCheckout = $this->session->userdata('loginRedirectIntoPersonalInfo');
+                if($flFromCheckout == 'Y'){
+                    redirect('add-personal-info');
+                }
+                else{
+                    redirect('/', 'refresh');
+                }
+                
             }
             else {
                 $this->session->set_flashdata('error', 'Username or password mismatch');
@@ -437,7 +448,7 @@ class Frontcontroller extends CI_Controller{
     }
 
     public function logout(){
-        $this->session->sess_destroy ();
+        $this->session->sess_destroy();
         $this->unsetCartCookies();
         redirect ( 'login' );
     }
@@ -661,6 +672,9 @@ class Frontcontroller extends CI_Controller{
         $cartMasterId = $this->cart_model->addIntoCartMaster($arrCartMasterInfo);
 
         if($cartMasterId > 0){
+            //Function call for add into admin notification
+            $this->cart_model->addIntoNotification($cartMasterId, "admin");
+
             $arrPersonalInfo = array("cartmaster_id"  => $cartMasterId, 
                                 "first_name"            => $cartUserInfo['txtFName'], 
                                 "last_name"             => $cartUserInfo['txtLName'], 
@@ -709,9 +723,9 @@ class Frontcontroller extends CI_Controller{
     }
 
     function unsetCartCookies(){
-        setcookie("serviceCartCookie", "", time() - 3600);
-        setcookie("cartDetailsInfo", "", time() - 3600);
-        setcookie("cartUserInfo", "", time() - 3600);
+        setcookie("serviceCartCookie", "", time() - 3600, "/");
+        setcookie("cartDetailsInfo", "", time() - 3600, "/");
+        setcookie("cartUserInfo", "", time() - 3600, "/");
     }
 
     /**
@@ -779,7 +793,7 @@ class Frontcontroller extends CI_Controller{
         }
     }
 
-    function jsCheckMapCookieNotSet(){
+    function fnCheckMapCookieNotSet(){
         $user_lat           = (isset($_COOKIE['user_lat']) ? json_decode($_COOKIE['user_lat'], 1) : "");
         $user_lng           = (isset($_COOKIE['user_lng']) ? json_decode($_COOKIE['user_lng'], 1) : "");
 
@@ -788,8 +802,8 @@ class Frontcontroller extends CI_Controller{
         }
     }
 
-    function jsCheckServiceCookieNotSet(){
-        $this->jsCheckMapCookieNotSet();
+    function fnCheckServiceCookieNotSet(){
+        $this->fnCheckMapCookieNotSet();
 
         $serviceCartCookie  = (isset($_COOKIE['serviceCartCookie']) ? json_decode($_COOKIE['serviceCartCookie'], 1) : array());
 
@@ -806,8 +820,8 @@ class Frontcontroller extends CI_Controller{
         }
     }  
 
-    function jsCheckCartDetailsCookieNotSet(){
-        $this->jsCheckServiceCookieNotSet();
+    function fnCheckCartDetailsCookieNotSet(){
+        $this->fnCheckServiceCookieNotSet();
 
         $cartDetailsInfo    = (isset($_COOKIE['cartDetailsInfo']) ? json_decode($_COOKIE['cartDetailsInfo'], 1) : array());
 

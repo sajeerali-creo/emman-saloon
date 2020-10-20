@@ -79,6 +79,25 @@ class Service_model extends CI_Model
      
         return $result;
     } 
+
+
+    function getAllServices()
+    {
+        $this->db->select('s.id, s.title, s.category_id, s.price, s.status, s.add_date, sc.category_name');
+        $this->db->from('tbl_services as s');
+        $this->db->join('tbl_services_category as sc', 'sc.id = s.category_id');
+        $this->db->where('s.status', 'AC');
+        $this->db->where('sc.status', 'AC');
+        $this->db->where('sc.is_deleted', '0');
+        $this->db->where('s.is_deleted', '0');
+        $this->db->order_by("sc.category_name", "ASC");
+        $this->db->order_by("s.title", "ASC");
+
+        $query = $this->db->get();
+        $result = $query->result();  //print_r($this->db->last_query());    die();
+     
+        return $result;
+    } 
 }
 
   

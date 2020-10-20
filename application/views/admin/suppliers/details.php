@@ -11,7 +11,12 @@ $txtEmail       = isset($txtEmail) ? $txtEmail : $supplierInfo->email;
 $txtCatogory    = isset($txtCatogory) ? $txtCatogory : $supplierInfo->category;
 $rdStatus       = isset($rdStatus) ? $rdStatus : $supplierInfo->status;
 
-?><div class="container mb-3">
+?><style>
+    #accordionSidebar,
+    #content nav.navbar{
+        display: none;
+    }
+</style><div class="container mb-3">
     <!-- header -->
     <div class="d-flex justify-content-between mt-3">
         <div class="text-primary f-24">Detail: <?php echo $txtTitle; ?></div>

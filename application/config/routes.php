@@ -156,7 +156,17 @@ $route['securepanel/settings'] = "admin/user/settings";
 $route['securepanel/settingsupdate'] = "admin/user/settingsUpdate";
 
 
+$route['securepanel/notification'] = "admin/Booking/notification";
 $route['securepanel/booking'] = "admin/Booking/listing";
+$route['securepanel/booking-calendar'] = "admin/Booking/listingCalendar";
+$route['securepanel/add-booking'] = "admin/Booking/addNewBooking";
+$route['securepanel/add-booking-info'] = "admin/Booking/addNewBookingInformation";
+$route['securepanel/edit-booking'] = "admin/Booking/editBooking";
+$route['securepanel/edit-booking/(:num)'] = "admin/Booking/editBooking/$1";
+$route['securepanel/update-booking'] = "admin/Booking/updateBooking";
+$route['securepanel/confirm-booking'] = "admin/Booking/confirmBooking";
+$route['securepanel/view-booking'] = "admin/Booking/viewBooking";
+$route['securepanel/view-booking/(:num)'] = "admin/Booking/viewBooking/$1";
 
 
 $route['securepanel/team'] = "admin/Team/listing";
@@ -173,11 +183,29 @@ $route['securepanel/delete-team'] = "admin/Team/deleteTeam";
 
 
 $route['securepanel/invetory'] = "admin/Invetory/listing";
+$route['securepanel/add-product'] = "admin/Invetory/addNewProduct";
+$route['securepanel/add-product-info'] = "admin/Invetory/addNewProductInformation";
+$route['securepanel/edit-product'] = "admin/Invetory/editProduct";
+$route['securepanel/edit-product/(:num)'] = "admin/Invetory/editProduct/$1";
+$route['securepanel/update-product'] = "admin/Invetory/updateProduct";
+$route['securepanel/delete-product'] = "admin/Invetory/deleteProduct";
+$route['securepanel/sell-product'] = "admin/Invetory/sellProduct";
+$route['securepanel/add-sell-product-info-ajax'] = "admin/Invetory/addSellProductInformation";
 
 
 $route['securepanel/customers'] = "admin/Customers/listing";
+$route['securepanel/delete-customer'] = "admin/Customers/deleteCustomer";
 
 
-
+$route['serviceboy'] = 'serviceboycontroller/index';
+$route['serviceboy/login'] = 'serviceboycontroller/login';
+$route['serviceboy/logout'] = 'serviceboycontroller/logout';
+$route['serviceboy/login-user'] = 'serviceboycontroller/loginUser';
+$route['serviceboy/reject-order'] = 'serviceboycontroller/rejectOrder';
+$route['serviceboy/confirm-order'] = 'serviceboycontroller/confirmOrder';
+$route['serviceboy/complete-order'] = 'serviceboycontroller/completeOrder';
+$route['serviceboy/details'] = "serviceboycontroller/orderDetails";
+$route['serviceboy/details/(:num)'] = "serviceboycontroller/orderDetails/$1";
+$route['serviceboy/thankyou'] = 'serviceboycontroller/thankyou';
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
