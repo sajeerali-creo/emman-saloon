@@ -1,6 +1,31 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Bookings</h1>
+        <div class="d-flex d-sm-block">
+            <div class="mr-2 w-sm-100 mr-sm-0 mt-sm-1">
+                <button class="card p-2 w-sm-100 mr-2" id="reportrange">
+                    <i class="text-primary" data-feather="calendar"></i>
+                    <span></span>
+                    <i class="ml-1" data-feather="chevron-down"></i>
+                </button>
+                <form name="frmSearch" id="frmSearch" class="user w-sm-100"
+                    action="<?php echo base_url(); ?>securepanel/dashboard" method="get" enctype="multipart/form-data"
+                    style="display: none;">
+                    <input type="hidden" name="hdStartDate" id="hdStartDate">
+                    <input type="hidden" name="hdEndDate" id="hdEndDate">
+                    <button class="btn btn-dark" type="button" id="btnDashboardSearch"><i
+                            class="fas fa-search fa-sm"></i></button>
+                </form>
+            </div>
+            <a href="#" class="d-sm-inline-block btn btn-md btn-dark shadow-sm h-40 w-sm-100 mt-sm-1"><i
+                    class="fas fa-search fa-sm"></i></a>
+        </div>
+
+    </div>
+
     <!-- Begin Page Content -->
     <div>
         <!-- DataTales Example -->

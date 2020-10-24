@@ -4,14 +4,14 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Overview</h1>
-        <div class="d-flex">
-            <div class="mr-2">
-                <button class="card p-2" id="reportrange">
+        <div class="d-flex d-sm-block">
+            <div class="mr-2 w-sm-100 mr-sm-0 mt-sm-1">
+                <button class="card p-2 w-sm-100 mr-2" id="reportrange">
                     <i class="text-primary" data-feather="calendar"></i>
                     <span></span>
                     <i class="ml-1" data-feather="chevron-down"></i>
                 </button>
-                <form name="frmSearch" id="frmSearch" class="user"
+                <form name="frmSearch" id="frmSearch" class="user w-sm-100"
                     action="<?php echo base_url(); ?>securepanel/dashboard" method="get" enctype="multipart/form-data"
                     style="display: none;">
                     <input type="hidden" name="hdStartDate" id="hdStartDate">
@@ -20,229 +20,225 @@
                             class="fas fa-search fa-sm"></i></button>
                 </form>
             </div>
-            <div class="">
-                <a href="#" class="d-sm-inline-block btn btn-md btn-primary shadow-sm h-40"><i
-                        class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <a href="#" class="d-sm-inline-block btn btn-md btn-dark shadow-sm h-40 w-sm-100 mt-sm-1"><i
+                    class="fas fa-search fa-sm"></i></a>
+        </div>
+
+        <div class="">
+            <a href="#" class="d-sm-inline-block btn btn-md btn-primary shadow-sm h-40 w-sm-100 mt-sm-1"><i
+                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        </div>
+    </div>
+
+
+
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card-counter primary">
+            <i class="fas fa-wallet"></i>
+                <span class="count-numbers">AED <?php echo $totalSales; ?></span>
+                <span class="count-name">Total Sales</span>
             </div>
         </div>
 
-    </div>
+        <div class="col-md-3">
+            <div class="card-counter bg-warning">
+                <i class="fas fa-cart-arrow-down"></i>
+                <span class="count-numbers text-white"><?php echo $totalBooking; ?></span>
+                <span class="count-name text-white">Total Bookings</span>
+            </div>
+        </div>
 
-    <!-- Content Row -->
-    <div class="co-md-4">
-        <div class="row">
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Total Sales</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">AED <?php echo $totalSales; ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-md-3">
+            <div class="card-counter success">
+                <i class="fas fa-user-friends"></i>
+                <span class="count-numbers"><?php echo $totalTeam; ?></span>
+                <span class="count-name">Total Team</span>
             </div>
+        </div>
 
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Total Bookings</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalBooking; ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-md-3">
+            <div class="card-counter info">
+                <i class="fa fa-users"></i>
+                <span class="count-numbers"><?php echo $totalCustomers; ?></span>
+                <span class="count-name">Total Customers</span>
             </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Confirm Bookings</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalConfirmBooking; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Pending Bookings</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalPendingBooking; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Completed Bookings</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    <?php echo $totalCompletedBooking; ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Home Services</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalHomeServices; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Saloon Services</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalSaloonServices; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Total Product Sale</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalProductSale; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Total Product Use</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalProductUse; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Total Team</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalTeam; ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Available Team</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalActiveTeam; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Off Team</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalOffTeam; ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Total Customers</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalCustomers; ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Total Suppliers</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalSuppliers; ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
     </div>
+
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="card-block bg-white mt-1 mb-1 card-counter">
+                <div class="h4 mb-2"><span class="font-weight-bold"><?php echo $totalBooking; ?></span>&nbsp;Bookings</div>
+
+                <div class="d-flex">
+                    <div class="d-block w-100">
+                        <div class="mr-2 mb-1">
+                            <button type="button" class="btn btn-primary">
+                                Confirm Bookings&nbsp;<span
+                                    class="badge badge-light"><?php echo $totalConfirmBooking; ?></span>
+                            </button>
+                        </div>
+                        <div class="mr-2 mb-1">
+                            <button type="button" class="btn btn-dark">
+                                Pending Bookings&nbsp;<span
+                                    class="badge badge-light"><?php echo $totalPendingBooking; ?></span>
+                            </button>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-success">
+                                Completed Bookings&nbsp;<span
+                                    class="badge badge-light"><?php echo $totalConfirmBooking; ?></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex w-100">
+                        <div class="card border-left-info shadow h-100 py-2 mr-2 w-100">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Online Booking</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <?php echo $totalHomeServices; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-left-info shadow h-100 py-2 w-100">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        Front desk</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <?php echo $totalSaloonServices; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-info text-white">
+                <div class="h4 mb-2"><span class="font-weight-bold text-white"><?php echo $totalProductSale; ?></span><br>Total Product Sale</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card-block bg-white mt-1 mb-1 card-counter">
+                <div class="h4 mb-2"><span class="font-weight-bold"><?php echo $totalTeam; ?></span>&nbsp;Team</div>
+                <div class="d-flex">
+                    <div class="d-flex w-100">
+                        <div class="card  shadow h-100 py-2 mr-2 w-100">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        Available Team</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <?php echo $totalActiveTeam; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card  shadow h-100 mr-2 py-2 w-100">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        Day-Off</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <?php echo $totalOffTeam; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card shadow mr-2 h-100 py-2 w-100">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        Sick Leave</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <?php echo $totalOffTeam; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card  shadow mr-2 h-100 py-2 w-100">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        Medical</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <?php echo $totalOffTeam; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card  shadow mr-2 h-100 py-2 w-100">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        Holiday</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <?php echo $totalOffTeam; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card  shadow h-100 py-2 w-100">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        Medical</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <?php echo $totalOffTeam; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-info text-white">
+                <div class="h4 mb-2">
+                    <span class="font-weight-bold text-white"><?php echo $totalProductUse; ?></span><br>
+                    Total Product Use
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-warning text-white">
+                <div class="h4 mb-2"><span class="font-weight-bold text-white"><?php echo $totalSuppliers; ?></span><br>Total Suppliers</div>
+            </div>
+        </div>
+    </div>
+
+
 
     <div class="row">
         <!-- sales Chart -->

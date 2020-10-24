@@ -229,7 +229,7 @@ $rdStatus = isset($rdStatus) ? $rdStatus : $teamInfo->status;
                     $checkedIN = 'checked';
                 }
                 ?><div class="row mb-2">
-                    <div class="form-group col-md-4 col-sm-12">
+                    <div class="form-group col-md-12 col-sm-12">
                         <label class="text-primary">Status</label><br>
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" id="rdStatusAC" name="rdStatus"
@@ -240,6 +240,21 @@ $rdStatus = isset($rdStatus) ? $rdStatus : $teamInfo->status;
                             <input type="radio" id="rdStatusIN" name="rdStatus"
                                 class="custom-control-input" <?php echo $checkedIN; ?> value="IN">
                             <label class="custom-control-label" for="rdStatusIN">Off</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdStatusIN" name="rdStatus"
+                                class="custom-control-input"  value="IN">
+                            <label class="custom-control-label" for="rdStatusIN">Sick Leave</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdStatusIN" name="rdStatus"
+                                class="custom-control-input"  value="IN">
+                            <label class="custom-control-label" for="rdStatusIN">Medical</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdStatusIN" name="rdStatus"
+                                class="custom-control-input"  value="IN">
+                            <label class="custom-control-label" for="rdStatusIN">Holiday</label>
                         </div>
                     </div>
                 </div>

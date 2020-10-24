@@ -4994,7 +4994,7 @@ button.bg-dark:focus {
     display: inline-block !important; }
 
   .d-sm-block {
-    display: block !important; }
+    display: block; }
 
   .d-sm-table {
     display: table !important; }

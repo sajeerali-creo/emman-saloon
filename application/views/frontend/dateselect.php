@@ -29,7 +29,8 @@
             Step 2 of 4
         </div>
         <div class="h3 text-gray-900 font-weight-bold">
-            Select Services
+            Select Date & Time<br>
+            <h6>Home Services</h6>
         </div>
         <div class="small d-block mt-2">
             <i class="fas fa-map-marker-alt text-primary"></i>&nbsp;<?php echo $user_address; ?> <a href="<?php echo base_url() ?>map">Change</a>

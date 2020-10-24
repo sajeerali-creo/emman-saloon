@@ -265,7 +265,7 @@ if(!isset($lstServicer)){
             <div class="sticky-top">
                 <div class="card shadow">
                     <div class="card-header d-flex align-items-center justify-content-center">
-                        <img src="<?php echo base_url(); ?>assets/admin/img/logo-black.png">
+                        <img src="<?php echo base_url(); ?>assets/admin/img/logo-dark.png">
                     </div>
                     <!-- bill generated -->
                     <div class="card-body"><?php

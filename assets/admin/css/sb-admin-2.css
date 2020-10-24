@@ -4887,7 +4887,7 @@ button.bg-dark:focus {
   .d-sm-inline-block {
     display: inline-block !important; }
   .d-sm-block {
-    display: block !important; }
+    display: block; }
   .d-sm-table {
     display: table !important; }
   .d-sm-table-row {
@@ -7316,7 +7316,7 @@ a:focus {
 
 .bg-gradient-info {
   background-color: #36b9cc;
-  background-image: linear-gradient(180deg, #36b9cc 10%, #258391 100%);
+  background-image: linear-gradient(180deg, #8443FF 10%, #258391 100%);
   background-size: cover; }
 
 .bg-gradient-warning {
