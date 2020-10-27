@@ -83,18 +83,17 @@
 <!-- end watsap -->
 
 <!-- Start of ChatBot (www.chatbot.com) code -->
+<!-- Start of ChatBot (www.chatbot.com) code -->
 <script type="text/javascript">
-window.__be = window.__be || {};
-window.__be.id = "5f8b16e60485e900068a4c93";
-(function() {
-    var be = document.createElement('script');
-    be.type = 'text/javascript';
-    be.async = true;
-    be.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.chatbot.com/widget/plugin.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(be, s);
-})();
+    window.__be = window.__be || {};
+    window.__be.id = "5f988e3956000300079938d4";
+    (function() {
+        var be = document.createElement('script'); be.type = 'text/javascript'; be.async = true;
+        be.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.chatbot.com/widget/plugin.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(be, s);
+    })();
 </script>
+<!-- End of ChatBot code -->
 <!-- End of ChatBot code -->
 
 <!-- Footer Section Begin -->
