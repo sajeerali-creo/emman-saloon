@@ -31,7 +31,28 @@ class User extends BaseController
             $data['arrCompletedCourse'] = $arrCompletedCourse;
         }*/
 
+        $sDate = $this->security->xss_clean($this->input->get('sDate'));
+        $eDate = $this->security->xss_clean($this->input->get('eDate'));
 
+        if(empty($sDate)){
+            $sDate = date("F d, Y", strtotime("-29days"));
+        }
+        else{
+            $sDate = date("F d, Y", strtotime($sDate));
+        }
+
+        if(empty($eDate)){
+            $eDate = date("F d, Y");
+        }
+        else{
+            $eDate = date("F d, Y", strtotime($eDate));
+        }
+
+        $this->startDate = date("Y-m-d 00:00:00", strtotime($sDate));
+        $this->endDate = date("Y-m-d 23:59:59", strtotime($eDate));
+
+        $data['sDate'] = $sDate;
+        $data['eDate'] = $eDate;
         
         $data['totalSales'] = $this->fnFindTotalSales();
         $data['totalBooking'] = $this->fnFindTotalBooking();
@@ -44,7 +65,10 @@ class User extends BaseController
         $data['totalProductUse'] = $this->fnFindTotalProductUse();
         $data['totalTeam'] = $this->fnFindTotalTeam();
         $data['totalActiveTeam'] = $this->fnFindTotalActiveTeam();
-        $data['totalOffTeam'] = $this->fnFindTotalOffTeam();
+        $data['totalDayOffTeam'] = $this->fnFindTotalDayOffTeam("IN");
+        $data['totalSLOffTeam'] = $this->fnFindTotalDayOffTeam("SL");
+        $data['totalMLOffTeam'] = $this->fnFindTotalDayOffTeam("ML");
+        $data['totalHDOffTeam'] = $this->fnFindTotalDayOffTeam("HD");
         $data['totalCustomers'] = $this->fnFindTotalCustomers();
         $data['totalSuppliers'] = $this->fnFindTotalSuppliers();
         
@@ -59,72 +83,77 @@ class User extends BaseController
 
     
     function fnFindTotalSales(){
-        $objRp = $this->cart_model->getTotalSales();
+        $objRp = $this->cart_model->getTotalSales($this->startDate, $this->endDate);
         return number_format($objRp->totalPrice, 2);
     }
 
     function fnFindTotalBooking(){
-        $objRp = $this->cart_model->getTotalBooking();
+        $objRp = $this->cart_model->getTotalBooking($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
 
     function fnFindTotalConfirmBooking(){
-        $objRp = $this->cart_model->getTotalConfirmBooking();
+        $objRp = $this->cart_model->getTotalConfirmBooking($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
 
     function fnFindTotalPendingBooking(){
-        $objRp = $this->cart_model->getTotalPendingBooking();
+        $objRp = $this->cart_model->getTotalPendingBooking($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
 
     function fnFindTotalCompletedBooking(){
-        $objRp = $this->cart_model->getTotalCompletedBooking();
+        $objRp = $this->cart_model->getTotalCompletedBooking($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
 
     function fnFindTotalHomeServices(){
-        $objRp = $this->cart_model->getTotalHomeServices();
+        $objRp = $this->cart_model->getTotalHomeServices($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
 
     function fnFindTotalSaloonServices(){
-        $objRp = $this->cart_model->getTotalHomeServices();
+        $objRp = $this->cart_model->getTotalSaloonServices($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
 
     function fnFindTotalProductSale(){
-        $objRp = $this->cart_model->getProductSales();
+        $objRp = $this->cart_model->getProductSales($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
 
     function fnFindTotalProductUse(){
-        $objRp = $this->cart_model->getTotalProductUse();
+        $objRp = $this->cart_model->getTotalProductUse($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
 
     function fnFindTotalTeam(){
-        $objRp = $this->cart_model->getTotalTeam();
+        $objRp = $this->cart_model->getTotalTeam($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
     
     function fnFindTotalActiveTeam(){
-        $objRp = $this->cart_model->getTotalActiveTeam();
+        $objRp = $this->cart_model->getTotalActiveTeam($this->startDate, $this->endDate);
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalDayOffTeam($type = "IN"){
+        $objRp = $this->cart_model->getTotalOffTeam($type, $this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
 
     function fnFindTotalOffTeam(){
-        $objRp = $this->cart_model->getTotalOffTeam();
+        $objRp = $this->cart_model->getTotalOffTeam($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
 
     function fnFindTotalCustomers(){
-        $objRp = $this->cart_model->getTotalCustomers();
+        $objRp = $this->cart_model->getTotalCustomers($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
 
     function fnFindTotalSuppliers(){
-        $objRp = $this->cart_model->getTotalSuppliers();
+        $objRp = $this->cart_model->getTotalSuppliers($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
     
@@ -859,11 +888,11 @@ class User extends BaseController
             else
             {
                 if(empty($chkNotification)){
-                    $chkNotification = 0;
+                    $chkNotification = '0';
                 }
-
+                
                 $usersData = array('password'=>getHashedPassword($newPassword), 
-                                'fl_notification'=>getHashedPassword($chkNotification), 
+                                'fl_notification'=>$chkNotification, 
                                 'updatedBy'=>$this->vendorId,
                                 'updatedDtm'=>date('Y-m-d H:i:s'));
                 

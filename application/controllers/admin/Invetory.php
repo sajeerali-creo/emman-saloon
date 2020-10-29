@@ -19,6 +19,7 @@ class Invetory extends BaseController
         parent::__construct();
         $this->load->model('invetory_model');
         $this->load->model('supplier_model');
+        $this->load->model('team_model');
         $this->isLoggedIn();   
     }
    
@@ -29,12 +30,111 @@ class Invetory extends BaseController
             $this->loadThis();
         }
         else
-        {        
-            $data['dataRecords'] = $this->invetory_model->productListing();
+        {   
+            $sDate = $this->security->xss_clean($this->input->get('sDate'));
+            $eDate = $this->security->xss_clean($this->input->get('eDate'));
+
+            if(empty($sDate)){
+                $sDate = date("F d, Y", strtotime("-29days"));
+            }
+            else{
+                $sDate = date("F d, Y", strtotime($sDate));
+            }
+
+            if(empty($eDate)){
+                $eDate = date("F d, Y");
+            }
+            else{
+                $eDate = date("F d, Y", strtotime($eDate));
+            }
+
+            $this->startDate = date("Y-m-d 00:00:00", strtotime($sDate));
+            $this->endDate = date("Y-m-d 23:59:59", strtotime($eDate));
+
+            $data['sDate'] = $sDate;
+            $data['eDate'] = $eDate;
+            $data['dataRecords'] = $this->invetory_model->productListing('', $this->startDate, $this->endDate);
+            $data['supplierRecords'] = $this->getAllSupplierInfo();
                         
             $this->global['pageTitle'] = PROJECT_NAME . ' : Inventory';
             
             $this->loadViews("admin/invetory/listing", $this->global, $data, NULL);
+        }
+    }
+
+    function listingEmployeeReport($pagination = "")
+    {
+        if($this->isAdminCommon() == TRUE)
+        {
+            $this->loadThis();
+        }
+        else
+        {   
+            $sDate = $this->security->xss_clean($this->input->get('sDate'));
+            $eDate = $this->security->xss_clean($this->input->get('eDate'));
+
+            if(empty($sDate)){
+                $sDate = date("F d, Y", strtotime("-29days"));
+            }
+            else{
+                $sDate = date("F d, Y", strtotime($sDate));
+            }
+
+            if(empty($eDate)){
+                $eDate = date("F d, Y");
+            }
+            else{
+                $eDate = date("F d, Y", strtotime($eDate));
+            }
+
+            $this->startDate = date("Y-m-d 00:00:00", strtotime($sDate));
+            $this->endDate = date("Y-m-d 23:59:59", strtotime($eDate));
+
+            $data['sDate'] = $sDate;
+            $data['eDate'] = $eDate;
+            $data['dataRecords'] = $this->invetory_model->employeeProductSellingListing($this->startDate, $this->endDate);
+                        
+            $this->global['pageTitle'] = PROJECT_NAME . ' : Inventory Employee Report';
+            
+            $this->loadViews("admin/invetory/listingemployeereport", $this->global, $data, NULL);
+        }
+    }
+
+    function listingProductReport($pagination = "")
+    {
+        if($this->isAdminCommon() == TRUE)
+        {
+            $this->loadThis();
+        }
+        else
+        {      
+            $sDate = $this->security->xss_clean($this->input->get('sDate'));
+            $eDate = $this->security->xss_clean($this->input->get('eDate'));
+
+            if(empty($sDate)){
+                $sDate = date("F d, Y", strtotime("-29days"));
+            }
+            else{
+                $sDate = date("F d, Y", strtotime($sDate));
+            }
+
+            if(empty($eDate)){
+                $eDate = date("F d, Y");
+            }
+            else{
+                $eDate = date("F d, Y", strtotime($eDate));
+            }
+
+            $this->startDate = date("Y-m-d 00:00:00", strtotime($sDate));
+            $this->endDate = date("Y-m-d 23:59:59", strtotime($eDate));
+
+            $data['sDate'] = $sDate;
+            $data['eDate'] = $eDate;  
+            $data['dataRecords'] = $this->invetory_model->productSellingListing($this->startDate, $this->endDate);
+                        
+            $this->global['pageTitle'] = PROJECT_NAME . ' : Inventory Product Sale Report';
+            
+            $this->loadViews("admin/invetory/listingproductreport", $this->global, $data, NULL);
         }
     }
 
@@ -105,6 +205,7 @@ class Invetory extends BaseController
                                 'category_id'=> $lstCategory, 
                                 'title'=> $txtName, 
                                 'quantity'=> $txtQuantity, 
+                                'remaining_quantity'=> $txtQuantity, 
                                 'date_of_add'=> $txtDate, 
                                 'cost_of_buy'=> $txtCostOfBuy, 
                                 'buy_tax'=> $txtBuyTax, 
@@ -205,6 +306,7 @@ class Invetory extends BaseController
                                 'category_id'=> $lstCategory, 
                                 'title'=> $txtName, 
                                 'quantity'=> $txtQuantity, 
+                                'remaining_quantity'=> $txtQuantity, 
                                 'date_of_add'=> $txtDate, 
                                 'cost_of_buy'=> $txtCostOfBuy, 
                                 'buy_tax'=> $txtBuyTax, 
@@ -215,7 +317,8 @@ class Invetory extends BaseController
                                 'update_date' => date('Y-m-d H:i:s'));    
                         
                 $result = $this->invetory_model->updateProduct($productInfo, $productId);
-                if($result){                    
+                if($result){
+                    $this->recalculateRemainingQuantity($productId, $txtQuantity);
                     $this->session->set_flashdata('success', 'Record is updated successfully');
                      redirect('securepanel/invetory');
                 }
@@ -260,7 +363,9 @@ class Invetory extends BaseController
         else
         {
             $data['pageTitle'] = '';
-            $data['productsInfo'] = $this->invetory_model->productListing();
+            $this->global['pagePath'] = 'sellProduct';
+            $data['productsInfo'] = $this->invetory_model->productListing("AC");
+            $data['teamInfo'] = $this->team_model->teamListing("AC");
             
             $this->global['pageTitle'] = PROJECT_NAME . ' : Sell Product';
 
@@ -278,11 +383,13 @@ class Invetory extends BaseController
             $txtQuantity =$this->security->xss_clean($this->input->post('txtQuantity'));
             $txtPrice =$this->security->xss_clean($this->input->post('txtPrice'));
             $hdTaxRate =$this->security->xss_clean($this->input->post('hdTaxRate'));
+            $lstEmployee =$this->security->xss_clean($this->input->post('lstEmployee'));
 
             $totalPrice = $txtQuantity * $txtPrice;
             $totalPrice += $totalPrice * ($hdTaxRate / 100);
 
             $productInfo = array('product_id' => $lstProduct,
+                                'team_id' => $lstEmployee,
                                 'customer_name' => $txtCustomerName,
                                 'quantity' => $txtQuantity,
                                 'item_price' => $txtPrice,
@@ -295,7 +402,7 @@ class Invetory extends BaseController
             $result = $this->invetory_model->addSellProduct($productInfo);
             
             if ($result > 0) { 
-                        
+                $this->recalculateRemainingQuantity($lstProduct);
                 echo(json_encode(array('status'=>TRUE))); 
             }
             else { 
@@ -373,6 +480,24 @@ class Invetory extends BaseController
         die();*/
 
         return $arrReturn;
+    }
+
+    function recalculateRemainingQuantity($productId, $totalQuantity = null){
+        $objProductSales = $this->invetory_model->getProductSellDetails($productId);
+
+        $sellQuantity = (isset($objProductSales->totalSale) ? $objProductSales->totalSale : 0);
+
+        if(is_null($totalQuantity)){
+            $arrProductInfo = $this->invetory_model->getProductInfo($productId);
+            $totalQuantity = $arrProductInfo->quantity;
+        }
+
+        $remaining_quantity = ($totalQuantity - $sellQuantity);
+        $productInfo = array( 'remaining_quantity'=> $remaining_quantity );  
+        if($remaining_quantity <= 0){
+            $productInfo['status'] = 'IN';
+        }                  
+        $result = $this->invetory_model->updateProduct($productInfo, $productId);
     }
 }
 

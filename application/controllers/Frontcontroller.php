@@ -10,6 +10,9 @@ class Frontcontroller extends CI_Controller{
         $this->load->model('service_model'); 
         $this->load->model('cart_model');
         $this->load->model('login_model');
+        $this->load->model('team_model');
+        $this->load->model('booking_model');
+        $this->load->model('invetory_model');
 
         /*$this->load->model('Contactus_model');
         $this->load->model('Classes_model');*/
@@ -102,6 +105,7 @@ class Frontcontroller extends CI_Controller{
         $data['frontLogin'] = $this->frontLogin;    
         $data['frontUsername'] = $this->frontUsername;    
         $data['frontUserId'] = $this->frontUserId;
+        $data['arrTimeSlots'] = $this->getAllTimeSlots();
 
         $this->loadViews('frontend/dateselect', $data);
     }
@@ -710,7 +714,7 @@ class Frontcontroller extends CI_Controller{
 
             $cartTotalPrice += $cartTotalPrice * 0.05;
 
-            $arrCartMasterInfo = array( "total_price" => $cartTotalPrice, "order_id" => "ES" . $cartMasterId);
+            $arrCartMasterInfo = array( "total_price" => $cartTotalPrice, "order_id" => "ES" . $cartMasterId, 'invoice_number' => date('Ymd') . "-" . $cartMasterId);
             $this->cart_model->updateCartMaster($arrCartMasterInfo, $cartMasterId);
 
             $this->unsetCartCookies();
@@ -726,6 +730,89 @@ class Frontcontroller extends CI_Controller{
         setcookie("serviceCartCookie", "", time() - 3600, "/");
         setcookie("cartDetailsInfo", "", time() - 3600, "/");
         setcookie("cartUserInfo", "", time() - 3600, "/");
+    }
+
+    function getAllTimeSlots(){
+        $objTimeSlots = $this->cart_model->getAllTimeSlots();
+        $arrResult = array();
+        
+        if(!empty($objTimeSlots)){
+            foreach ($objTimeSlots as $key => $value) {
+                $arrResult[$key] = $value->title;
+            }
+        }
+        
+        return $arrResult;
+    }
+
+    public function checkBookingSlotAvailability(){
+        $bookingDate = $this->security->xss_clean($this->input->post('bookingDate'));
+        $arrTeam = $this->team_model->teamListing();
+
+        $totalTeamCount = count($arrTeam);
+        $arrAllSlots = $this->getAllTimeSlots();
+        $objSlotsInfo = $this->cart_model->getBookingTimeSlotsInfo($bookingDate);
+
+        foreach ($objSlotsInfo as $key => $value) {
+            $arrBookedSlots[$value->time_slot] = $value->totalCount;
+        }
+
+        $arrAvailableSlots = array();
+        foreach ($arrAllSlots as $key => $value) {
+            if(isset($arrBookedSlots[$value]) && !empty($arrBookedSlots[$value])){
+                if($arrBookedSlots[$value] < $totalTeamCount){
+                    $arrAvailableSlots[preg_replace('/[^0-9A-Za-z]/i', '', $value)] = $value;
+                }
+            }
+            else{
+                $arrAvailableSlots[preg_replace('/[^0-9A-Za-z]/i', '', $value)] = $value;
+            }
+        }
+
+        echo(json_encode(array('status'=>TRUE, "slots" => $arrAvailableSlots))); 
+    }
+
+    function generateBookingReceipt($bookingId){
+        //$bookingId = $this->security->xss_clean($this->input->post('bookingId'));
+
+        $data['title'] = PROJECT_NAME . ' - Booking Receipt';
+        $data['pageTitle'] = PROJECT_NAME . ' - Booking Receipt';
+        $data['description'] = PROJECT_NAME . ' - Booking Receipt';  
+        $data['currentpage'] = 'receiptpage';
+
+        $data['bookingInfo'] = $this->booking_model->getBookingInfo($bookingId);
+        $data['bookingTeamProductInfo'] = $this->booking_model->getBookingServicerProductInfo($bookingId);
+        $data['serviceInfo'] = $this->getAllServices(false);
+        $data['teamInfo'] = $this->getTeamInfo();
+        $data['productInfo'] = $this->getInventoryInfo();
+        $data['arrTimeSlots'] = $this->getAllTimeSlots();
+
+        /*echo "<pre>";
+        print_r($data);
+        die();*/
+        $this->load->view('recipt/recipt', $data);
+    }
+
+    function getTeamInfo()
+    {
+        $arrTeam = $this->team_model->teamListing();
+        $arrReturn = array();
+        foreach ($arrTeam as $key => $value) {
+            $arrReturn[] = array("id" => $value->id, 
+                                "name" => $value->first_name . " " . $value->last_name);
+        }
+        return $arrReturn;
+    }
+
+    function getInventoryInfo()
+    {
+        $objProducts = $this->invetory_model->productListing();
+        $arrData = array();
+        foreach ($objProducts as $key => $value) {
+            $arrData[] = array("id" => $value->id, "title" => $value->title);
+        }
+
+        return $arrData;     
     }
 
     /**
@@ -767,6 +854,10 @@ class Frontcontroller extends CI_Controller{
         $arrFinalOrderInfo = array();
         foreach ($arrOrderInfo as $key => $value) {
             $cartValue = (array)$value;
+            
+            //If service_id is empty the skip
+            if(empty($cartValue['service_id'])) continue;
+
             $arrFinalOrderInfo[$value->cartId] = $cartValue; 
             $arrFinalOrderInfo[$value->cartId]["serviceName"] = $arrAllServices[$cartValue['service_id']]['title'];
             $arrFinalOrderInfo[$value->cartId]["serviceCatName"] = $arrAllServices[$cartValue['service_id']]['category_name'];

@@ -16,6 +16,7 @@
 	    <script src="<?php echo base_url() ?>assets/web/js/demo/chart-pie-demo.js"></script> -->
 
 	    <script>
+	    	var baseURL = "<?php echo base_url(); ?>";
             var number = 0;
             $("#minus").click(function () {
                 number -= 1;
@@ -44,9 +45,17 @@
                 $("#number").text(number);
             }
 
-            $(".servoce-catogory .list-group .list-group-item a").click(function(){
-            	$(".servoce-catogory .list-group .list-group-item").removeClass("active");
+            $(".service-category .list-group .list-group-item a").click(function(){
+            	$(".service-category .list-group .list-group-item").removeClass("active");
             	$(this).parent().addClass("active");
+            	
+            	let selCatId = $(this).attr("data-catid");
+            	$(".chk-service-card, .chk-service-head").show();
+
+            	if(selCatId != ''){
+            		$(".chk-service-card, .chk-service-head").hide();
+            		$("." + selCatId).show();
+            	}
             });
             $(".chkService").click(function(){
             	if ($(this).is(':checked')) {
@@ -98,6 +107,39 @@
 				    keyboard: false
 				});
             });
+            <?php 
+
+            if(isset($currentpage) && $currentpage == 'datetimepage'){
+            	?>$(document).ready(function(){
+	                jsAjaxSlotChecking();
+	            });
+
+	            $("#txtBookingDate").on("change", function(){
+	                jsAjaxSlotChecking();
+	            });
+
+	            function jsAjaxSlotChecking(){
+	                let txtDate = $("#txtBookingDate").val();
+	                hitURL = baseURL + "check-booking-slot-info-ajax",
+	                $.ajax({
+	                    type : "POST",
+	                    dataType : "json",
+	                    url : hitURL,
+	                    data : { bookingDate : txtDate } 
+	                }).done(function(data){
+	                    //console.log(data);
+	                    if(data.status == true) { 
+	                        let timeSlots = data.slots;
+	                        $("#available-time-list > li").hide();
+	                        for (i in timeSlots) {
+	                            $("#timeslot_" + i).show();
+	                        }
+	                    }
+	                });
+	            }<?php
+            }
+            ?>
+            
 
             $("#btnConfirmService").click(function(){
             	let serviceid = $("#myModal .modal-title").attr("data-serviceid");

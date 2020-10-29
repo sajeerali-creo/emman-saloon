@@ -22,7 +22,7 @@
         <a class="navbar-brand m-0" href="<?php echo base_url() ?>serviceboy">
             <img src="<?php echo base_url() ?>assets/serviceboy/img/logo.png" height="55" alt="">
         </a>
-        <a href="notification.html">
+        <a href="notification.html" class="d-none">
             <i class="material-icons text-white">notifications</i>
         </a>
         <a href="<?php echo base_url() ?>serviceboy/logout" style="display:none;">
@@ -117,6 +117,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
+    <script src="<?php echo base_url() ?>assets/web/vendor/jquery/jquery.min.js"></script>
     <script>
         $(".btnReject").click(function(){
             $("#selectedBookingId").val($(this).attr("data-orderid"));

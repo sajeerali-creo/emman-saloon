@@ -31,18 +31,13 @@
                         <li><a href="https://emansalon.com/contact-us/">Contact Us</a></li>
                         <?php 
                         if(!isset($frontLogin) || $frontLogin != true){
-                        ?>
-                        <li class="text-white btn btn-dark no-space w-sm-100"><a
-                                href="<?php echo base_url() ?>login">Login</a></li>
-                        <li class="text-white btn btn-primary no-space w-sm-100"><a
-                                href="<?php echo base_url() ?>register">Register</a></li>
-                        <?php
+                        ?> <li class="text-white btn btn-dark no-space w-sm-100"><a href="<?php echo base_url() ?>login">Login</a></li>
+                            <li class="text-white btn btn-primary no-space w-sm-100"><a href="<?php echo base_url() ?>register">Register</a></li><?php
                         }
                         else{
-                            ?>
-                        <li class="text-white btn btn-dark no-space w-sm-100"><a
-                        href="<?php echo base_url() ?>logout">Logout</a></li>
-                        <?php
+                            ?><li><a href="<?php echo base_url() ?>order-history">Booking History</a></li>
+                            <li class="text-white btn btn-dark no-space w-sm-100"><a href="<?php echo base_url() ?>logout">Logout</a></li>
+                            <?php
                         }
                         ?>
                     </ul>

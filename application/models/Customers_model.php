@@ -88,6 +88,24 @@ class Customers_model extends CI_Model
         
         return $insert_id;
     }
+
+    function getCustomerInfoUsingEmail($strEmail){
+        $this->db->select('id, first_name, last_name, email, phone_number, location_full_address, location_lat, location_lng');
+        $this->db->from('tbl_customers');
+        $this->db->where('email', $strEmail);
+        $this->db->where('is_deleted', "0");
+        $this->db->where('status', 'AC');
+        $query = $this->db->get();
+       
+        $user = $query->row();
+
+        if(!empty($user)){
+            return $user;
+        } 
+        else {
+            return array();
+        }
+    }
 }
 
   

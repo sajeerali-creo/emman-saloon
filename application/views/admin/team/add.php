@@ -218,15 +218,24 @@
                     ?></div>
                 </div>
                 <!-- end capability --><?php
+                $checkedAC = '';
+                $checkedIN = '';
+                $checkedSL = '';
+                $checkedML = '';
+                $checkedHD = '';
 
                 if($rdStatus == 'AC'){
                     $checkedAC = 'checked';
-                    $checkedIN = '';
-                }
-                else{
-                    $checkedAC = '';
+                } else if($rdStatus == 'IN'){
                     $checkedIN = 'checked';
+                } else if($rdStatus == 'SL'){
+                    $checkedSL = 'checked';
+                } else if($rdStatus == 'ML'){
+                    $checkedML = 'checked';
+                } else {
+                    $checkedHD = 'checked';
                 }
+
                 ?><div class="row mb-2">
                     <div class="form-group col-md-12 col-sm-12">
                         <label class="text-primary">Status</label><br>
@@ -241,19 +250,19 @@
                             <label class="custom-control-label" for="rdStatusIN">Day-Off</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="rdStatusIN" name="rdStatus"
-                                class="custom-control-input"  value="IN">
-                            <label class="custom-control-label" for="rdStatusIN">Sick Leave</label>
+                            <input type="radio" id="rdStatusSL" name="rdStatus"
+                                class="custom-control-input"  <?php echo $checkedSL; ?> value="SL">
+                            <label class="custom-control-label" for="rdStatusSL">Sick Leave</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="rdStatusIN" name="rdStatus"
-                                class="custom-control-input"  value="IN">
-                            <label class="custom-control-label" for="rdStatusIN">Medical</label>
+                            <input type="radio" id="rdStatusML" name="rdStatus"
+                                class="custom-control-input"  <?php echo $checkedML; ?> value="ML">
+                            <label class="custom-control-label" for="rdStatusML">Medical</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="rdStatusIN" name="rdStatus"
-                                class="custom-control-input"  value="IN">
-                            <label class="custom-control-label" for="rdStatusIN">Holiday</label>
+                            <input type="radio" id="rdStatusHD" name="rdStatus"
+                                class="custom-control-input"  <?php echo $checkedHD; ?> value="HD">
+                            <label class="custom-control-label" for="rdStatusHD">Holiday</label>
                         </div>
                     </div>
                 </div>

@@ -45,6 +45,7 @@ class BaseController extends CI_Controller {
 			$this->name = $this->session->userdata ( 'name' );
 			$this->roleText = $this->session->userdata ( 'roleText' );
 			$this->profilepic = $this->session->userdata ( 'profilepic' );
+			$this->fl_notification = $this->session->userdata ( 'fl_notification' );
 			$this->lastLogin = $this->session->userdata ( 'lastLogin' );
 
 			switch($this->role){

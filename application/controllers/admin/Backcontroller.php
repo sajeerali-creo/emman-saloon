@@ -253,6 +253,7 @@ class Backcontroller extends CI_Controller
                                         'roleText'=>$result->role,
                                         'name'=>$result->name,
                                         'profilepic'=> $result->profilepic,
+                                        'fl_notification'=> $result->fl_notification,
                                         'parentUserId'=>$result->parentUserId,
                                         'lastLogin'=> (isset($lastLogin->createdDtm) ? $lastLogin->createdDtm : gmdate("Y-m-d H:i:s")),
                                         'isLoggedIn' => TRUE
@@ -260,7 +261,7 @@ class Backcontroller extends CI_Controller
 
                 $this->session->set_userdata($sessionArray);
 
-                unset($sessionArray['userId'], $sessionArray['isLoggedIn'], $sessionArray['profilepic'],  $sessionArray['lastLogin'], $sessionArray['parentUserId']);
+                unset($sessionArray['userId'], $sessionArray['isLoggedIn'], $sessionArray['profilepic'], $sessionArray['fl_notification'],  $sessionArray['lastLogin'], $sessionArray['parentUserId']);
 
                 $loginInfo = array("userId"=>$result->userId, "sessionData" => json_encode($sessionArray), "machineIp"=>$_SERVER['REMOTE_ADDR'], "userAgent"=>getBrowserAgent(), "agentString"=>$this->agent->agent_string(), "platform"=>$this->agent->platform());
 

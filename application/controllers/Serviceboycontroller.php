@@ -39,6 +39,7 @@ class Serviceboycontroller extends CI_Controller{
 
         if($this->serviceBoyLogin){
             $data['title'] = PROJECT_NAME;
+            $data['pageTitle'] = PROJECT_NAME . ' - Service Boy Home';  
             $data['description'] = PROJECT_NAME . ' - Service Boy Home';  
             $data['currentpage'] = 'sb-homepage';
             $data['servicesInfo'] = $this->getFullServiceDetails($this->serviceBoyUserId);
@@ -57,6 +58,7 @@ class Serviceboycontroller extends CI_Controller{
         else{
             $data = array();
             $data['title'] = PROJECT_NAME;
+            $data['pageTitle'] = PROJECT_NAME . ' - Service Boy Login';  
             $data['description'] = PROJECT_NAME . ' - Service Boy Login';  
             $data['currentpage'] = 'sb-loginpage';
 
@@ -128,11 +130,17 @@ class Serviceboycontroller extends CI_Controller{
         }
         else{
             $orderId = $this->input->post('orderId');
+            $paymentType = $this->input->post('paymentType');
+            $cardNumber = $this->input->post('cardNumber');
 
-            $serviceInfo = array('cartmaster_id' => $orderId, 'team_id' => $this->serviceBoyUserId, 'action' => 'complete', 'note' => '', 'add_date' => date('Y-m-d H:i:s'));
+            if($paymentType != 'card'){
+                $cardNumber = '';
+            }
+
+            $serviceInfo = array('cartmaster_id' => $orderId, 'team_id' => $this->serviceBoyUserId, 'action' => 'complete', 'payment_type' => $paymentType, 'card_number' => $cardNumber, 'note' => '', 'add_date' => date('Y-m-d H:i:s'));
             $result = $this->serviceboy_model->addNewServiceBoyOrderAction($serviceInfo);
             if ($result > 0) { 
-                $this->cart_model->updateCartMaster(array('status' => 'CM'), $orderId);
+                $this->cart_model->updateCartMaster(array('status' => 'CM', 'payment_type' => $paymentType, 'card_number' => $cardNumber), $orderId);
                 //Function call for add into admin notification
                 $this->cart_model->addIntoNotification($orderId, "admin");
                 echo(json_encode(array('status'=>TRUE))); 
@@ -167,8 +175,10 @@ class Serviceboycontroller extends CI_Controller{
     public function orderDetails($orderId = ''){
         if($this->serviceBoyLogin || $orderId != ''){
             $data['title'] = PROJECT_NAME;
+            $data['pageTitle'] = PROJECT_NAME . ' - Order Details';  
             $data['description'] = PROJECT_NAME . ' - Order Details';  
             $data['currentpage'] = 'sb-ordermappage';
+            $data['orderId'] = $orderId;
             $data['servicesInfo'] = $this->getFullServiceDetails($this->serviceBoyUserId, $orderId);
 
             $this->loadViews('serviceboy/detail', $data);
@@ -181,6 +191,7 @@ class Serviceboycontroller extends CI_Controller{
     public function thankyou(){
         if($this->serviceBoyLogin){
             $data['title'] = PROJECT_NAME;
+            $data['pageTitle'] = PROJECT_NAME . ' - Thank You';  
             $data['description'] = PROJECT_NAME . ' - Thank You';  
             $data['currentpage'] = 'sb-thankyoupage';
             $this->loadViews('serviceboy/thankyou', $data);
@@ -215,9 +226,9 @@ class Serviceboycontroller extends CI_Controller{
      * @return {null} $result : null
      */
     function loadViews($viewName = "", $pageInfo = NULL){
-        $this->load->view('frontend/Header', $pageInfo);    
+        $this->load->view('serviceboy/Header', $pageInfo);    
         $this->load->view($viewName, $pageInfo);
-        $this->load->view('frontend/Footer', $pageInfo);
+        $this->load->view('serviceboy/Footer', $pageInfo);
     }
 }
 ?>

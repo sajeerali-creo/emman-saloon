@@ -69,21 +69,11 @@
                         $defTime = '';
                     }
                     
-                    ?><ul class="time-list" id="available-time-list">
-                        <li data-val="9:00 AM" <?php echo($defTime == "9:00 AM" ? ' class="active" ' : ''); ?>>9:00 AM</li>
-                        <li data-val="9:30 AM"<?php echo($defTime == "9:30 AM" ? ' class="active" ' : ''); ?>>9:30 AM</li>
-                        <li data-val="10:00 AM"<?php echo($defTime == "10:00 AM" ? ' class="active" ' : ''); ?>>10:00 AM</li>
-                        <li data-val="10:30 AM"<?php echo($defTime == "10:30 AM" ? ' class="active" ' : ''); ?>>10:30 AM</li>
-                        <li data-val="11:00 AM"<?php echo($defTime == "11:00 AM" ? ' class="active" ' : ''); ?>>11:00 AM</li>
-                        <li data-val="11:30 AM"<?php echo($defTime == "11:30 AM" ? ' class="active" ' : ''); ?>>11:30 AM</li>
-                        <li data-val="12:00 PM"<?php echo($defTime == "12:00 PM" ? ' class="active" ' : ''); ?>>12:00 PM</li>
-                        <li data-val="12:30 PM"<?php echo($defTime == "12:30 PM" ? ' class="active" ' : ''); ?>>12:30 PM</li>
-                        <li data-val="1:00 PM"<?php echo($defTime == "1:00 PM" ? ' class="active" ' : ''); ?>>1:00 PM</li>
-                        <li data-val="1:30 PM"<?php echo($defTime == "1:30 PM" ? ' class="active" ' : ''); ?>>1:30 PM</li>
-                        <li data-val="2:00 PM"<?php echo($defTime == "2:00 PM" ? ' class="active" ' : ''); ?>>2:00 PM</li>
-                        <li data-val="2:30 PM"<?php echo($defTime == "2:30 PM" ? ' class="active" ' : ''); ?>>2:30 PM</li>
-                        <li data-val="3:00 PM"<?php echo($defTime == "3:00 PM" ? ' class="active" ' : ''); ?>>3:00 PM</li>
-                    </ul>
+                    ?><ul class="time-list" id="available-time-list"><?php
+                        foreach ($arrTimeSlots as $key => $value) {
+                            ?><li  id="timeslot_<?php echo preg_replace('/[^0-9A-Za-z]/i', '', $value); ?>" data-val="<?php echo $value; ?>" <?php echo($defTime == $value ? ' class="active" ' : ''); ?>><?php echo $value; ?></li><?php    
+                        }
+                    ?></ul>
                     <input type="hidden" name="hdAvailableTime" id="hdAvailableTime" value="<?php echo $defTime; ?>">
                 </div>
                 <div>

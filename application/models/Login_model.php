@@ -13,7 +13,7 @@ class Login_model extends CI_Model
     
     function loginAdmin($username, $password)
     {
-        $this->db->select('BaseTbl.userId, BaseTbl.password, BaseTbl.name, BaseTbl.roleId, Roles.role, BaseTbl.parentUserId, BaseTbl.profilepic');
+        $this->db->select('BaseTbl.userId, BaseTbl.password, BaseTbl.name, BaseTbl.roleId, Roles.role, BaseTbl.parentUserId, BaseTbl.profilepic, BaseTbl.fl_notification');
         $this->db->from('tbl_users as BaseTbl');
         $this->db->join('tbl_roles as Roles','Roles.roleId = BaseTbl.roleId');
         $this->db->where('BaseTbl.username', $username);
