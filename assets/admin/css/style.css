@@ -146,5 +146,13 @@ form.user .form-control-user{
   border-color: #f08a8d !important;
 }
 .fc-v-event .fc-event-main{
-  background-color: #8443FF!important;
+  background-color: #222222!important;
+}
+.fc-direction-ltr .fc-daygrid-event.fc-event-end, .fc-direction-rtl .fc-daygrid-event.fc-event-start{
+  background-color: #222222!important;
+  padding: 5px;
+  color: #fff!important;
+}
+.fc-daygrid-event-dot{
+  border: calc(var(--fc-daygrid-event-dot-width, 8px) / 2) solid var(--fc-event-border-color, #8443FF);
 }
