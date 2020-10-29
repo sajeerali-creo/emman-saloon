@@ -138,3 +138,10 @@ form.user .form-control-user{
     }
 }
 
+
+.not-avaialble{
+  text-decoration: line-through;
+  background-color: #ffdddb!important;
+  color: #ec3535!important;
+  border-color: #f08a8d !important;
+}

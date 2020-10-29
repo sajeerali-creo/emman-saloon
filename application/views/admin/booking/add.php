@@ -122,6 +122,8 @@
                         $defTime = '';
 
                         ?><label class="text-primary">Select time of Service</label>
+                        <button  type="button" class="btn btn-outline-primary  mr-1 mb-1 not-avaialble">10:00 AM</button>
+
                         <div id="available-time-list"><?php
                             foreach ($arrTimeSlots as $key => $value) {
                                 ?><button id="timeslot_<?php echo preg_replace('/[^0-9A-Za-z]/i', '', $value); ?>" data-val="<?php echo $value; ?>" type="button" class="btn <?php echo($defTime == $value ? ' btn-primary ' : ' btn-outline-primary '); ?> mr-1 mb-1"><?php echo $value; ?></button><?php    
