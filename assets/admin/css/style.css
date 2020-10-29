@@ -145,3 +145,6 @@ form.user .form-control-user{
   color: #ec3535!important;
   border-color: #f08a8d !important;
 }
+.fc-v-event .fc-event-main{
+  background-color: #8443FF!important;
+}
