@@ -20,11 +20,14 @@
                             class="fas fa-search fa-sm"></i></button>
                 </form>
             </div>
-            <a href="javascript:;" id="lnkSearchDate" class="d-sm-inline-block btn btn-md btn-dark shadow-sm h-40 w-sm-100 mt-sm-1"><i class="fas fa-search fa-sm"></i></a>
+            <a href="javascript:;" id="lnkSearchDate"
+                class="d-sm-inline-block btn btn-md btn-dark shadow-sm h-40 w-sm-100 mt-sm-1"><i
+                    class="fas fa-search fa-sm"></i></a>
         </div>
 
         <div class="">
-            <a href="#" class="d-sm-inline-block btn btn-md btn-primary shadow-sm h-40 w-sm-100 mt-sm-1"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <a href="#" class="d-sm-inline-block btn btn-md btn-primary shadow-sm h-40 w-sm-100 mt-sm-1"><i
+                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
         </div>
     </div>
 
@@ -33,7 +36,7 @@
     <div class="row mb-4">
         <div class="col-md-3">
             <div class="card-counter primary">
-            <i class="fas fa-wallet"></i>
+                <i class="fas fa-wallet"></i>
                 <span class="count-numbers">AED <?php echo $totalSales; ?></span>
                 <span class="count-name">Total Sales</span>
             </div>
@@ -67,7 +70,8 @@
     <div class="row mb-4">
         <div class="col-md-8">
             <div class="card-block bg-white mt-1 mb-1 card-counter">
-                <div class="h4 mb-2"><span class="font-weight-bold"><?php echo $totalBooking; ?></span>&nbsp;Bookings</div>
+                <div class="h4 mb-2"><span class="font-weight-bold"><?php echo $totalBooking; ?></span>&nbsp;Bookings
+                </div>
 
                 <div class="d-flex">
                     <div class="d-block w-100">
@@ -96,7 +100,7 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        <div class="f-16 font-weight-bold text-info text-uppercase mb-1">
                                             Online Booking</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                                             <?php echo $totalHomeServices; ?>
@@ -109,8 +113,8 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                        Front desk</div>
+                                        <div class="f-16 font-weight-bold text-info text-uppercase mb-1">
+                                            Front desk</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                                             <?php echo $totalSaloonServices; ?>
                                         </div>
@@ -125,77 +129,58 @@
         </div>
         <div class="col-md-4">
             <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-info text-white">
-                <div class="h4 mb-2"><span class="font-weight-bold text-white"><?php echo $totalProductSale; ?></span><br>Total Product Sale</div>
+                <div class="h4 mb-2"><span
+                        class="font-weight-bold text-white"><?php echo $totalProductSale; ?></span><br>Total Product
+                    Sale</div>
             </div>
         </div>
     </div>
 
     <div class="row mb-4">
         <div class="col-md-12">
-            <div class="card-block bg-white mt-1 mb-1 card-counter">
-                <div class="h4 mb-2"><span class="font-weight-bold"><?php echo $totalTeam; ?></span>&nbsp;Team</div>
-                <div class="d-flex">
-                    <div class="d-flex w-100">
+            <div class="card-block bg-white mt-1 mb-1">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="f-16 font-weight-bold text-primary text-uppercase mb-1">
+                            Available Team <span class="badge badge-secondary"><?php echo $totalActiveTeam; ?></span></div>
+                        <div class=" mb-2 progress">
+                            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: <?php echo $totalActiveTeam; ?>%"
+                                aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="f-16 font-weight-bold text-primary text-uppercase mb-1">
+                            Day-Off <span class="badge badge-secondary"><?php echo $totalDayOffTeam; ?></span></div>
+                        <div class=" mb-2 progress">
+                            <div class="progress-bar progress-bar-striped" role="progressbar"
+                                style="width: <?php echo $totalDayOffTeam; ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="f-16 font-weight-bold text-primary text-uppercase mb-1">
+                            Sick Leave <span class="badge badge-secondary"><?php echo $totalSLOffTeam; ?></span></div>
+                        <div class=" mb-2 progress">
+                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $totalSLOffTeam; ?>%"
+                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="f-16 font-weight-bold text-primary text-uppercase mb-1">
+                            Medical <span class="badge badge-secondary"><?php echo $totalMLOffTeam; ?></span></div>
+                        <div class=" mb-2 progress">
+                            <div class="progress-bar progress-bar-striped" role="progressbar"
+                                style="width: <?php echo $totalMLOffTeam; ?>%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="f-16 font-weight-bold text-primary text-uppercase mb-1">
+                            Holiday <span class="badge badge-secondary"><?php echo $totalHDOffTeam; ?></span></div>
+                        <div class=" mb-2 progress">
+                            <div class="progress-bar progress-bar-striped" role="progressbar"
+                                style="width:  <?php echo $totalHDOffTeam; ?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="card  shadow h-100 py-2 mr-2 w-100">
-                            <div class="card-body">
+                            <div class="card-body d-flex align-items-center justify-content-center">
                                 <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                        Available Team</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo $totalActiveTeam; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card  shadow h-100 mr-2 py-2 w-100">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                        Day-Off</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo $totalDayOffTeam; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card shadow mr-2 h-100 py-2 w-100">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                        Sick Leave</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo $totalSLOffTeam; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card  shadow mr-2 h-100 py-2 w-100">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                        Medical</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo $totalMLOffTeam; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card  shadow mr-2 h-100 py-2 w-100">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                        Holiday</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo $totalHDOffTeam; ?>
+                                    <div class="col mr-2 text-center s-v">
+                                        <div>
+                                            <h1 class="font-weight-bold text-primary"><?php echo $totalTeam; ?></h1>
+                                            <div>Total Team</div>
                                         </div>
                                     </div>
                                 </div>
@@ -203,6 +188,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -218,7 +204,9 @@
         </div>
         <div class="col-md-6">
             <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-warning text-white">
-                <div class="h4 mb-2"><span class="font-weight-bold text-white"><?php echo $totalSuppliers; ?></span><br>Total Suppliers</div>
+                <div class="h4 mb-2"><span
+                        class="font-weight-bold text-white"><?php echo $totalSuppliers; ?></span><br>Total Suppliers
+                </div>
             </div>
         </div>
     </div>

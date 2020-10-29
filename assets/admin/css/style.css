@@ -156,3 +156,9 @@ form.user .form-control-user{
 .fc-daygrid-event-dot{
   border: calc(var(--fc-daygrid-event-dot-width, 8px) / 2) solid var(--fc-event-border-color, #8443FF);
 }
+.s-v{
+  padding: 4rem;
+  background: #f3eefd;
+  border-radius: 160px;
+  width: 200px;
+}
