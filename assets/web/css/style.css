@@ -3216,6 +3216,12 @@ form.user .btn-user {
 .not-avaialble{
   text-decoration: line-through;
   background-color: #ffdddb!important;
+  cursor: not-allowed!important;
+
+}
+.not-avaialble:hover{
+  background-color: #ffdddb!important;
+  cursor: not-allowed!important;
 }
 
 #drift-widget{
