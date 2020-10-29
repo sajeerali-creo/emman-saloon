@@ -232,7 +232,7 @@ if(!isset($lstServicer)){
                 <!-- If any discount? -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">If any Discount?</label>
+                        <label class="text-primary">If any Discount?(%)</label>
                         <input type="text" class="form-control" id="txtDiscount" name="txtDiscount" value="<?php echo $txtDiscount; ?>" placeholder="Discount">
                     </div>
                 </div>
@@ -342,7 +342,7 @@ if(!isset($lstServicer)){
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-12 col-sm-12 mt-2">
-                        <button class="btn btn-success btn-lg btn-block" id="btnSellProductPrint">
+                        <button class="btn btn-success btn-lg btn-block" id="btnBookingPrint">
                             <span class="text-white text-decoration-none">
                                 <i class="fas fa-print"></i>&nbsp;Print Recipt
                             </span>

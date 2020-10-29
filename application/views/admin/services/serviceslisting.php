@@ -20,10 +20,13 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>ID</th>
+                                <th>Type</th>
                                 <th>Services</th>
                                 <th>Catogory</th>
                                 <th>Price (AED)</th>
                                 <th>Service Charge (AED)</th>
+                                <th>Total (AED)</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -31,12 +34,35 @@
 
                         <tbody><?php
                             if(!empty($serviceRecords)){
+                                $intLoopCount = 1;
                                 foreach($serviceRecords as $record){
                                     ?><tr class="row_<?php echo $record->id; ?>">
+                                        <th><?php echo $intLoopCount++; ?></th>
+                                        <th><?php echo ucwords($record->type); ?></th>
                                         <th><?php echo $record->title; ?></th>
                                         <th><?php echo $record->category_name; ?></th>
                                         <th><?php echo $record->price; ?></th>
-                                        <th><?php echo $record->price; ?></th><?php
+                                        <th><?php 
+                                            if(isset($serviceChargeRecords[$record->id])){
+                                                foreach ($serviceChargeRecords[$record->id] as $key => $serChargeInfo) {
+                                                    echo $serChargeInfo['title'] . ": " . $serChargeInfo['service_charge'] . "<br/>";
+                                                }
+                                            }
+                                            else{
+                                                echo "0";
+                                            }
+                                        ?></th>
+                                        <th><?php 
+                                            if(isset($serviceChargeRecords[$record->id])){
+                                                foreach ($serviceChargeRecords[$record->id] as $key => $serChargeInfo) {
+                                                    $total = $serChargeInfo['service_charge'] + $record->price;
+                                                    echo $serChargeInfo['title'] . ": " . $total . "<br/>";
+                                                }
+                                            }
+                                            else{
+                                                echo $record->price;
+                                            }
+                                        ?></th><?php
                                         if($record->status == 'AC'){
                                             ?><th class="text-success">Active</th><?php
                                         }

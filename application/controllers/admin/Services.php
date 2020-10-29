@@ -30,6 +30,7 @@ class Services extends BaseController
         else
         {        
             $data['serviceRecords'] = $this->service_model->serviceListing();
+            $data['serviceChargeRecords'] = $this->service_model->serviceChargeClusterInfo();
 			
             //echo "<pre>"; print_r($data['userRecords']);die();
             
@@ -51,6 +52,7 @@ class Services extends BaseController
 			
             $this->global['pageTitle'] = PROJECT_NAME . ' : Add New Service';
             $data['serviceCatInfo'] = $this->service_model->getAllServiceCategory();
+            $data['arrCluster'] = $this->getAllClusters();
 
             $this->loadViews("admin/services/addService", $this->global, $data, NULL);
         }
@@ -65,9 +67,10 @@ class Services extends BaseController
         else
         {
             $this->load->library('form_validation');
-            
+            $this->form_validation->set_rules('rdServiceType','Service Type','trim|required');
             $this->form_validation->set_rules('txtTitle','Name Of Service','trim|required|max_length[250]');
             $this->form_validation->set_rules('lstCategory','Category','trim|required');
+            $this->form_validation->set_rules('lstDuration','Time Duration','trim|required');
             $this->form_validation->set_rules('txtPrice','Price','trim|required|numeric');
             $this->form_validation->set_rules('rdStatus', 'Status', 'trim|required');
          
@@ -77,21 +80,42 @@ class Services extends BaseController
             }
             else
             {
+                $rdServiceType =$this->security->xss_clean($this->input->post('rdServiceType'));
+                $rdServiceSpecial =$this->security->xss_clean($this->input->post('rdServiceSpecial'));
                 $txtTitle =$this->security->xss_clean($this->input->post('txtTitle'));
                 $lstCategory =$this->security->xss_clean($this->input->post('lstCategory'));
+                $lstDuration =$this->security->xss_clean($this->input->post('lstDuration'));
                 $txtPrice =$this->security->xss_clean($this->input->post('txtPrice'));
+                $txtServicePrice =$this->security->xss_clean($this->input->post('txtServicePrice[]'));
                 $rdStatus =$this->security->xss_clean($this->input->post('rdStatus'));
-                		
+                
+                /*echo "<pre>";
+                print_r($txtServicePrice);die();*/	
                 
 				$serviceInfo = array('title'=> $txtTitle, 
+                                'type'=> $rdServiceType,
+                                'fl_special'=> $rdServiceSpecial,
                                 'category_id'=> $lstCategory, 
+                                'time_duration'=> $lstDuration, 
                                 'price'=> $txtPrice, 
                                 'status' => $rdStatus, 
                                 'created_by'=>$this->vendorId, 
                                 'add_date' => date('Y-m-d H:i:s'));                
 		  
-				$result = $this->service_model->addNewService($serviceInfo);
-				if($result > 0){
+				$service_id = $this->service_model->addNewService($serviceInfo);
+				if($service_id > 0){
+                    foreach ($txtServicePrice as $key => $value) {
+                        $value = (empty($value) ? 0 : $value);
+                        $serviceClustorInfo = array('service_id'=> $service_id, 
+                                            'cluster_id'=> $key, 
+                                            'service_charge'=> $value, 
+                                            'status' => 'AC', 
+                                            'created_by'=>$this->vendorId, 
+                                            'add_date' => date('Y-m-d H:i:s'));                
+              
+                        $result = $this->service_model->addNewServiceClustorInfo($serviceClustorInfo);
+                    }
+                    
 					$this->session->set_flashdata('success', 'Record is added successfully');
 					redirect('securepanel/services');
 				}
@@ -121,6 +145,8 @@ class Services extends BaseController
             
             $data['serviceInfo'] = $this->service_model->getServiceInfo($serviceId);
             $data['serviceCatInfo'] = $this->service_model->getAllServiceCategory();
+            $data['arrCluster'] = $this->getAllClusters();
+            $data['serviceChargeInfo'] = $this->getClusterBasedServiceChargeInfo($serviceId);
 
             if(empty($data['serviceInfo']))
             {
@@ -144,9 +170,10 @@ class Services extends BaseController
             $this->load->library('form_validation');
 		
             $serviceId = $this->input->post('serviceId');
-            
+            $this->form_validation->set_rules('rdServiceType','Service Type','trim|required');
             $this->form_validation->set_rules('txtTitle','Name Of Service','trim|required|max_length[250]');
             $this->form_validation->set_rules('lstCategory','Category','trim|required');
+            $this->form_validation->set_rules('lstDuration','Time Duration','trim|required');
             $this->form_validation->set_rules('txtPrice','Price','trim|required|numeric');
             $this->form_validation->set_rules('rdStatus', 'Status', 'trim|required');
 			
@@ -156,21 +183,49 @@ class Services extends BaseController
             }
             else
             {
-				
+				$rdServiceType =$this->security->xss_clean($this->input->post('rdServiceType'));
+                $rdServiceSpecial =$this->security->xss_clean($this->input->post('rdServiceSpecial'));
                 $txtTitle =$this->security->xss_clean($this->input->post('txtTitle'));
                 $lstCategory =$this->security->xss_clean($this->input->post('lstCategory'));
+                $lstDuration =$this->security->xss_clean($this->input->post('lstDuration'));
                 $txtPrice =$this->security->xss_clean($this->input->post('txtPrice'));
+                $txtServicePrice =$this->security->xss_clean($this->input->post('txtServicePrice[]'));
                 $rdStatus =$this->security->xss_clean($this->input->post('rdStatus'));
                              
-                $serviceInfo = array('title'=> $txtTitle, 
+                $serviceInfo = array('title'=> $txtTitle,
+                                    'type'=> $rdServiceType,
+                                    'fl_special'=> $rdServiceSpecial,
                                     'category_id'=> $lstCategory, 
+                                    'time_duration'=> $lstDuration,
                                     'price'=> $txtPrice, 
                                     'status' => $rdStatus,
                                     'updated_by' => $this->vendorId, 
                                     'update_date' => date('Y-m-d H:i:s'));		
 						
 				$result = $this->service_model->updateService($serviceInfo, $serviceId);
-				if($result){					
+				if($result){	
+                    foreach ($txtServicePrice as $key => $value) {
+                        $value = (empty($value) ? 0 : $value);
+
+                        //If record exist update info
+                        if($this->service_model->checkServiceClusterPriceExist($serviceId, $key)){
+                            $serviceClustorInfo = array(
+                                                'service_charge'=> $value, 
+                                                'updated_by' => $this->vendorId, 
+                                                'update_date' => date('Y-m-d H:i:s'));                
+                            
+                            $result1 = $this->service_model->updateServiceClustorInfo($serviceId, $key, $serviceClustorInfo);
+                        } else { //insert info
+                            $serviceClustorInfo = array('service_id'=> $serviceId, 
+                                                'cluster_id'=> $key, 
+                                                'service_charge'=> $value, 
+                                                'status' => 'AC', 
+                                                'created_by'=>$this->vendorId, 
+                                                'add_date' => date('Y-m-d H:i:s'));                
+                            
+                            $result1 = $this->service_model->addNewServiceClustorInfo($serviceClustorInfo);
+                        }
+                    }				
 					$this->session->set_flashdata('success', 'Record is updated successfully');
 					 redirect('securepanel/services');
 				}
@@ -248,6 +303,24 @@ class Services extends BaseController
                 echo(json_encode(array('status'=>FALSE))); 
             }          
         }
+    }
+
+    function getAllClusters(){
+        $objCluster = $this->service_model->getAllClusters();
+        $arrCluster = array();
+        foreach ($objCluster as $key => $value) {
+            $arrCluster[$value->id] = $value->title;
+        }
+        return $arrCluster;
+    }
+
+    function getClusterBasedServiceChargeInfo($serviceId){
+        $objCluster = $this->service_model->getServiceClusterChargeInfo($serviceId);
+        $arrResult = array();
+        foreach ($objCluster as $key => $value) {
+            $arrResult[$value->cluster_id] = $value->service_charge;
+        }
+        return $arrResult;
     }
 }
 

@@ -1,7 +1,22 @@
-<style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+/><style>
     #accordionSidebar,
     #content nav.navbar{
         display: none;
+    }
+    .choices__list--dropdown{
+        text-align:left;
+    }
+    .choices[data-type*=select-multiple] .choices__inner, 
+    .choices[data-type*=text] .choices__inner{
+        text-align: left;
+    }
+    .choices__placeholder {
+        opacity: 1;
+        color: #6e707e;
+    }
+    .choices__inner {
+        background-color: #ffffff;
     }
 </style><div class="container mb-3">
     <!-- header -->
@@ -49,11 +64,11 @@
                         <label class="text-primary">Select Service Type</label>
                         <div class="clearfix"></div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="rdServiceTypeHS" name="rdServiceType" class="custom-control-input" checked value="HS">
+                            <input type="radio" id="rdServiceTypeHS" name="rdServiceType" class="custom-control-input rdServiceType" checked value="HS">
                             <label class="custom-control-label" for="rdServiceTypeHS">Home Service</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="rdServiceTypeSS" name="rdServiceType" class="custom-control-input"  value="SS">
+                            <input type="radio" id="rdServiceTypeSS" name="rdServiceType" class="custom-control-input rdServiceType"  value="SS">
                             <label class="custom-control-label" for="rdServiceTypeSS">Saloon Service</label>
                         </div>
                     </div>
@@ -79,7 +94,7 @@
                                     <input type="hidden" name="hdServiceJsonInfo" id="hdServiceJsonInfo" value='<?php echo(json_encode($serviceInfo)); ?>'>
                                 </div>
                                 <div class="form-group col-md-12 col-sm-12 mb-2">
-                                    <input type="text" class="form-control" name="txtPersonCount[]" id="txtPersonCount1" value="" required placeholder="Number of Person">
+                                    <input type="text" class="form-control number_only" name="txtPersonCount[]" id="txtPersonCount1" value="" required placeholder="Number of Person">
                                 </div>
                             </div>
                         </div>
@@ -107,21 +122,11 @@
                         $defTime = '';
 
                         ?><label class="text-primary">Select time of Service</label>
-                        <div id="available-time-list">
-                            <button data-val="9:00 AM" type="button" class="btn btn-outline-primary mr-1 mb-1">9:00AM</button>
-                            <button data-val="9:30 AM" type="button" class="btn btn-outline-primary mr-1 mb-1">9:30 AM</button>
-                            <button data-val="10:00 AM" type="button" class="btn btn-outline-primary mr-1 mb-1">10:00 AM</button>
-                            <button data-val="10:30 AM" type="button" class="btn btn-outline-primary mr-1 mb-1">10:30 AM</button>
-                            <button data-val="11:00 AM" type="button" class="btn btn-outline-primary mr-1 mb-1">11:00 AM</button>
-                            <button data-val="11:30 AM" type="button" class="btn btn-outline-primary mr-1 mb-1">11:30 AM</button>
-                            <button data-val="12:00 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">12:00 PM</button>
-                            <button data-val="12:30 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">12:30 PM</button>
-                            <button data-val="1:00 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">1:00 PM</button>
-                            <button data-val="1:30 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">1:30 PM</button>
-                            <button data-val="2:00 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">2:00 PM</button>
-                            <button data-val="2:30 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">2:30 PM</button>
-                            <button data-val="3:00 PM" type="button" class="btn btn-outline-primary mr-1 mb-1">3:00 PM</button>
-                            <input type="hidden" name="hdAvailableTime" id="hdAvailableTime" value="">
+                        <div id="available-time-list"><?php
+                            foreach ($arrTimeSlots as $key => $value) {
+                                ?><button id="timeslot_<?php echo preg_replace('/[^0-9A-Za-z]/i', '', $value); ?>" data-val="<?php echo $value; ?>" type="button" class="btn <?php echo($defTime == $value ? ' btn-primary ' : ' btn-outline-primary '); ?> mr-1 mb-1"><?php echo $value; ?></button><?php    
+                            }
+                            ?><input type="hidden" name="hdAvailableTime" id="hdAvailableTime" value="">
                         </div>
                     </div>
                 </div>
@@ -144,7 +149,7 @@
                                     ?></select>
                                 </div>
                                 <div class="form-group col-md-12 col-sm-12 mb-2">
-                                    <select class="custom-select" name="lstProduct[]" id="lstProduct1">
+                                    <select class="custom-select lstProductChoice" name="lstProduct[0][]" id="lstProduct1" multiple>
                                         <option value="">Select Product</option><?php 
                                         foreach ($productInfo as $key => $value) {
                                             ?><option value="<?php echo $value['id']; ?>"><?php echo $value['title']; ?></option><?php
@@ -165,15 +170,15 @@
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">If any service charge extra?</label>
-                        <input type="text" class="form-control" id="txtServiceCharge" name="txtServiceCharge" value="" placeholder="Service Charge" >
+                        <input type="text" class="form-control number_only" id="txtServiceCharge" name="txtServiceCharge" value="" placeholder="Service Charge" >
                     </div>
                 </div>
                 <!-- end If any service charge extra? -->
                 <!-- If any discount? -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">If any Discount?</label>
-                        <input type="text" class="form-control" id="txtDiscount" name="txtDiscount" value="" placeholder="Discount">
+                        <label class="text-primary">If any Discount?(%)</label>
+                        <input type="text" class="form-control number_only" id="txtDiscount" name="txtDiscount" value="" placeholder="Discount">
                     </div>
                 </div>
                 <!-- end If any service charge extra? -->
@@ -181,7 +186,7 @@
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">Vat</label>
-                        <input type="text" class="form-control" id="txtVat" name="txtVat" value="5" placeholder="Vat Percentage">
+                        <input type="text" class="form-control number_only" id="txtVat" name="txtVat" value="5" placeholder="Vat Percentage">
                     </div>
                 </div>
                 <!-- end If any service charge extra? -->
@@ -192,6 +197,40 @@
                 <div>
                     <hr>
                 </div>
+                <div class="row mb-2">
+                    <div class="form-group col-md-12 col-sm-12">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdCustomerN" name="rdCustomer"
+                                class="custom-control-input rdCustomer" checked value="N">
+                            <label class="custom-control-label" for="rdCustomerN">New Customer</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdCustomerE" name="rdCustomer"
+                                class="custom-control-input rdCustomer" value="E">
+                            <label class="custom-control-label" for="rdCustomerE">Existing Customer</label>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="row mb-2" id="divSearchEmail" style="display: none;">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Email</label>
+                        <select name="lstCustomerEmail" class="form-control" id="lstCustomerEmail">
+                            <option value="">Search Email</option><?php
+                            foreach ($arrCustomers as $key => $value) {
+                                ?><option value="<?php echo $value->email; ?>" data-name="<?php echo $value->first_name . " " . $value->last_name; ?>" data-phone="<?php echo $value->phone_number; ?>"><?php echo $value->email; ?></option><?php
+                            }
+                        ?></select>
+                    </div>
+                </div>
+                <!-- persons -->
+                <div class="row mb-2" id="divEnterEmail">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Email</label>
+                        <input type="email" class="form-control" id="txtCustomerEmail" name="txtCustomerEmail" value="" placeholder="abc@example.com" required>
+                    </div>
+                </div>
+                <!-- end persons -->
                 <!-- persons -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
@@ -203,21 +242,13 @@
                 <!-- persons -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Email</label>
-                        <input type="email" class="form-control" id="txtCustomerEmail" name="txtCustomerEmail" value="" placeholder="abc@example.com" required>
-                    </div>
-                </div>
-                <!-- end persons -->
-                <!-- persons -->
-                <div class="row mb-2">
-                    <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">Phone Number</label>
-                        <input type="tel" class="form-control" id="txtCustomerPhone" name="txtCustomerPhone" value="" placeholder="+971" required>
+                        <input type="tel" class="form-control number_only" id="txtCustomerPhone" name="txtCustomerPhone" value="" placeholder="+971" required>
                     </div>
                 </div>
                 <!-- end persons -->
                 <!-- persons -->
-                <div class="row mb-2">
+                <div class="row mb-2" id="divHomeServiceAddress">
                     <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">If Home Service - Location Details</label>
                         <div class="form-group">
@@ -235,6 +266,7 @@
                                 Create
                             </span>
                         </button>
+                        <input type="hidden" name="bookingId" id="bookingId" value="0">
                     </div>
                 </div>
             </form>
@@ -314,3 +346,4 @@
     </div>
 </div>
 <!-- End of Page Wrapper -->
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>

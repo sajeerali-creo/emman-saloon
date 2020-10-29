@@ -28,13 +28,25 @@
                     <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">Type</label><br>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="rdStatusAC" name="rdStatus" class="custom-control-input" checked
-                                value="AC">
-                            <label class="custom-control-label" for="rdStatusAC">Home</label>
+                            <input type="radio" id="rdServiceTypeHome" name="rdServiceType" class="custom-control-input" checked="checked" value="home">
+                            <label class="custom-control-label" for="rdServiceTypeHome">Home</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="rdStatusIN" name="rdStatus" class="custom-control-input" value="IN">
-                            <label class="custom-control-label" for="rdStatusIN">Saloon</label>
+                            <input type="radio" id="rdServiceTypeSaloon" name="rdServiceType" class="custom-control-input" value="saloon">
+                            <label class="custom-control-label" for="rdServiceTypeSaloon">Saloon</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Type of services -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdServiceSpecialN" name="rdServiceSpecial" class="custom-control-input" checked="checked" value="N">
+                            <label class="custom-control-label" for="rdServiceSpecialN">Normal Service</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdServiceSpecialY" name="rdServiceSpecial" class="custom-control-input" value="Y">
+                            <label class="custom-control-label" for="rdServiceSpecialY">Special Service</label>
                         </div>
                     </div>
                 </div>
@@ -52,8 +64,8 @@
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">Select Category</label>
-                        <select class="custom-select" name="lstCategory" id="lstCategory">
-                            <option selected>Select</option>
+                        <select class="custom-select" name="lstCategory" id="lstCategory" required="required">
+                            <option value="">Select</option>
                             <?php 
                             $lstCategory = isset($lstCategory) ? $lstCategory : '';
                             foreach ($serviceCatInfo as $key => $objCat) {
@@ -72,16 +84,16 @@
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">Time Duration</label>
-                        <select class="custom-select" name="lstCategory" id="lstCategory">
-                            <option selected>Select</option>
-                            <option selected>15 Min</option>
-                            <option selected>30 Min</option>
-                            <option selected>45 Min</option>
-                            <option selected>60 Min</option>
-                            <option selected>1:15 Min</option>
-                            <option selected>1:30 Min</option>
-                            <option selected>1:45 Min</option>
-                            <option selected>2 hr</option>
+                        <select class="custom-select" name="lstDuration" id="lstDuration" required="required">
+                            <option value="">Select</option>
+                            <option value="1">15 Min</option>
+                            <option value="2">30 Min</option>
+                            <option value="3">45 Min</option>
+                            <option value="4">60 Min</option>
+                            <option value="5">1 hr 15 Min</option>
+                            <option value="6">1 hr 30 Min</option>
+                            <option value="7">1 hr 45 Min</option>
+                            <option value="8">2 hr</option>
 
                         </select>
                     </div>
@@ -91,7 +103,7 @@
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">Price (AED)</label>
-                        <input type="text" class="form-control" value="<?php echo $txtPrice; ?>" id="txtPrice"
+                        <input type="text" class="form-control number_only" value="<?php echo $txtPrice; ?>" id="txtPrice"
                             name="txtPrice" maxlength="50" placeholder="AED" required>
                     </div>
                 </div>
@@ -100,24 +112,11 @@
                 <!-- persons -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Service Chnarge (AED)</label>
-                        <input type="text" class="form-control mb-1" id="txtPrice" name="txtPrice" maxlength="50"
-                            placeholder="Dubai" required>
-                        <input type="text" class="form-control mb-1" id="txtPrice" name="txtPrice" maxlength="50"
-                            placeholder="Abu Dhabi" required>
-                        <input type="text" class="form-control mb-1" id="txtPrice" name="txtPrice" maxlength="50"
-                            placeholder="Sharjah" required>
-                        <input type="text" class="form-control mb-1" id="txtPrice" name="txtPrice" maxlength="50"
-                            placeholder="Al Ain" required>
-                        <input type="text" class="form-control mb-1" id="txtPrice" name="txtPrice" maxlength="50"
-                            placeholder="Ajman" required>
-                        <input type="text" class="form-control mb-1" id="txtPrice" name="txtPrice" maxlength="50"
-                            placeholder="RAK City" required>
-                        <input type="text" class="form-control mb-1" id="txtPrice" name="txtPrice" maxlength="50"
-                            placeholder="Fujairah" required>
-                        <input type="text" class="form-control" id="txtPrice" name="txtPrice" maxlength="50"
-                            placeholder="Umm Al Quwain" required>
-                    </div>
+                        <label class="text-primary">Service Charges (AED)</label><?php
+                        foreach ($arrCluster as $key => $value) {
+                            ?><input type="text" class="form-control mb-1 number_only" id="txtServicePrice_<?php echo $key; ?>" name="txtServicePrice[<?php echo $key; ?>]" maxlength="50" placeholder="<?php echo $value; ?>" title="<?php echo $value; ?>"><?php
+                        }
+                    ?></div>
                 </div>
                 <!-- end persons -->
 

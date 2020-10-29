@@ -61,8 +61,13 @@
 
                                         if($record->status == 'AC'){
                                             ?><th class="text-success">Available</th><?php
-                                        }
-                                        else{
+                                        } else if($record->status == 'IN'){
+                                            ?><th class="text-danger">Day-Off</th><?php
+                                        } else if($record->status == 'SL'){
+                                            ?><th class="text-danger">Sick Leave</th><?php
+                                        } else if($record->status == 'ML'){
+                                            ?><th class="text-danger">Medical</th><?php
+                                        } else{
                                             ?><th class="text-danger">Off</th><?php
                                         }
 

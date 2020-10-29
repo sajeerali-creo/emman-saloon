@@ -27,17 +27,34 @@ if(!isset($lstServicer)){
     $lstProduct = array();
     $hdCSPId = array();
     foreach ($bookingTeamProductInfo as $key => $value) {
-        $lstServicer[] = $value->team_id;
-        $lstProduct[] = $value->product_id;
-        $hdCSPId[] = $value->cspId;
+        $lstServicer[$value->team_id] = $value->team_id;
+        $lstProduct[$value->team_id][] = $value->product_id;
+        $hdCSPId[$value->team_id] = $value->cspId;
     }
 }
 
+//echo "<pre>"; print_r($lstProduct); die();  
 
-?><style>
+
+?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+/><style>
     #accordionSidebar,
     #content nav.navbar{
         display: none;
+    }
+    .choices__list--dropdown{
+        text-align:left;
+    }
+    .choices[data-type*=select-multiple] .choices__inner, 
+    .choices[data-type*=text] .choices__inner{
+        text-align: left;
+    }
+    .choices__placeholder {
+        opacity: 1;
+        color: #6e707e;
+    }
+    .choices__inner {
+        background-color: #ffffff;
     }
 </style><div class="container mb-3">
     <!-- header -->
@@ -77,11 +94,11 @@ if(!isset($lstServicer)){
                         }
 
                         ?><div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="rdServiceTypeHS" name="rdServiceType" class="custom-control-input" <?php echo $checkedHS; ?> value="HS">
+                            <input type="radio" id="rdServiceTypeHS" name="rdServiceType" class="custom-control-input rdServiceType" <?php echo $checkedHS; ?> value="HS">
                             <label class="custom-control-label" for="rdServiceTypeHS">Home Service</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="rdServiceTypeSS" name="rdServiceType" class="custom-control-input" <?php echo $checkedSS; ?> value="SS">
+                            <input type="radio" id="rdServiceTypeSS" name="rdServiceType" class="custom-control-input rdServiceType" <?php echo $checkedSS; ?> value="SS">
                             <label class="custom-control-label" for="rdServiceTypeSS">Saloon Service</label>
                         </div>
                     </div>
@@ -115,7 +132,7 @@ if(!isset($lstServicer)){
                                         ?></select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 mb-2">
-                                        <input type="text" class="form-control" name="txtPersonCount[]" id="txtPersonCount<?php echo $intCount; ?>" value="<?php echo $txtPersonCount[$index]; ?>" required placeholder="Number of Person">
+                                        <input type="text" class="form-control number_only" name="txtPersonCount[]" id="txtPersonCount<?php echo $intCount; ?>" value="<?php echo $txtPersonCount[$index]; ?>" required placeholder="Number of Person">
                                         <input type="hidden" name="hdCartIds[]" value="<?php echo ($hdCartIds[$index]); ?>">
                                     </div>
                                 </div><?php
@@ -145,21 +162,13 @@ if(!isset($lstServicer)){
                 <div class="row mb-2">
                     <div class="form-group col-md-12 col-sm-12">
                         <label class="text-primary">Select time of Service</label>
-                        <div id="available-time-list">
-                            <button data-val="9:00 AM" type="button" class="btn <?php echo ($hdAvailableTime == '9:00 AM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">9:00AM</button>
-                            <button data-val="9:30 AM" type="button" class="btn <?php echo ($hdAvailableTime == '9:30 AM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">9:30 AM</button>
-                            <button data-val="10:00 AM" type="button" class="btn <?php echo ($hdAvailableTime == '10:00 AM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">10:00 AM</button>
-                            <button data-val="10:30 AM" type="button" class="btn <?php echo ($hdAvailableTime == '10:30 AM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">10:30 AM</button>
-                            <button data-val="11:00 AM" type="button" class="btn <?php echo ($hdAvailableTime == '11:00 AM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">11:00 AM</button>
-                            <button data-val="11:30 AM" type="button" class="btn <?php echo ($hdAvailableTime == '11:30 AM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">11:30 AM</button>
-                            <button data-val="12:00 PM" type="button" class="btn <?php echo ($hdAvailableTime == '12:00 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">12:00 PM</button>
-                            <button data-val="12:30 PM" type="button" class="btn <?php echo ($hdAvailableTime == '12:30 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">12:30 PM</button>
-                            <button data-val="1:00 PM" type="button" class="btn <?php echo ($hdAvailableTime == '1:00 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">1:00 PM</button>
-                            <button data-val="1:30 PM" type="button" class="btn <?php echo ($hdAvailableTime == '1:30 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">1:30 PM</button>
-                            <button data-val="2:00 PM" type="button" class="btn <?php echo ($hdAvailableTime == '2:00 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">2:00 PM</button>
-                            <button data-val="2:30 PM" type="button" class="btn <?php echo ($hdAvailableTime == '2:30 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">2:30 PM</button>
-                            <button data-val="3:00 PM" type="button" class="btn <?php echo ($hdAvailableTime == '3:00 PM' ? 'btn-primary' : 'btn-outline-primary'); ?> mr-1 mb-1">3:00 PM</button>
-                            <input type="hidden" name="hdAvailableTime" id="hdAvailableTime" value="<?php echo $hdAvailableTime; ?>">
+                        <div id="available-time-list"><?php 
+                            
+                            foreach ($arrTimeSlots as $key => $value) {
+                                ?><button id="timeslot_<?php echo preg_replace('/[^0-9A-Za-z]/i', '', $value); ?>" data-val="<?php echo $value; ?>" type="button" class="btn <?php echo($hdAvailableTime == $value ? ' btn-primary ' : ' btn-outline-primary '); ?> mr-1 mb-1"><?php echo $value; ?></button><?php    
+                            }
+
+                            ?><input type="hidden" name="hdAvailableTime" id="hdAvailableTime" value="<?php echo $hdAvailableTime; ?>">
                         </div>
                     </div>
                 </div>
@@ -192,14 +201,15 @@ if(!isset($lstServicer)){
                                         ?></select>
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 mb-2">
-                                        <select class="custom-select" name="lstProduct[]" id="lstProduct<?php echo $intCount; ?>">
+                                        <select class="custom-select lstProductChoice" name="lstProduct[<?php echo ($intCount - 1); ?>][]" id="lstProduct<?php echo $intCount; ?>" multiple>
                                             <option value="">Select Product</option><?php 
                                             foreach ($productInfo as $key => $value) {
                                                 $strChecked = '';
-                                                if($lstProduct[$index] == $value['id']){
-                                                    $strChecked = ' selected="selected" ';
+                                                foreach ($lstProduct[$index] as $valueProduct) {
+                                                    if($valueProduct == $value['id']){
+                                                        $strChecked = ' selected="selected" ';
+                                                    }
                                                 }
-
                                                 ?><option value="<?php echo $value['id']; ?>" <?php echo $strChecked; ?>><?php echo $value['title']; ?></option><?php
                                             }
                                         ?></select>
@@ -221,15 +231,15 @@ if(!isset($lstServicer)){
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">If any service charge extra?</label>
-                        <input type="text" class="form-control" id="txtServiceCharge" name="txtServiceCharge" value="<?php echo $txtServiceCharge; ?>" placeholder="Service Charge" >
+                        <input type="text" class="form-control number_only" id="txtServiceCharge" name="txtServiceCharge" value="<?php echo $txtServiceCharge; ?>" placeholder="Service Charge" >
                     </div>
                 </div>
                 <!-- end If any service charge extra? -->
                 <!-- If any discount? -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">If any Discount?</label>
-                        <input type="text" class="form-control" id="txtDiscount" name="txtDiscount" value="<?php echo $txtDiscount; ?>" placeholder="Discount">
+                        <label class="text-primary">If any Discount?(%)</label>
+                        <input type="text" class="form-control number_only" id="txtDiscount" name="txtDiscount" value="<?php echo $txtDiscount; ?>" placeholder="Discount">
                     </div>
                 </div>
                 <!-- end If any service charge extra? -->
@@ -237,7 +247,7 @@ if(!isset($lstServicer)){
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">Vat</label>
-                        <input type="text" class="form-control" id="txtVat" name="txtVat" value="<?php echo $txtVat; ?>" placeholder="Vat Percentage">
+                        <input type="text" class="form-control number_only" id="txtVat" name="txtVat" value="<?php echo $txtVat; ?>" placeholder="Vat Percentage">
                     </div>
                 </div>
                 <!-- end If any service charge extra? -->
@@ -327,3 +337,4 @@ if(!isset($lstServicer)){
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>

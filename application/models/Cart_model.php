@@ -118,9 +118,32 @@ class Cart_model extends CI_Model
         }
     }
 
+    function updateCartServicerInfo($cartInfo, $cartServicerId)
+    {
+        $this->db->where('id', $cartServicerId);
+        $this->db->update('tbl_cart_servicer', $cartInfo);
+        return true;
+    }
+
     function updateCartServiceProductInfo($cartInfo, $cartServiceProductId)
     {
         $this->db->where('id', $cartServiceProductId);
+        $this->db->update('tbl_cart_servicer_product', $cartInfo);
+        return true;
+    }
+
+    function updateCartServicerInfoUsingCMID($cartInfo, $cartmaster_id)
+    {
+        $this->db->where('cartmaster_id', $cartmaster_id);
+        $this->db->where('is_deleted', '0');
+        $this->db->update('tbl_cart_servicer', $cartInfo);
+        return true;
+    }
+
+    function updateCartServicerProductInfoUsingCMID($cartInfo, $cartmaster_id)
+    {
+        $this->db->where('cartmaster_id', $cartmaster_id);
+        $this->db->where('is_deleted', '0');
         $this->db->update('tbl_cart_servicer_product', $cartInfo);
         return true;
     }
@@ -149,6 +172,53 @@ class Cart_model extends CI_Model
         }
 
         $this->db->update('tbl_notifications', $arrInfo);
+    }
+
+    function getAllTimeSlots(){
+        $this->db->select('ts.id, ts.title');
+        $this->db->from('tbl_time_slots ts');
+        $this->db->where('ts.is_deleted', '0');
+        $this->db->order_by('ts.sort_order', "ASC");
+        $query = $this->db->get();
+        
+        $result = $query->result();  //echo "<pre>"; print_r($result);    die();
+        return $result;
+    }
+
+    function addIntoBookingTimeSlotsInfo($arrInfo){
+        $this->db->trans_start();
+        $this->db->insert('tbl_booking_time_slots', $arrInfo);
+         
+        $insert_id = $this->db->insert_id();
+         
+        $this->db->trans_complete();
+         
+        return $insert_id;
+    }
+
+    function updateBookingTimeSlotsInfo($cartInfo, $cartmaster_id)
+    {
+        $this->db->where('cartmaster_id', $cartmaster_id);
+        $this->db->where('is_deleted', '0');
+        $this->db->update('tbl_booking_time_slots', $cartInfo);
+        return true;
+    }
+
+    function getBookingTimeSlotsInfo($date, $bookingId = 0){
+        
+        $this->db->select('ts.id, ts.cartmaster_id, ts.service_id, ts.booking_date, ts.time_slot, SUM(ts.team_members_count) totalCount');
+        $this->db->from('tbl_booking_time_slots ts');
+        $this->db->where('ts.is_deleted', '0');
+        if(!empty($bookingId) && !is_null($bookingId)){
+            $this->db->where('ts.cartmaster_id <> ' . $bookingId);
+        }
+        $this->db->where('ts.booking_date', $date);
+        $this->db->order_by('ts.time_slot', "ASC");
+        $this->db->group_by('ts.time_slot');
+        $query = $this->db->get();
+        
+        $result = $query->result();  //echo "<pre>"; print_r($result);    die();
+        return $result;
     }
 
     function getNotificationCount($type = 'admin'){
@@ -206,90 +276,108 @@ class Cart_model extends CI_Model
         return $arrReturn;
     }
 
-    function getTotalSales(){
+    function getTotalSales($startDate, $endDate){
         $this->db->select('sum(total_price) as totalPrice');
         $this->db->from('tbl_cartmaster');
         $this->db->where('is_deleted', '0');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
         $query = $this->db->get();
 
         return $query->row();
     }
     
 
-    function getTotalBooking(){
+    function getTotalBooking($startDate, $endDate){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_cartmaster');
         $this->db->where('is_deleted', '0');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
         $query = $this->db->get();
         return $query->row();
     }
 
-    function getTotalConfirmBooking(){
+    function getTotalConfirmBooking($startDate, $endDate){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_cartmaster');
         $this->db->where_in('status', ['CN', 'SBC', 'SBR']);
         $this->db->where('is_deleted', '0');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
         $query = $this->db->get();
         return $query->row();
     }
 
-    function getTotalPendingBooking(){
+    function getTotalPendingBooking($startDate, $endDate){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_cartmaster');
         $this->db->where_in('status', ['PN']);
         $this->db->where('is_deleted', '0');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
         $query = $this->db->get();
         return $query->row();
     }
 
-    function getTotalCompletedBooking(){
+    function getTotalCompletedBooking($startDate, $endDate){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_cartmaster');
         $this->db->where_in('status', ['CM']);
         $this->db->where('is_deleted', '0');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
         $query = $this->db->get();
         return $query->row();
     }
 
-    function getTotalHomeServices(){
+    function getTotalHomeServices($startDate, $endDate){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_cartmaster');
         $this->db->where('booking_type', 'home');
         $this->db->where('is_deleted', '0');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
         $query = $this->db->get();
         return $query->row();
     }
 
-    function getTotalSaloonServices(){
+    function getTotalSaloonServices($startDate, $endDate){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_cartmaster');
         $this->db->where('booking_type', 'saloon');
         $this->db->where('is_deleted', '0');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
         $query = $this->db->get();
         return $query->row();
     }
 
-    function getProductSales(){
+    function getProductSales($startDate, $endDate){
         $this->db->select('sum(quantity) as totalCount');
         $this->db->from('tbl_product_sales');
         $this->db->where('is_deleted', '0');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
         $query = $this->db->get();
         return $query->row();
     }
 
-    function getTotalProductUse(){
+    function getTotalProductUse($startDate, $endDate){
         $this->db->select('count(csp.product_id) as totalCount');
         $this->db->from('tbl_cart_servicer_product csp');
         $this->db->join('tbl_cartmaster cm', 'cm.id = csp.cartmaster_id');
         $this->db->where('cm.is_deleted', '0');
         $this->db->where('csp.is_deleted', '0');
         $this->db->where('csp.product_id <> "0"');
+        $this->db->where('cm.add_date >=', $startDate);
+        $this->db->where('cm.add_date <=', $endDate);
         $query = $this->db->get();
         return $query->row();
     }
 
 
-    function getTotalTeam(){
+    function getTotalTeam($startDate, $endDate){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_team');
         $this->db->where('is_deleted', '0');
@@ -297,7 +385,7 @@ class Cart_model extends CI_Model
         return $query->row();
     }
 
-    function getTotalActiveTeam(){
+    function getTotalActiveTeam($startDate, $endDate){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_team');
         $this->db->where('status', 'AC');
@@ -306,16 +394,16 @@ class Cart_model extends CI_Model
         return $query->row();
     }
 
-    function getTotalOffTeam(){
+    function getTotalOffTeam($type = 'IN', $startDate, $endDate){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_team');
-        $this->db->where('status', 'IN');
+        $this->db->where('status', $type);
         $this->db->where('is_deleted', '0');
         $query = $this->db->get();
         return $query->row();
     }
 
-    function getTotalCustomers(){
+    function getTotalCustomers($startDate, $endDate){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_customers');
         $this->db->where('is_deleted', '0');
@@ -323,7 +411,7 @@ class Cart_model extends CI_Model
         return $query->row();
     }
 
-    function getTotalSuppliers(){
+    function getTotalSuppliers($startDate, $endDate){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_suppliers');
         $this->db->where('is_deleted', '0');

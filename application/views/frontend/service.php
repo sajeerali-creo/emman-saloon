@@ -39,21 +39,29 @@
         </div>
         <div class="row mt-5">
             <!-- service list -->
-            <div class="col-md-3 mb-3 servoce-catogory">
+            <div class="col-md-3 mb-3 service-category">
                 <div class="card sticky-top">
-                    <ul class="list-group">
-                        <?php 
-                        $strActiveClass = " active";
+                    <ul class="list-group"><?php 
+
+                        $flFirst = true;
                         foreach ($serviceRecords as $key => $arrSer) {
                             $key1 = strtolower($key);
                             $id = preg_replace("/[^a-zA-Z0-9]/i", '', $key1);
-                            ?><li class="list-group-item<?php echo $strActiveClass; ?>">
-                            <a href="#<?php echo $id; ?>"><?php echo ucwords($key1); ?></a>
-                        </li><?php
-                            $strActiveClass = "";
+
+                            if($flFirst){
+                                ?><li class="list-group-item active all_services">
+                                    <a href="javascript:;" data-catid="" data-firstcat="cat_<?php echo $id; ?>">All</a>
+                                </li><?php
+                            }
+
+                            ?><li class="list-group-item">
+                                <a href="#<?php echo $id; ?>" data-catid="cat_<?php echo $id; ?>"><?php echo ucwords($key1); ?></a>
+                            </li><?php
+
+                            $flFirst = false;
                         }
-                        ?>
-                    </ul>
+
+                    ?></ul>
                 </div>
             </div>
             <div class="col-md-6 mb-3">
@@ -69,7 +77,7 @@
                         $key1 = strtolower($key);
                         $id = preg_replace("/[^a-zA-Z0-9]/i", '', $key1);
 
-                        ?><div class="h6 font-weight-bold mb-3 bg-secondary p-2 text-white rounded"
+                        ?><div class="h6 font-weight-bold mb-3 chk-service-head bg-secondary p-2 text-white rounded cat_<?php echo $id; ?>"
                         id="<?php echo $id; ?>"><?php echo $key; ?></div><?php
 
                         foreach ($arrSer as $value) {
@@ -85,33 +93,33 @@
                                 $strPersonBoxDisplay = "none";
                             }
                             ?>
-                    <!-- loop -->
-                    <div class="card mb-1 p-3 chk-service-card service-card-<?php echo $value->id; ?>">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <div class="text-gray-600 font-weight-bold">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input chkService"
-                                            id="customCheck<?php echo $value->id; ?>" name="chkService"
-                                            value="<?php echo $value->id; ?>" data-label="<?php echo $value->title; ?>"
-                                            data-persion='<?php echo $strPerson; ?>'
-                                            data-price="<?php echo $value->price; ?>" <?php echo $strCheck; ?>>
-                                        <label class="custom-control-label"
-                                            for="customCheck<?php echo $value->id; ?>"><?php echo $value->title; ?></label>
+                            <!-- loop -->
+                            <div class="card mb-1 p-3 chk-service-card service-card-<?php echo $value->id; ?> cat_<?php echo $id; ?>">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="text-gray-600 font-weight-bold">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input chkService"
+                                                    id="customCheck<?php echo $value->id; ?>" name="chkService"
+                                                    value="<?php echo $value->id; ?>" data-label="<?php echo $value->title; ?>"
+                                                    data-persion='<?php echo $strPerson; ?>'
+                                                    data-price="<?php echo $value->price; ?>" <?php echo $strCheck; ?>>
+                                                <label class="custom-control-label"
+                                                    for="customCheck<?php echo $value->id; ?>"><?php echo $value->title; ?></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-right">From</div>
+                                        <div class="text-gray-600 h6 font-weight-bold text-right">AED
+                                            <?php echo $value->price; ?></div>
+                                        <div class="persion-count badge badge-success"
+                                            style="display: <?php echo $strPersonBoxDisplay; ?>; cursor: pointer;"><small
+                                                class="fas fa-pen text-small"></small>&nbsp;<span><?php echo $strPerson; ?></span>person
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div>
-                                <div class="small text-right">From</div>
-                                <div class="text-gray-600 h6 font-weight-bold text-right">AED
-                                    <?php echo $value->price; ?></div>
-                                <div class="persion-count badge badge-success"
-                                    style="display: <?php echo $strPersonBoxDisplay; ?>; cursor: pointer;"><small
-                                        class="fas fa-pen text-small"></small>&nbsp;<span><?php echo $strPerson; ?></span>person
-                                </div>
-                            </div>
-                        </div>
-                    </div><?php
+                            </div><?php
                         }
                     }
                     ?>

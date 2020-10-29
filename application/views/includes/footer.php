@@ -83,13 +83,14 @@
     else{
         ?><!-- Page level custom scripts -->
         <script src="<?php echo base_url(); ?>assets/admin/js/demo/chart-area-demo.js"></script>
-        <script src="<?php echo base_url(); ?>assets/admin/js/demo/chart-pie-demo.js"></script>
-        <script src="<?php echo base_url(); ?>assets/admin/js/demo/chart-bar-demo.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /><?php
+        <script src="<?php echo base_url(); ?>assets/admin/js/demo/chart-bar-demo.js"></script><?php
     }
+    
+    ?><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <?php
+
     if(basename(base_url(uri_string())) == 'calender-team' || basename(base_url(uri_string())) == 'booking-calendar'){
         ?><script src='<?php echo base_url(); ?>assets/admin/js/main.js'></script>
         <script>
@@ -148,6 +149,23 @@
     }
     ?><script src="<?php echo base_url(); ?>assets/admin/js/common.js"></script>
     <script>
+
+        $('.number_only').bind('paste', function() {
+            var number_only = this;
+            setTimeout(function() {
+                number_only.value = number_only.value.replace(/\D\./g, '');
+            }, 0);
+        });
+
+        $('.number_only').keypress(function(evt) {
+            var regex = new RegExp("^[0-9\.]+$");
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        });
+
         $("#available-time-list button").click(function(){
             $("#available-time-list button.btn-primary").addClass("btn-outline-primary");
             $("#available-time-list button").removeClass("btn-primary");
@@ -177,9 +195,25 @@
             }
 
 
-            let strHtml = $('<div id="div_service_count_' + nextCount + '" class="row mb-2"><div class="form-group col-md-12 col-sm-12 mb-2"><label class="text-primary">Select Service</label><span onclick="javascript: jsRemoveThis(\'div_service_count_' + nextCount + '\');" class="lnkRemoveService badge badge-danger ml-2" data-id="' + nextCount + '">remove this service</span><select class="custom-select" name="lstService[]" id="lstService' + nextCount + '" required><option value="">Select</option>' + strOptions + '</select></div><div class="form-group col-md-12 col-sm-12 mb-2"><input type="text" class="form-control" name="txtPersonCount[]" id="txtPersonCount' + nextCount + '" value="" required placeholder="Number of Person"></div><input type="hidden" name="hdCartIds[]" value=""/></div>');
+            let strHtml = $('<div id="div_service_count_' + nextCount + '" class="row mb-2"><div class="form-group col-md-12 col-sm-12 mb-2"><label class="text-primary">Select Service</label><span onclick="javascript: jsRemoveThis(\'div_service_count_' + nextCount + '\');" class="lnkRemoveService badge badge-danger ml-2" data-id="' + nextCount + '">remove this service</span><select class="custom-select" name="lstService[]" id="lstService' + nextCount + '" required><option value="">Select</option>' + strOptions + '</select></div><div class="form-group col-md-12 col-sm-12 mb-2"><input type="text" class="form-control number_only" name="txtPersonCount[]" id="txtPersonCount' + nextCount + '" value="" required placeholder="Number of Person"></div><input type="hidden" name="hdCartIds[]" value=""/></div>');
 
             $("#div_service_count_main").append(strHtml);
+
+            $('.number_only').bind('paste', function() {
+                var number_only = this;
+                setTimeout(function() {
+                    number_only.value = number_only.value.replace(/\D\./g, '');
+                }, 0);
+            });
+
+            $('.number_only').keypress(function(evt) {
+                var regex = new RegExp("^[0-9\.]+$");
+                var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+                if (!regex.test(key)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
         });
 
 
@@ -213,10 +247,126 @@
 
             console.log(objProductInfo);
 
-            let strHtml = $('<div id="div_servicer_product_' + nextCount + '" class="row mb-2"><div class="form-group col-md-12 col-sm-12 mb-2"><label class="text-primary">Beautician / Massager / Hairdresser</label><span onclick="javascript: jsRemoveThis(\'div_servicer_product_' + nextCount + '\');" class="badge badge-danger ml-2">remove this service</span><select class="custom-select" name="lstServicer[]" id="lstServicer' + nextCount + '" required><option selected>Select servicer</option>' + strServicerOptions + '</select></div><div class="form-group col-md-12 col-sm-12 mb-2"><select class="custom-select" name="lstProduct[]" id="lstProduct' + nextCount + '"><option selected>Select Product</option>' + strProductOptions + '</select></div><input type="hidden" name="hdCSPId[]" value=""/></div>');
+            let strHtml = $('<div id="div_servicer_product_' + nextCount + '" class="row mb-2"><div class="form-group col-md-12 col-sm-12 mb-2"><label class="text-primary">Beautician / Massager / Hairdresser</label><span onclick="javascript: jsRemoveThis(\'div_servicer_product_' + nextCount + '\');" class="badge badge-danger ml-2">remove this service</span><select class="custom-select" name="lstServicer[]" id="lstServicer' + nextCount + '" required><option value="">Select servicer</option>' + strServicerOptions + '</select></div><div class="form-group col-md-12 col-sm-12 mb-2"><select class="custom-select" name="lstProduct[' + (nextCount - 1) + '][]" id="lstProduct' + nextCount + '" multiple><option value="">Select Product</option>' + strProductOptions + '</select></div><input type="hidden" name="hdCSPId[]" value=""/></div>');
 
             $("#div_servicer_product_main").append(strHtml);
+
+             const choices = new Choices($('#lstProduct' + nextCount)[0], {
+                removeItemButton: true,
+                itemSelectText: ' ',
+                placeholder: true,
+                delimiter: ',_,_,',
+            });
         });
+
+        <?php 
+        if(isset($pagePath) && ($pagePath == 'AddBooking' || $pagePath == 'EditBooking')) {
+            ?>
+            $(".rdServiceType").click(function(){
+                if($(this).val() == 'HS'){
+                    $("#divHomeServiceAddress").show();
+                }
+                else{
+                    $("#divHomeServiceAddress").hide();
+                }
+            });
+
+            $(".rdCustomer").click(function(){
+                if($(this).val() == 'E'){
+                    $("#divSearchEmail").show();
+                    $("#divEnterEmail").hide();
+                }
+                else{
+                    $("#divSearchEmail").hide();
+                    $("#divEnterEmail").show();
+                }
+            });
+
+            $(document).ready(function(){
+                jsAjaxSlotChecking();
+            });
+
+            $("#txtBookingDate").on("change", function(){
+                jsAjaxSlotChecking();
+            });
+
+            function jsAjaxSlotChecking(){
+                let txtDate = $("#txtBookingDate").val();
+                let bookingId = $("#bookingId").val();
+                hitURL = baseURL + "securepanel/check-booking-slot-info-ajax",
+                $.ajax({
+                    type : "POST",
+                    dataType : "json",
+                    url : hitURL,
+                    data : { bookingDate : txtDate, bookingId: bookingId } 
+                }).done(function(data){
+                    //console.log(data);
+                    if(data.status == true) { 
+                        let timeSlots = data.slots;
+                        $("#available-time-list > button").hide();
+                        for (i in timeSlots) {
+                            $("#timeslot_" + i).show();
+                        }
+                    }
+                });
+            }
+
+            let totalServiceProduct = parseInt($("#hdServicerProductCount").val());
+
+            for(let iCount = 1; iCount <= totalServiceProduct; iCount++){
+                const choices = new Choices($('#lstProduct' + iCount)[0], {
+                    removeItemButton: true,
+                    itemSelectText: ' ',
+                    placeholder: true,
+                    delimiter: ',_,_,',
+                });
+
+            }
+            const choicesCustomerEmail = new Choices($('#lstCustomerEmail')[0], {
+                removeItemButton: false,
+                itemSelectText: ' ',
+                placeholder: true,
+                delimiter: ',_,_,',
+            });
+
+            choicesCustomerEmail.passedElement.element.addEventListener(
+              'change',
+                function(event) {
+                    let customerEmail = event.detail.value;
+                    $("#txtCustomerEmail").val(customerEmail);
+                    if(customerEmail != ''){
+                        hitURL = baseURL + "securepanel/check-customer-info-ajax",
+                        $.ajax({
+                            type : "POST",
+                            dataType : "json",
+                            url : hitURL,
+                            data : { customerEmail : customerEmail} 
+                        }).done(function(data){
+                            console.log(data);
+                            if(data.status == true) { 
+                               $("#txtCustomerName").val(data.custInfo.first_name + " " + data.custInfo.last_name);
+                               $("#txtCustomerPhone").val(data.custInfo.phone_number);
+                               $("#taCustomerLocation").val(data.custInfo.location_full_address);
+                            }
+                        });
+                    }
+                    else {
+
+                    }
+                    
+                },
+                false,
+            );
+
+            <?php
+        } else if(isset($pagePath) && $pagePath == 'BookingList') {
+            ?>
+            $(window).on('load', function(){ 
+                setTimeout("location.reload(true);", 60000);
+            });
+            <?php
+        }
+        ?>
 
         $("#btnAddBooking").click(function(e) {
             e.preventDefault();
@@ -278,7 +428,14 @@
                 editItems: true,
                 delimiter: ',_,_,',
             });<?php
-        } ?>
+        } else if(isset($pagePath) && $pagePath == 'sellProduct'){
+            ?>const choices = new Choices($('#lstEmployee')[0], {
+                removeItemButton: false,
+                itemSelectText: ' ',
+                placeholder: true,
+            });<?php
+        } 
+        ?>
 
         $("#lstSupplier").on("change", function(){
             let categoryJson = JSON.parse($("#hdSupplierServiceJson").val());
@@ -303,30 +460,25 @@
         $("#pageSellProduct #lstProduct").on("change", function(){
             $('#txtPrice').val($('#pageSellProduct #lstProduct option:selected').attr("data-price"));
             $('#hdTaxRate').val($('#pageSellProduct #lstProduct option:selected').attr("data-tax"));
+            $('#product-stock-label').text("Stock Balance:" + $('#pageSellProduct #lstProduct option:selected').attr("data-remaining")).show();
+            $("#hdMaxQuantity").val($('#pageSellProduct #lstProduct option:selected').attr("data-remaining"));
             jsUpdateSellProductInfo();
         });
 
-        $("#pageSellProduct #txtQuantity, #pageSellProduct #txtPrice").on("change", function(){
+        $("#pageSellProduct #txtQuantity, #pageSellProduct #txtPrice, #pageSellProduct #txtCustomerName").on("change", function(){
             jsUpdateSellProductInfo();
-        });
-
-        $('#pageSellProduct #txtQuantity').bind('paste', function() {
-            var txtPhone = this;
-            setTimeout(function() {
-                txtPhone.value = txtPhone.value.replace(/\D/g, '');
-            }, 0);
-        });
-
-        $('#pageSellProduct #txtQuantity').keypress(function(evt) {
-            var regex = new RegExp("^[0-9]+$");
-            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-            if (!regex.test(key)) {
-                event.preventDefault();
-                return false;
-            }
         });
 
         function jsUpdateSellProductInfo(){
+            if($("#lstProduct").val() == '' || $("#txtQuantity").val() == '' || $("#txtPrice").val() == '' || $("#txtCustomerName").val() == ''){
+                return;
+            } else if(parseInt($("#hdMaxQuantity").val()) < parseInt($("#txtQuantity").val())){
+                console.log($("#hdMaxQuantity").val());
+                console.log($("#txtQuantity").val());
+                alert("Maximum product available is " + $("#hdMaxQuantity").val());
+                return;
+            }
+
             let price = $('#txtPrice').val();
             let tax = $('#pageSellProduct #lstProduct option:selected').attr("data-tax");
             let text = $('#pageSellProduct #lstProduct option:selected').text();
@@ -374,6 +526,25 @@
             }
         });
 
+        $("#btnBookingPrint").click(function(){
+            let bookingId = $("#bookingId").val();
+            hitURL = baseURL + "generate-booking-recipt-ajax/" + bookingId,
+            $.ajax({
+                type : "POST",
+                url : hitURL,
+                data : { bookingId: bookingId } 
+            }).done(function(data){
+                console.log(data);
+                var myWindow=window.open('','','width=900,height=600');
+                myWindow.document.write(data);
+                    
+                myWindow.document.close();
+                myWindow.focus();
+                myWindow.print();
+                //myWindow.close();
+            });
+        });
+
         $("#btPrintReport").click(function(e){
             e.preventDefault();
             $("#dataTable_wrapper button.buttons-csv").click();
@@ -382,16 +553,15 @@
 
         // Date Range Picker Example
         $(function () {
-            var start = moment().subtract(29, "days");
-            var end = moment();
+            var start = moment($("#hdStartDate").val());//.subtract(29, "days");
+            var end = moment($("#hdEndDate").val());
 
             function cb(start, end) {
                 $("#reportrange span").html(
                     start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY")
                 );
-                /*$("#hdStartDate").val(start.format("MMMM D, YYYY"));
+                $("#hdStartDate").val(start.format("MMMM D, YYYY"));
                 $("#hdEndDate").val(end.format("MMMM D, YYYY"));
-                $("#frmSearch").submit();*/
             }
 
             $("#reportrange").daterangepicker(
@@ -419,8 +589,17 @@
                 cb
             );
 
+            $("#reportrange").on('apply.daterangepicker', function(ev, picker) {
+              console.log(picker.startDate.format('YYYY-MM-DD'));
+              console.log(picker.endDate.format('YYYY-MM-DD'));
+            });
+
             cb(start, end); 
         }); 
+
+        $("#lnkSearchDate").click(function(){
+            $("#btnDashboardSearch").click();
+        });
     </script>
 </body>
 

@@ -14,19 +14,17 @@
                 <form name="frmSearch" id="frmSearch" class="user w-sm-100"
                     action="<?php echo base_url(); ?>securepanel/dashboard" method="get" enctype="multipart/form-data"
                     style="display: none;">
-                    <input type="hidden" name="hdStartDate" id="hdStartDate">
-                    <input type="hidden" name="hdEndDate" id="hdEndDate">
-                    <button class="btn btn-dark" type="button" id="btnDashboardSearch"><i
+                    <input type="hidden" name="sDate" id="hdStartDate" value="<?php echo($sDate); ?>">
+                    <input type="hidden" name="eDate" id="hdEndDate" value="<?php echo($eDate); ?>">
+                    <button class="btn btn-dark" type="submit" id="btnDashboardSearch"><i
                             class="fas fa-search fa-sm"></i></button>
                 </form>
             </div>
-            <a href="#" class="d-sm-inline-block btn btn-md btn-dark shadow-sm h-40 w-sm-100 mt-sm-1"><i
-                    class="fas fa-search fa-sm"></i></a>
+            <a href="javascript:;" id="lnkSearchDate" class="d-sm-inline-block btn btn-md btn-dark shadow-sm h-40 w-sm-100 mt-sm-1"><i class="fas fa-search fa-sm"></i></a>
         </div>
 
         <div class="">
-            <a href="#" class="d-sm-inline-block btn btn-md btn-primary shadow-sm h-40 w-sm-100 mt-sm-1"><i
-                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <a href="#" class="d-sm-inline-block btn btn-md btn-primary shadow-sm h-40 w-sm-100 mt-sm-1"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
         </div>
     </div>
 
@@ -88,7 +86,7 @@
                         <div>
                             <button type="button" class="btn btn-success">
                                 Completed Bookings&nbsp;<span
-                                    class="badge badge-light"><?php echo $totalConfirmBooking; ?></span>
+                                    class="badge badge-light"><?php echo $totalCompletedBooking; ?></span>
                             </button>
                         </div>
                     </div>
@@ -158,7 +156,7 @@
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                         Day-Off</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo $totalOffTeam; ?>
+                                        <?php echo $totalDayOffTeam; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -171,7 +169,7 @@
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                         Sick Leave</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo $totalOffTeam; ?>
+                                        <?php echo $totalSLOffTeam; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -184,7 +182,7 @@
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                         Medical</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo $totalOffTeam; ?>
+                                        <?php echo $totalMLOffTeam; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -197,20 +195,7 @@
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                         Holiday</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo $totalOffTeam; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card  shadow h-100 py-2 w-100">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                        Medical</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo $totalOffTeam; ?>
+                                        <?php echo $totalHDOffTeam; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -247,8 +232,8 @@
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Sales Overview <span
-                            class="text-gray-600">(Monthly)</span></h6>
-                    <div class="dropdown no-arrow">
+                            class="text-gray-600 d-none">(Monthly)</span></h6>
+                    <div class="dropdown no-arrow d-none">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -278,8 +263,8 @@
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Bookings Overview <span
-                            class="text-gray-600">(Monthly)</span></h6>
-                    <div class="dropdown no-arrow">
+                            class="text-gray-600 d-none">(Monthly)</span></h6>
+                    <div class="dropdown no-arrow d-none">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -305,14 +290,14 @@
     </div>
 
 
-    <div class="row">
+    <div class="row d-none">
         <!-- sales Chart -->
         <div class="col-xl-12 col-lg-12">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Best Performers <span
-                            class="text-gray-600">(Monthly)</span></h6>
+                            class="text-gray-600 d-none">(Monthly)</span></h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">

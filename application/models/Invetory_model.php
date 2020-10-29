@@ -2,13 +2,21 @@
 
 class Invetory_model extends CI_Model
 {
-    function productListing($selectedActiveStatus = '')
+    function productListing($selectedActiveStatus = '', $startDate = '', $endDate = '')
     {
-        $this->db->select('id, invoice_number, suppliers_id, category_id, title, quantity, date_of_add, cost_of_buy, buy_tax, cost_of_sell, sell_tax, status');
+        $this->db->select('id, invoice_number, suppliers_id, category_id, title, quantity, date_of_add, cost_of_buy, buy_tax, cost_of_sell, sell_tax, status, remaining_quantity');
         $this->db->from('tbl_invetory');
 
         if(!empty($selectedActiveStatus)){           
             $this->db->where('status', $selectedActiveStatus);
+        }
+
+        if(!empty($startDate)){
+            $this->db->where('add_date >=', $startDate);
+        }
+
+        if(!empty($endDate)){
+            $this->db->where('add_date <=', $endDate);
         }
 
         $this->db->where('is_deleted', '0');
@@ -34,7 +42,7 @@ class Invetory_model extends CI_Model
 	
     function getProductInfo($productId)
     {
-        $this->db->select('id, invoice_number, suppliers_id, category_id, title, quantity, date_of_add, cost_of_buy, buy_tax, cost_of_sell, sell_tax, status');
+        $this->db->select('id, invoice_number, suppliers_id, category_id, title, quantity, date_of_add, cost_of_buy, buy_tax, cost_of_sell, sell_tax, status, remaining_quantity');
         $this->db->from('tbl_invetory');
         $this->db->where('is_deleted', '0');	
         $this->db->where('id', $productId);
@@ -68,6 +76,68 @@ class Invetory_model extends CI_Model
        $this->db->trans_complete();
         
         return $insert_id;
+    }
+
+    function getProductSellDetails($productId){
+        $this->db->select('SUM(quantity) as totalSale');
+        $this->db->from('tbl_product_sales');
+        $this->db->where('is_deleted', '0');    
+        $this->db->where('status', 'AC');    
+        $this->db->where('product_id', $productId);
+        $query = $this->db->get();
+
+        $result = $query->row();  //print_r($result);    die();
+        
+        return $result;
+    }
+
+    function productSellingListing($startDate = '', $endDate = ''){
+        $this->db->select('ps.id, ps.product_id, ps.customer_name, ps.quantity, ps.item_price, ps.tax, ps.total_price, ps.add_date, i.title productName, ps.team_id');
+        $this->db->from('tbl_product_sales as ps');
+        $this->db->join('tbl_invetory as i', 'i.id = ps.product_id');
+        $this->db->where('ps.is_deleted', '0');    
+        $this->db->where('ps.status', 'AC');  
+
+        if(!empty($startDate)){
+            $this->db->where('ps.add_date >=', $startDate);
+        }
+
+        if(!empty($endDate)){
+            $this->db->where('ps.add_date <=', $endDate);
+        }
+        
+        $this->db->order_by("ps.add_date", "DESC");  
+        $query = $this->db->get();
+        
+        $result = $query->result();  // print_r($this->db->last_query());    die();
+     
+        return $result;
+    }
+
+    function employeeProductSellingListing($startDate = '', $endDate = ''){
+        $this->db->select('ps.id, ps.product_id, ps.customer_name, ps.quantity, ps.item_price, ps.tax, ps.total_price, ps.add_date, i.title productName, ps.team_id, t.first_name, t.last_name');
+        $this->db->from('tbl_product_sales as ps');
+        $this->db->join('tbl_invetory as i', 'i.id = ps.product_id');
+        $this->db->join('tbl_team as t', 't.id = ps.team_id');
+        $this->db->where('ps.is_deleted', '0');    
+        $this->db->where('ps.status', 'AC');   
+        $this->db->where('t.is_deleted', '0');    
+        $this->db->where('t.status', 'AC');
+
+        if(!empty($startDate)){
+            $this->db->where('ps.add_date >=', $startDate);
+        }
+
+        if(!empty($endDate)){
+            $this->db->where('ps.add_date <=', $endDate);
+        }
+
+        $this->db->order_by("ps.add_date", "DESC");  
+        $query = $this->db->get();
+        
+        $result = $query->result(); // echo "<pre>"; print_r($result);    die();
+     
+        return $result;
     }
 }
 

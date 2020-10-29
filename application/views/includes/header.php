@@ -148,18 +148,22 @@
                     <ul class="navbar-nav ml-auto">
 
 
-
+                        <?php 
+                        $notificationClass = '';
+                        if($this->fl_notification == '1'){
+                            $notificationClass = 'd-none';
+                        }
+                        ?>
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link" href="<?php echo base_url(); ?>securepanel/notification">
+                            <a class="nav-link <?php echo $notificationClass; ?>" href="<?php echo base_url(); ?>securepanel/notification">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <?php 
+                                <?php
                                 if(isset($notificationCount) && $notificationCount > 0){
                                     ?><span class="badge badge-danger badge-counter"><?php echo$notificationCount; ?>+</span><?php
                                 }
                                 ?>
-                                
                             </a>
                         </li>
 

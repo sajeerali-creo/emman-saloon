@@ -65,6 +65,9 @@ $route['order-confirm'] = 'frontcontroller/orderConfirm';
 $route['save-order-confirm-info'] = 'frontcontroller/saveOrderConfirmInfo';
 $route['thankyou'] = 'frontcontroller/thankyou';
 $route['order-history'] = 'frontcontroller/orderHistory';
+$route['check-booking-slot-info-ajax'] = "frontcontroller/checkBookingSlotAvailability";
+$route['generate-booking-recipt-ajax'] = "frontcontroller/generateBookingReceipt";
+$route['generate-booking-recipt-ajax/(:any)'] = "frontcontroller/generateBookingReceipt/$1";
 
 $route['login'] = 'frontcontroller/login';
 $route['login-user'] = 'frontcontroller/loginUser';
@@ -167,6 +170,8 @@ $route['securepanel/update-booking'] = "admin/Booking/updateBooking";
 $route['securepanel/confirm-booking'] = "admin/Booking/confirmBooking";
 $route['securepanel/view-booking'] = "admin/Booking/viewBooking";
 $route['securepanel/view-booking/(:num)'] = "admin/Booking/viewBooking/$1";
+$route['securepanel/check-booking-slot-info-ajax'] = "admin/Booking/checkBookingSlotAvailability";
+$route['securepanel/check-customer-info-ajax'] = "admin/Booking/checkCustomerInfo";
 
 
 $route['securepanel/team'] = "admin/Team/listing";
@@ -183,6 +188,8 @@ $route['securepanel/delete-team'] = "admin/Team/deleteTeam";
 
 
 $route['securepanel/invetory'] = "admin/Invetory/listing";
+$route['securepanel/invetory-employee'] = "admin/Invetory/listingEmployeeReport";
+$route['securepanel/invetory-pooduct'] = "admin/Invetory/listingProductReport";
 $route['securepanel/add-product'] = "admin/Invetory/addNewProduct";
 $route['securepanel/add-product-info'] = "admin/Invetory/addNewProductInformation";
 $route['securepanel/edit-product'] = "admin/Invetory/editProduct";

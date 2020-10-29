@@ -1,9 +1,12 @@
 <?php
-$serviceId = $serviceInfo->id;
-$txtTitle = isset($txtTitle) ? $txtTitle : $serviceInfo->title;
-$lstCategory = isset($lstCategory) ? $lstCategory : $serviceInfo->category_id;
-$txtPrice = isset($txtPrice) ? $txtPrice : $serviceInfo->price;
-$rdStatus = isset($rdStatus) ? $rdStatus : $serviceInfo->status;
+$serviceId          = $serviceInfo->id;
+$txtTitle           = isset($txtTitle) ? $txtTitle : $serviceInfo->title;
+$lstCategory        = isset($lstCategory) ? $lstCategory : $serviceInfo->category_id;
+$txtPrice           = isset($txtPrice) ? $txtPrice : $serviceInfo->price;
+$rdStatus           = isset($rdStatus) ? $rdStatus : $serviceInfo->status;
+$rdServiceType      = isset($rdServiceType) ? $rdServiceType : $serviceInfo->type;
+$rdServiceSpecial   = isset($rdServiceSpecial) ? $rdServiceSpecial : $serviceInfo->fl_special;
+$lstDuration        = isset($lstDuration) ? $lstDuration : $serviceInfo->time_duration;
 
 
 ?><style>
@@ -23,7 +26,52 @@ $rdStatus = isset($rdStatus) ? $rdStatus : $serviceInfo->status;
     <!-- end header -->
     <div class="row">
         <div class="mt-2 col-md-8">
-            <form class="user" action="<?php echo base_url() ?>securepanel/update-service" method="post" id="editDocument" role="form" enctype="multipart/form-data">
+            <form class="user" action="<?php echo base_url() ?>securepanel/update-service" method="post" id="editDocument" role="form" enctype="multipart/form-data"><?php
+
+                if($rdServiceType == 'home'){
+                    $checkedHome = 'checked';
+                    $checkedSaloon = '';
+                }
+                else{
+                    $checkedHome = '';
+                    $checkedSaloon = 'checked';
+                }
+                ?><!-- Type of services -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Type</label><br>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdServiceTypeHome" <?php echo $checkedHome; ?> name="rdServiceType" class="custom-control-input" checked="checked" value="home">
+                            <label class="custom-control-label" for="rdServiceTypeHome">Home</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdServiceTypeSaloon" <?php echo $checkedSaloon; ?> name="rdServiceType" class="custom-control-input" value="saloon">
+                            <label class="custom-control-label" for="rdServiceTypeSaloon">Saloon</label>
+                        </div>
+                    </div>
+                </div><?php
+
+                if($rdServiceSpecial == 'N'){
+                    $checkedNormal = 'checked';
+                    $checkedSpecial = '';
+                }
+                else{
+                    $checkedNormal = '';
+                    $checkedSpecial = 'checked';
+                }
+                ?><!-- Type of services -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdServiceSpecialN" <?php echo $checkedNormal; ?> name="rdServiceSpecial" class="custom-control-input" checked="checked" value="N">
+                            <label class="custom-control-label" for="rdServiceSpecialN">Normal Service</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rdServiceSpecialY" <?php echo $checkedSpecial; ?> name="rdServiceSpecial" class="custom-control-input" value="Y">
+                            <label class="custom-control-label" for="rdServiceSpecialY">Special Service</label>
+                        </div>
+                    </div>
+                </div>
                 <!-- name of services -->
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-12">
@@ -48,6 +96,24 @@ $rdStatus = isset($rdStatus) ? $rdStatus : $serviceInfo->status;
                     </div>
                 </div>
                 <!-- end category -->
+                <!-- Time -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Time Duration</label>
+                        <select class="custom-select" name="lstDuration" id="lstDuration" required="required">
+                            <option value="">Select</option>
+                            <option value="1" <?php echo($lstDuration == 1 ? ' selected ' : ''); ?>>15 Min</option>
+                            <option value="2" <?php echo($lstDuration == 2 ? ' selected ' : ''); ?>>30 Min</option>
+                            <option value="3" <?php echo($lstDuration == 3 ? ' selected ' : ''); ?>>45 Min</option>
+                            <option value="4" <?php echo($lstDuration == 4 ? ' selected ' : ''); ?>>60 Min</option>
+                            <option value="5" <?php echo($lstDuration == 5 ? ' selected ' : ''); ?>>1 hr 15 Min</option>
+                            <option value="6" <?php echo($lstDuration == 6 ? ' selected ' : ''); ?>>1 hr 30 Min</option>
+                            <option value="7" <?php echo($lstDuration == 7 ? ' selected ' : ''); ?>>1 hr 45 Min</option>
+                            <option value="8" <?php echo($lstDuration == 8 ? ' selected ' : ''); ?>>2 hr</option>
+
+                        </select>
+                    </div>
+                </div>
 
                 <!-- persons -->
                 <div class="row mb-2">
@@ -55,6 +121,22 @@ $rdStatus = isset($rdStatus) ? $rdStatus : $serviceInfo->status;
                         <label class="text-primary">Price (AED)</label>
                         <input type="text" class="form-control" value="<?php echo $txtPrice; ?>" id="txtPrice" name="txtPrice" maxlength="50" placeholder="AED" required>
                     </div>
+                </div>
+                <!-- end persons -->
+                <!-- persons -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Service Charges (AED)</label><?php
+                        /*echo "<pre>";
+                        print_r($serviceChargeInfo);
+                        die();*/
+                        foreach ($arrCluster as $key => $value) {
+                            $serviceChargeInfo[$key] = (isset($serviceChargeInfo[$key]) ? $serviceChargeInfo[$key] : '');
+
+                            $txtServicePrice   = isset($txtServicePrice[$key]) ? $txtServicePrice[$key] : $serviceChargeInfo[$key];
+                            ?><input type="text" class="form-control mb-1 number_only" id="txtServicePrice_<?php echo $key; ?>" name="txtServicePrice[<?php echo $key; ?>]" maxlength="50" value="<?php echo $txtServicePrice; ?>" placeholder="<?php echo $value; ?>" title="<?php echo $value; ?>"><?php
+                        }
+                    ?></div>
                 </div>
                 <!-- end persons --><?php
 

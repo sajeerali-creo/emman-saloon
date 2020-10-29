@@ -2,7 +2,7 @@
 
 class Booking_model extends CI_Model
 {
-    function bookingListing()
+    function bookingListing($startDate = '', $endDate = '')
     {
         $this->db->select('cm.id as cartMasterId, cm.order_id, cm.service_date, cm.service_time, cm.booking_note, cm.total_price, cm.vat, cm.service_charge, cm.discount_price, cm.status, cm.add_date, c.id as cartId, c.service_id, c.price, c.person, cpi.first_name, cpi.last_name, cpi.email, cpi.phone, cpi.address, cm.customer_id, s.title as serviceName, sc.category_name as serviceCategory, DATE_FORMAT(cm.add_date, "%Y-%m-%d %h:%i %p") as addDate');
         $this->db->from('tbl_cartmaster as cm');
@@ -17,15 +17,40 @@ class Booking_model extends CI_Model
         $this->db->where('sc.is_deleted', '0');
         $this->db->order_by("cm.add_date", "DESC");
         $this->db->order_by("cm.customer_id", "ASC");
+
+        if(!empty($startDate)){
+            $this->db->where('cm.add_date >=', $startDate);
+        }
+
+        if(!empty($endDate)){
+            $this->db->where('cm.add_date <=', $endDate);
+        }
         $query = $this->db->get();
 
         $result = $query->result();
 
         $arrReturn = array();
         if(!empty($result)){
+            $arrSelectedCartInfo = array();
+
             foreach ($result as $key => $objCart) {
                 $arrReturn[$objCart->cartMasterId]['serviceAllInfo'][$objCart->cartId] = (array)$objCart;
                 $arrReturn[$objCart->cartMasterId]['info'] = (array)$objCart;
+
+                if(!in_array($objCart->cartMasterId, $arrSelectedCartInfo)){
+                    $arrSelectedCartInfo[] = $objCart->cartMasterId;
+                    $objTeamInfo = $this->getBookingServicerProductInfo($objCart->cartMasterId);
+
+                    if(!empty($objTeamInfo)){
+                        //echo "<pre>"; print_r($objTeamInfo);die();
+                        foreach ($objTeamInfo as $key => $value) {
+                            $arrReturn[$objCart->cartMasterId]['teamInfo'][$value->team_id] = (array)$value;
+                        }
+                    }
+                    else{
+                        $arrReturn[$objCart->cartMasterId]['teamInfo'] = array();
+                    }                    
+                }
             }
         }
 
@@ -48,7 +73,7 @@ class Booking_model extends CI_Model
 	
     function getBookingInfo($bookingId)
     {
-        $this->db->select('cm.id as cartMasterId, cm.order_id, cm.booking_type, cm.service_date, cm.service_time, cm.booking_note, cm.total_price, cm.vat, cm.service_charge, cm.discount_price, cm.status, cm.add_date, c.id as cartId, c.service_id, c.price, c.person, cpi.first_name, cpi.last_name, cpi.email, cpi.phone, cpi.address, cm.customer_id, s.title as serviceName, sc.category_name as serviceCategory');
+        $this->db->select('cm.id as cartMasterId, cm.order_id, cm.booking_type, cm.service_date, cm.service_time, cm.booking_note, cm.total_price, cm.vat, cm.service_charge, cm.discount_price, cm.status, cm.add_date, c.id as cartId, c.service_id, c.price, c.person, cpi.first_name, cpi.last_name, cpi.email, cpi.phone, cpi.address, cm.customer_id, s.title as serviceName, sc.category_name as serviceCategory, cm.invoice_number');
         $this->db->from('tbl_cartmaster as cm');
         $this->db->join('tbl_cart_personal_info as cpi', 'cm.id = cpi.cartmaster_id');
         $this->db->join('tbl_cart as c', 'cm.id = c.cartmaster_id');
@@ -78,15 +103,15 @@ class Booking_model extends CI_Model
 
     function getBookingServicerProductInfo($bookingId){
         $this->db->distinct();
-        $this->db->select('csp.id as cspId, csp.team_id, csp.product_id');
+        $this->db->select('cs.id as cspId, cs.team_id, csp.product_id, t.first_name, t.last_name, t.is_deleted');
         $this->db->from('tbl_cartmaster as cm');
-        //$this->db->join('tbl_cart_servicer as cs', 'cm.id = cs.cartmaster_id');
-        $this->db->join('tbl_cart_servicer_product as csp', 'cm.id = csp.cartmaster_id');
+        $this->db->join('tbl_cart_servicer as cs', 'cm.id = cs.cartmaster_id');
+        $this->db->join('tbl_team as t', 't.id = cs.team_id');
+        $this->db->join('tbl_cart_servicer_product as csp', 'cs.id = csp.cart_servicer_id', 'left');
         $this->db->where('cm.is_deleted', '0');
-        //$this->db->where('cs.is_deleted', '0');
-        $this->db->where('csp.is_deleted', '0');
-        //$this->db->where('cs.team_id = csp.team_id');
+        $this->db->where('cs.is_deleted', '0');
         $this->db->where('cm.id', $bookingId);
+        $this->db->order_by("cs.team_id", 'ASC');
         $query = $this->db->get();
 
         $result = $query->result();
