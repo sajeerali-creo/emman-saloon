@@ -70,6 +70,7 @@
                     }
                     
                     ?><ul class="time-list" id="available-time-list">
+                        <li class="not-avaialble">9:00 AM</li>
                         <li data-val="9:00 AM" <?php echo($defTime == "9:00 AM" ? ' class="active" ' : ''); ?>>9:00 AM</li>
                         <li data-val="9:30 AM"<?php echo($defTime == "9:30 AM" ? ' class="active" ' : ''); ?>>9:30 AM</li>
                         <li data-val="10:00 AM"<?php echo($defTime == "10:00 AM" ? ' class="active" ' : ''); ?>>10:00 AM</li>

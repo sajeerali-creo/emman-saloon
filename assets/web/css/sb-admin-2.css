@@ -9093,3 +9093,6 @@ body.sidebar-toggled footer.sticky-footer {
 .f-10{
   font-size: 10px!important;
 }
+.not-avaialble{
+  text-decoration: line-through;
+}

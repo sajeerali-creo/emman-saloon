@@ -31,8 +31,8 @@
                 Previous Booking history
             </div>
             <div>
-                <button type="button" class="btn btn-primary btn-sm d-flex align-items-center">
-                    <a href="<?php echo base_url() ?>service" class="text-white text-decoration-none">
+                <button type="button" class="btn btn-primary btn-sm d-flex align-items-center ">
+                    <a href="<?php echo base_url() ?>service" class="text-white text-decoration-none text-center-bt w-100">
                         Back
                     </a>
                 </button>

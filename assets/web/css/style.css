@@ -3213,3 +3213,32 @@ form.user .btn-user {
   border-radius: 35px;
   min-width: 100px;
 }
+.not-avaialble{
+  text-decoration: line-through;
+  background-color: #ffdddb!important;
+}
+
+#drift-widget{
+  bottom: 119px!important;
+  right: 115px!important;
+}
+
+.watsap-button{
+  border-radius: .3125rem!important;
+  width: 52px!important;
+  height: 52px!important;
+  bottom: 130px!important;
+  left: 115px!important;
+}
+
+@media (max-width: 576px) {
+  #drift-widget{
+    bottom: 4px!important;
+    right: 10px!important;
+  }
+  
+  .watsap-button{
+    bottom: 10px!important;
+    left: 10px!important;
+  }
+}
