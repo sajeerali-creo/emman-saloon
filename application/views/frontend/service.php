@@ -98,6 +98,9 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <div class="text-gray-600 font-weight-bold">
+                                               <!-- offer -->
+                                               <div class="sp-offer">Special Offer</div>
+                                            <!-- end offer -->
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input chkService"
                                                     id="customCheck<?php echo $value->id; ?>" name="chkService"
@@ -107,6 +110,8 @@
                                                 <label class="custom-control-label"
                                                     for="customCheck<?php echo $value->id; ?>"><?php echo $value->title; ?></label>
                                             </div>
+
+                                         
                                         </div>
                                     </div>
                                     <div>
