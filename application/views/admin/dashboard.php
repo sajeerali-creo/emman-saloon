@@ -37,7 +37,7 @@
             <div class="card-counter primary">
                 <i class="fas fa-wallet"></i>
                 <span class="count-numbers">AED <?php echo $totalSales; ?></span>
-                <span class="count-name">Total Sales</span>
+                <span class="count-name">Total Sales & Services</span>
             </div>
         </div>
 
@@ -72,7 +72,7 @@
                 <div class="h4 mb-2"><span class="font-weight-bold"><?php echo $totalBooking; ?></span>&nbsp;Bookings
                 </div>
 
-                <div class="d-flex">
+                <div class="d-flex d-sm-block">
                     <div class="d-block w-100">
                         <div class="mr-2 mb-1">
                             <button type="button" class="btn btn-primary">
@@ -86,7 +86,7 @@
                                     class="badge badge-light"><?php echo $totalPendingBooking; ?></span>
                             </button>
                         </div>
-                        <div>
+                        <div class="mb-sm-1">
                             <button type="button" class="btn btn-success">
                                 Completed Bookings&nbsp;<span
                                     class="badge badge-light"><?php echo $totalCompletedBooking; ?></span>
@@ -94,8 +94,8 @@
                         </div>
                     </div>
 
-                    <div class="d-flex w-100">
-                        <div class="card border-left-info shadow h-100 py-2 mr-2 w-100">
+                    <div class="d-flex w-100 d-sm-block">
+                        <div class="card border-left-info shadow h-100 py-2 mr-2 w-100 mb-sm-1">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
@@ -174,12 +174,20 @@
                     </div>
                     <div class="col-md-6">
                         <div class="card  shadow h-100 py-2 mr-2 w-100">
-                            <div class="card-body d-flex align-items-center justify-content-center">
+                            <div class="card-body d-flex align-items-center justify-content-center d-sm-block">
                                 <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2 text-center s-v">
+                                    <div class="col mr-2 text-center s-v mb-sm-1">
                                         <div>
-                                            <h1 class="font-weight-bold text-primary"><?php echo $totalTeam; ?></h1>
+                                            <h1 class="font-weight-bold text-success"><?php echo $totalTeam; ?></h1>
                                             <div>Total Team</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2 text-center s-v busy">
+                                        <div>
+                                            <h1 class="font-weight-bold text-danger">1</h1>
+                                            <div>Busy Team</div>
                                         </div>
                                     </div>
                                 </div>

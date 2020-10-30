@@ -136,6 +136,9 @@ form.user .form-control-user{
     .mr-sm-0{
         margin-right: 0px;
     }
+    .card-counter{
+      height: auto;
+    }
 }
 
 
@@ -160,6 +163,12 @@ form.user .form-control-user{
 .s-v{
   padding: 4rem;
   background: #f3eefd;
+  border-radius: 160px;
+  width: 200px;
+}
+.busy{
+  padding: 4rem;
+  background: #fdeef5;
   border-radius: 160px;
   width: 200px;
 }
