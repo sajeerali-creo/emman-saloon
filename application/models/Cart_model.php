@@ -281,7 +281,7 @@ class Cart_model extends CI_Model
     }
 
     function getTotalSales($startDate, $endDate, $group_by_month = false){
-        $this->db->select('sum(total_price) as totalPrice, DATE_FORMAT(add_date, "%M") groupMonth');
+        $this->db->select('sum(total_price) as totalPrice');//, DATE_FORMAT(add_date, "%M") groupMonth
         $this->db->from('tbl_cartmaster');
         $this->db->where('is_deleted', '0');
         $this->db->where('add_date >=', $startDate);
