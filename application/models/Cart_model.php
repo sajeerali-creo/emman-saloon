@@ -286,8 +286,9 @@ class Cart_model extends CI_Model
         $this->db->where('is_deleted', '0');
         $this->db->where('add_date >=', $startDate);
         $this->db->where('add_date <=', $endDate);
+
         if($group_by_month){
-            $this->db->group_by('groupMonth');
+            //$this->db->group_by('groupMonth');
             $query = $this->db->get();
             return $query->result();
         } else {
