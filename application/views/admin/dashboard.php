@@ -2,9 +2,9 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="d-lg-flex d-sm-block d-md-block align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Overview</h1>
-        <div class="d-flex d-sm-block">
+        <div class="d-lg-flex d-sm-block d-md-block">
             <div class="mr-2 w-sm-100 mr-sm-0 mt-sm-1">
                 <button class="card p-2 w-sm-100 mr-2" id="reportrange">
                     <i class="text-primary" data-feather="calendar"></i>
@@ -33,7 +33,7 @@
 
 
     <div class="row mb-4">
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-6">
             <div class="card-counter primary">
                 <i class="fas fa-wallet"></i>
                 <span class="count-numbers">AED <?php echo $totalSales; ?></span>
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-6">
             <div class="card-counter bg-warning">
                 <i class="fas fa-cart-arrow-down"></i>
                 <span class="count-numbers text-white"><?php echo $totalBooking; ?></span>
@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-6">
             <div class="card-counter success">
                 <i class="fas fa-user-friends"></i>
                 <span class="count-numbers"><?php echo $totalTeam; ?></span>
@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-6">
             <div class="card-counter info">
                 <i class="fa fa-users"></i>
                 <span class="count-numbers"><?php echo $totalCustomers; ?></span>
@@ -67,16 +67,16 @@
     </div>
 
     <div class="row mb-4">
-        <div class="col-md-8">
-            <div class="card-block bg-white mt-1 mb-1 card-counter">
+        <div class="col-md-12 col-lg-8">
+            <div class="card-block bg-white mt-1 mb-1 card-counter2">
                 <div class="h4 mb-2"><span class="font-weight-bold"><?php echo $totalBooking; ?></span>&nbsp;Bookings
                 </div>
 
-                <div class="d-flex d-sm-block">
-                    <div class="d-block w-100">
+                <div class="d-lg-flex d-sm-block">
+                    <div class="d-block w-100 mb-md-3">
                         <div class="mr-2 mb-1">
                             <button type="button" class="btn btn-primary">
-                                Confirm Bookings&nbsp;<span
+                                Confirmed Bookings&nbsp;<span
                                     class="badge badge-light"><?php echo $totalConfirmBooking; ?></span>
                             </button>
                         </div>
@@ -94,7 +94,7 @@
                         </div>
                     </div>
 
-                    <div class="d-flex w-100 d-sm-block">
+                    <div class="d-lg-flex w-100 d-sm-block">
                         <div class="card border-left-info shadow h-100 py-2 mr-2 w-100 mb-sm-1">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
@@ -126,7 +126,7 @@
 
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-12">
             <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-info text-white">
                 <div class="h4 mb-2"><span
                         class="font-weight-bold text-white"><?php echo $totalProductSale; ?></span><br>Total Product
@@ -140,7 +140,7 @@
             <div class="card-block bg-white mt-1 mb-1">
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-lg-6 col-md-12">
                         <div class="f-16 font-weight-bold text-primary text-uppercase mb-1">
                             Available Team <span class="badge badge-secondary"><?php echo $totalActiveTeam; ?></span></div>
                         <div class=" mb-2 progress">
@@ -172,7 +172,7 @@
                                 style="width:  <?php echo $totalHDOffTeam; ?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-lg-6 col-md-12">
                         <div class="card  shadow h-100 py-2 mr-2 w-100">
                             <div class="card-body d-flex align-items-center justify-content-center d-sm-block">
                                 <div class="row no-gutters align-items-center">
