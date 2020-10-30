@@ -2,15 +2,19 @@
 
 class Booking_model extends CI_Model
 {
-    function bookingListing($startDate = '', $endDate = '')
+    function bookingListing($startDate = '', $endDate = '', $flIncludeDeletedRecord = false)
     {
-        $this->db->select('cm.id as cartMasterId, cm.order_id, cm.service_date, cm.service_time, cm.booking_note, cm.total_price, cm.vat, cm.service_charge, cm.discount_price, cm.status, cm.add_date, c.id as cartId, c.service_id, c.price, c.person, cpi.first_name, cpi.last_name, cpi.email, cpi.phone, cpi.address, cm.customer_id, s.title as serviceName, sc.category_name as serviceCategory, DATE_FORMAT(cm.add_date, "%Y-%m-%d %h:%i %p") as addDate');
+        $this->db->select('cm.id as cartMasterId, cm.order_id, cm.service_date, cm.service_time, cm.booking_note, cm.total_price, cm.vat, cm.service_charge, cm.discount_price, cm.status, cm.add_date, c.id as cartId, c.service_id, c.price, c.person, cpi.first_name, cpi.last_name, cpi.email, cpi.phone, cpi.address, cm.customer_id, s.title as serviceName, sc.category_name as serviceCategory, DATE_FORMAT(cm.add_date, "%Y-%m-%d %h:%i %p") as addDate, cm.booking_type, cm.delete_note cancelNote, cm.is_deleted as flCancel');
         $this->db->from('tbl_cartmaster as cm');
         $this->db->join('tbl_cart_personal_info as cpi', 'cm.id = cpi.cartmaster_id');
         $this->db->join('tbl_cart as c', 'cm.id = c.cartmaster_id');
         $this->db->join('tbl_services as s', 's.id = c.service_id');
         $this->db->join('tbl_services_category as sc', 'sc.id = s.category_id');
-        $this->db->where('cm.is_deleted', '0');
+
+        if(!$flIncludeDeletedRecord){
+            $this->db->where('cm.is_deleted', '0');
+        }
+
         $this->db->where('c.is_deleted', '0');
         $this->db->where('cpi.is_deleted', '0');
         $this->db->where('s.is_deleted', '0');
@@ -71,15 +75,19 @@ class Booking_model extends CI_Model
         return $insert_id;
     }
 	
-    function getBookingInfo($bookingId)
+    function getBookingInfo($bookingId, $flIncludeDeletedRecord = false)
     {
-        $this->db->select('cm.id as cartMasterId, cm.order_id, cm.booking_type, cm.service_date, cm.service_time, cm.booking_note, cm.total_price, cm.vat, cm.service_charge, cm.discount_price, cm.status, cm.add_date, c.id as cartId, c.service_id, c.price, c.person, cpi.first_name, cpi.last_name, cpi.email, cpi.phone, cpi.address, cm.customer_id, s.title as serviceName, sc.category_name as serviceCategory, cm.invoice_number');
+        $this->db->select('cm.id as cartMasterId, cm.order_id, cm.booking_type, cm.service_date, cm.service_time, cm.booking_note, cm.total_price, cm.vat, cm.service_charge, cm.discount_price, cm.status, cm.add_date, c.id as cartId, c.service_id, c.price, c.person, cpi.first_name, cpi.last_name, cpi.email, cpi.phone, cpi.address, cm.customer_id, s.title as serviceName, sc.category_name as serviceCategory, cm.invoice_number, cm.delete_note cancelNote, cm.is_deleted as flCancel, cm.deleted_from as cancelFrom, cm.deleted_id as cancel_user_id');
         $this->db->from('tbl_cartmaster as cm');
         $this->db->join('tbl_cart_personal_info as cpi', 'cm.id = cpi.cartmaster_id');
         $this->db->join('tbl_cart as c', 'cm.id = c.cartmaster_id');
         $this->db->join('tbl_services as s', 's.id = c.service_id');
         $this->db->join('tbl_services_category as sc', 'sc.id = s.category_id');
-        $this->db->where('cm.is_deleted', '0');
+
+        if(!$flIncludeDeletedRecord){
+            $this->db->where('cm.is_deleted', '0');
+        }
+
         $this->db->where('c.is_deleted', '0');
         $this->db->where('cpi.is_deleted', '0');
         $this->db->where('s.is_deleted', '0');

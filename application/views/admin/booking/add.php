@@ -122,8 +122,6 @@
                         $defTime = '';
 
                         ?><label class="text-primary">Select time of Service</label>
-                        <button  type="button" class="btn btn-outline-primary  mr-1 mb-1 not-avaialble">10:00 AM</button>
-
                         <div id="available-time-list"><?php
                             foreach ($arrTimeSlots as $key => $value) {
                                 ?><button id="timeslot_<?php echo preg_replace('/[^0-9A-Za-z]/i', '', $value); ?>" data-val="<?php echo $value; ?>" type="button" class="btn <?php echo($defTime == $value ? ' btn-primary ' : ' btn-outline-primary '); ?> mr-1 mb-1"><?php echo $value; ?></button><?php    
@@ -187,7 +185,7 @@
                 <!-- If any discount? -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Vat</label>
+                        <label class="text-primary">Vat(%)</label>
                         <input type="text" class="form-control number_only" id="txtVat" name="txtVat" value="5" placeholder="Vat Percentage">
                     </div>
                 </div>

@@ -50,6 +50,7 @@
                                 <th>Services</th>
                                 <th>Service Date & Time</th>
                                 <th>Booking Date & Time</th>
+                                <th>Service Type</th>
                                 <th>Location</th>
                                 <th>Price</th>
                                 <th>Status</th>
@@ -76,32 +77,43 @@
                                         ?></th>
                                         <th><?php echo $record['info']['service_date'] . " - " . $record['info']['service_time']; ?></th>
                                         <th><?php echo $record['info']['addDate']; ?></th>
+                                        <th><?php echo ucwords($record['info']['booking_type'] . " Service"); ?></th>
                                         <th><?php echo $record['info']['address']; ?></th>
                                         <th>AED <?php echo $record['info']['total_price']; ?></th><?php
-                                        if ($record['info']['status'] == 'PN') {
-                                            ?><th class="text-warning">Pending</th><?php
+                                        if($record['info']['flCancel'] == '1'){
+                                            ?><th class="text-danger status-booking-<?php echo $record['info']['cartMasterId']; ?>">Cancelled</th><?php
+                                        }
+                                        else if ($record['info']['status'] == 'PN') {
+                                            ?><th class="text-warning status-booking-<?php echo $record['info']['cartMasterId']; ?>">Pending</th><?php
                                         }
                                         else if ($record['info']['status'] == 'CN') {
-                                            ?><th class="text-info">Confirmed</th><?php
+                                            ?><th class="text-info status-booking-<?php echo $record['info']['cartMasterId']; ?>">Confirmed</th><?php
                                         }
                                         else if ($record['info']['status'] == 'SBR') {
-                                            ?><th class="text-info">Servicer Rejected</th><?php
+                                            ?><th class="text-info status-booking-<?php echo $record['info']['cartMasterId']; ?>">Servicer Rejected</th><?php
                                         }
                                         else if ($record['info']['status'] == 'SBC') {
-                                            ?><th class="text-info">Servicer Confirmed</th><?php
+                                            ?><th class="text-info status-booking-<?php echo $record['info']['cartMasterId']; ?>">Servicer Confirmed</th><?php
                                         }
                                         else{
                                             ?><th class="text-success">Completed</th><?php
                                         }
                                         
-                                        ?><th class="text-right">
-                                            <a href="<?php echo base_url().'securepanel/view-booking/'.$record['info']['cartMasterId']; ?>" class="btn btn-light">
+                                        ?><th class="text-right"><?php 
+                                            ?><a href="<?php echo base_url().'securepanel/view-booking/'.$record['info']['cartMasterId']; ?>" class="btn btn-light">
                                                 <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="<?php echo base_url().'securepanel/edit-booking/'.$record['info']['cartMasterId']; ?>" class="btn btn-light">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </a>
-                                        </th>
+                                            </a><?php
+                                            if($record['info']['flCancel'] != '1' && $record['info']['status'] != 'CM'){
+                                                ?><a href="<?php echo base_url().'securepanel/edit-booking/'.$record['info']['cartMasterId']; ?>" class="btn btn-light edit-booking-<?php echo $record['info']['cartMasterId']; ?>">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </a>
+                                                <a data-toggle="modal" data-target="#delete-order"
+                                                    class="btn btn-light deleteOrder text-danger  delete-booking-<?php echo $record['info']['cartMasterId']; ?>"
+                                                    data-recordid="<?php echo $record['info']['cartMasterId']; ?>" title="Cancel Booking">
+                                                    <i class="fas fa-times"></i>
+                                                </a><?php
+                                            }
+                                        ?></th>
                                     </tr><?php
                                 }
                             }
@@ -117,11 +129,19 @@
 <!-- /.container-fluid -->
 
 <!-- delet services -->
-<div class="modal fade" id="delete-service" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="delete-order" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body text-center f-24">
-                Are you sure to delete this item?
+                <h5 class="modal-title">Are you sure to cancel this booking??</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea class="form-control" id="taDeleteReason" name="taDeleteReason" rows="3" placeholder="Enter cancel notes"></textarea>
+                </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -131,7 +151,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="delete-service-msg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="delete-order-msg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body text-center f-24">

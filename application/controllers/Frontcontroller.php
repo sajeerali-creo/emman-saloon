@@ -772,6 +772,27 @@ class Frontcontroller extends CI_Controller{
         echo(json_encode(array('status'=>TRUE, "slots" => $arrAvailableSlots))); 
     }
 
+    function generateProductReceipt($bookingId){
+        //$bookingId = $this->security->xss_clean($this->input->post('bookingId'));
+
+        $data['title'] = PROJECT_NAME . ' - Booking Receipt';
+        $data['pageTitle'] = PROJECT_NAME . ' - Booking Receipt';
+        $data['description'] = PROJECT_NAME . ' - Booking Receipt';  
+        $data['currentpage'] = 'receiptpage';
+
+        $data['bookingInfo'] = $this->booking_model->getBookingInfo($bookingId);
+        $data['bookingTeamProductInfo'] = $this->booking_model->getBookingServicerProductInfo($bookingId);
+        $data['serviceInfo'] = $this->getAllServices(false);
+        $data['teamInfo'] = $this->getTeamInfo();
+        $data['productInfo'] = $this->getInventoryInfo();
+        $data['arrTimeSlots'] = $this->getAllTimeSlots();
+
+        /*echo "<pre>";
+        print_r($data);
+        die();*/
+        $this->load->view('recipt/recipt', $data);
+    }
+
     function generateBookingReceipt($bookingId){
         //$bookingId = $this->security->xss_clean($this->input->post('bookingId'));
 

@@ -26,8 +26,7 @@
         </div>
 
         <div class="">
-            <a href="#" class="d-sm-inline-block btn btn-md btn-primary shadow-sm h-40 w-sm-100 mt-sm-1"><i
-                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <a href="javascript:;" id="lnkGenerateDashboardReport" class="d-sm-inline-block btn btn-md btn-primary shadow-sm h-40 w-sm-100 mt-sm-1"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
         </div>
     </div>
 

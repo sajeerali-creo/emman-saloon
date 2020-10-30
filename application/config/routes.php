@@ -68,6 +68,8 @@ $route['order-history'] = 'frontcontroller/orderHistory';
 $route['check-booking-slot-info-ajax'] = "frontcontroller/checkBookingSlotAvailability";
 $route['generate-booking-recipt-ajax'] = "frontcontroller/generateBookingReceipt";
 $route['generate-booking-recipt-ajax/(:any)'] = "frontcontroller/generateBookingReceipt/$1";
+$route['generate-product-recipt-ajax'] = "frontcontroller/generateProductReceipt";
+$route['generate-product-recipt-ajax/(:any)'] = "frontcontroller/generateProductReceipt/$1";
 
 $route['login'] = 'frontcontroller/login';
 $route['login-user'] = 'frontcontroller/loginUser';
@@ -110,6 +112,7 @@ $route['securepanel/profileUpdate/(:any)'] = "admin/user/profileUpdate/$1";
 $route['securepanel/getparentlists'] = "admin/user/getparentlists";
 $route['securepanel/getclasslist'] = "admin/user/getclasslist";
 $route['securepanel/getteacherinfo'] = "admin/user/getteacherinfo";
+$route['securepanel/dashboardreportdownload'] = 'admin/user/downloadDashboardReport';
 
 $route['securepanel/loadChangePass'] = "admin/user/loadChangePass";
 $route['securepanel/changepassword'] = "admin/user/changePassword";
@@ -167,6 +170,7 @@ $route['securepanel/add-booking-info'] = "admin/Booking/addNewBookingInformation
 $route['securepanel/edit-booking'] = "admin/Booking/editBooking";
 $route['securepanel/edit-booking/(:num)'] = "admin/Booking/editBooking/$1";
 $route['securepanel/update-booking'] = "admin/Booking/updateBooking";
+$route['securepanel/delete-booking'] = "admin/Booking/deleteBooking";
 $route['securepanel/confirm-booking'] = "admin/Booking/confirmBooking";
 $route['securepanel/view-booking'] = "admin/Booking/viewBooking";
 $route['securepanel/view-booking/(:num)'] = "admin/Booking/viewBooking/$1";

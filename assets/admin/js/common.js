@@ -177,6 +177,48 @@ jQuery(document).ready(function(){
 				});
 	});
 
+
+	jQuery(document).on("click", ".deleteOrder", function(){
+		let recordId = $(this).data("recordid");
+		$("#hdDeleteRecordId").val(recordId);
+		console.log(recordId);
+	});
+
+	jQuery(document).on("click", "#delete-order .btn-primary", function(){
+		let recordId = $("#hdDeleteRecordId").val(),
+		taDeleteReason = $("#taDeleteReason").val(),
+		hitURL = baseURL + "securepanel/delete-booking",
+		currentRow = $('.row_' + recordId);
+
+		jQuery.ajax({
+				type : "POST",
+				dataType : "json",
+				url : hitURL,
+				data : { booking : recordId, deleteNote: taDeleteReason } 
+				}).done(function(data){
+					console.log(data);
+					if(data.status == true) { 
+						//objDataTable.row( currentRow ).remove().draw();
+						$("#delete-order-msg .modal-body").text("Booking cancelled successfully"); 
+						$(".edit-booking-" + recordId).hide();
+						$(".delete-booking-" + recordId).hide();
+						let statusVar = $(".status-booking-" + recordId);
+						statusVar.removeClass();
+						statusVar.addClass("text-danger");
+						statusVar.text("Cancelled");
+					}
+					else if(data.status == false) {
+						$("#delete-order-msg .modal-body").text("Booking cancellation failed"); 
+					}
+					else { 
+						$("#delete-order-msg .modal-body").text("Access denied..!"); 
+					}
+					$('#delete-order').modal('hide');
+					$('#delete-order-msg').modal('show');
+					$("#taDeleteReason").val("");
+				});
+	});
+
 	$("#pageSellProduct #frmAddForm").submit(function(e) {
 		e.preventDefault();
 		let hitURL = baseURL + "securepanel/add-sell-product-info-ajax";

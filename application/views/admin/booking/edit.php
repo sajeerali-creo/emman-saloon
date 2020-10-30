@@ -214,55 +214,80 @@ if(!isset($lstServicer)){
                         </label>
                         <div id="div_servicer_product_main"><?php
                             $intCount = 1;
-                            foreach ($lstServicer as $index => $teamId) {
+
+                            if(count($lstServicer) > 0){
+                                foreach ($lstServicer as $index => $teamId) {
                                 ?><div id="div_servicer_product_<?php echo $intCount; ?>" class="row mb-2">
                                 <div class="form-group col-md-12 col-sm-12 mb-2"><?php
                                         if($intCount > 1){
-                                            ?>
-                                            <label class="text-primary">Beautician / Massager /
-                                        Hairdresser</label>
-                                        <span
-                                        onclick="javascript: jsRemoveThis('div_servicer_product_<?php echo $intCount; ?>');"
-                                        class="badge badge-danger"><i class="fas fa-trash-alt"></i> remove this service</span><?php
-                                        }
-                                        ?>
-                                        
-                                        <select class="custom-select" name="lstServicer[]"
-                                        id="lstServicer<?php echo $intCount; ?>" required>
-                                        <option value="">Select servicer</option><?php
-                                            foreach ($teamInfo as $key => $value) {
-                                                $strChecked = '';
-                                                if($teamId == $value['id']){
-                                                    $strChecked = ' selected="selected" ';
+                                            ?><label class="text-primary">Beautician / Massager / Hairdresser</label>
+                                                <span
+                                                onclick="javascript: jsRemoveThis('div_servicer_product_<?php echo $intCount; ?>');"
+                                                class="badge badge-danger"><i class="fas fa-trash-alt"></i> remove this service</span><?php
                                                 }
-                                                ?><option value="<?php echo $value['id']; ?>"
-                                            <?php echo $strChecked; ?>><?php echo $value['name']; ?></option><?php
-                                            }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-12 col-sm-12 mb-2">
-                                    <select class="custom-select lstProductChoice"
-                                        name="lstProduct[<?php echo ($intCount - 1); ?>][]"
-                                        id="lstProduct<?php echo $intCount; ?>" multiple>
-                                        <option value="">Select Product</option><?php 
-                                            foreach ($productInfo as $key => $value) {
-                                                $strChecked = '';
-                                                foreach ($lstProduct[$index] as $valueProduct) {
-                                                    if($valueProduct == $value['id']){
-                                                        $strChecked = ' selected="selected" ';
+                                                ?>
+                                                
+                                                <select class="custom-select" name="lstServicer[]"
+                                                id="lstServicer<?php echo $intCount; ?>" required>
+                                                <option value="">Select servicer</option><?php
+                                                    foreach ($teamInfo as $key => $value) {
+                                                        $strChecked = '';
+                                                        if($teamId == $value['id']){
+                                                            $strChecked = ' selected="selected" ';
+                                                        }
+                                                        ?><option value="<?php echo $value['id']; ?>"
+                                                    <?php echo $strChecked; ?>><?php echo $value['name']; ?></option><?php
                                                     }
-                                                }
-                                                ?><option value="<?php echo $value['id']; ?>"
-                                            <?php echo $strChecked; ?>><?php echo $value['title']; ?></option><?php
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 mb-2">
+                                            <select class="custom-select lstProductChoice"
+                                                name="lstProduct[<?php echo ($intCount - 1); ?>][]"
+                                                id="lstProduct<?php echo $intCount; ?>" multiple>
+                                                <option value="">Select Product</option><?php 
+                                                    foreach ($productInfo as $key => $value) {
+                                                        $strChecked = '';
+                                                        foreach ($lstProduct[$index] as $valueProduct) {
+                                                            if($valueProduct == $value['id']){
+                                                                $strChecked = ' selected="selected" ';
+                                                            }
+                                                        }
+                                                        ?><option value="<?php echo $value['id']; ?>"
+                                                    <?php echo $strChecked; ?>><?php echo $value['title']; ?></option><?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <input type="hidden" name="hdCSPId[]" value="<?php echo ($hdCSPId[$index]); ?>">
+                                    </div><?php
+                                    $intCount++;
+                                }
+                            }
+                            else{
+                                ?><div id="div_servicer_product_1" class="row mb-2">
+                                    <div class="form-group col-md-12 col-sm-12 mb-2">
+                                        <select class="custom-select" name="lstServicer[]" id="lstServicer1" required>
+                                            <option value="">Select servicer</option><?php
+                                            foreach ($teamInfo as $key => $value) {
+                                                ?><option value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></option><?php
                                             }
-                                        ?>
-                                    </select>
-                                </div>
-                                <input type="hidden" name="hdCSPId[]" value="<?php echo ($hdCSPId[$index]); ?>">
-                            </div><?php
+                                        ?></select>
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 mb-2">
+                                        <select class="custom-select lstProductChoice" name="lstProduct[0][]" id="lstProduct1" multiple>
+                                            <option value="">Select Product</option><?php 
+                                            foreach ($productInfo as $key => $value) {
+                                                ?><option value="<?php echo $value['id']; ?>"><?php echo $value['title']; ?></option><?php
+                                            }
+                                        ?></select>
+                                    </div>
+                                    <input type="hidden" name="hdServicerJsonInfo" id="hdServicerJsonInfo" value='<?php echo(json_encode($teamInfo)); ?>'>
+                                    <input type="hidden" name="hdProductJsonInfo" id="hdProductJsonInfo" value='<?php echo(json_encode($productInfo)); ?>'>
+                                </div><?php
                                 $intCount++;
                             }
+                            
                         ?></div>
                         <input type="hidden" name="hdServicerJsonInfo" id="hdServicerJsonInfo"
                             value='<?php echo(json_encode($teamInfo)); ?>'>

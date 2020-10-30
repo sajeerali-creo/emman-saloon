@@ -56,7 +56,7 @@ class Booking extends BaseController
 
             $data['sDate'] = $sDate;
             $data['eDate'] = $eDate;
-            $data['dataRecords'] = $this->booking_model->bookingListing($this->startDate, $this->endDate);
+            $data['dataRecords'] = $this->booking_model->bookingListing($this->startDate, $this->endDate, true);
                         
             $this->global['pageTitle'] = PROJECT_NAME . ' : Booking';
             $data['pagePath'] = 'BookingList';
@@ -551,6 +551,29 @@ class Booking extends BaseController
         }
     }
 
+    function deleteBooking(){
+        if($this->isAdminCommon() == TRUE)
+        {
+            echo(json_encode(array('status'=>'access')));
+        }
+        else
+        {
+            $booking = $this->input->post('booking');
+            $deleteNote = $this->input->post('deleteNote');
+            $bookingInfo = array('deleted_from' => 'admin', 'delete_note' => $deleteNote,'is_deleted' => '1', 'deleted_id' => $this->vendorId, 'deleted_date' => date('Y-m-d H:i:s'));
+            
+            $result = $this->cart_model->updateCartMaster($bookingInfo, $booking);
+            
+            if ($result > 0) { 
+                        
+                echo(json_encode(array('status'=>TRUE))); 
+            }
+            else { 
+                echo(json_encode(array('status'=>FALSE))); 
+            }
+        }
+    }
+
     function viewBooking($bookingId = NULL)
     {
         if($this->isAdminCommon() == TRUE)
@@ -565,7 +588,7 @@ class Booking extends BaseController
             }
             
             
-            $data['bookingInfo'] = $this->booking_model->getBookingInfo($bookingId);
+            $data['bookingInfo'] = $this->booking_model->getBookingInfo($bookingId, true);
             $data['bookingTeamProductInfo'] = $this->booking_model->getBookingServicerProductInfo($bookingId);
             $data['serviceInfo'] = $this->getFullServiceInfo(true);
             $data['teamInfo'] = $this->getTeamInfo();
@@ -668,30 +691,6 @@ class Booking extends BaseController
             }           
         }
     }
-
-    function deleteBooking()
-    {
-        if($this->isAdminCommon() == TRUE)
-        {
-            echo(json_encode(array('status'=>'access')));
-        }
-        else
-        {
-            $bookingId = $this->input->post('bookingId');
-            $bookingInfo = array('is_deleted' => '1', 'updated_by' => $this->vendorId, 'deleted_date' => date('Y-m-d H:i:s'));
-            
-            
-            $result = $this->booking_model->deleteBooking($bookingId, $bookingInfo);
-            
-            if ($result > 0) { 
-                        
-                echo(json_encode(array('status'=>TRUE))); 
-            }
-            else { 
-                echo(json_encode(array('status'=>FALSE))); 
-            }
-        }
-    }
     
     function pageNotFound()
     {
@@ -765,7 +764,7 @@ class Booking extends BaseController
         $arrReturn = array();
         foreach ($arrTeam as $key => $value) {
             $arrReturn[] = array("id" => $value->id, 
-                                "name" => $value->first_name . " " . $value->last_name);
+                                "name" => $value->team_id . " - " . $value->first_name . " " . $value->last_name);
         }
         /*echo "<pre>";
         print_r($arrReturn);

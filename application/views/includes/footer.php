@@ -167,6 +167,11 @@
         });
 
         $("#available-time-list button").click(function(){
+            if($(this).hasClass("not-avaialble")){
+                alert("Sorry! Selected time of service is not available. Please choose another slot.");
+                return false;
+            }
+
             $("#available-time-list button.btn-primary").addClass("btn-outline-primary");
             $("#available-time-list button").removeClass("btn-primary");
 
@@ -303,9 +308,9 @@
                     //console.log(data);
                     if(data.status == true) { 
                         let timeSlots = data.slots;
-                        $("#available-time-list > button").hide();
+                        $("#available-time-list > button").addClass('not-avaialble');
                         for (i in timeSlots) {
-                            $("#timeslot_" + i).show();
+                            $("#timeslot_" + i).removeClass('not-avaialble');
                         }
                     }
                 });
@@ -599,6 +604,32 @@
 
         $("#lnkSearchDate").click(function(){
             $("#btnDashboardSearch").click();
+        });
+
+        $("#lnkGenerateDashboardReport").click(function(){
+            let hdStartDate = $("#hdStartDate").val();
+            let hdEndDate = $("#hdEndDate").val();
+            let hitURL = baseURL + "securepanel/dashboardreportdownload?startDate=" + encodeURI(hdStartDate) + "&endDate=" + encodeURI(hdEndDate);
+            window.open(hitURL, '_blank');
+        });
+
+        $("#lnkPrintProductRecipt").click(function(){
+            let bookingId = $("#bookingId").val();
+            hitURL = baseURL + "generate-booking-recipt-ajax/" + bookingId,
+            $.ajax({
+                type : "POST",
+                url : hitURL,
+                data : { bookingId: bookingId } 
+            }).done(function(data){
+                console.log(data);
+                var myWindow=window.open('','','width=900,height=600');
+                myWindow.document.write(data);
+                    
+                myWindow.document.close();
+                myWindow.focus();
+                myWindow.print();
+                //myWindow.close();
+            });
         });
     </script>
 </body>

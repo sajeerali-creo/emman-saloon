@@ -1,7 +1,8 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 require APPPATH . '/libraries/BaseController.php';
-
+// load library
+require APPPATH . '/libraries/php-excel.class.php';
 
 class User extends BaseController
 {
@@ -79,6 +80,86 @@ class User extends BaseController
         */
         
         $this->loadViews("admin/dashboard", $this->global, $data , NULL);
+    }
+
+    function downloadDashboardReport(){
+        $sDate = $this->security->xss_clean($this->input->get('startDate'));
+        $eDate = $this->security->xss_clean($this->input->get('endDate'));
+
+        if(empty($sDate)){
+            $sDate = date("F d, Y", strtotime("-29days"));
+        }
+        else{
+            $sDate = date("F d, Y", strtotime($sDate));
+        }
+
+        if(empty($eDate)){
+            $eDate = date("F d, Y");
+        }
+        else{
+            $eDate = date("F d, Y", strtotime($eDate));
+        }
+
+        $this->startDate = date("Y-m-d 00:00:00", strtotime($sDate));
+        $this->endDate = date("Y-m-d 23:59:59", strtotime($eDate));
+
+        $totalSales = $this->fnFindTotalSales();
+        $totalBooking = $this->fnFindTotalBooking();
+        $totalConfirmBooking = $this->fnFindTotalConfirmBooking();
+        $totalPendingBooking = $this->fnFindTotalPendingBooking();
+        $totalCompletedBooking = $this->fnFindTotalCompletedBooking();
+        $totalHomeServices = $this->fnFindTotalHomeServices();
+        $totalSaloonServices = $this->fnFindTotalSaloonServices();
+        $totalProductSale = $this->fnFindTotalProductSale();
+        $totalProductUse = $this->fnFindTotalProductUse();
+        $totalTeam = $this->fnFindTotalTeam();
+        $totalActiveTeam = $this->fnFindTotalActiveTeam();
+        $totalDayOffTeam = $this->fnFindTotalDayOffTeam("IN");
+        $totalSLOffTeam = $this->fnFindTotalDayOffTeam("SL");
+        $totalMLOffTeam = $this->fnFindTotalDayOffTeam("ML");
+        $totalHDOffTeam = $this->fnFindTotalDayOffTeam("HD");
+        $totalCustomers = $this->fnFindTotalCustomers();
+        $totalSuppliers = $this->fnFindTotalSuppliers();
+
+        $data = array(
+                array ('Dashboard Report'),
+                array ('Start Date', $this->startDate),
+                array ('End Date', $this->endDate),
+                array ('', ''),
+                array ('', ''),
+                array ('Total Sales', $totalSales),
+                array ('Total Booking', $totalBooking),
+                array ('Total Team', $totalTeam),
+                array ('Total Customers', $totalCustomers),
+                array ('', ''),
+                array ('', ''),
+                array ('Bookings'),
+                array ('Pending Booking', $totalPendingBooking),
+                array ('Confirm Booking', $totalConfirmBooking),
+                array ('Completed Booking', $totalCompletedBooking),
+                array ('', ''),
+                array ('Front Desk Booking', $totalHomeServices),
+                array ('Online Booking', $totalSaloonServices),
+                array ('', ''),
+                array ('', ''),
+                array ('Team'),
+                array ('Available Team', $totalActiveTeam),
+                array ('Day-off', $totalDayOffTeam),
+                array ('Sick Leave', $totalSLOffTeam),
+                array ('Medical', $totalMLOffTeam),
+                array ('Holiday', $totalHDOffTeam),
+                array ('', ''),
+                array ('', ''),
+                array ('Inventory'),
+                array ('Total Product Sale', $totalProductSale),
+                array ('Total Product Use', $totalProductUse),
+                array ('Total Suppliers', $totalSuppliers),
+                );
+
+        // generate file (constructor parameters are optional)
+        $xls = new Excel_XML('UTF-8', false, $this->startDate . " - " . $this->endDate);
+        $xls->addArray($data);
+        $xls->generateXML(PROJECT_NAME . "-dashboard-report-" . date("YmdHmi"));
     }
 
     

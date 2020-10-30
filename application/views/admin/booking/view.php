@@ -3,6 +3,22 @@ $bookingId = $bookingInfo['info']['cartMasterId'];
 $name = $bookingInfo['info']['first_name'] . " " . $bookingInfo['info']['last_name'];
 $email = $bookingInfo['info']['email'];
 $phone = $bookingInfo['info']['phone'];
+$status = $bookingInfo['info']['status'];
+$flCancel = $bookingInfo['info']['flCancel'];
+
+if($flCancel == '1'){
+    $statusLabel = 'Cancelled';
+} else if($status == 'PN'){
+    $statusLabel = 'Pending';
+} else if($status == 'CN'){
+    $statusLabel = 'Confirmed';
+} else if($status == 'SBR'){
+    $statusLabel = 'Servicer Rejected';
+} else if($status == 'SBC'){
+    $statusLabel = 'Servicer Confirmed';
+} else {
+    $statusLabel = 'Completed';
+}
 
 $rdServiceType = isset($rdServiceType) ? $rdServiceType : ($bookingInfo['info']['booking_type'] == 'home' ? 'HS' : 'SS');
 $txtBookingDate = isset($txtBookingDate) ? $txtBookingDate : $bookingInfo['info']['service_date'];
@@ -81,6 +97,7 @@ if(!isset($lstServicer)){
             <h6 class="card-subtitle mb-2 ">Name: <?php echo $name; ?></h6>
             <h6 class="card-subtitle mb-2 ">Email: <?php echo $email; ?></h6>
             <h6 class="card-subtitle mb-2 ">Phone: <?php echo $phone; ?></h6>
+            <h6 class="card-subtitle mb-2 ">Status: <?php echo $statusLabel; ?></h6>
         </div>
     </div>
     <!-- end header -->
@@ -283,16 +300,25 @@ if(!isset($lstServicer)){
                 <!-- end If any service charge extra? -->
 
                 <div class="row mb-2">
-                    <div class="col-md-6 col-sm-12 d-flex">
-                        <button class="btn btn-dark btn-lg w-100 mr-1">
-                            Edit Booking
-                        </button>
-                        <button id="btnConfirmBooking" class="btn btn-primary btn-lg w-100">
-                            <span class="text-white text-decoration-none">
-                                Confirm
-                            </span>
-                        </button>
-                        <input type="hidden" value="<?php echo $bookingId; ?>" id="bookingId" name="bookingId" />
+                    <div class="col-md-6 col-sm-12 d-flex"><?php
+                        if($flCancel != 1 && $status != 'CM'){
+                            ?><a href="<?php echo base_url() . 'securepanel/edit-booking/' . $bookingId; ?>" class="btn btn-dark btn-lg w-100 mr-1">
+                                Edit Booking
+                            </a>
+                            <button id="btnConfirmBooking" class="btn btn-primary btn-lg w-100">
+                                <span class="text-white text-decoration-none">
+                                    Confirm
+                                </span>
+                            </button><?php
+                        }
+                        else{
+                            ?><a href="<?php echo base_url(); ?>securepanel/booking" class="btn btn-dark btn-lg w-100 mr-1">
+                                Back
+                            </a><?php
+                        }
+                        
+                        ?><input type="hidden" value="<?php echo $bookingId; ?>" id="bookingId" name="bookingId" />
+                        <input type="hidden" value="<?php echo $status; ?>" id="bookingStatus" name="status" />
                     </div>
                 </div>
             </form>
@@ -381,17 +407,20 @@ if(!isset($lstServicer)){
                             ?>AED <?php echo $intTotal; ?>
                         </div>
                     </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-md-12 col-sm-12 mt-2">
-                        <button class="btn btn-success btn-lg btn-block" id="btnBookingPrint">
-                            <span class="text-white text-decoration-none">
-                                <i class="fas fa-print"></i>&nbsp;Print Recipt
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+                </div><?php
+                if($flCancel != 1){
+                    ?><div class="row mb-2">
+                        <div class="col-md-12 col-sm-12 mt-2">
+                            <button class="btn btn-success btn-lg btn-block" id="btnBookingPrint">
+                                <span class="text-white text-decoration-none">
+                                    <i class="fas fa-print"></i>&nbsp;Print Recipt
+                                </span>
+                            </button>
+                        </div>
+                    </div><?php
+                }
+                
+            ?></div>
         </div>
 
         <div id="print-me" class="row">
