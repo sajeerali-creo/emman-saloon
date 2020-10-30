@@ -83,7 +83,7 @@ class Frontcontroller extends CI_Controller{
         $data['currentpage'] = 'servicepage';
         $data['user_address'] = $this->user_address;
         $data['selectedService'] = $this->serviceCartCookie;
-        $data['serviceRecords'] = $this->getAllServices();
+        $data['serviceRecords'] = $this->getAllServices(true, "home");
         $data['frontLogin'] = $this->frontLogin;    
         $data['frontUsername'] = $this->frontUsername;    
         $data['frontUserId'] = $this->frontUserId;
@@ -292,8 +292,43 @@ class Frontcontroller extends CI_Controller{
         $data['frontLogin'] = $this->frontLogin;    
         $data['frontUsername'] = $this->frontUsername;    
         $data['frontUserId'] = $this->frontUserId;
-        $data['orderhistory'] = $this->getOrderHistory($this->frontUserId);
+        $data['orderhistory'] = $this->getOrderHistory($this->frontUserId, true);
         $this->loadViews('frontend/orderhistory', $data);
+    }
+
+    public function deleteBooking(){
+        $booking = $this->input->post('booking');
+        $deleteNote = $this->input->post('deleteNote');
+
+        if($this->checkBookIdMatching($booking, $this->frontUserId) !== true)
+        {
+            echo(json_encode(array('status'=>'access')));
+        }
+        else
+        {
+            $bookingInfo = array('deleted_from' => 'customer', 'delete_note' => $deleteNote,'is_deleted' => '1', 'deleted_id' => $this->frontUserId, 'deleted_date' => date('Y-m-d H:i:s'));
+            
+            $result = $this->cart_model->updateCartMaster($bookingInfo, $booking);
+
+            /*$result = 1;*/
+            
+            if ($result > 0) { 
+                        
+                echo(json_encode(array('status'=>TRUE))); 
+            }
+            else { 
+                echo(json_encode(array('status'=>FALSE))); 
+            }
+        }
+    }
+
+    function checkBookIdMatching($bookingId, $customerId){
+        if($this->cart_model->checkMasterMatching($bookingId, $customerId)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 
@@ -747,7 +782,11 @@ class Frontcontroller extends CI_Controller{
 
     public function checkBookingSlotAvailability(){
         $bookingDate = $this->security->xss_clean($this->input->post('bookingDate'));
+        $localDateTime = $this->security->xss_clean($this->input->post('localDateTime'));
         $arrTeam = $this->team_model->teamListing();
+
+        $currentDate = date("Y-m-d");
+        $currentTime = date("H:i A");
 
         $totalTeamCount = count($arrTeam);
         $arrAllSlots = $this->getAllTimeSlots();
@@ -757,15 +796,26 @@ class Frontcontroller extends CI_Controller{
             $arrBookedSlots[$value->time_slot] = $value->totalCount;
         }
 
+        $arrSkippableDate = array();
+        if($currentDate == $bookingDate){
+            foreach ($arrAllSlots as $key => $value) {
+                if(strtotime($currentDate . ' ' . $currentTime) >= strtotime($bookingDate . ' ' . $value)){
+                    $arrSkippableDate[] = $value;
+                }
+            }
+        }
+
         $arrAvailableSlots = array();
         foreach ($arrAllSlots as $key => $value) {
             if(isset($arrBookedSlots[$value]) && !empty($arrBookedSlots[$value])){
-                if($arrBookedSlots[$value] < $totalTeamCount){
+                if($arrBookedSlots[$value] < $totalTeamCount && !in_array($value, $arrSkippableDate)){
                     $arrAvailableSlots[preg_replace('/[^0-9A-Za-z]/i', '', $value)] = $value;
                 }
             }
             else{
-                $arrAvailableSlots[preg_replace('/[^0-9A-Za-z]/i', '', $value)] = $value;
+                if(!in_array($value, $arrSkippableDate)){
+                    $arrAvailableSlots[preg_replace('/[^0-9A-Za-z]/i', '', $value)] = $value;
+                }
             }
         }
 
@@ -773,24 +823,24 @@ class Frontcontroller extends CI_Controller{
     }
 
     function generateProductReceipt($bookingId){
-        //$bookingId = $this->security->xss_clean($this->input->post('bookingId'));
-
-        $data['title'] = PROJECT_NAME . ' - Booking Receipt';
-        $data['pageTitle'] = PROJECT_NAME . ' - Booking Receipt';
-        $data['description'] = PROJECT_NAME . ' - Booking Receipt';  
+        $data['title'] = PROJECT_NAME . ' - Product Receipt';
+        $data['pageTitle'] = PROJECT_NAME . ' - Product Receipt';
+        $data['description'] = PROJECT_NAME . ' - Product Receipt';  
         $data['currentpage'] = 'receiptpage';
 
-        $data['bookingInfo'] = $this->booking_model->getBookingInfo($bookingId);
-        $data['bookingTeamProductInfo'] = $this->booking_model->getBookingServicerProductInfo($bookingId);
-        $data['serviceInfo'] = $this->getAllServices(false);
-        $data['teamInfo'] = $this->getTeamInfo();
-        $data['productInfo'] = $this->getInventoryInfo();
-        $data['arrTimeSlots'] = $this->getAllTimeSlots();
+        $data['bookingInfo'] = $this->invetory_model->getProductSellingDetails($bookingId);
 
+        if(empty($data['bookingInfo']->invoice_number)){
+            $invoiceNumber = $data['bookingInfo']->invoiceDateValue . "000" . $data['bookingInfo']->id;
+            $arrProductUpInfo = array("invoice_number" => $invoiceNumber); 
+            $this->invetory_model->updateSellProduct($arrProductUpInfo, $data['bookingInfo']->id);
+            $data['bookingInfo']->invoice_number = $invoiceNumber;
+        }
+        $data['bookingInfo'] = (array)$data['bookingInfo'];
         /*echo "<pre>";
         print_r($data);
         die();*/
-        $this->load->view('recipt/recipt', $data);
+        $this->load->view('recipt/productrecipt', $data);
     }
 
     function generateBookingReceipt($bookingId){
@@ -851,8 +901,8 @@ class Frontcontroller extends CI_Controller{
     } 
 
 
-    function getAllServices($flGroupByCategory = true){
-        $arrServices = $this->service_model->serviceListing("AC", true);
+    function getAllServices($flGroupByCategory = true, $type = ''){
+        $arrServices = $this->service_model->serviceListing("AC", true, $type);
 
         $arrFinal = array();
         foreach ($arrServices as $record) {
@@ -866,11 +916,9 @@ class Frontcontroller extends CI_Controller{
         return $arrFinal;
     }
 
-    function getOrderHistory($customerId){
+    function getOrderHistory($customerId, $flIncludeDeletedRecord = false){
         $arrAllServices     = $this->getAllServices(false);
-        $arrOrderInfo = $this->cart_model->getAllOrderInfo($customerId);
-
-        
+        $arrOrderInfo = $this->cart_model->getAllOrderInfo($customerId, $flIncludeDeletedRecord);
 
         $arrFinalOrderInfo = array();
         foreach ($arrOrderInfo as $key => $value) {
@@ -883,6 +931,10 @@ class Frontcontroller extends CI_Controller{
             $arrFinalOrderInfo[$value->cartId]["serviceName"] = $arrAllServices[$cartValue['service_id']]['title'];
             $arrFinalOrderInfo[$value->cartId]["serviceCatName"] = $arrAllServices[$cartValue['service_id']]['category_name'];
         }
+
+        /*echo "<pre>";
+        print_r($arrFinalOrderInfo);
+        die();*/
 
         return $arrFinalOrderInfo;
     }

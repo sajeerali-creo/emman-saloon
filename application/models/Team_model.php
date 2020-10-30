@@ -59,7 +59,7 @@ class Team_model extends CI_Model
 
     function teamOrderListing()
     {
-        $this->db->select('t.id teamId, t.first_name teamFName, t.last_name teamLName, cm.id as cartMasterId, s.title as serviceName, sc.category_name as serviceCategory, cm.service_date, cm.service_time, c.person, c.id as cartId');
+        $this->db->select('t.id teamId, t.first_name teamFName, t.last_name teamLName, cm.id as cartMasterId, s.title as serviceName, sc.category_name as serviceCategory, cm.service_date, cm.service_time, c.person, c.id as cartId, s.time_duration');
         $this->db->from('tbl_team t');
         $this->db->join('tbl_cart_servicer_product csp', 'csp.team_id = t.id');
         $this->db->join('tbl_cartmaster cm', 'csp.cartmaster_id = cm.id');

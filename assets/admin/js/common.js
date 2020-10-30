@@ -253,9 +253,11 @@ jQuery(document).ready(function(){
     			data: form.serialize(), // serializes the form's elements.
     		}).done(function(data){
     			console.log(data);
+    			$("#productSaleId").val("");
     			if(data.status == true) { 
-    				$("#sell-product-popup .modal-body").text("Product selled successfully"); 
+    				$("#sell-product-popup .modal-body").text("Product sell successfully"); 
     				$("#hdSellProduct").val("Y");
+    				$("#productSaleId").val(data.product_sale_id);
     			}
     			else if(data.status == false) {
     				$("#sell-product-popup .modal-body").text("Product sell failed"); 
@@ -278,21 +280,23 @@ function jsValidateSettings(){
 	let newPass = $("#newPassword").val();
 	let cNewPass = $("#cNewPassword").val();
 
-	if(oldPass == ''){
-		alert("Please enter Current Password.");
-		return false;
-	}
-	else if(newPass == ''){
-		alert("Please enter new Password.");
-		return false;
-	}
-	else if(cNewPass == ''){
-		alert("Please enter Confirm Password.");
-		return false;
-	}
-	else if(cNewPass != newPass){
-		alert("Please enter same password in Confirm Password.");
-		return false;
+	if(oldPass != '' || newPass != '' || cNewPass != ''){
+		if(oldPass == ''){
+			alert("Please enter Current Password.");
+			return false;
+		}
+		else if(newPass == ''){
+			alert("Please enter new Password.");
+			return false;
+		}
+		else if(cNewPass == ''){
+			alert("Please enter Confirm Password.");
+			return false;
+		}
+		else if(cNewPass != newPass){
+			alert("Please enter same password in Confirm Password.");
+			return false;
+		}
 	}
 	else{
 		return true;

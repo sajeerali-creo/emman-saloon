@@ -109,6 +109,49 @@
             });
             <?php 
 
+            if(isset($currentpage) && $currentpage == 'orderhistorypage'){
+            	?>jQuery(document).on("click", ".deleteOrder", function(){
+					let recordId = $(this).data("recordid");
+					$("#hdDeleteRecordId").val(recordId);
+					console.log(recordId);
+				});
+
+				jQuery(document).on("click", "#delete-order .btn-primary", function(){
+					let recordId = $("#hdDeleteRecordId").val(),
+					taDeleteReason = $("#taDeleteReason").val(),
+					hitURL = baseURL + "delete-booking-ajax",
+					currentRow = $('.row_' + recordId);
+
+					jQuery.ajax({
+							type : "POST",
+							dataType : "json",
+							url : hitURL,
+							data : { booking : recordId, deleteNote: taDeleteReason } 
+							}).done(function(data){
+								console.log(data);
+								if(data.status == true) { 
+									//objDataTable.row( currentRow ).remove().draw();
+									$("#delete-order-msg .modal-body").text("Booking cancelled successfully");
+									$('#delete-order').modal('hide');
+									$('#delete-order-msg').modal('show');
+									$("#taDeleteReason").val("");
+									setTimeout("location.reload(true);", 1000);
+								}
+								else if(data.status == false) {
+									$("#delete-order-msg .modal-body").text("Booking cancellation failed"); 
+									$('#delete-order').modal('hide');
+									$('#delete-order-msg').modal('show');
+									$("#taDeleteReason").val("");
+								}
+								else { 
+									$("#delete-order-msg .modal-body").text("Access denied..!"); 
+									$('#delete-order').modal('hide');
+									$('#delete-order-msg').modal('show');
+									$("#taDeleteReason").val("");
+								}
+							});
+				});<?php
+            }
             if(isset($currentpage) && $currentpage == 'datetimepage'){
             	?>$(document).ready(function(){
 	                jsAjaxSlotChecking();
@@ -120,19 +163,24 @@
 
 	            function jsAjaxSlotChecking(){
 	                let txtDate = $("#txtBookingDate").val();
+	                let dt = new Date();
+	                let strDateTime = dt.getDate() + "-" + dt.getMonth() + "-" + dt.getMonth() + " " + dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+					//alert(strDateTime);
 	                hitURL = baseURL + "check-booking-slot-info-ajax",
 	                $.ajax({
 	                    type : "POST",
 	                    dataType : "json",
 	                    url : hitURL,
-	                    data : { bookingDate : txtDate } 
+	                    data : { bookingDate : txtDate, localDateTime : strDateTime } 
 	                }).done(function(data){
 	                    //console.log(data);
 	                    if(data.status == true) { 
+	                    	$("#hdAvailableTime").val('');
+	                    	$("#available-time-list li").removeClass("active");
 	                        let timeSlots = data.slots;
-	                        $("#available-time-list > li").hide();
+	                        $("#available-time-list > li").addClass('not-avaialble');
 	                        for (i in timeSlots) {
-	                            $("#timeslot_" + i).show();
+	                            $("#timeslot_" + i).removeClass('not-avaialble');
 	                        }
 	                    }
 	                });
@@ -317,6 +365,10 @@
 			});
 
 			$("#available-time-list li").click(function(){
+				if($(this).hasClass("not-avaialble")){
+	                alert("Sorry! Selected time of service is not available. Please choose another slot.");
+	                return false;
+	            }
 				$("#available-time-list li").removeClass("active");
 				$(this).addClass("active");
 				$("#hdAvailableTime").val($(this).attr("data-val"));

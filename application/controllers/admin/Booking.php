@@ -798,9 +798,12 @@ class Booking extends BaseController
             }
 
             foreach ($arrCartInfo['serviceAllInfo'] as $key => $value) {
+                $startDate = date("Y-m-d H:i:s", strtotime($value['service_date'] . " " . $value['service_time']));
+                $endDate = date("Y-m-d H:i:s", strtotime($startDate . " +" . (15 * $value['time_duration']) . "minutes"));
                 $arrFinalCalendarData[$value['cartId']] = array(
                                                             "title" => ucwords(strtolower($value['serviceCategory'])) . " " . strtolower($value['serviceName']) . $teamName,
-                                                            "strDateTime" => date("Y-m-d H:i:s", strtotime($value['service_date'] . " " . $value['service_time'])),
+                                                            "strDateTime" => $startDate,
+                                                            "endDateTime" => $endDate,
                                                             "person" => $value['person']
                                                         );
             }
@@ -827,6 +830,9 @@ class Booking extends BaseController
         $bookingId = $this->security->xss_clean($this->input->post('bookingId'));
         $arrTeam = $this->team_model->teamListing();
 
+        $currentDate = date("Y-m-d");
+        $currentTime = date("H:i A");
+
         $totalTeamCount = count($arrTeam);
         $arrAllSlots = $this->getAllTimeSlots();
         $objSlotsInfo = $this->cart_model->getBookingTimeSlotsInfo($bookingDate, $bookingId);
@@ -835,15 +841,26 @@ class Booking extends BaseController
             $arrBookedSlots[$value->time_slot] = $value->totalCount;
         }
 
+        $arrSkippableDate = array();
+        if($currentDate == $bookingDate){
+            foreach ($arrAllSlots as $key => $value) {
+                if(strtotime($currentDate . ' ' . $currentTime) >= strtotime($bookingDate . ' ' . $value)){
+                    $arrSkippableDate[] = $value;
+                }
+            }
+        }
+        
         $arrAvailableSlots = array();
         foreach ($arrAllSlots as $key => $value) {
             if(isset($arrBookedSlots[$value]) && !empty($arrBookedSlots[$value])){
-                if($arrBookedSlots[$value] < $totalTeamCount){
+                if($arrBookedSlots[$value] < $totalTeamCount && !in_array($value, $arrSkippableDate)){
                     $arrAvailableSlots[preg_replace('/[^0-9A-Za-z]/i', '', $value)] = $value;
                 }
             }
             else{
-                $arrAvailableSlots[preg_replace('/[^0-9A-Za-z]/i', '', $value)] = $value;
+                if(!in_array($value, $arrSkippableDate)){
+                    $arrAvailableSlots[preg_replace('/[^0-9A-Za-z]/i', '', $value)] = $value;
+                }
             }
         }
 

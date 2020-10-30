@@ -97,11 +97,13 @@
                             <div class="card mb-1 p-3 chk-service-card service-card-<?php echo $value->id; ?> cat_<?php echo $id; ?>">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <div class="text-gray-600 font-weight-bold">
-                                               <!-- offer -->
-                                               <div class="sp-offer">Special Offer</div>
-                                            <!-- end offer -->
-                                            <div class="custom-control custom-checkbox">
+                                        <div class="text-gray-600 font-weight-bold"><?php
+                                            if($value->fl_special == 'Y'){
+                                                ?><!-- offer -->
+                                                   <div class="sp-offer">Special Offer</div>
+                                                <!-- end offer --><?php 
+                                            }
+                                            ?><div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input chkService"
                                                     id="customCheck<?php echo $value->id; ?>" name="chkService"
                                                     value="<?php echo $value->id; ?>" data-label="<?php echo $value->title; ?>"

@@ -72,6 +72,7 @@ class User extends BaseController
         $data['totalHDOffTeam'] = $this->fnFindTotalDayOffTeam("HD");
         $data['totalCustomers'] = $this->fnFindTotalCustomers();
         $data['totalSuppliers'] = $this->fnFindTotalSuppliers();
+        $data['lastSixMonthSales'] = $this->fnFindLastSixMonthSales();
         
 
         /*echo "<pre>";
@@ -236,6 +237,22 @@ class User extends BaseController
     function fnFindTotalSuppliers(){
         $objRp = $this->cart_model->getTotalSuppliers($this->startDate, $this->endDate);
         return $objRp->totalCount;
+    }
+
+    function fnFindLastSixMonthSales(){
+        $startDate = date("Y-m-1", strtotime("-5month"));
+        $strEndDate = date("Y-m-t", strtotime(date("Y-m-d")));
+
+        /*$objRp = $this->cart_model->getTotalSales($startDate, $strEndDate, true);
+        return $objRp->totalPrice;*/
+    }
+
+    function fnFindLastSixMonthBooking(){
+        $startDate = date("Y-m-1", strtotime("-5month"));
+        $strEndDate = date("Y-m-t", strtotime(date("Y-m-d")));
+
+        /*$objRp = $this->cart_model->getTotalBooking($startDate, $strEndDatem, true);
+        return $objRp->totalCount;*/
     }
     
     /**
@@ -945,49 +962,78 @@ class User extends BaseController
     {
         $this->load->library('form_validation');
         
-        $this->form_validation->set_rules('oldPassword','Old password','required|max_length[15]');
-        $this->form_validation->set_rules('newPassword','New password','required|max_length[15]');
-        $this->form_validation->set_rules('cNewPassword','Confirm new password','required|matches[newPassword]|max_length[20]');
-        
-        if($this->form_validation->run() == FALSE)
-        {
-            $this->settings();
-        }
-        else
-        {
-            $oldPassword = $this->security->xss_clean($this->input->post('oldPassword'));
-            $newPassword = $this->security->xss_clean($this->input->post('newPassword'));
-            $chkNotification = $this->security->xss_clean($this->input->post('chkNotification'));
-            
-            $resultPas = $this->user_model->matchOldPassword($this->vendorId, $oldPassword);
-            
-            if(empty($resultPas))
-            {
-                $this->session->set_flashdata('nomatch', 'Your old password is not correct');
-                redirect('securepanel/settings');
+        $oldPassword = $this->security->xss_clean($this->input->post('oldPassword'));
+        $newPassword = $this->security->xss_clean($this->input->post('newPassword'));
+        $cNewPassword = $this->security->xss_clean($this->input->post('cNewPassword'));
+
+
+        $flPassValidation = true;
+        if(!empty($oldPassword) || !empty($oldPassword) || !empty($oldPassword)){
+
+            $this->form_validation->set_rules('oldPassword','Old password','required|max_length[15]');
+            $this->form_validation->set_rules('newPassword','New password','required|max_length[15]');
+            $this->form_validation->set_rules('cNewPassword','Confirm new password','required|matches[newPassword]|max_length[20]');
+
+            if($this->form_validation->run() == FALSE){
+                $flPassValidation = false;
+                $this->settings();
             }
-            else
-            {
+        }
+
+        if($flPassValidation) {
+            $chkNotification = $this->security->xss_clean($this->input->post('chkNotification'));
+            if(!empty($oldPassword) || !empty($oldPassword) || !empty($oldPassword)){
+                $resultPas = $this->user_model->matchOldPassword($this->vendorId, $oldPassword);
+                
+                if(empty($resultPas)) {
+                    $this->session->set_flashdata('nomatch', 'Your old password is not correct');
+                    redirect('securepanel/settings');
+                }
+                else {
+                    if(empty($chkNotification)){
+                        $chkNotification = '0';
+                    }
+                    
+                    $usersData = array('password'=>getHashedPassword($newPassword), 
+                                    'fl_notification'=>$chkNotification, 
+                                    'updatedBy'=>$this->vendorId,
+                                    'updatedDtm'=>date('Y-m-d H:i:s'));
+                    
+                    $result = $this->user_model->changePassword($this->vendorId, $usersData);
+                    
+                    if($result > 0) { 
+                        $this->session->set_flashdata('success', 'Password updation successful'); 
+                    }
+                    else { 
+                        $this->session->set_flashdata('error', 'Password updation failed'); 
+                    }
+                    
+                    redirect('securepanel/settings');
+                }
+            }
+            else{
                 if(empty($chkNotification)){
                     $chkNotification = '0';
                 }
                 
-                $usersData = array('password'=>getHashedPassword($newPassword), 
-                                'fl_notification'=>$chkNotification, 
+                $usersData = array('fl_notification'=>$chkNotification, 
                                 'updatedBy'=>$this->vendorId,
                                 'updatedDtm'=>date('Y-m-d H:i:s'));
                 
                 $result = $this->user_model->changePassword($this->vendorId, $usersData);
                 
                 if($result > 0) { 
-                    $this->session->set_flashdata('success', 'Password updation successful'); 
+                    $this->session->set_flashdata('success', 'Settings updation successful'); 
                 }
                 else { 
-                    $this->session->set_flashdata('error', 'Password updation failed'); 
+                    $this->session->set_flashdata('error', 'Settings updation failed'); 
                 }
                 
                 redirect('securepanel/settings');
             }
+            
+            
+            
         }
     }
 

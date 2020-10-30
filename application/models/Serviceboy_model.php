@@ -29,7 +29,7 @@ class Serviceboy_model extends CI_Model
 
     function getServiceBoyCartDetails($serviceBoyId, $orderId = ''){
         $this->db->distinct();
-        $this->db->select('cm.id as cartMasterId, csp.id as cspId, csp.team_id, cpi.first_name, cpi.last_name, cpi.email, cpi.phone, cpi.address');
+        $this->db->select('cm.id as cartMasterId, csp.id as cspId, csp.team_id, cpi.first_name, cpi.last_name, cpi.email, cpi.phone, cpi.address, cm.service_date, cm.service_time');
         $this->db->from('tbl_cartmaster as cm');
         $this->db->join('tbl_cart_personal_info as cpi', 'cm.id = cpi.cartmaster_id');
         $this->db->join('tbl_cart_servicer as csp', 'cm.id = csp.cartmaster_id');
@@ -39,6 +39,8 @@ class Serviceboy_model extends CI_Model
         if(!empty($orderId)){
             $this->db->where('cm.id', $orderId);
         }
+        $this->db->order_by("cm.service_date", "ASC");
+        $this->db->order_by("cm.service_time", "ASC");
         $query = $this->db->get();
 
         $result = $query->result();

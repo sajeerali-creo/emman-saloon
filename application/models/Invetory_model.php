@@ -78,6 +78,13 @@ class Invetory_model extends CI_Model
         return $insert_id;
     }
 
+    function updateSellProduct($productInfo, $productSaleId)
+    {
+        $this->db->where('id', $productSaleId);
+        $this->db->update('tbl_product_sales', $productInfo);
+        return TRUE;
+    }
+
     function getProductSellDetails($productId){
         $this->db->select('SUM(quantity) as totalSale');
         $this->db->from('tbl_product_sales');
@@ -88,6 +95,23 @@ class Invetory_model extends CI_Model
 
         $result = $query->row();  //print_r($result);    die();
         
+        return $result;
+    }
+
+    function getProductSellingDetails($product_sell_id){
+        $this->db->select('ps.id, ps.product_id, ps.customer_name, ps.quantity, ps.item_price, ps.tax, ps.total_price, ps.add_date, i.title productName, ps.team_id, ps.invoice_number, DATE_FORMAT(ps.add_date, "%Y%m%d") as invoiceDateValue, DATE_FORMAT(ps.add_date, "%d/%m/%Y") as invoiceGenDate, , DATE_FORMAT(ps.add_date, "%h:%i:%s %p") as invoiceGenTime, CONCAT(t.first_name, " ", t.last_name) teamMemberName');
+        $this->db->from('tbl_product_sales as ps');
+        $this->db->join('tbl_invetory as i', 'i.id = ps.product_id');
+        $this->db->join('tbl_team as t', 't.id = ps.team_id');
+        $this->db->where('ps.is_deleted', '0');    
+        $this->db->where('ps.status', 'AC');
+        $this->db->where('ps.id', $product_sell_id);
+        
+        $this->db->order_by("ps.add_date", "DESC");  
+        $query = $this->db->get();
+        
+        $result = $query->row();  //print_r($this->db->last_query());    die();
+     
         return $result;
     }
 

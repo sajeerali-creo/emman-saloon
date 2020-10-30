@@ -37,6 +37,8 @@
                 <h6 class="card-subtitle mb-2 ">Name: <?php echo $servicesInfo[$orderId]['info']['first_name'] . " " . $servicesInfo[$orderId]['info']['last_name']; ?></h6>
                 <h6 class="card-subtitle mb-2 ">Email: <?php echo $servicesInfo[$orderId]['info']['email']; ?></h6>
                 <h6 class="card-subtitle mb-2 ">Phone: <?php echo $servicesInfo[$orderId]['info']['phone']; ?></h6>
+                <h6 class="card-subtitle mb-2 ">Date and Time: <?php echo $servicesInfo[$orderId]['info']['service_date'] . " " . $servicesInfo[$orderId]['info']['service_time']; ?></h6>
+                <h6 class="card-subtitle mb-2 ">Location: <?php echo $servicesInfo[$orderId]['info']['address']; ?></h6>
             </div>
         </div>
         <!-- details of booking --><?php

@@ -135,7 +135,8 @@
                     }
                     ?>{
                       title: '<?php echo $value['title']; ?>',
-                      start: '<?php echo $value['strDateTime']; ?>'
+                      start: '<?php echo $value['strDateTime']; ?>',
+                      end: '<?php echo $value['endDateTime']; ?>'
                     }<?php
                     $flFirst = false;
                 }
@@ -307,6 +308,10 @@
                 }).done(function(data){
                     //console.log(data);
                     if(data.status == true) { 
+                        $("#hdAvailableTime").val();
+                        $("#available-time-list button.btn-primary").addClass("btn-outline-primary");
+                        $("#available-time-list button").removeClass("btn-primary");
+                        
                         let timeSlots = data.slots;
                         $("#available-time-list > button").addClass('not-avaialble');
                         for (i in timeSlots) {
@@ -517,17 +522,22 @@
                 $('#sell-product-popup').modal('show');
             }
             else{
-                //Copy the element you want to print to the print-me div.
-                $("#service-card-box > .sticky-top > .card").clone().appendTo("#print-me > .col-md-12");
-
-                $("body").addClass("printing");
-                //Print the window.
-                window.print();
-                //Restore the styles.
-                $("body").removeClass("printing");
-
-                //Clear up the div.
-                $("#print-me > .col-md-12").empty();
+                let bookingId = $("#productSaleId").val();
+                hitURL = baseURL + "generate-product-recipt-ajax/" + bookingId,
+                $.ajax({
+                    type : "POST",
+                    url : hitURL,
+                    data : { bookingId: bookingId } 
+                }).done(function(data){
+                    console.log(data);
+                    var myWindow=window.open('','','width=900,height=600');
+                    myWindow.document.write(data);
+                        
+                    myWindow.document.close();
+                    myWindow.focus();
+                    setTimeout(function(){ myWindow.print(); }, 300);
+                    //myWindow.close();
+                });
             }
         });
 
@@ -545,8 +555,7 @@
                     
                 myWindow.document.close();
                 myWindow.focus();
-                myWindow.print();
-                //myWindow.close();
+                setTimeout(function(){ myWindow.print(); }, 300);
             });
         });
 
@@ -611,25 +620,6 @@
             let hdEndDate = $("#hdEndDate").val();
             let hitURL = baseURL + "securepanel/dashboardreportdownload?startDate=" + encodeURI(hdStartDate) + "&endDate=" + encodeURI(hdEndDate);
             window.open(hitURL, '_blank');
-        });
-
-        $("#lnkPrintProductRecipt").click(function(){
-            let bookingId = $("#bookingId").val();
-            hitURL = baseURL + "generate-booking-recipt-ajax/" + bookingId,
-            $.ajax({
-                type : "POST",
-                url : hitURL,
-                data : { bookingId: bookingId } 
-            }).done(function(data){
-                console.log(data);
-                var myWindow=window.open('','','width=900,height=600');
-                myWindow.document.write(data);
-                    
-                myWindow.document.close();
-                myWindow.focus();
-                myWindow.print();
-                //myWindow.close();
-            });
         });
     </script>
 </body>

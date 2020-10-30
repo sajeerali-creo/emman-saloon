@@ -128,6 +128,7 @@ die();*/
                 </div>
             </form>
             <input type="hidden" name="hdSellProduct" id="hdSellProduct" value="N">
+            <input type="hidden" name="productSaleId" id="productSaleId" value="">
         </div>
 
         <!-- bill -->

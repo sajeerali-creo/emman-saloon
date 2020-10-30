@@ -401,9 +401,13 @@ class Invetory extends BaseController
 
             $result = $this->invetory_model->addSellProduct($productInfo);
             
-            if ($result > 0) { 
+            if ($result > 0) {
+                //Update Invoice Number
+                $arrProductUpInfo = array("invoice_number" => date('Ymd') . "000" . $result); 
+                $this->invetory_model->updateSellProduct($arrProductUpInfo, $result);
+
                 $this->recalculateRemainingQuantity($lstProduct);
-                echo(json_encode(array('status'=>TRUE))); 
+                echo(json_encode(array('status'=>TRUE, "product_sale_id" => $result))); 
             }
             else { 
                 echo(json_encode(array('status'=>FALSE))); 

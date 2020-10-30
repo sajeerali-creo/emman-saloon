@@ -56,15 +56,15 @@ $fl_notification = $userInfo->fl_notification;
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
                         <label class="text-primary">Current Password</label>
-                        <input type="password" class="form-control" id="inputOldPassword" placeholder="Current Password" name="oldPassword" maxlength="50" required>
+                        <input type="password" class="form-control" id="inputOldPassword" placeholder="Current Password" name="oldPassword" maxlength="50">
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
                         <label class="text-primary">New Password</label>
-                        <input type="password" class="form-control" id="newPassword" placeholder="New Password" name="newPassword" maxlength="50" required>
+                        <input type="password" class="form-control" id="newPassword" placeholder="New Password" name="newPassword" maxlength="50">
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
                         <label class="text-primary">Confirm Password</label>
-                        <input type="password" class="form-control"  id="cNewPassword" placeholder="Confirm Password" name="cNewPassword" maxlength="50" required>
+                        <input type="password" class="form-control"  id="cNewPassword" placeholder="Confirm Password" name="cNewPassword" maxlength="50">
                     </div>
                 </div>
                 <!-- end Name Of Supplers -->

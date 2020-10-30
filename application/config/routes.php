@@ -65,6 +65,7 @@ $route['order-confirm'] = 'frontcontroller/orderConfirm';
 $route['save-order-confirm-info'] = 'frontcontroller/saveOrderConfirmInfo';
 $route['thankyou'] = 'frontcontroller/thankyou';
 $route['order-history'] = 'frontcontroller/orderHistory';
+$route['delete-booking-ajax'] = 'frontcontroller/deleteBooking';
 $route['check-booking-slot-info-ajax'] = "frontcontroller/checkBookingSlotAvailability";
 $route['generate-booking-recipt-ajax'] = "frontcontroller/generateBookingReceipt";
 $route['generate-booking-recipt-ajax/(:any)'] = "frontcontroller/generateBookingReceipt/$1";

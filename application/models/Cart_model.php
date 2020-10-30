@@ -64,12 +64,16 @@ class Cart_model extends CI_Model
         return true;
     }
 
-    function getAllOrderInfo($customerId){
-        $this->db->select('cm.id as cartMasterId, cm.order_id, cm.service_date, cm.service_time, cm.booking_note, cm.total_price, cm.status, cm.add_date, c.id as cartId, c.service_id, c.price, c.person');
+    function getAllOrderInfo($customerId, $flIncludeDeletedRecord = false){
+        $this->db->select('cm.id as cartMasterId, cm.order_id, cm.service_date, cm.service_time, cm.booking_note, cm.total_price, cm.status, cm.add_date, c.id as cartId, c.service_id, c.price, c.person, cm.delete_note cancelNote, cm.is_deleted as flCancel, cm.deleted_from as cancelFrom, cm.deleted_id as cancel_user_id');
         $this->db->from('tbl_cartmaster as cm');
         $this->db->join('tbl_cart as c', 'cm.id = c.cartmaster_id');
         $this->db->where('cm.customer_id', $customerId);
-        $this->db->where('cm.is_deleted', '0');
+
+        if(!$flIncludeDeletedRecord){
+            $this->db->where('cm.is_deleted', '0');
+        }
+
         $this->db->where('c.is_deleted', '0');
         $this->db->order_by("cm.add_date", "DESC");
         $query = $this->db->get();
@@ -276,19 +280,23 @@ class Cart_model extends CI_Model
         return $arrReturn;
     }
 
-    function getTotalSales($startDate, $endDate){
-        $this->db->select('sum(total_price) as totalPrice');
+    function getTotalSales($startDate, $endDate, $group_by_month = false){
+        $this->db->select('sum(total_price) as totalPrice, DATE_FORMAT(add_date, "%M") groupMonth');
         $this->db->from('tbl_cartmaster');
         $this->db->where('is_deleted', '0');
         $this->db->where('add_date >=', $startDate);
         $this->db->where('add_date <=', $endDate);
-        $query = $this->db->get();
-
-        return $query->row();
+        if($group_by_month){
+            $this->db->group_by('groupMonth');
+            $query = $this->db->get();
+            return $query->result();
+        } else {
+            $query = $this->db->get();
+            return $query->row();
+        }        
     }
     
-
-    function getTotalBooking($startDate, $endDate){
+    function getTotalBooking($startDate, $endDate, $group_by_month = false){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_cartmaster');
         $this->db->where('is_deleted', '0');
@@ -417,5 +425,25 @@ class Cart_model extends CI_Model
         $this->db->where('is_deleted', '0');
         $query = $this->db->get();
         return $query->row();
+    }
+
+    function checkMasterMatching($bookingId, $customerId){
+        $this->db->select('id');
+        $this->db->from('tbl_cartmaster');
+        $this->db->where('id', $bookingId);
+        $this->db->where('customer_id', $customerId);
+        $query = $this->db->get();
+       
+        $cart = $query->row();
+
+        /*echo "<pre>";
+        print_r($cart);
+        die();*/
+        if(!empty($cart)){
+            return true;
+        } 
+        else {
+            return false;
+        }
     }
 }

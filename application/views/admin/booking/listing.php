@@ -48,6 +48,7 @@
                                 <th>Id</th>
                                 <th>Customer</th>
                                 <th>Services</th>
+                                <th>Team Members</th>
                                 <th>Service Date & Time</th>
                                 <th>Booking Date & Time</th>
                                 <th>Service Type</th>
@@ -74,6 +75,13 @@
                                                 $strInfo .= $value['serviceCategory'] . " - " . $value['serviceName'] . " - " . $value['person'] . ' Person<br/>';
                                             }
                                             echo $strInfo;
+                                        ?></th>
+                                        <th><?php 
+                                            $strInfo = '';
+                                            foreach ($record['teamInfo'] as $key => $value) {
+                                                $strInfo .= $value['first_name'] . " " . $value['last_name'] . '<br/>';
+                                            }
+                                            echo (empty($strInfo) ? "NA" : $strInfo);
                                         ?></th>
                                         <th><?php echo $record['info']['service_date'] . " - " . $record['info']['service_time']; ?></th>
                                         <th><?php echo $record['info']['addDate']; ?></th>
@@ -133,7 +141,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body text-center f-24">
-                <h5 class="modal-title">Are you sure to cancel this booking??</h5>
+                <h5 class="modal-title">Are you sure to cancel this booking?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

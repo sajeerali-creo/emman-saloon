@@ -223,16 +223,18 @@ switch (ENVIRONMENT)
  *  Now that we know the path, set the main path constants
  * -------------------------------------------------------------------
  */
+	date_default_timezone_set("Asia/Dubai");
+	
 	// The name of THIS file
 	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 
 	// Path to the system directory
 	define('BASEPATH', $system_path);
 
-	define('ADMINMAIL', 'emcsquared2020@gmail.com');
-	define('ADMINNAME', 'Survey');
-	define('ADMINMAILPASS', 'emcsquared@123');
-	define('ADMINTOMAIL', 'ansi@bubblegum.ae');
+	define('ADMINMAIL', 'sarathcp007@gmail.com');
+	define('ADMINNAME', 'Eman Saloon');
+	define('ADMINMAILPASS', '***');
+	define('ADMINTOMAIL', 'sarathcp007@gmail.com');
 
 	// Path to the front controller (this file) directory
 	define('FCPATH', dirname(__FILE__).DIRECTORY_SEPARATOR);

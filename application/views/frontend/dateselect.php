@@ -70,7 +70,6 @@
                     }
                     
                     ?><ul class="time-list" id="available-time-list">
-                        <li class="not-avaialble">9:00 AM</li>
                         <?php
                         foreach ($arrTimeSlots as $key => $value) {
                             ?><li  id="timeslot_<?php echo preg_replace('/[^0-9A-Za-z]/i', '', $value); ?>" data-val="<?php echo $value; ?>" <?php echo($defTime == $value ? ' class="active" ' : ''); ?>><?php echo $value; ?></li><?php    

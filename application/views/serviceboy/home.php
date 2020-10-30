@@ -27,8 +27,8 @@
         </a>
 
         <div class="text-center text-white">
-            <div>ES2</div>
-            <div class="opacity-2">Roshan James</div>
+            <div><?php echo $serviceBoyCode; ?></div>
+            <div class="opacity-2"><?php echo $serviceBoyName; ?></div>
         </div>
        
         <div>
@@ -62,6 +62,10 @@
                         ?><p class="card-text text-gray">
                             <small class="text-gray"><?php echo $arrSubInfo['info']['address']; ?></small>
                         </p>
+                        <div>
+                            <hr>
+                        </div>
+                        <p>Date and Time: <?php echo $arrSubInfo['info']['service_date'] . " " . $arrSubInfo['info']['service_time']; ?></p>
                         <div>
                             <hr>
                         </div>

@@ -19,6 +19,7 @@ class Serviceboycontroller extends CI_Controller{
         $this->serviceBoyLogin = false;
         
         $isLoggedIn = $this->session->userdata ( 'isServiceBoyLoggedIn' );
+        $this->serviceBoyFullName    = "";
         $this->serviceBoyUsername    = "";
         $this->serviceBoyUserId      = "";
         
@@ -29,6 +30,7 @@ class Serviceboycontroller extends CI_Controller{
             $this->serviceBoyLogin = true;
             $this->serviceBoyUsername = $this->session->userdata ( 'serviceboy_username' );
             $this->serviceBoyUserId = $this->session->userdata ( 'serviceboy_user_id' );
+            $this->serviceBoyFullName = trim($this->session->userdata ( 'first_name' ) . " " . $this->session->userdata ( 'last_name' ));
         }
     }
 
@@ -42,6 +44,8 @@ class Serviceboycontroller extends CI_Controller{
             $data['pageTitle'] = PROJECT_NAME . ' - Service Boy Home';  
             $data['description'] = PROJECT_NAME . ' - Service Boy Home';  
             $data['currentpage'] = 'sb-homepage';
+            $data['serviceBoyName'] = $this->serviceBoyFullName;
+            $data['serviceBoyCode'] = $this->serviceBoyUsername;
             $data['servicesInfo'] = $this->getFullServiceDetails($this->serviceBoyUserId);
 
             $this->loadViews('serviceboy/home', $data);

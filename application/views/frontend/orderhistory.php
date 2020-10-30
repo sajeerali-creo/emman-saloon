@@ -44,11 +44,34 @@
             <div class="col-md-12 mb-3"><?php
                 if(!empty($orderhistory)){
                     foreach ($orderhistory as $key => $value) {
+                        $cartmasterId = $value["cartMasterId"];
                         ?><!-- loop -->
                         <div class="card p-3 shadow mb-2">
                             <div class="text-gray-900 font-weight-bold"><?php echo ucwords(strtolower($value["serviceCatName"])) . " " . $value["serviceName"]; ?></div>
-                            <small><?php echo $value["person"]; ?>person - <?php echo $value["service_time"] . "," . $value["service_date"]; ?></small>
-                        </div><?php
+                            <small><?php echo $value["person"]; ?>person - <?php echo $value["service_time"] . "," . $value["service_date"]; ?></small><?php
+                            if($value["flCancel"] == '1'){
+                                $statusLabel = "cancelled";
+                            } else {
+                                $status = $value["status"];
+
+                                if($status == 'PN'){
+                                    $statusLabel = 'Pending';
+                                } else if($status == 'CN'){
+                                    $statusLabel = 'Confirmed';
+                                } else if($status == 'SBR'){
+                                    $statusLabel = 'Servicer Rejected';
+                                } else if($status == 'SBC'){
+                                    $statusLabel = 'Servicer Confirmed';
+                                } else {
+                                    $statusLabel = 'Completed';
+                                }
+                            }
+                            echo "Status: " . $statusLabel;
+
+                            if($value["flCancel"] != '1' && $status == 'PN'){
+                                    ?><button type="button" class="btn btn-danger btn-sm mt-2 mr-1 deleteOrder delete-<?php echo $cartmasterId; ?>" data-toggle="modal" data-target="#delete-order" data-recordid="<?php echo $cartmasterId; ?>" title="Cancel Order" style="max-width: 120px;">Cancel Order</button><?php
+                            }
+                        ?></div><?php
                     }
                 }
                 else{
@@ -63,3 +86,29 @@
         </div>
     </div>
 </section>
+<div class="modal fade" id="delete-order" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="text-center mb-2">Are you sure to cancel this booking?</h5>
+                <div class="form-group">
+                    <textarea class="form-control" id="taDeleteReason" name="taDeleteReason" rows="3" placeholder="Enter cancel notes"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary">Yes</button>
+                <input type="hidden" name="hdDeleteRecordId" id="hdDeleteRecordId">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="delete-order-msg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center f-24">
+                Are you sure to delete this item?
+            </div>
+        </div>
+    </div>
+</div>

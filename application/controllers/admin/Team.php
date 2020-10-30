@@ -443,9 +443,12 @@ class Team extends BaseController
         $dataRecords = $this->team_model->teamOrderListing();
         foreach ($dataRecords as $teamId => $arrCartInfo) {
             foreach ($arrCartInfo['booking'] as $key => $value) {
+                $startDate = date("Y-m-d H:i:s", strtotime($value['service_date'] . " " . $value['service_time']));
+                $endDate = date("Y-m-d H:i:s", strtotime($startDate . " +" . (15 * $value['time_duration']) . "minutes"));
                 $arrFinalCalendarData[] = array(
                                                 "title" => ucwords(strtolower($value['teamFName'])) . " " . strtolower($value['teamLName']) . " - " . ucwords(strtolower($value['serviceCategory'])) . " " . strtolower($value['serviceName']),
-                                                "strDateTime" => date("Y-m-d H:i:s", strtotime($value['service_date'] . " " . $value['service_time'])),
+                                                "strDateTime" => $startDate,
+                                                "endDateTime" => $endDate,
                                                 "person" => $value['person']
                                             );
             }
