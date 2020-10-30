@@ -12,6 +12,8 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="<?php echo base_url() ?>assets/serviceboy/stylesheets/screen.css" media="screen,projection" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    
     <title><?php echo $pageTitle; ?></title>
 </head>
 
@@ -22,12 +24,17 @@
         <a class="navbar-brand m-0" href="<?php echo base_url() ?>serviceboy">
             <img src="<?php echo base_url() ?>assets/serviceboy/img/logo.png" height="55" alt="">
         </a>
-        <a href="notification.html" class="d-none">
-            <i class="material-icons text-white">notifications</i>
-        </a>
-        <a href="<?php echo base_url() ?>serviceboy/logout" style="display:none;">
-            Logout
-        </a>
+
+        <div class="text-center text-white">
+            <div>ES2</div>
+            <div class="opacity-2">Roshan James</div>
+        </div>
+       
+        <div>
+            <a href="<?php echo base_url() ?>serviceboy/logout" class="text-white">
+                Logout
+            </a>
+        </div>
     </nav>
 
     <!-- loop -->
@@ -76,7 +83,14 @@
             
         }
         else{
-            ?>No booking found<?php
+            ?>
+            <div class="h-100vh d-flex align-items-center justify-content-center text-center">
+                <div>
+                <i class="far fa-bell-slash f-40 opacity-2"></i>
+                <div>No booking found</div>
+                </div>
+            </div>
+            <?php
         }
     ?></div>
     <input type="hidden" name="selectedBookingId" id="selectedBookingId" value=""/>
