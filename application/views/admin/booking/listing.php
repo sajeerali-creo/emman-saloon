@@ -104,7 +104,16 @@
                                             ?><th class="text-info status-booking-<?php echo $record['info']['cartMasterId']; ?>">Servicer Confirmed</th><?php
                                         }
                                         else{
-                                            ?><th class="text-success">Completed</th><?php
+                                            ?><th class="text-success">
+                                                Completed<br/>
+                                                <?php 
+                                                if($record['info']['payment_type'] == 'card'){
+                                                    echo "Paid by Card(" . $record['info']['card_number'] . ")";
+                                                } else if($record['info']['payment_type'] == 'cash'){
+                                                    echo "Paid by cash";
+                                                }
+                                                ?>
+                                            </th><?php
                                         }
                                         
                                         ?><th class="text-right"><?php 

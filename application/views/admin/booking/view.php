@@ -4,6 +4,7 @@ $name = $bookingInfo['info']['first_name'] . " " . $bookingInfo['info']['last_na
 $email = $bookingInfo['info']['email'];
 $phone = $bookingInfo['info']['phone'];
 $status = $bookingInfo['info']['status'];
+$booking_note = $bookingInfo['info']['booking_note'];
 $flCancel = $bookingInfo['info']['flCancel'];
 
 if($flCancel == '1'){
@@ -295,6 +296,15 @@ if(!isset($lstServicer)){
                         <label class="text-primary">Vat</label>
                         <input type="text" class="form-control" id="txtVat" name="txtVat" value="<?php echo $txtVat; ?>"
                             placeholder="Vat Percentage">
+                    </div>
+                </div>
+                <!-- end If any service charge extra? -->
+
+                <!-- If any discount? -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Booking Notes</label>
+                        <?php echo $booking_note; ?>
                     </div>
                 </div>
                 <!-- end If any service charge extra? -->

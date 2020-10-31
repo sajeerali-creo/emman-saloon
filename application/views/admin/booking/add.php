@@ -258,6 +258,17 @@
                 </div>
                 <!-- end persons -->
 
+                <!-- Notes -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Booking Notes</label>
+                        <div class="form-group">
+                            <textarea class="form-control" id="taBookingNotes" name="taBookingNotes" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Notes -->
+
                 <div class="row mb-2">
                     <div class="col-md-6 col-sm-12">
                         <!-- type="button" -->

@@ -10,6 +10,7 @@ $hdAvailableTime = isset($hdAvailableTime) ? $hdAvailableTime : $bookingInfo['in
 $txtServiceCharge = isset($txtServiceCharge) ? $txtServiceCharge : $bookingInfo['info']['service_charge'];
 $txtDiscount = isset($txtDiscount) ? $txtDiscount : $bookingInfo['info']['discount_price'];
 $txtVat = isset($txtVat) ? $txtVat : $bookingInfo['info']['vat'];
+$taBookingNotes = isset($taBookingNotes) ? $taBookingNotes : $bookingInfo['info']['booking_note'];
 
 if(!isset($lstService)){
     $lstService = array();
@@ -328,6 +329,17 @@ if(!isset($lstServicer)){
                     </div>
                 </div>
                 <!-- end If any service charge extra? -->
+
+                <!-- Notes -->
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Booking Notes</label>
+                        <div class="form-group">
+                            <textarea class="form-control" id="taBookingNotes" name="taBookingNotes" rows="3"><?php echo $taBookingNotes; ?></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- end Notes -->
 
                 <div class="row mb-2">
                     <div class="col-md-6 col-sm-12">

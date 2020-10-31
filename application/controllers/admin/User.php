@@ -1002,6 +1002,10 @@ class User extends BaseController
                     $result = $this->user_model->changePassword($this->vendorId, $usersData);
                     
                     if($result > 0) { 
+                        //Update notification
+                        $sessionArray = array('fl_notification'=> $chkNotification);
+                        $this->session->set_userdata($sessionArray);
+
                         $this->session->set_flashdata('success', 'Password updation successful'); 
                     }
                     else { 
@@ -1023,6 +1027,8 @@ class User extends BaseController
                 $result = $this->user_model->changePassword($this->vendorId, $usersData);
                 
                 if($result > 0) { 
+                    $sessionArray = array('fl_notification'=> $chkNotification);
+                    $this->session->set_userdata($sessionArray);
                     $this->session->set_flashdata('success', 'Settings updation successful'); 
                 }
                 else { 

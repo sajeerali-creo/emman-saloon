@@ -162,6 +162,7 @@ class Booking extends BaseController
                 $txtCustomerEmail = $this->security->xss_clean($this->input->post('txtCustomerEmail'));
                 $txtCustomerPhone = $this->security->xss_clean($this->input->post('txtCustomerPhone'));
                 $taCustomerLocation = $this->security->xss_clean($this->input->post('taCustomerLocation'));
+                $taBookingNotes = $this->security->xss_clean($this->input->post('taBookingNotes'));
 
                 //check customer exist
                 $arrCustomerInfo = $this->customers_model->checkCustomerExist($txtCustomerEmail, $txtCustomerPhone);
@@ -189,7 +190,7 @@ class Booking extends BaseController
                 $arrCartMasterInfo = array("customer_id" => $customerId, 
                                             "service_date" => $txtBookingDate, 
                                             "service_time" => $hdAvailableTime,
-                                            "booking_note" => '',
+                                            "booking_note" => $taBookingNotes,
                                             "vat" => $txtVat,
                                             "service_charge" => $txtServiceCharge,
                                             "discount_price" => $txtDiscount,
@@ -395,10 +396,12 @@ class Booking extends BaseController
                 $txtVat = $this->security->xss_clean($this->input->post('txtVat'));
                 $hdCartIds = $this->security->xss_clean($this->input->post('hdCartIds'));
                 $hdCSPId = $this->security->xss_clean($this->input->post('hdCSPId'));
+                $taBookingNotes = $this->security->xss_clean($this->input->post('taBookingNotes'));
                              
                 $arrCartMasterInfo = array(
                                             "service_date" => $txtBookingDate, 
                                             "service_time" => $hdAvailableTime,
+                                            "booking_note" => $taBookingNotes,
                                             "vat" => $txtVat,
                                             "service_charge" => $txtServiceCharge,
                                             "discount_price" => $txtDiscount,

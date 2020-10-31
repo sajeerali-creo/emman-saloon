@@ -317,6 +317,12 @@
                         for (i in timeSlots) {
                             $("#timeslot_" + i).removeClass('not-avaialble');
                         }
+
+                        let selectedTime = $("#hdAvailableTime").val();
+                        if(!$("#available-time-list button[data-val='" + selectedTime + "']").hasClass("not-avaialble")){
+                            $("#available-time-list button[data-val='" + selectedTime + "']").addClass("btn-primary").removeClass("btn-outline-primary");
+                        }
+                        console.log();
                     }
                 });
             }
