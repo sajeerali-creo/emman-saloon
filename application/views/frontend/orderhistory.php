@@ -84,6 +84,21 @@
                 ?>
             </div>
         </div>
+
+        <div>
+            <hr>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="font-weight-bold f-20 text-center text-dark">We’re Always Here To Help</div>
+                <div class="text-small text-gray text-center mb-3">Reach out to us through any of these support channels</div>
+                <div class="h3 text-center font-weight-bold text-dark tel">
+                    <a href="tel:971564849878">
+                        <i class="fas fa-phone-square"></i>&nbsp;tel:971564849878
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 <div class="modal fade" id="delete-order" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

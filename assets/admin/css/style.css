@@ -151,6 +151,7 @@ form.user .form-control-user{
 
 
 
+
 .not-avaialble{
   text-decoration: line-through;
   background-color: #ffdddb!important;
@@ -181,3 +182,4 @@ form.user .form-control-user{
   border-radius: 160px;
   width: 130px;
 }
+
