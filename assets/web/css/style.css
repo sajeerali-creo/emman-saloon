@@ -3258,3 +3258,20 @@ form.user .btn-user {
   display: table-cell;
   margin-top: 1rem;
 }
+
+.pac-target-input{
+  z-index: 0;
+  position: absolute;
+  left: 25%!important;
+  top: 10px!important;
+  border: none!important;
+  border-radius: 6px;
+  width: 50vw;
+  height: 40px;
+  padding: 10px 13px;
+  background-image: url(../img/search.svg);
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-position: 99%;
+  background-size: 23px;
+}
