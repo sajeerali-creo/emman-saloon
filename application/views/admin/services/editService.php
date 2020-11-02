@@ -1,6 +1,7 @@
 <?php
 $serviceId          = $serviceInfo->id;
 $txtTitle           = isset($txtTitle) ? $txtTitle : $serviceInfo->title;
+$txtTitleAr           = isset($txtTitleAr) ? $txtTitleAr : $serviceInfo->title_ar;
 $lstCategory        = isset($lstCategory) ? $lstCategory : $serviceInfo->category_id;
 $txtPrice           = isset($txtPrice) ? $txtPrice : $serviceInfo->price;
 $rdStatus           = isset($rdStatus) ? $rdStatus : $serviceInfo->status;
@@ -76,7 +77,13 @@ $lstDuration        = isset($lstDuration) ? $lstDuration : $serviceInfo->time_du
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">Name Of Service</label>
-                        <input type="text" class="form-control" value="<?php echo $txtTitle; ?>" id="txtTitle" name="txtTitle" maxlength="300" placeholder="Name" required>
+                        <input type="text" class="form-control" value="<?php echo $txtTitle; ?>" id="txtTitle" name="txtTitle" maxlength="250" placeholder="Name" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Name Of Service in Arabic</label>
+                        <input type="text" class="form-control" value="<?php echo $txtTitleAr; ?>" id="txtTitleAr" name="txtTitleAr" maxlength="250" placeholder="Name in Arabic">
                     </div>
                 </div>
                 <!-- end name of services -->

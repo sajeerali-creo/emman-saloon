@@ -25,6 +25,7 @@ class User extends BaseController
     public function index(){
         $this->global['pageTitle'] = PROJECT_NAME . ' : Dashboard';
         $data['classInfo'] = "";
+        $data['pagePath'] = 'dashboard';
         /*if(isset($arrUpcomingCourse)){
             $data['classInfo'] = $arrUpcomingCourse;
         }
@@ -55,7 +56,7 @@ class User extends BaseController
         $data['sDate'] = $sDate;
         $data['eDate'] = $eDate;
         
-        $data['totalSales'] = $this->fnFindTotalSales();
+        $data['totalSales'] = number_format((float)$this->fnFindTotalSales() + (float)$this->getProductSalesPrice(), 2, '.', ',');
         $data['totalBooking'] = $this->fnFindTotalBooking();
         $data['totalConfirmBooking'] = $this->fnFindTotalConfirmBooking();
         $data['totalPendingBooking'] = $this->fnFindTotalPendingBooking();
@@ -65,6 +66,7 @@ class User extends BaseController
         $data['totalProductSale'] = $this->fnFindTotalProductSale();
         $data['totalProductUse'] = $this->fnFindTotalProductUse();
         $data['totalTeam'] = $this->fnFindTotalTeam();
+        $data['totalBusyTeam'] = $this->fnFindTotalBusyTeam();
         $data['totalActiveTeam'] = $this->fnFindTotalActiveTeam();
         $data['totalDayOffTeam'] = $this->fnFindTotalDayOffTeam("IN");
         $data['totalSLOffTeam'] = $this->fnFindTotalDayOffTeam("SL");
@@ -72,7 +74,9 @@ class User extends BaseController
         $data['totalHDOffTeam'] = $this->fnFindTotalDayOffTeam("HD");
         $data['totalCustomers'] = $this->fnFindTotalCustomers();
         $data['totalSuppliers'] = $this->fnFindTotalSuppliers();
-        $data['lastSixMonthSales'] = $this->fnFindLastSixMonthSales();
+        //$data['lastSixMonthServicesBooking'] = $this->fnFindLastSixMonthBooking();
+        $data['lastSixMonthServicesSales'] = $this->fnFindLastSixMonthServiceSales();
+        $data['lastSixMonthProductSales'] = $this->fnFindLastSixMonthProductSales();
         
 
         /*echo "<pre>";
@@ -104,7 +108,7 @@ class User extends BaseController
         $this->startDate = date("Y-m-d 00:00:00", strtotime($sDate));
         $this->endDate = date("Y-m-d 23:59:59", strtotime($eDate));
 
-        $totalSales = $this->fnFindTotalSales();
+        $totalSales = number_format((float)$this->fnFindTotalSales() + (float)$this->getProductSalesPrice(), 2, '.', ',');
         $totalBooking = $this->fnFindTotalBooking();
         $totalConfirmBooking = $this->fnFindTotalConfirmBooking();
         $totalPendingBooking = $this->fnFindTotalPendingBooking();
@@ -114,6 +118,7 @@ class User extends BaseController
         $totalProductSale = $this->fnFindTotalProductSale();
         $totalProductUse = $this->fnFindTotalProductUse();
         $totalTeam = $this->fnFindTotalTeam();
+        $totalBusyTeam = $this->fnFindTotalBusyTeam();
         $totalActiveTeam = $this->fnFindTotalActiveTeam();
         $totalDayOffTeam = $this->fnFindTotalDayOffTeam("IN");
         $totalSLOffTeam = $this->fnFindTotalDayOffTeam("SL");
@@ -145,6 +150,7 @@ class User extends BaseController
                 array ('', ''),
                 array ('Team'),
                 array ('Available Team', $totalActiveTeam),
+                array ('Busy Team', $totalBusyTeam),
                 array ('Day-off', $totalDayOffTeam),
                 array ('Sick Leave', $totalSLOffTeam),
                 array ('Medical', $totalMLOffTeam),
@@ -162,7 +168,6 @@ class User extends BaseController
         $xls->addArray($data);
         $xls->generateXML(PROJECT_NAME . "-dashboard-report-" . date("YmdHmi"));
     }
-
     
     function fnFindTotalSales(){
         $objRp = $this->cart_model->getTotalSales($this->startDate, $this->endDate);
@@ -203,6 +208,10 @@ class User extends BaseController
         $objRp = $this->cart_model->getProductSales($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
+    function getProductSalesPrice(){
+        $objRp = $this->cart_model->getProductSalesPrice($this->startDate, $this->endDate);
+        return $objRp->total_price;
+    }
 
     function fnFindTotalProductUse(){
         $objRp = $this->cart_model->getTotalProductUse($this->startDate, $this->endDate);
@@ -212,6 +221,30 @@ class User extends BaseController
     function fnFindTotalTeam(){
         $objRp = $this->cart_model->getTotalTeam($this->startDate, $this->endDate);
         return $objRp->totalCount;
+    }
+    function fnFindTotalBusyTeam(){
+        $date = date("Y-m-d");
+        $hour = date("g");
+        $minute = date("i");
+        $amPm = date("A");
+
+        if($minute >= 0 && $minute < 15){
+            $slotTime = $hour . ":00 " . $amPm; 
+        } else if($minute >= 15 && $minute < 30) {
+            $slotTime = $hour . ":15 " . $amPm;
+        } else if($minute >= 30 && $minute < 45) {
+            $slotTime = $hour . ":30 " . $amPm;
+        } else {
+            $slotTime = $hour . ":45 " . $amPm;
+        }
+
+
+        $objRp = $this->cart_model->getTotalBusyTeam($date, $slotTime);
+        if(!isset($objRp->totalCount) || empty($objRp->totalCount)){
+            return 0;
+        } else {
+            return $objRp->totalCount;
+        }
     }
     
     function fnFindTotalActiveTeam(){
@@ -239,20 +272,67 @@ class User extends BaseController
         return $objRp->totalCount;
     }
 
-    function fnFindLastSixMonthSales(){
-        $startDate = date("Y-m-1", strtotime("-5month"));
-        $strEndDate = date("Y-m-t", strtotime(date("Y-m-d")));
-
-        /*$objRp = $this->cart_model->getTotalSales($startDate, $strEndDate, true);
-        return $objRp->totalPrice;*/
-    }
-
     function fnFindLastSixMonthBooking(){
         $startDate = date("Y-m-1", strtotime("-5month"));
         $strEndDate = date("Y-m-t", strtotime(date("Y-m-d")));
 
-        /*$objRp = $this->cart_model->getTotalBooking($startDate, $strEndDatem, true);
-        return $objRp->totalCount;*/
+        $objRp = $this->cart_model->getTotalBookingPerMonth($startDate, $strEndDate);
+        $arrReturn = array("label" => '', "data" => '');
+        foreach ($objRp as $key => $value) {
+            $arrReturn['label'] .= '"' . $value->monthName . '", ';
+            $arrReturn['data'] .= '"' . $value->totalCount . '", ';
+        }
+        $arrReturn['label'] = trim($arrReturn['label'], ', ');
+        $arrReturn['data'] = trim($arrReturn['data'], ', ');
+        return $arrReturn;
+    }
+
+    function fnFindLastSixMonthServiceSales(){
+        $startDate = date("Y-m-1", strtotime("-5month"));
+        $strEndDate = date("Y-m-t", strtotime(date("Y-m-d")));
+
+        $this->objLastSixMonthServiceSales = $this->cart_model->getTotalServiceSalesPerMonth($startDate, $strEndDate);
+        $arrReturn = array("label" => '', "data" => '');
+        foreach ($this->objLastSixMonthServiceSales as $key => $value) {
+            $arrReturn['label'] .= '"' . $value->monthName . '", ';
+            $arrReturn['data'] .= '"' . $value->totalPrice . '", ';
+        }
+        $arrReturn['label'] = trim($arrReturn['label'], ', ');
+        $arrReturn['data'] = trim($arrReturn['data'], ', ');
+        return $arrReturn;
+    }
+
+    function fnFindLastSixMonthProductSales(){
+        $startDate = date("Y-m-1", strtotime("-5month"));
+        $strEndDate = date("Y-m-t", strtotime(date("Y-m-d")));
+
+        $objRp = $this->cart_model->getTotalProductSalesPerMonth($startDate, $strEndDate);
+        
+        if(!isset($this->objLastSixMonthServiceSales)){
+            $this->fnFindLastSixMonthServiceSales();
+        }
+
+        $arrServiceSales = array();
+        if(!empty($this->objLastSixMonthServiceSales)){
+            foreach ($this->objLastSixMonthServiceSales as $key => $value) {
+                $arrServiceSales[$value->monthName] = $value->totalPrice;
+            }
+        }
+
+        $arrReturn = array("label" => '', "data" => '');
+        foreach ($objRp as $key => $value) {
+            $arrReturn['label'] .= '"' . $value->monthName . '", ';
+            if(isset($arrServiceSales[$value->monthName])){
+                $arrReturn['data'] .= '"' . ($value->totalPrice + $arrServiceSales[$value->monthName]) . '", ';
+            }
+            else{
+                $arrReturn['data'] .= '"' . $value->totalPrice . '", ';
+            }
+            
+        }
+        $arrReturn['label'] = trim($arrReturn['label'], ', ');
+        $arrReturn['data'] = trim($arrReturn['data'], ', ');
+        return $arrReturn;
     }
     
     /**

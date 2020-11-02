@@ -6,10 +6,9 @@
             <div class="list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
                     href="#list-inventory" role="tab" aria-controls="home">Inventory</a>
-                <a class="list-group-item list-group-item-action" id="list-profile-list"
-                    href="<?php echo (base_url() . 'securepanel/invetory-employee'); ?>" >Employee</a>
+                <!-- <a class="list-group-item list-group-item-action" id="list-profile-list" href="<?php echo (base_url() . 'securepanel/invetory-employee'); ?>" >Employee</a> -->
                 <a class="list-group-item list-group-item-action" id="list-messages-list"
-                    href="<?php echo (base_url() . 'securepanel/invetory-pooduct'); ?>">Product</a>
+                    href="<?php echo (base_url() . 'securepanel/invetory-pooduct'); ?>">Sales</a>
             </div>
         </div>
         <div class="col-12">
@@ -133,9 +132,9 @@
                 <!-- end inventory -->
 
                 <!-- Employee -->
-                <div class="tab-pane fade" id="list-employee" role="tabpanel" aria-labelledby="list-profile-list">
+                <!-- <div class="tab-pane fade" id="list-employee" role="tabpanel" aria-labelledby="list-profile-list">
                     add your table here
-                </div>
+                </div> -->
                 <!-- end employee -->
 
                 <!-- Product -->

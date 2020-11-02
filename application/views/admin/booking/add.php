@@ -169,7 +169,7 @@
                 <!-- If any service charge extra? -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">If any service charge extra?</label>
+                        <label class="text-primary">If any service charge extra?(AED)</label>
                         <input type="text" class="form-control number_only" id="txtServiceCharge" name="txtServiceCharge" value="" placeholder="Service Charge" >
                     </div>
                 </div>

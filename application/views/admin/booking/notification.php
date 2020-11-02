@@ -39,7 +39,7 @@
                             </div>
 
                             <div>
-                                <a href="<?php echo base_url().'securepanel/edit-booking/' . $cartmasterId; ?>"
+                                <a href="<?php echo base_url().'securepanel/view-booking/' . $cartmasterId; ?>"
                                     class="btn btn-primary d-flex align-items-center w-100 justify-content-center">
                                     <i class="fas fa-eye"></i>&nbsp;View Details
                                 </a>

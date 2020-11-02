@@ -4,7 +4,7 @@ class Service_model extends CI_Model
 {
     function serviceListing($selectedActiveStatus = '', $flOrderByCat = false, $type = '')
     {
-        $this->db->select('BaseTbl.id, BaseTbl.title, BaseTbl.category_id, BaseTbl.price, BaseTbl.status, BaseTbl.add_date, sc.category_name, BaseTbl.type, BaseTbl.fl_special, BaseTbl.time_duration, BaseTbl.fl_special');
+        $this->db->select('BaseTbl.id, BaseTbl.title, BaseTbl.title_ar, BaseTbl.category_id, BaseTbl.price, BaseTbl.status, BaseTbl.add_date, sc.category_name, BaseTbl.type, BaseTbl.fl_special, BaseTbl.time_duration, BaseTbl.fl_special');
         $this->db->from('tbl_services as BaseTbl');
         $this->db->join('tbl_services_category as sc', 'sc.id = BaseTbl.category_id');
 
@@ -86,7 +86,7 @@ class Service_model extends CI_Model
 	
     function getServiceInfo($serviceId)
     {
-        $this->db->select('id, title, category_id, price, status, time_duration, type, fl_special');
+        $this->db->select('id, title, title_ar, category_id, price, status, time_duration, type, fl_special');
         $this->db->from('tbl_services');
         $this->db->where('is_deleted', '0');	
         $this->db->where('id', $serviceId);

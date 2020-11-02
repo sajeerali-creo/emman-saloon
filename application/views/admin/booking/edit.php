@@ -7,7 +7,7 @@ $phone = $bookingInfo['info']['phone'];
 $rdServiceType = isset($rdServiceType) ? $rdServiceType : ($bookingInfo['info']['booking_type'] == 'home' ? 'HS' : 'SS');
 $txtBookingDate = isset($txtBookingDate) ? $txtBookingDate : $bookingInfo['info']['service_date'];
 $hdAvailableTime = isset($hdAvailableTime) ? $hdAvailableTime : $bookingInfo['info']['service_time'];
-$txtServiceCharge = isset($txtServiceCharge) ? $txtServiceCharge : $bookingInfo['info']['service_charge'];
+$txtServiceCharge = isset($txtServiceCharge) ? $txtServiceCharge : $bookingInfo['info']['extra_service_charge'];
 $txtDiscount = isset($txtDiscount) ? $txtDiscount : $bookingInfo['info']['discount_price'];
 $txtVat = isset($txtVat) ? $txtVat : $bookingInfo['info']['vat'];
 $taBookingNotes = isset($taBookingNotes) ? $taBookingNotes : $bookingInfo['info']['booking_note'];
@@ -304,7 +304,7 @@ if(!isset($lstServicer)){
                 <!-- If any service charge extra? -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">If any service charge extra?</label>
+                        <label class="text-primary">If any service charge extra?(AED)</label>
                         <input type="text" class="form-control number_only" id="txtServiceCharge"
                             name="txtServiceCharge" value="<?php echo $txtServiceCharge; ?>"
                             placeholder="Service Charge">
@@ -323,7 +323,7 @@ if(!isset($lstServicer)){
                 <!-- If any discount? -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Vat</label>
+                        <label class="text-primary">Vat(%)</label>
                         <input type="text" class="form-control number_only" id="txtVat" name="txtVat"
                             value="<?php echo $txtVat; ?>" placeholder="Vat Percentage">
                     </div>

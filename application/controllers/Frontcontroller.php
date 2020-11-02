@@ -701,6 +701,7 @@ class Frontcontroller extends CI_Controller{
         $arrCartMasterInfo = array("customer_id" => $this->frontUserId, 
                             "service_date" => $cartDetailsInfo['dateselect']['date'], 
                             "service_time" => $cartDetailsInfo['dateselect']['time'],
+                            "service_datetime" => date("Y-m-d H:i:s", strtotime($cartDetailsInfo['dateselect']['date'] . " " . $cartDetailsInfo['dateselect']['time'])),
                             "booking_note" => $orderNote,
                             "vat" => "5",
                             "status" => "PN",

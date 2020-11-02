@@ -185,14 +185,15 @@ class Booking extends BaseController
                 print_r($lstServicer);
                 print_r($lstProduct);
                 die();*/
-                
+
                 
                 $arrCartMasterInfo = array("customer_id" => $customerId, 
                                             "service_date" => $txtBookingDate, 
                                             "service_time" => $hdAvailableTime,
+                                            "service_datetime" => date("Y-m-d H:i:s", strtotime($txtBookingDate . " " . $hdAvailableTime)),
                                             "booking_note" => $taBookingNotes,
                                             "vat" => $txtVat,
-                                            "service_charge" => $txtServiceCharge,
+                                            "extra_service_charge" => $txtServiceCharge,
                                             "discount_price" => $txtDiscount,
                                             "status" => "PN",
                                             "booking_type" => ($rdServiceType == 'HS' ? 'home' : "saloon"),
@@ -401,9 +402,10 @@ class Booking extends BaseController
                 $arrCartMasterInfo = array(
                                             "service_date" => $txtBookingDate, 
                                             "service_time" => $hdAvailableTime,
+                                            "service_datetime" => date("Y-m-d H:i:s", strtotime($txtBookingDate . " " . $hdAvailableTime)),
                                             "booking_note" => $taBookingNotes,
                                             "vat" => $txtVat,
-                                            "service_charge" => $txtServiceCharge,
+                                            "extra_service_charge" => $txtServiceCharge,
                                             "discount_price" => $txtDiscount,
                                             "status" => "CN",
                                             "booking_type" => ($rdServiceType == 'HS' ? 'home' : "saloon"),

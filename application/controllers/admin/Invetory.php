@@ -132,7 +132,7 @@ class Invetory extends BaseController
             $data['eDate'] = $eDate;  
             $data['dataRecords'] = $this->invetory_model->productSellingListing($this->startDate, $this->endDate);
                         
-            $this->global['pageTitle'] = PROJECT_NAME . ' : Inventory Product Sale Report';
+            $this->global['pageTitle'] = PROJECT_NAME . ' : Inventory Sale Report';
             
             $this->loadViews("admin/invetory/listingproductreport", $this->global, $data, NULL);
         }
@@ -191,6 +191,7 @@ class Invetory extends BaseController
                 $lstSupplier =$this->security->xss_clean($this->input->post('lstSupplier'));
                 $lstCategory =$this->security->xss_clean($this->input->post('lstCategory'));
                 $txtName =$this->security->xss_clean($this->input->post('txtName'));
+                $txtNameAr =$this->security->xss_clean($this->input->post('txtNameAr'));
                 $txtQuantity =$this->security->xss_clean($this->input->post('txtQuantity'));
                 $txtDate =$this->security->xss_clean($this->input->post('txtDate'));
                 $txtCostOfBuy =$this->security->xss_clean($this->input->post('txtCostOfBuy'));
@@ -204,6 +205,7 @@ class Invetory extends BaseController
                                 'suppliers_id'=> $lstSupplier, 
                                 'category_id'=> $lstCategory, 
                                 'title'=> $txtName, 
+                                'title_ar'=> $txtNameAr, 
                                 'quantity'=> $txtQuantity, 
                                 'remaining_quantity'=> $txtQuantity, 
                                 'date_of_add'=> $txtDate, 
@@ -293,6 +295,7 @@ class Invetory extends BaseController
                 $lstSupplier =$this->security->xss_clean($this->input->post('lstSupplier'));
                 $lstCategory =$this->security->xss_clean($this->input->post('lstCategory'));
                 $txtName =$this->security->xss_clean($this->input->post('txtName'));
+                $txtNameAr =$this->security->xss_clean($this->input->post('txtNameAr'));
                 $txtQuantity =$this->security->xss_clean($this->input->post('txtQuantity'));
                 $txtDate =$this->security->xss_clean($this->input->post('txtDate'));
                 $txtCostOfBuy =$this->security->xss_clean($this->input->post('txtCostOfBuy'));
@@ -305,6 +308,7 @@ class Invetory extends BaseController
                                 'suppliers_id'=> $lstSupplier, 
                                 'category_id'=> $lstCategory, 
                                 'title'=> $txtName, 
+                                'title_ar'=> $txtNameAr, 
                                 'quantity'=> $txtQuantity, 
                                 'remaining_quantity'=> $txtQuantity, 
                                 'date_of_add'=> $txtDate, 

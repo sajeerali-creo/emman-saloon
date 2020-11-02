@@ -6,10 +6,8 @@
             <div class="list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action" id="list-home-list"
                     href="<?php echo (base_url() . 'securepanel/invetory'); ?>">Inventory</a>
-                <a class="list-group-item list-group-item-action" id="list-profile-list"
-                    href="<?php echo (base_url() . 'securepanel/invetory-employee'); ?>" >Employee</a>
-                <a class="list-group-item list-group-item-action active" id="list-messages-list" data-toggle="list"
-                    href="#list-product" role="tab" aria-controls="messages">Product</a>
+                <!-- <a class="list-group-item list-group-item-action" id="list-profile-list" href="<?php echo (base_url() . 'securepanel/invetory-employee'); ?>" >Employee</a> -->
+                <a class="list-group-item list-group-item-action active" id="list-messages-list" data-toggle="list" href="#list-product" role="tab" aria-controls="messages">Sales</a>
             </div>
         </div>
         <div class="col-12">
@@ -22,9 +20,9 @@
                 <!-- end inventory -->
 
                 <!-- Employee -->
-                <div class="tab-pane fade" id="list-employee" role="tabpanel" aria-labelledby="list-profile-list">
+                <!-- <div class="tab-pane fade" id="list-employee" role="tabpanel" aria-labelledby="list-profile-list">
                     add your table here
-                </div>
+                </div> -->
                 <!-- end employee -->
 
                 <!-- Product -->
@@ -33,7 +31,7 @@
                     <div>
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Product</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Sales Report</h1>
                             <div class="d-flex d-sm-block">
                                 <div class="mr-2 w-sm-100 mr-sm-0 mt-sm-1">
                                     <button class="card p-2 w-sm-100 mr-2" id="reportrange">
@@ -79,6 +77,7 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
+                                                <th>Employee Name</th>
                                                 <th>Product Name</th>
                                                 <th>Customer Name</th>
                                                 <th>Quantity</th>
@@ -94,6 +93,7 @@
                                                 die();*/
                                                 ?><tr class="row_<?php echo $value->id; ?>">
                                                     <th><?php echo $intCount++; ?></th>
+                                                    <th><?php echo $value->first_name . " " . $value->last_name; ?></th>
                                                     <th><?php echo $value->productName; ?></th>
                                                     <th><?php echo $value->customer_name; ?></th>
                                                     <th><?php echo $value->quantity; ?></th>

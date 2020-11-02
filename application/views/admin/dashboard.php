@@ -186,7 +186,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2 text-center s-v busy">
                                         <div>
-                                            <h1 class="font-weight-bold text-danger">1</h1>
+                                            <h1 class="font-weight-bold text-danger"><?php echo $totalBusyTeam; ?></h1>
                                             <div>Busy Team</div>
                                         </div>
                                     </div>

@@ -4,6 +4,7 @@ $txtInvoiceNumber   = isset($txtInvoiceNumber) ? $txtInvoiceNumber : $productInf
 $lstSupplier        = isset($lstSupplier) ? $lstSupplier : $productInfo->suppliers_id;
 $lstCategory        = isset($lstCategory) ? $lstCategory : $productInfo->category_id;
 $txtName            = isset($txtName) ? $txtName : $productInfo->title;
+$txtNameAr          = isset($txtNameAr) ? $txtNameAr : $productInfo->title_ar;
 $txtQuantity        = isset($txtQuantity) ? $txtQuantity : $productInfo->quantity;
 $txtDate            = isset($txtDate) ? $txtDate : $productInfo->date_of_add;
 $txtCostOfBuy       = isset($txtCostOfBuy) ? $txtCostOfBuy : $productInfo->cost_of_buy;
@@ -78,14 +79,12 @@ $rdStatus           = isset($rdStatus) ? $rdStatus : $productInfo->status;
                         <input type="text" class="form-control" id="txtName" name="txtName" placeholder="Name" required value="<?php echo $txtName; ?>">
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
-                        <label class="text-primary">Quantity</label>
-                        <input type="text" class="form-control" id="txtQuantity" name="txtQuantity" placeholder="30" required value="<?php echo $txtQuantity; ?>">
+                        <label class="text-primary">Name Of Product in Arabic</label>
+                        <input type="text" class="form-control" id="txtNameAr" name="txtNameAr" placeholder="Name in Arabic" required value="<?php echo $txtNameAr; ?>">
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
-                        <label class="text-primary">Date Of added</label>
-                        <div class="date-picker">
-                            <input type="date" class="form-control form-control-lg text-left" placeholder="mm/dd/yyyy" style="text-align:center;" name="txtDate" id="txtDate" required value="<?php echo $txtDate; ?>">
-                        </div>
+                        <label class="text-primary">Quantity</label>
+                        <input type="text" class="form-control" id="txtQuantity" name="txtQuantity" placeholder="30" required value="<?php echo $txtQuantity; ?>">
                     </div>
                 </div>
                 <!-- end name of product -->
@@ -94,6 +93,12 @@ $rdStatus           = isset($rdStatus) ? $rdStatus : $productInfo->status;
                 <!-- Cost of BUy -->
                 <div class="row">
                     <div class="form-group col-md-4 col-sm-12">
+                        <label class="text-primary">Date Of added</label>
+                        <div class="date-picker">
+                            <input type="date" class="form-control form-control-lg text-left" placeholder="mm/dd/yyyy" style="text-align:center;" name="txtDate" id="txtDate" required value="<?php echo $txtDate; ?>">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4 col-sm-12">
                         <label class="text-primary">Cost of Buy</label>
                         <input type="text" class="form-control" id="txtCostOfBuy" name="txtCostOfBuy" placeholder="30" required value="<?php echo $txtCostOfBuy; ?>">
                     </div>
@@ -101,15 +106,15 @@ $rdStatus           = isset($rdStatus) ? $rdStatus : $productInfo->status;
                         <label class="text-primary">Buy Tax</label>
                         <input type="text" class="form-control" id="txtBuyTax" name="txtBuyTax" placeholder="VAT 5%" required value="<?php echo $txtBuyTax; ?>">
                     </div>
-                    <div class="form-group col-md-4 col-sm-12">
-                        <label class="text-primary">Cost of Sell</label>
-                        <input type="text" class="form-control" id="txtCostOfSell" name="txtCostOfSell" placeholder="30" required value="<?php echo $txtCostOfSell; ?>">
-                    </div>
                 </div>
                 <!-- end Cost of BUy -->
               
                 <!-- Sell Tax -->
                 <div class="row">
+                    <div class="form-group col-md-4 col-sm-12">
+                        <label class="text-primary">Cost of Sell</label>
+                        <input type="text" class="form-control" id="txtCostOfSell" name="txtCostOfSell" placeholder="30" required value="<?php echo $txtCostOfSell; ?>">
+                    </div>
                     <div class="form-group col-md-4 col-sm-12">
                         <label class="text-primary">Sell Tax</label>
                         <input type="text" class="form-control" id="txtSellTax" name="txtSellTax" placeholder="VAT 5%" required value="<?php echo $txtSellTax; ?>">

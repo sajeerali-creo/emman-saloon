@@ -174,8 +174,9 @@ class Cart_model extends CI_Model
         if(!empty($teamId)){
             $this->db->where('team_id', $teamId);
         }
-
         $this->db->update('tbl_notifications', $arrInfo);
+        // print_r($this->db->last_query());    die();
+        return true;
     }
 
     function getAllTimeSlots(){
@@ -249,7 +250,7 @@ class Cart_model extends CI_Model
 
     function getNotificationListing($notificationType = 'admin')
     {
-        $this->db->select('cm.id as cartMasterId, cm.order_id, cpi.address, c.id as cartId, c.price, c.person, s.title as serviceName, sc.category_name as serviceCategory');
+        $this->db->select('cm.id as cartMasterId, cm.order_id, cpi.address, c.id as cartId, c.price, c.person, s.title as serviceName, sc.category_name as serviceCategory, n.fl_viewed');
         $this->db->from('tbl_notifications n');
         $this->db->join('tbl_cartmaster as cm', 'cm.id = n.cartmaster_id');
         $this->db->join('tbl_cart_personal_info as cpi', 'cm.id = cpi.cartmaster_id');
@@ -257,7 +258,7 @@ class Cart_model extends CI_Model
         $this->db->join('tbl_services as s', 's.id = c.service_id');
         $this->db->join('tbl_services_category as sc', 'sc.id = s.category_id');
         $this->db->where('n.type', $notificationType);
-        $this->db->where('n.fl_viewed', '0');
+        //$this->db->where('n.fl_viewed', '0');
         $this->db->where('n.is_deleted', '0');
         $this->db->where('cm.is_deleted', '0');
         $this->db->where('c.is_deleted', '0');
@@ -280,24 +281,18 @@ class Cart_model extends CI_Model
         return $arrReturn;
     }
 
-    function getTotalSales($startDate, $endDate, $group_by_month = false){
+    function getTotalSales($startDate, $endDate){
         $this->db->select('sum(total_price) as totalPrice');//, DATE_FORMAT(add_date, "%M") groupMonth
         $this->db->from('tbl_cartmaster');
         $this->db->where('is_deleted', '0');
         $this->db->where('add_date >=', $startDate);
         $this->db->where('add_date <=', $endDate);
 
-        if($group_by_month){
-            //$this->db->group_by('groupMonth');
-            $query = $this->db->get();
-            return $query->result();
-        } else {
-            $query = $this->db->get();
-            return $query->row();
-        }        
+        $query = $this->db->get();
+        return $query->row();
     }
-    
-    function getTotalBooking($startDate, $endDate, $group_by_month = false){
+
+    function getTotalBooking($startDate, $endDate){
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_cartmaster');
         $this->db->where('is_deleted', '0');
@@ -305,6 +300,42 @@ class Cart_model extends CI_Model
         $this->db->where('add_date <=', $endDate);
         $query = $this->db->get();
         return $query->row();
+    }
+
+    function getTotalBookingPerMonth($startDate, $endDate){
+        $this->db->select('count(id) as totalCount, DATE_FORMAT(add_date, "%M") monthName, DATE_FORMAT(add_date, "%Y%m") yearMonth');
+        $this->db->from('tbl_cartmaster');
+        $this->db->where('is_deleted', '0');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
+        $this->db->group_by('monthName');
+        $this->db->order_by('yearMonth', "asc");
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function getTotalServiceSalesPerMonth($startDate, $endDate){
+        $this->db->select('sum(total_price) as totalPrice, DATE_FORMAT(add_date, "%M") monthName, DATE_FORMAT(add_date, "%Y%m") yearMonth');
+        $this->db->from('tbl_cartmaster');
+        $this->db->where('is_deleted', '0');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
+        $this->db->group_by('monthName');
+        $this->db->order_by('yearMonth', "asc");
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function getTotalProductSalesPerMonth($startDate, $endDate){
+        $this->db->select('sum(total_price) as totalPrice, DATE_FORMAT(add_date, "%M") monthName, DATE_FORMAT(add_date, "%Y%m") yearMonth');
+        $this->db->from('tbl_product_sales');
+        $this->db->where('is_deleted', '0');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
+        $this->db->group_by('monthName');
+        $this->db->order_by('yearMonth', "asc");
+        $query = $this->db->get();
+        return $query->result();
     }
 
     function getTotalConfirmBooking($startDate, $endDate){
@@ -371,6 +402,15 @@ class Cart_model extends CI_Model
         $query = $this->db->get();
         return $query->row();
     }
+    function getProductSalesPrice($startDate, $endDate){
+        $this->db->select('sum(total_price) as total_price');
+        $this->db->from('tbl_product_sales');
+        $this->db->where('is_deleted', '0');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
+        $query = $this->db->get();
+        return $query->row();
+    }
 
     function getTotalProductUse($startDate, $endDate){
         $this->db->select('count(csp.product_id) as totalCount');
@@ -390,6 +430,16 @@ class Cart_model extends CI_Model
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_team');
         $this->db->where('is_deleted', '0');
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    function getTotalBusyTeam($date, $timeSlot){
+        $this->db->select('sum(team_members_count) as totalCount');
+        $this->db->from('tbl_booking_time_slots');
+        $this->db->where('is_deleted', '0');
+        $this->db->where('booking_date', $date);
+        $this->db->where('time_slot', $timeSlot);
         $query = $this->db->get();
         return $query->row();
     }

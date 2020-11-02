@@ -53,7 +53,7 @@
                                 <th>Booking Date & Time</th>
                                 <th>Service Type</th>
                                 <th>Location</th>
-                                <th>Price</th>
+                                <th>Price(AED)</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -87,7 +87,7 @@
                                         <th><?php echo $record['info']['addDate']; ?></th>
                                         <th><?php echo ucwords($record['info']['booking_type'] . " Service"); ?></th>
                                         <th><?php echo $record['info']['address']; ?></th>
-                                        <th>AED <?php echo $record['info']['total_price']; ?></th><?php
+                                        <th><?php echo $record['info']['total_price']; ?></th><?php
                                         if($record['info']['flCancel'] == '1'){
                                             ?><th class="text-danger status-booking-<?php echo $record['info']['cartMasterId']; ?>">Cancelled</th><?php
                                         }
@@ -108,7 +108,10 @@
                                                 Completed<br/>
                                                 <?php 
                                                 if($record['info']['payment_type'] == 'card'){
-                                                    echo "Paid by Card(" . $record['info']['card_number'] . ")";
+                                                    echo "Paid by Card";
+                                                    if(!empty($record['info']['card_number'])){
+                                                        echo "(" . $record['info']['card_number'] . ")";
+                                                    }
                                                 } else if($record['info']['payment_type'] == 'cash'){
                                                     echo "Paid by cash";
                                                 }

@@ -83,6 +83,7 @@ class Services extends BaseController
                 $rdServiceType =$this->security->xss_clean($this->input->post('rdServiceType'));
                 $rdServiceSpecial =$this->security->xss_clean($this->input->post('rdServiceSpecial'));
                 $txtTitle =$this->security->xss_clean($this->input->post('txtTitle'));
+                $txtTitleAr =$this->security->xss_clean($this->input->post('txtTitleAr'));
                 $lstCategory =$this->security->xss_clean($this->input->post('lstCategory'));
                 $lstDuration =$this->security->xss_clean($this->input->post('lstDuration'));
                 $txtPrice =$this->security->xss_clean($this->input->post('txtPrice'));
@@ -93,6 +94,7 @@ class Services extends BaseController
                 print_r($txtServicePrice);die();*/	
                 
 				$serviceInfo = array('title'=> $txtTitle, 
+                                'title_ar'=> $txtTitleAr, 
                                 'type'=> $rdServiceType,
                                 'fl_special'=> $rdServiceSpecial,
                                 'category_id'=> $lstCategory, 
@@ -186,6 +188,7 @@ class Services extends BaseController
 				$rdServiceType =$this->security->xss_clean($this->input->post('rdServiceType'));
                 $rdServiceSpecial =$this->security->xss_clean($this->input->post('rdServiceSpecial'));
                 $txtTitle =$this->security->xss_clean($this->input->post('txtTitle'));
+                $txtTitleAr =$this->security->xss_clean($this->input->post('txtTitleAr'));
                 $lstCategory =$this->security->xss_clean($this->input->post('lstCategory'));
                 $lstDuration =$this->security->xss_clean($this->input->post('lstDuration'));
                 $txtPrice =$this->security->xss_clean($this->input->post('txtPrice'));
@@ -193,6 +196,7 @@ class Services extends BaseController
                 $rdStatus =$this->security->xss_clean($this->input->post('rdStatus'));
                              
                 $serviceInfo = array('title'=> $txtTitle,
+                                    'title_ar'=> $txtTitleAr, 
                                     'type'=> $rdServiceType,
                                     'fl_special'=> $rdServiceSpecial,
                                     'category_id'=> $lstCategory, 

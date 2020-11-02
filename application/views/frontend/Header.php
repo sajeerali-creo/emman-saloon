@@ -8,7 +8,6 @@
 		    <meta charset="utf-8">
 		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-			<link rel="icon" href="<?php echo base_url() ?>assets/frontend/img/fav-icon.png" type="image/gif" sizes="16x16">
 		    <meta name="description" content="">
 		    <meta name="author" content="">
 		    <title><?php echo $title; ?></title>
@@ -17,8 +16,8 @@
 			<meta property="og:image:width" content="1200" />
 			<meta property="og:image:height" content="630" />
 			<meta property="og:image:type" content="image/png" />
-			<link rel=icon href="<?php echo base_url() ?>favicon.png" sizes=32x32>
-			<link rel=icon href="<?php echo base_url() ?>favicon.png" sizes=192x192>
+			<link rel=icon type="image/png" href="<?php echo base_url() ?>favicon.png" sizes=32x32>
+			<link rel=icon type="image/png" href="<?php echo base_url() ?>favicon.png" sizes=192x192>
 			<link rel=apple-touch-icon-precomposed href="<?php echo base_url() ?>favicon.png">
 		    <!-- Custom fonts for this template-->
 		    <link href="<?php echo base_url() ?>assets/web/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

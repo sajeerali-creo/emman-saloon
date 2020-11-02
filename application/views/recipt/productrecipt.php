@@ -43,9 +43,9 @@
                     <tr>
                         <th class="no">#</th>
                         <th class="desc">Detail (تفاصيل)</th>
-                        <th class="qty"><!-- Discount(خصم) --></th>
+                        <th class="qty">Amount (مبلغ)</th>
                         <th class="unit">Qt(كمية)</th>
-                        <th class="total">Amount (مبلغ)</th>
+                        <th class="total">Total Amount (المبلغ الإجمالي)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,20 +57,25 @@
                     
                     $quantity   = $bookingInfo['quantity'];
                     $discount   = 0;
-                    $price      = $bookingInfo['item_price'];
+                    $price      = number_format($bookingInfo['item_price'], 2, '.', '');
                     $itemTotal  = ($price * $quantity);
                     $itemTotal -= $itemTotal * ($discount / 100);
-                    $itemTotal  = number_format($itemTotal, 2, '.', ',');
+                    $itemTotal  = (int)number_format($itemTotal, 2, '.', '');
                     $intOrderTotal += $itemTotal;
                     ?><tr>
                         <td class="no"><?php echo $intCount++; ?></td>
                         <td class="desc">
-                            <h3><?php echo($bookingInfo['productName']); ?></h3>
+                            <h3><?php 
+                                echo($bookingInfo['productName']);
+                                if(isset($bookingInfo['productNameArabic']) && !empty($bookingInfo['productNameArabic'])){
+                                    echo "(" . $bookingInfo['productNameArabic'] . ")";
+                                }
+                            ?></h3>
                             Product sold by: <?php echo($bookingInfo['teamMemberName']); ?> 
                         </td>
-                        <td class="qty"></td>
+                        <td class="qty"><?php echo $price; ?> AED</td>
                         <td class="unit"><?php echo $quantity; ?></td>
-                        <td class="total"><?php echo $itemTotal; ?>AED</td>
+                        <td class="total"><?php echo number_format($itemTotal, 2, '.', ','); ?> AED</td>
                     </tr><?php
                     
                     $intVatAmount = $intOrderTotal * ($intVat / 100);
@@ -81,17 +86,17 @@
                     <tr>
                         <td colspan="2"></td>
                         <td colspan="2">SUBTOTAL</td>
-                        <td><?php echo number_format($intOrderTotal, 2, '.', ',') ?>AED</td>
+                        <td><?php echo number_format($intOrderTotal, 2, '.', ',') ?> AED</td>
                     </tr>
                     <tr>
                         <td colspan="2"></td>
                         <td colspan="2">TAX <?php echo $intVat; ?>%</td>
-                        <td><?php echo number_format($intVatAmount, 2, '.', ',') ?>AED</td>
+                        <td><?php echo number_format($intVatAmount, 2, '.', ',') ?> AED</td>
                     </tr>
                     <tr>
                         <td colspan="2"></td>
                         <td colspan="2">GRAND TOTAL</td>
-                        <td><?php echo number_format(($intOrderTotal + $intVatAmount), 2, '.', ',') ?>AED</td>
+                        <td><?php echo number_format(($intOrderTotal + $intVatAmount), 2, '.', ',') ?> AED</td>
                     </tr>
                 </tfoot>
             </table>

@@ -42,7 +42,7 @@ class Invetory_model extends CI_Model
 	
     function getProductInfo($productId)
     {
-        $this->db->select('id, invoice_number, suppliers_id, category_id, title, quantity, date_of_add, cost_of_buy, buy_tax, cost_of_sell, sell_tax, status, remaining_quantity');
+        $this->db->select('id, invoice_number, suppliers_id, category_id, title, title_ar, quantity, date_of_add, cost_of_buy, buy_tax, cost_of_sell, sell_tax, status, remaining_quantity');
         $this->db->from('tbl_invetory');
         $this->db->where('is_deleted', '0');	
         $this->db->where('id', $productId);
@@ -99,7 +99,7 @@ class Invetory_model extends CI_Model
     }
 
     function getProductSellingDetails($product_sell_id){
-        $this->db->select('ps.id, ps.product_id, ps.customer_name, ps.quantity, ps.item_price, ps.tax, ps.total_price, ps.add_date, i.title productName, ps.team_id, ps.invoice_number, DATE_FORMAT(ps.add_date, "%Y%m%d") as invoiceDateValue, DATE_FORMAT(ps.add_date, "%d/%m/%Y") as invoiceGenDate, , DATE_FORMAT(ps.add_date, "%h:%i:%s %p") as invoiceGenTime, CONCAT(t.first_name, " ", t.last_name) teamMemberName');
+        $this->db->select('ps.id, ps.product_id, ps.customer_name, ps.quantity, ps.item_price, ps.tax, ps.total_price, ps.add_date, i.title productName, i.title_ar productNameArabic, ps.team_id, ps.invoice_number, DATE_FORMAT(ps.add_date, "%Y%m%d") as invoiceDateValue, DATE_FORMAT(ps.add_date, "%d/%m/%Y") as invoiceGenDate, , DATE_FORMAT(ps.add_date, "%h:%i:%s %p") as invoiceGenTime, CONCAT(t.first_name, " ", t.last_name) teamMemberName');
         $this->db->from('tbl_product_sales as ps');
         $this->db->join('tbl_invetory as i', 'i.id = ps.product_id');
         $this->db->join('tbl_team as t', 't.id = ps.team_id');
@@ -116,11 +116,14 @@ class Invetory_model extends CI_Model
     }
 
     function productSellingListing($startDate = '', $endDate = ''){
-        $this->db->select('ps.id, ps.product_id, ps.customer_name, ps.quantity, ps.item_price, ps.tax, ps.total_price, ps.add_date, i.title productName, ps.team_id');
+        $this->db->select('ps.id, ps.product_id, ps.customer_name, ps.quantity, ps.item_price, ps.tax, ps.total_price, ps.add_date, i.title productName, ps.team_id, t.first_name, t.last_name');
         $this->db->from('tbl_product_sales as ps');
         $this->db->join('tbl_invetory as i', 'i.id = ps.product_id');
+        $this->db->join('tbl_team as t', 't.id = ps.team_id');
         $this->db->where('ps.is_deleted', '0');    
         $this->db->where('ps.status', 'AC');  
+        $this->db->where('t.is_deleted', '0');    
+        $this->db->where('t.status', 'AC');
 
         if(!empty($startDate)){
             $this->db->where('ps.add_date >=', $startDate);

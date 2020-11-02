@@ -24,7 +24,7 @@ if($flCancel == '1'){
 $rdServiceType = isset($rdServiceType) ? $rdServiceType : ($bookingInfo['info']['booking_type'] == 'home' ? 'HS' : 'SS');
 $txtBookingDate = isset($txtBookingDate) ? $txtBookingDate : $bookingInfo['info']['service_date'];
 $hdAvailableTime = isset($hdAvailableTime) ? $hdAvailableTime : $bookingInfo['info']['service_time'];
-$txtServiceCharge = isset($txtServiceCharge) ? $txtServiceCharge : $bookingInfo['info']['service_charge'];
+$txtServiceCharge = isset($txtServiceCharge) ? $txtServiceCharge : $bookingInfo['info']['extra_service_charge'];
 $txtDiscount = isset($txtDiscount) ? $txtDiscount : $bookingInfo['info']['discount_price'];
 $txtVat = isset($txtVat) ? $txtVat : $bookingInfo['info']['vat'];
 
@@ -275,7 +275,7 @@ if(!isset($lstServicer)){
                 <!-- If any service charge extra? -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">If any service charge extra?</label>
+                        <label class="text-primary">If any service charge extra?(AED)</label>
                         <input type="text" class="form-control" id="txtServiceCharge" name="txtServiceCharge"
                             value="<?php echo $txtServiceCharge; ?>" placeholder="Service Charge">
                     </div>
@@ -290,17 +290,17 @@ if(!isset($lstServicer)){
                     </div>
                 </div>
                 <!-- end If any service charge extra? -->
-                <!-- If any discount? -->
+                <!-- If any Vat? -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Vat</label>
+                        <label class="text-primary">Vat(%)</label>
                         <input type="text" class="form-control" id="txtVat" name="txtVat" value="<?php echo $txtVat; ?>"
                             placeholder="Vat Percentage">
                     </div>
                 </div>
                 <!-- end If any service charge extra? -->
 
-                <!-- If any discount? -->
+                <!-- Booking Notes -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">Booking Notes</label>
@@ -353,11 +353,10 @@ if(!isset($lstServicer)){
                             <div>
                                 <div class="font-weight-bold text-gray-900"><?php echo $arrValue['service']['title']; ?>
                                 </div>
-                                <div class="small"><?php echo $arrValue['person']; ?>person</div>
+                                <div class="small"><?php echo $arrValue['person']; ?> person</div>
                             </div>
                             <div>
-                                <div class="text-right font-weight-bold text-gray-900">AED
-                                    <?php echo $arrValue['service']['price']; ?></div>
+                                <div class="text-right font-weight-bold text-gray-900"><?php echo $arrValue['service']['price']; ?> AED</div>
                             </div>
                         </div>
                         <div>
@@ -366,18 +365,19 @@ if(!isset($lstServicer)){
 
                             $intTotal += $arrValue['person'] * $arrValue['service']['price'];
                         }
-                        ?><div class="d-flex justify-content-between">
+                        ?>
+                        <!-- Discount -->
+                        <div class="d-flex justify-content-between">
                             <div>
-                                <div class="font-weight-bold text-gray-900"> Hair Cut Full</div>
-                                <div class="small">1person</div>
+                                <div class="font-weight-bold text-gray-900">Discount</div>
                             </div>
                             <div>
-                                <div class="text-right font-weight-bold text-gray-900">AED 300</div>
+                                <div class="text-right font-weight-bold text-gray-900"><?php echo $txtDiscount; ?>%</div>
                             </div>
                         </div>
                         <div>
                             <hr>
-                        </div>
+                        </div> 
                         <!-- vat -->
                         <div class="d-flex justify-content-between">
                             <div>
@@ -396,8 +396,7 @@ if(!isset($lstServicer)){
                                 <div class="font-weight-bold text-gray-900">Service Charge</div>
                             </div>
                             <div>
-                                <div class="text-right font-weight-bold text-gray-900">AED
-                                    <?php echo $txtServiceCharge; ?></div>
+                                <div class="text-right font-weight-bold text-gray-900"><?php echo $txtServiceCharge; ?> AED</div>
                             </div>
                         </div>
                     </div>
@@ -412,9 +411,10 @@ if(!isset($lstServicer)){
                             Total
                         </div>
                         <div class="text-gray-900 font-weight-bold"><?php
+                            $intTotal -= $intTotal * ($txtDiscount / 100);
                             $intTotal += $txtServiceCharge;
                             $intTotal += ($intTotal * ($txtVat / 100));
-                            ?>AED <?php echo $intTotal; ?>
+                            echo $intTotal; ?> AED
                         </div>
                     </div>
                 </div><?php
