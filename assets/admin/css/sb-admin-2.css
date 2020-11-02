@@ -7803,8 +7803,7 @@ a:focus {
           display: none; }
       .sidebar.toggled .sidebar-brand .sidebar-brand-icon i {
         font-size: 2rem; }
-      .sidebar.toggled .sidebar-brand .sidebar-brand-text {
-        display: none; }
+
       .sidebar.toggled .sidebar-heading {
         text-align: center; } }
 
