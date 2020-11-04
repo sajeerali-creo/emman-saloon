@@ -63,17 +63,15 @@
                 With over 25 years experience, a beauty salon with style, sophistication and a fresh approach. As you’d
                 expect from a professional salon, Eman Salon offers a ultimate range of beauty treatments, each carried
                 out to the highest possible standard, together with some specially selected beauty products.
-            </div>
-            <div class="col-md-5 col-sm-6 colxs-12 text-right">
-                <img src="<?php echo base_url() ?>assets/web/img/logo.svg" alt="" class="opacity-1">
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-md-7 col-sm-6 colxs-12">
+                <br><br>
                 At Eman Salon we believe that our tranquil environment, dedicated staff, extensive range of treatments
                 and outstanding, high quality skin care products will give our guests the ultimate experience.
             </div>
+            <div class="col-md-5 col-sm-6 colxs-12 text-right">
+                <img src="<?php echo base_url() ?>assets/web/img/logo.svg" alt="" class="opacity-1-1 w-70">
+            </div>
         </div>
+       
         <div class="row mt-5">
             <div class="col-md-12 col-sm-12 colxs-12">
                 <div class="font-weight-bold text-white h2">Services Include</div>
