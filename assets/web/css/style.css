@@ -394,6 +394,9 @@ ol {
   padding: 5px 0;
   position: relative;
 }
+.active-menu{
+ color: #8443ff!important;
+}
 
 .header__menu ul li a:after {
   position: absolute;
@@ -3290,3 +3293,59 @@ form.user .btn-user {
   }
 }
 
+
+.banner-about{
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../img/about-bg.jpg);
+  background-attachment: fixed;
+  background-position: center;
+  font-size: 46px;
+  color: #fff;
+}
+.inner-header{
+  background: #000;
+  height: 90px;
+  position: static!important;
+}
+.inner-header img{
+  height: 40px;
+}
+.opacity-1{
+  opacity: 0.5;
+}
+.mb-5{
+  margin-bottom: 5rem;
+}
+
+.s-box{
+  border:1px solid rgba(255, 255, 255, 0.2);
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin-bottom: 2rem;
+  transition: .3s linear all;
+  text-align: center;
+}
+.s-box:hover{
+  background-color: #8443ff;
+  border-color: #8443ff;
+}
+.misson-bx{
+  height: 268px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin-bottom: 3rem;
+  background-color: #8443ff;
+  color: #fff;
+}
+.icon-sv{
+  height: 50px;
+  opacity: 0.5;
+  margin-bottom: 10px;
+}

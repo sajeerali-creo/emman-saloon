@@ -6700,4 +6700,7 @@ div#feature-section-3-top {
     padding-top: 50px;
 }
 
-
+.header__menu ul li .active{
+	color: #5500f6;
+    text-decoration: underline;
+}
