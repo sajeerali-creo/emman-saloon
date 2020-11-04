@@ -72,6 +72,17 @@ class Frontcontroller extends CI_Controller{
     /**
      * Index Page for this controller.
      */
+    public function about(){        
+        $data['title'] = PROJECT_NAME;
+        $data['description'] = PROJECT_NAME . ' - About';  
+        $data['currentpage'] = 'aboutpage';
+
+        $this->loadViews('frontend/about', $data);
+    }
+
+    /**
+     * Index Page for this controller.
+     */
     public function service(){
         $this->checkServiceCartCookieIsEmpty();
         $this->processCookieData();

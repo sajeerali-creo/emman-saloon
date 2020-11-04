@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = false;
 
 
 $route['map'] = 'frontcontroller/map';
+$route['about'] = 'frontcontroller/about';
 $route['service'] = 'frontcontroller/service';
 $route['date-select'] = 'frontcontroller/dateSelect';
 $route['add-personal-info'] = 'frontcontroller/addPersonalInfo';

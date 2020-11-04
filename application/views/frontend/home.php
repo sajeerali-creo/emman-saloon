@@ -25,18 +25,18 @@
             <div class="col-lg-9">
                 <nav class="header__menu mobile-menu text-right">
                     <ul>
-                        <li><a href="https://emansalon.com/profile/">About</a></li>
+                    <li><a href="<?php echo base_url() ?>about">About</a></li>
                         <li><a href="<?php echo base_url() ?>service">Services</a></li>
                         <li><a href="https://emansalon.com/gallery-style/">Gallery</a></li>
                         <li><a href="https://emansalon.com/contact-us/">Contact Us</a></li>
                         <?php 
                         if(!isset($frontLogin) || $frontLogin != true){
-                        ?> <li class="text-white btn btn-dark no-space w-sm-100"><a href="<?php echo base_url() ?>login">Login</a></li>
-                            <li class="text-white btn btn-primary no-space w-sm-100"><a href="<?php echo base_url() ?>register">Register</a></li><?php
+                        ?> <li class="text-white btn btn-dark no-space w-sm-100 d-none"><a href="<?php echo base_url() ?>login">Login</a></li>
+                            <li class="text-white btn btn-primary no-space w-sm-100 d-none"><a href="<?php echo base_url() ?>register">Register</a></li><?php
                         }
                         else{
-                            ?><li><a href="<?php echo base_url() ?>order-history">Booking History</a></li>
-                            <li class="text-white btn btn-dark no-space w-sm-100"><a href="<?php echo base_url() ?>logout">Logout</a></li>
+                            ?><li><a href="<?php echo base_url() ?>order-history d-none">Booking History</a></li>
+                            <li class="text-white btn btn-dark no-space w-sm-100 d-none"><a href="<?php echo base_url() ?>logout">Logout</a></li>
                             <?php
                         }
                         ?>
