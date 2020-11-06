@@ -27,9 +27,9 @@
                     <nav class="header__menu mobile-menu text-right">
                         <ul>
                             <li><a href="<?php echo base_url() ?>about" class="active-menu">About</a></li>
-                            <li><a href="<?php echo base_url() ?>service">Services</a></li>
+                            <li><a href="<?php echo base_url() ?>services">Services</a></li>
                             <li><a href="https://emansalon.com/gallery-style/">Gallery</a></li>
-                            <li><a href="https://emansalon.com/contact-us/">Contact Us</a></li>
+                            <li><a href="<?php echo base_url() ?>contact">Contact Us</a></li>
                             <?php 
                         if(!isset($frontLogin) || $frontLogin != true){
                         ?> <li class="text-white btn btn-dark no-space w-sm-100 d-none"><a

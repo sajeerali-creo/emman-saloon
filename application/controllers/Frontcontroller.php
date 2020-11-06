@@ -79,6 +79,36 @@ class Frontcontroller extends CI_Controller{
 
         $this->loadViews('frontend/about', $data);
     }
+    /**
+     * Index Page for this controller.
+     */
+    public function contact(){        
+        $data['title'] = PROJECT_NAME;
+        $data['description'] = PROJECT_NAME . ' - Contact';  
+        $data['currentpage'] = 'contactpage';
+
+        $this->loadViews('frontend/contact', $data);
+    }
+    /**
+     * Index Page for this controller.
+     */
+    public function face(){        
+        $data['title'] = PROJECT_NAME;
+        $data['description'] = PROJECT_NAME . ' - Face';  
+        $data['currentpage'] = 'facepage';
+
+        $this->loadViews('frontend/face', $data);
+    }
+    /**
+     * Index Page for this controller.
+     */
+    public function services(){        
+        $data['title'] = PROJECT_NAME;
+        $data['description'] = PROJECT_NAME . ' - Services';  
+        $data['currentpage'] = 'servicespage';
+
+        $this->loadViews('frontend/services', $data);
+    }
 
     /**
      * Index Page for this controller.
