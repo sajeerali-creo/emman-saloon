@@ -68,6 +68,56 @@ class Frontcontroller extends CI_Controller{
 
         $this->loadViews('frontend/map', $data);
     }
+    /**
+     * Hair Page for this controller.
+     */
+    public function hair(){        
+        $data['title'] = PROJECT_NAME;
+        $data['description'] = PROJECT_NAME . ' - Hair';  
+        $data['currentpage'] = 'hairpage';
+
+        $this->loadViews('frontend/hair', $data);
+    }
+    /**
+     * Hair Page for this controller.
+     */
+    public function gallery(){        
+        $data['title'] = PROJECT_NAME;
+        $data['description'] = PROJECT_NAME . ' - Gallery';  
+        $data['currentpage'] = 'gallerypage';
+
+        $this->loadViews('frontend/gallery', $data);
+    }
+    /**
+     * moroccan Page for this controller.
+     */
+    public function moroccan(){        
+        $data['title'] = PROJECT_NAME;
+        $data['description'] = PROJECT_NAME . ' - Moroccan';  
+        $data['currentpage'] = 'moroccanpage';
+
+        $this->loadViews('frontend/moroccan', $data);
+    }
+    /**
+     * Hair Page for this controller.
+     */
+    public function waxing(){        
+        $data['title'] = PROJECT_NAME;
+        $data['description'] = PROJECT_NAME . ' - Waxing';  
+        $data['currentpage'] = 'waxingpage';
+
+        $this->loadViews('frontend/waxing', $data);
+    }
+    /**
+     * nail Page for this controller.
+     */
+    public function nail(){        
+        $data['title'] = PROJECT_NAME;
+        $data['description'] = PROJECT_NAME . ' - Nail';  
+        $data['currentpage'] = 'nailpage';
+
+        $this->loadViews('frontend/nail', $data);
+    }
 
     /**
      * Index Page for this controller.

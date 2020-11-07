@@ -1,4 +1,4 @@
-<section class="bg-dark">
+<section class="bg-dark pb-5">
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
@@ -53,78 +53,67 @@
     </header>
     <!-- Header Section End -->
 
-    <div class="banner-about services">
-        <div>Services</div>
+    <div class="banner-about moroccan">
+        <div class="container text-center">
+            <div>Moroccan Bath</div>
+        </div>
     </div>
 
     <div class="container mt-5">
-        <div class="row mt-5">
-            <div class="col-md-12 col-sm-12 colxs-12">
-                <div class="font-weight-bold text-white h5 mb-3 text-center">Services Include</div>
-                <p class="text-white mb-3 text-center opacity-1">At Eman Salon we believe that our tranquil
-                    environment, dedicated staff, extensive range of treatments and outstanding, high quality skin care
-                    products will give our guests the ultimate experience.</p>
+        <div class="row">
+            <div class="col-md-7 col-sm-6 colxs-12">
+                <strong class="text-white d-block">Honey Paradise Hammam Ritual</strong><br>
+                A moment of sheer bliss for both mind and body, the Charme d’Orient Honey Paradise Face and Body Ritual
+                is an exfoliating treatment leaving the skin soft and glossy. This treatment involves Ghassoul and full
+                face and body mask of natural Honey and Royal Jelly to nourish, delight and delicately revitalize the
+                skin, while stimulating the blood circulation and calm the entire body and with perfumed milk according
+                to choice. 1h 20 mins
+                <div class="mt-5 ">
+                    <strong class="text-white d-block">Hammam Ritual With Perfumed Oils</strong><br>
+                    Hammam ritual with perfumed oils,this treatment involves a full body Ghassoul wrap to nourish, and
+                    revitalize the skin, while stimulating the blood circulation and calm the entire body, and with a
+                    perfumed oil, according to choice. 1 hour
+                </div>
+               
+            </div>
+            <div class="col-md-5 col-sm-6 colxs-12">
+                <div class="sp-offer-v2">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block w-100"
+                                    src="<?php echo base_url() ?>assets/web/img/service/offer1.jpg" alt="First slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100"
+                                    src="<?php echo base_url() ?>assets/web/img/service/offer2.jpg" alt="Second slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100"
+                                    src="<?php echo base_url() ?>assets/web/img/service/offer3.jpg" alt="Third slide">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                        <a href="<?php echo base_url() ?>face">
-                            Face & Body care
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-1.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>hair">
-                        Hair Care
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-2.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>nail">
-                        Nail Care
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-3.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>waxing">
-                        Waxing
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-4.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>moroccan">
-                        Moroccan Bath
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-5.jpg" alt="">
-                </div>
-            </div>
-
-        </div>
-
     </div>
-
 </section>
-
-
 
 <!-- Footer Section Begin -->
 <footer class="footer set-bg" data-setbg="<?php echo base_url() ?>assets/web/img/footer-bg.jpg">

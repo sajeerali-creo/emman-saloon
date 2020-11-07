@@ -27,7 +27,7 @@
                     <ul>
                     <li><a href="<?php echo base_url() ?>about">About</a></li>
                         <li><a href="<?php echo base_url() ?>services">Services</a></li>
-                        <li><a href="https://emansalon.com/gallery-style/">Gallery</a></li>
+                        <li><a href="<?php echo base_url() ?>gallery">Gallery</a></li>
                         <li><a href="<?php echo base_url() ?>contact">Contact Us</a></li>
                         <?php 
                         if(!isset($frontLogin) || $frontLogin != true){

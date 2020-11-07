@@ -1,4 +1,4 @@
-<section class="bg-dark">
+<section class="bg-dark pb-5">
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
@@ -53,78 +53,72 @@
     </header>
     <!-- Header Section End -->
 
-    <div class="banner-about services">
-        <div>Services</div>
+    <div class="banner-about waxing">
+        <div class="container text-center">
+            <div>Waxing</div>
+        </div>
     </div>
 
     <div class="container mt-5">
-        <div class="row mt-5">
-            <div class="col-md-12 col-sm-12 colxs-12">
-                <div class="font-weight-bold text-white h5 mb-3 text-center">Services Include</div>
-                <p class="text-white mb-3 text-center opacity-1">At Eman Salon we believe that our tranquil
-                    environment, dedicated staff, extensive range of treatments and outstanding, high quality skin care
-                    products will give our guests the ultimate experience.</p>
+        <div class="row">
+            <div class="col-md-7 col-sm-6 colxs-12">
+                At Eman Salon/Spa we do things differently ,We use a high quality soft warm wax designed for sensitive
+                skin. Many estheticians have never been properly trained in the right technique using soft warm wax and
+                With the proper prepping of the skin and our proprietary technique, pain is minimized, is more
+                efficient, and more gentle than using wax.
+                <div class="mt-5">
+                    All of Eman estheticians are personally and extensively trained by our trainer and must pass our
+                    company standard of performance in order to become part of The Eman team.
+
+
+                </div>
+                <div class="mt-5">
+                    Because of our high standards, and high level of hygiene that we even take one step further in
+                    taking proper attention to detail, and with our excellent customer service, we have been able build
+                    trust to our clients.
+                </div>
+                <div class="mt-5">
+                We invite you to “Experience the Difference”.
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-6 colxs-12">
+                <div class="sp-offer-v2">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block w-100"
+                                    src="<?php echo base_url() ?>assets/web/img/service/offer1.jpg" alt="First slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100"
+                                    src="<?php echo base_url() ?>assets/web/img/service/offer2.jpg" alt="Second slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100"
+                                    src="<?php echo base_url() ?>assets/web/img/service/offer3.jpg" alt="Third slide">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                        <a href="<?php echo base_url() ?>face">
-                            Face & Body care
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-1.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>hair">
-                        Hair Care
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-2.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>nail">
-                        Nail Care
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-3.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>waxing">
-                        Waxing
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-4.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>moroccan">
-                        Moroccan Bath
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-5.jpg" alt="">
-                </div>
-            </div>
-
-        </div>
-
     </div>
-
 </section>
-
-
 
 <!-- Footer Section Begin -->
 <footer class="footer set-bg" data-setbg="<?php echo base_url() ?>assets/web/img/footer-bg.jpg">

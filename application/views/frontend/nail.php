@@ -1,4 +1,4 @@
-<section class="bg-dark">
+<section class="bg-dark pb-5">
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
@@ -53,78 +53,77 @@
     </header>
     <!-- Header Section End -->
 
-    <div class="banner-about services">
-        <div>Services</div>
+    <div class="banner-about nail">
+        <div class="container text-center">
+            <div>Nail Care</div>
+        </div>
     </div>
 
     <div class="container mt-5">
-        <div class="row mt-5">
-            <div class="col-md-12 col-sm-12 colxs-12">
-                <div class="font-weight-bold text-white h5 mb-3 text-center">Services Include</div>
-                <p class="text-white mb-3 text-center opacity-1">At Eman Salon we believe that our tranquil
-                    environment, dedicated staff, extensive range of treatments and outstanding, high quality skin care
-                    products will give our guests the ultimate experience.</p>
+        <div class="row">
+            <div class="col-md-7 col-sm-6 colxs-12">
+                Get your hands looking perfect for your power clutch and your feet lush for your Louboutins with our
+                ranges of nail care treatments .
+
+                Eman has made having a manicure & Pedicures a way of life and with our indulging spa treatments that so
+                many of you can enjoy every time you visit Eman Salon/Spa
+                <div class="mt-5">
+                    Choose from our extensive collection of polishes from the Nubar range.
+                    Not enough hours in the week for regular manicures? Try our Long & Strong Shellac gelish polish that
+                    will keep your nails looking gorgeous for three weeks. No chipping, no peeling and they soak off in
+                    only 15 minutes.
+                </div>
+                <div class="mt-5">
+                    All our polishes are containing no traces of dibutyl phthalate, formaldehyde or toluene. No chemical
+                    nastiest in our polish, thank you very much!
+                </div>
+                <div class="mt-5">
+                    Not only that we set every standard and changed the face of the industry, we have kept our promise
+                    to ensure our team of experts deliver fast, ultra-hygienic and superior treatments every single
+                    time.
+                </div>
+                <div class="mt-5">
+                So ladies Stay Glamorous !
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-6 colxs-12">
+                <div class="sp-offer-v2">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block w-100"
+                                    src="<?php echo base_url() ?>assets/web/img/service/offer1.jpg" alt="First slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100"
+                                    src="<?php echo base_url() ?>assets/web/img/service/offer2.jpg" alt="Second slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100"
+                                    src="<?php echo base_url() ?>assets/web/img/service/offer3.jpg" alt="Third slide">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                        <a href="<?php echo base_url() ?>face">
-                            Face & Body care
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-1.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>hair">
-                        Hair Care
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-2.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>nail">
-                        Nail Care
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-3.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>waxing">
-                        Waxing
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-4.jpg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>moroccan">
-                        Moroccan Bath
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-5.jpg" alt="">
-                </div>
-            </div>
-
-        </div>
-
     </div>
-
 </section>
-
-
 
 <!-- Footer Section Begin -->
 <footer class="footer set-bg" data-setbg="<?php echo base_url() ?>assets/web/img/footer-bg.jpg">

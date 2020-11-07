@@ -28,7 +28,7 @@
                         <ul>
                             <li><a href="<?php echo base_url() ?>about">About</a></li>
                             <li><a href="<?php echo base_url() ?>services" class="active-menu">Services</a></li>
-                            <li><a href="https://emansalon.com/gallery-style/">Gallery</a></li>
+                            <li><a href="<?php echo base_url() ?>gallery">Gallery</a></li>
                             <li><a href="<?php echo base_url() ?>contact">Contact Us</a></li>
                             <?php 
                         if(!isset($frontLogin) || $frontLogin != true){
@@ -54,7 +54,9 @@
     <!-- Header Section End -->
 
     <div class="banner-about face">
-        <div>Face & Body Care</div>
+        <div class="container text-center">
+            <div>Face & Body Care</div>
+        </div>
     </div>
 
     <div class="container mt-5">
@@ -270,7 +272,7 @@
         <div class="row">
             <div class="col-md-4 col-sm-6 colxs-12 mb-3">
                 <img class="d-block w-100" src="<?php echo base_url() ?>assets/web/img/service/Sea-water-facial.jpg">
-                <div class="p-5 bg-dark1 h-290px">
+                <div class="p-5 bg-dark1 h-350px">
                     <div class="text-white h6 mt-2 mb-2">SEA WATER </div>
                     <div class="text-white h5 mt-2 mb-2">Plumping Moisturizing Treatment</div>
                     <div>
@@ -281,7 +283,7 @@
             </div>
             <div class="col-md-4 col-sm-6 colxs-12 mb-3">
                 <img class="d-block w-100" src="<?php echo base_url() ?>assets/web/img/service/Douceur-Marine.jpg">
-                <div class="p-5 bg-dark1 h-290px">
+                <div class="p-5 bg-dark1 h-350px">
                     <div class="text-white h6 mt-2 mb-2">DOUCEUR MARINE</div>
                     <div class="text-white h5 mt-2 mb-2">Comforting Soothing Treatment</div>
                     <div>
@@ -294,7 +296,7 @@
             </div>
             <div class="col-md-4 col-sm-6 colxs-12 mb-3">
                 <img class="d-block w-100" src="<?php echo base_url() ?>assets/web/img/service/White-Lumination.jpg">
-                <div class="p-5 bg-dark1 h-290px">
+                <div class="p-5 bg-dark1 h-350px">
                     <div class="text-white h6 mt-2 mb-2">WHITE LUMINATION</div>
                     <div class="text-white h5 mt-2 mb-2">Brightening Radiance Treatment
 

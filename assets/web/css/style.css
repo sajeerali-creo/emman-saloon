@@ -2064,7 +2064,7 @@ ol {
   -webkit-transition: all, 0.3s;
   -o-transition: all, 0.3s;
   transition: all, 0.3s;
-  margin-right: 46px;
+  margin-right: 36px;
   position: relative;
 }
 
@@ -3302,7 +3302,7 @@ form.user .btn-user {
   background-image: url(../img/about-bg.jpg);
   background-attachment: fixed;
   background-position: center;
-  font-size: 46px;
+  font-size: 36px;
   color: #fff;
 }
 .services{
@@ -3394,7 +3394,43 @@ form.user .btn-user {
   background-image: url(../img/service/face-banner.jpg)!important;
   background-attachment: fixed;
   background-position: center;
-  background-size: contain;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.hair{
+  background-image: url(../img/service/hair-banner.jpg)!important;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.gallery{
+  background-image: url(../img/gallery.jpg)!important;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.waxing{
+  background-image: url(../img/service/waxing-banner.jpg)!important;
+  background-attachment: fixed;
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.nail{
+  background-image: url(../img/service/nail-banner.jpg)!important;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.moroccan{
+  background-image: url(../img/service/moroccan-banner.jpg)!important;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .contact{
   background-image: url(../img/contact.jpg)!important;
@@ -3419,6 +3455,9 @@ form.user .btn-user {
 }
 .h-290px{
   min-height: 290px;
+}
+.h-350px{
+  min-height: 350px;
 }
 .details-c div{
   margin-top: 25px;
