@@ -60,21 +60,19 @@
     <div class="container mt-5">
 
         <div class="row mt-5">
-            <div class="col-md-8 col-sm-12 col-xs-12">
+            <div class="col-md-7 col-sm-12 col-xs-12">
                 <form action="">
                     <div class="row">
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Name</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1"
-                                   >
+                                <input type="email" class="form-control" id="exampleFormControlInput1">
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">E-mail</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1"
-                                   >
+                                <input type="email" class="form-control" id="exampleFormControlInput1">
                             </div>
                         </div>
                     </div>
@@ -82,8 +80,7 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Subject</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1"
-                          >
+                        <input type="email" class="form-control" id="exampleFormControlInput1">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Message</label>
@@ -94,42 +91,51 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-4 col-sm-12 col-xs-12 details-c">
+            <div class="col-md-5 col-sm-12 col-xs-12 details-c">
                 <div>
-                    <a href="" class="d-flex">
-                        <i class="fas fa-phone-square-alt"></i>
+                    <a href="tel:+97143480009" class="d-flex">
+                        <!-- <i class="fas fa-phone-square-alt"></i> -->
                         <span>+971 4 348 0009</span>
                     </a>
                 </div>
                 <div>
-                    <a href="">
-                        <i class="fas fa-mobile"></i>
+                    <a href="tel:+97143480009">
+                        <!-- <i class="fas fa-mobile"></i> -->
                         <span>+971 4 348 0009</span>
                     </a>
                 </div>
                 <div>
-                    <a href="" class="d-flex">
-                        <i class="fas fa-envelope-square"></i>
+                    <a href="mailto:info@emansalon.com" class="d-flex">
+                        <!-- <i class="fas fa-envelope-square"></i> -->
                         <span>info@emansalon.com</span>
                     </a>
                 </div>
                 <div>
-                    <a href="" class="d-flex">
-                        <i class="fas fa-globe-africa"></i>
+                    <a href="www.emansalon.com" class="d-flex">
+                        <!-- <i class="fas fa-globe-africa"></i> -->
                         </span>www.emansalon.com</span>
                     </a>
                 </div>
                 <div class="d-flex">
-                    <i class="fas fa-clock"></i>
+                    <!-- <i class="fas fa-clock"></i> -->
                     <span>at - Thu 10:00am - 8:00 pm</span>
                 </div>
                 <div class="d-flex">
-                    <i class="fas fa-map-marker-alt"></i>
+                    <!-- <i class="fas fa-map-marker-alt"></i> -->
                     <span>
                         United Arab Emirates
                         Al Wasl Road - Umm Suquiem 2
                         Villa 1084
                     </span>
+                </div>
+                <div class="d-flex">
+                    <div class="hero__social">
+                        <a href="https://www.facebook.com/emansalondubai" target="_blank"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/emansalondubai" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/eman_salon/?ref=badge" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
             </div>
 
