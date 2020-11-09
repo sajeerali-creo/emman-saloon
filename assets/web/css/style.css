@@ -397,6 +397,16 @@ ol {
 .active-menu{
  color: #8443ff!important;
 }
+.active-menu:after{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: #8443ff;
+  content: "";
+  transform: scale(1)!important;
+}
 
 .header__menu ul li a:after {
   position: absolute;
