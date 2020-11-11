@@ -603,7 +603,16 @@ class User_model extends CI_Model{
        return TRUE;
     }
     
-
+    function saveContactDetails($Params){
+        $rs = $this->db->insert('tbl_contact', $Params);
+        //die($this->db->last_query());
+        if($rs){
+            return $this->db->insert_id();
+        }
+        else{
+            return false;
+        }
+    }
 }
 
   

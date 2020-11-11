@@ -39,8 +39,8 @@ class Serviceboy_model extends CI_Model
         if(!empty($orderId)){
             $this->db->where('cm.id', $orderId);
         }
-        $this->db->order_by("cm.service_date", "ASC");
-        $this->db->order_by("cm.service_time", "ASC");
+        $this->db->order_by("cm.service_date", "DESC");
+        $this->db->order_by("cm.service_time", "DESC");
         $query = $this->db->get();
 
         $result = $query->result();

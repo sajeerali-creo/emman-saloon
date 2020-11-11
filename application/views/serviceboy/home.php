@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="assets/serviceboy/img/fav-icon.png" type="image/gif" sizes="16x16">
+    <link rel="icon" href="<?php echo base_url() ?>assets/serviceboy/img/fav-icon.png" type="image/gif" sizes="16x16">
     <meta name="theme-color" content="#8a2be2" />
 
     <!-- Bootstrap CSS -->
@@ -41,7 +41,9 @@
     <!-- loop -->
     <div class="container mt-6"><?php
         if(count($servicesInfo) > 0){
-
+            /*echo "<pre>";
+            print_r($servicesInfo);
+            die();*/
             foreach ($servicesInfo as $cartmasterId => $arrSubInfo) {
                 ?><div class="card mb-2" id="order-row-<?php echo $cartmasterId; ?>">
                     <div class="card-body"><?php
@@ -65,15 +67,22 @@
                         <div>
                             <hr>
                         </div>
-                        <p>Date and Time: <?php echo $arrSubInfo['info']['service_date'] . " " . $arrSubInfo['info']['service_time']; ?></p>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">
+                                <span>Date and Time: <?php echo $arrSubInfo['info']['service_date'] . " " . $arrSubInfo['info']['service_time']; ?></span>
+                            </div>
+                            <div class="d-flex">Price: <?php echo $arrSubInfo['info']['total_price']; ?> AED</div>
+                        </div>
                         <div>
                             <hr>
                         </div>
                         <div class="d-flex justify-content-between">
                             <div class="d-flex"><?php
                                 if($arrSubInfo['info']['status'] == 'PN' || $arrSubInfo['info']['status'] == 'CN'){
-                                    ?><button type="button" class="btn btn-danger d-flex align-items-center text-white w-100 mr-1 justify-content-center btnReject btnReject-<?php echo $cartmasterId; ?>" data-toggle="modal" data-target="#exampleModal" data-orderid="<?php echo $cartmasterId; ?>">Reject</button>
-                                    <button type="button" class="btn btn-success d-flex align-items-center w-100 justify-content-center btnAccept btnAccept-<?php echo $cartmasterId; ?>" data-orderid="<?php echo $cartmasterId; ?>">Confirm</button><?php
+                                    /*
+                                    ?><!-- <button type="button" class="btn btn-danger d-flex align-items-center text-white w-100 mr-1 justify-content-center btnReject btnReject-<?php echo $cartmasterId; ?>" data-toggle="modal" data-target="#exampleModal" data-orderid="<?php echo $cartmasterId; ?>">Reject</button> --><?php
+                                    */
+                                    ?><button type="button" class="btn btn-success d-flex align-items-center w-100 justify-content-center btnAccept btnAccept-<?php echo $cartmasterId; ?>" data-orderid="<?php echo $cartmasterId; ?>">Received</button><?php
                                 }
                             ?></div>
                             <div class="d-flex"><?php

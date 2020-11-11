@@ -397,6 +397,7 @@ class Cart_model extends CI_Model
         $this->db->select('sum(quantity) as totalCount');
         $this->db->from('tbl_product_sales');
         $this->db->where('is_deleted', '0');
+        $this->db->where('sale_type', 'sale');
         $this->db->where('add_date >=', $startDate);
         $this->db->where('add_date <=', $endDate);
         $query = $this->db->get();
@@ -406,6 +407,18 @@ class Cart_model extends CI_Model
         $this->db->select('sum(total_price) as total_price');
         $this->db->from('tbl_product_sales');
         $this->db->where('is_deleted', '0');
+        $this->db->where('sale_type', 'sale');
+        $this->db->where('add_date >=', $startDate);
+        $this->db->where('add_date <=', $endDate);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    function getTotalProductUsed($startDate, $endDate){
+        $this->db->select('sum(quantity) as totalCount');
+        $this->db->from('tbl_product_sales');
+        $this->db->where('is_deleted', '0');
+        $this->db->where('sale_type', 'sale');
         $this->db->where('add_date >=', $startDate);
         $this->db->where('add_date <=', $endDate);
         $query = $this->db->get();

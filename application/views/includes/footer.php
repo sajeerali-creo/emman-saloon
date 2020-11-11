@@ -405,6 +405,7 @@
 
             let nextCount = parseInt($("#hdServiceCount").val()) + 1;
             $("#hdServiceCount").val(nextCount);
+            $("#hdServicerProductCount").val(nextCount);
 
             let objServiceInfo = JSON.parse($("#hdServiceJsonInfo").val());
             let strOptions = '';
@@ -419,10 +420,35 @@
                 strOptions += '</optgroup>';
             }
 
+            let objServicerInfo = JSON.parse($("#hdServicerJsonInfo").val());
+            let objProductInfo = JSON.parse($("#hdProductJsonInfo").val());
+            let strServicerOptions = '';
+            let strProductOptions = '';
 
-            let strHtml = $('<div id="div_service_count_' + nextCount + '" class="row mb-2"><div class="form-group col-md-12 col-sm-12 mb-2"><label class="text-primary">Select Service</label><span onclick="javascript: jsRemoveThis(\'div_service_count_' + nextCount + '\');" class="lnkRemoveService badge badge-danger ml-2" data-id="' + nextCount + '">remove this service</span><select class="custom-select" name="lstService[]" id="lstService' + nextCount + '" required><option value="">Select</option>' + strOptions + '</select></div><div class="form-group col-md-12 col-sm-12 mb-2"><input type="text" class="form-control number_only" name="txtPersonCount[]" id="txtPersonCount' + nextCount + '" value="" required placeholder="Number of Person"></div><input type="hidden" name="hdCartIds[]" value=""/></div>');
+            for(i in objServicerInfo){
+                strServicerOptions += '<option value="' + objServicerInfo[i].id + '">';
+                strServicerOptions += objServicerInfo[i].name;
+                strServicerOptions += '</option>';
+            }
+
+            for(i in objProductInfo){
+                strProductOptions += '<option value="' + objProductInfo[i].id + '">';
+                strProductOptions += objProductInfo[i].title;
+                strProductOptions += '</option>';
+            }
+
+            //console.log(objProductInfo);
+
+            let strHtml = $('<div id="div_service_count_' + nextCount + '" class="row mb-2"><div class="form-group col-md-12 col-sm-12 mb-2"><label class="text-primary">Select Service</label><span onclick="javascript: jsRemoveThis(\'div_service_count_' + nextCount + '\');" class="lnkRemoveService badge badge-danger ml-2" data-id="' + nextCount + '">remove this service</span><select class="custom-select" name="lstService[]" id="lstService' + nextCount + '" required><option value="">Select</option>' + strOptions + '</select></div><div class="form-group col-md-12 col-sm-12 mb-2"><input type="text" class="form-control number_only" name="txtPersonCount[]" id="txtPersonCount' + nextCount + '" value="" required placeholder="Number of Person"></div><div class="form-group col-md-12 col-sm-12 mb-2"><select class="custom-select" name="lstServicer[]" id="lstServicer' + nextCount + '" required><option value="">Select servicer</option>' + strServicerOptions + '</select></div><div class="form-group col-md-12 col-sm-12 mb-2"><select class="custom-select" name="lstProduct[' + (nextCount - 1) + '][]" id="lstProduct' + nextCount + '" multiple><option value="">Select Product</option>' + strProductOptions + '</select></div><input type="hidden" name="hdCSPId[]" value=""/><input type="hidden" name="hdCartIds[]" value=""/></div>');
 
             $("#div_service_count_main").append(strHtml);
+            
+            const choices = new Choices($('#lstProduct' + nextCount)[0], {
+                removeItemButton: true,
+                itemSelectText: ' ',
+                placeholder: true,
+                delimiter: ',_,_,',
+            });
 
             $('.number_only').bind('paste', function() {
                 var number_only = this;
@@ -485,7 +511,7 @@
         });
 
         <?php 
-        if(isset($pagePath) && ($pagePath == 'AddBooking' || $pagePath == 'EditBooking')) {
+        if(isset($pagePath) && ($pagePath == 'AddBooking' || $pagePath == 'EditBooking' || $pagePath == 'ViewBooking')) {
             ?>
             $(".rdServiceType").click(function(){
                 if($(this).val() == 'HS'){
@@ -614,6 +640,7 @@
             let txtCustomerName = $("#txtCustomerName").val();
             let txtCustomerEmail = $("#txtCustomerEmail").val();
             let txtCustomerPhone = $("#txtCustomerPhone").val();            
+            let lstCluster = $("#lstCluster").val();            
 
             if(lstService == ''){
                 alert("Please select service");
@@ -622,6 +649,10 @@
             else if(txtPersonCount == ''){
                 alert("Please enter number of person");
                 $("#txtPersonCount1").focus();
+            }
+            else if(lstServicer1 == ''){
+                alert("Please select servicer");
+                $("#lstServicer1").focus();
             }
             else if(bookingDate == ''){
                 alert("Please select Date");
@@ -633,10 +664,7 @@
                     scrollTop: $("#available-time-list").offset().top
                 }, "10");
             }
-            else if(lstServicer1 == ''){
-                alert("Please select servicer");
-                $("#lstServicer1").focus();
-            }
+            
             else if(txtCustomerName == ''){
                 alert("Please enter Name");
                 $("#txtCustomerName").focus();
@@ -648,6 +676,10 @@
             else if(txtCustomerPhone == ''){
                 alert("Please enter Phone");
                 $("#txtCustomerPhone").focus();
+            }
+            else if(lstCluster == ''){
+                alert("Please select location - Cluster");
+                $("#lstCluster").focus();
             }
             else{
                 $("#frmAddForm").submit();
@@ -664,6 +696,13 @@
                 delimiter: ',_,_,',
             });<?php
         } else if(isset($pagePath) && $pagePath == 'sellProduct'){
+            ?>const choices = new Choices($('#lstEmployee')[0], {
+                removeItemButton: false,
+                itemSelectText: ' ',
+                placeholder: true,
+            });<?php
+        } 
+        else if(isset($pagePath) && $pagePath == 'useProduct'){
             ?>const choices = new Choices($('#lstEmployee')[0], {
                 removeItemButton: false,
                 itemSelectText: ' ',

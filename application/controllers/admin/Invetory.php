@@ -400,6 +400,7 @@ class Invetory extends BaseController
                                 'tax' => $hdTaxRate,
                                 'total_price' => $totalPrice,
                                 'status' => 'AC', 
+                                'sale_type' => 'sale',
                                 'created_by'=>$this->vendorId, 
                                 'add_date' => date('Y-m-d H:i:s'));
 
@@ -415,6 +416,84 @@ class Invetory extends BaseController
             }
             else { 
                 echo(json_encode(array('status'=>FALSE))); 
+            }
+        }
+    }
+
+    function useProduct(){
+        if($this->isAdminCommon() == TRUE)
+        {
+            $this->loadThis();
+        }
+        else
+        {
+            $data['pageTitle'] = '';
+            $this->global['pagePath'] = 'useProduct';
+            $data['productsInfo'] = $this->invetory_model->productListing("AC");
+            $data['teamInfo'] = $this->team_model->teamListing("AC");
+            
+            $this->global['pageTitle'] = PROJECT_NAME . ' : Use Product';
+
+            $this->loadViews("admin/invetory/use", $this->global, $data, NULL);
+        }
+    }
+
+    function addUseProductInformation(){
+        if($this->isAdminCommon() == TRUE)
+        {
+            $this->loadThis();
+        }
+        else
+        {
+            $this->load->library('form_validation');
+
+            /*echo "<pre>";
+            print_r($_REQUEST);
+            die();*/
+            
+            $this->form_validation->set_rules('lstEmployee','Employee','trim|required|max_length[250]');
+            $this->form_validation->set_rules('lstProduct','Product','trim|required');
+            $this->form_validation->set_rules('txtQuantity','quantity','trim|required|max_length[50]');
+
+            if($this->form_validation->run() == FALSE)
+            {
+                $this->useProduct();
+            }
+            else
+            {
+                $lstProduct =$this->security->xss_clean($this->input->post('lstProduct'));
+                $txtQuantity =$this->security->xss_clean($this->input->post('txtQuantity'));
+                $lstEmployee =$this->security->xss_clean($this->input->post('lstEmployee'));
+
+                $productInfo = array('product_id' => $lstProduct,
+                                    'team_id' => $lstEmployee,
+                                    'customer_name' => '',
+                                    'quantity' => $txtQuantity,
+                                    'item_price' => '0',
+                                    'tax' => '0',
+                                    'total_price' => '0',
+                                    'sale_type' => 'use',
+                                    'status' => 'AC', 
+                                    'created_by'=>$this->vendorId, 
+                                    'add_date' => date('Y-m-d H:i:s'));
+
+                $result = $this->invetory_model->addSellProduct($productInfo);
+                
+                if($result > 0){
+                    //Update Invoice Number
+                    $arrProductUpInfo = array("invoice_number" => date('Ymd') . "000" . $result); 
+                    $this->invetory_model->updateSellProduct($arrProductUpInfo, $result);
+
+                    $this->recalculateRemainingQuantity($lstProduct);
+
+                    $this->session->set_flashdata('success', 'Record updated successfully');
+                    redirect('securepanel/invetory-employee');
+                }
+                else
+                {
+                    $this->session->set_flashdata('error', 'Record is NOT updated successfully');
+                    redirect('securepanel/invetory-employee');
+                }
             }
         }
     }

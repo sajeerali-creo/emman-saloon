@@ -106,11 +106,28 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+            <!-- Nav Item - Customers -->
+            <li class="nav-item <?php echo( ( $currBaseUrl == 'reports') ? "active" : ""); ?>">
+                <a class="nav-link" href="<?php echo base_url(); ?>securepanel/reports">
+                    <i class="fas fa-poll"></i>
+                    <span>Reports</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
             <!-- Nav Item - Settings -->
             <li class="nav-item <?php echo( ( $currBaseUrl == 'settings') ? "active" : ""); ?>">
                 <a class="nav-link" href="<?php echo base_url(); ?>securepanel/settings">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Nav Item - Settings -->
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo base_url(); ?>serviceboy/login" target="_blank">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Service Boy login</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">

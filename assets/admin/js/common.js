@@ -219,9 +219,39 @@ jQuery(document).ready(function(){
 				});
 	});
 
+	jQuery(document).on("click", ".download-trading-summary", function(){
+		let type = $(this).data("type");
+		let label = $(this).data("label");
+		$(".model-main-title").text(label);
+		$("#reportType").val(type);
+
+		if(type == 'TBE' || type == 'PUBE' || type == 'EMSB'){
+			$("#divUserSelection").show();
+		}
+		else{
+			$("#divUserSelection").hide();
+		}
+
+		$('#download-report').modal('show');
+	});
+
+	jQuery(document).on("click", "#lnkDownloadReport", function(e){
+		e.preventDefault();
+		let type = $("#reportType").val();
+		let sDate = $("#hdStartDate").val();
+		let eDate = $("#hdEndDate").val();
+		let employee = $("#lstIEmployee").val();
+		url = baseURL + "securepanel/reports/generate?type=" + type + "&sDate=" + sDate + "&eDate=" + eDate;
+		if(type == 'TBE' || type == 'PUBE' || type == 'EMSB'){
+			url = url + "&employee=" + employee;
+		}
+		window.open(url, '_blank');
+	});
+
 	$("#pageSellProduct #frmAddForm").submit(function(e) {
 		e.preventDefault();
 		let hitURL = baseURL + "securepanel/add-sell-product-info-ajax";
+        let lstEmployee = $("#lstEmployee").val();
         let lstProduct = $("#lstProduct").val();
         let txtCustomerName = $("#txtCustomerName").val();
         let txtQuantity = $("#txtQuantity").val();
@@ -229,7 +259,11 @@ jQuery(document).ready(function(){
 
         let form = $(this);
 
-        if(lstProduct == ''){
+        if(lstEmployee == ''){
+            alert("Please select employee");
+            $("#lstEmployee").focus();
+        }
+        else if(lstProduct == ''){
             alert("Please select Product");
             $("#lstProduct").focus();
         }
@@ -271,6 +305,33 @@ jQuery(document).ready(function(){
     			$("#btnSellProductNew").removeClass("d-none");
     			$("#btnSellProductNew").addClass("d-block");
     		});
+        }
+	});
+
+
+	$("#pageSellProduct #btnUseProduct").click(function(e) {
+		e.preventDefault();
+		let hitURL = baseURL + "securepanel/add-use-product-info-ajax";
+        let lstEmployee = $("#lstEmployee").val();
+        let lstProduct = $("#lstProduct").val();
+        let txtQuantity = $("#txtQuantity").val();
+
+        let form = $(this);
+
+        if(lstEmployee == ''){
+            alert("Please select employee");
+            $("#lstEmployee").focus();
+        }
+        else if(lstProduct == ''){
+            alert("Please select Product");
+            $("#lstProduct").focus();
+        }
+        else if(txtQuantity == ''){
+            alert("Please enter quantity");
+            $("#txtQuantity").focus();
+        }
+        else{
+        	$("#frmAddUseForm").submit();
         }
 	});
 });

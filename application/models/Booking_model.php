@@ -77,7 +77,7 @@ class Booking_model extends CI_Model
 	
     function getBookingInfo($bookingId, $flIncludeDeletedRecord = false)
     {
-        $this->db->select('cm.id as cartMasterId, cm.order_id, cm.booking_type, cm.service_date, cm.service_time, cm.booking_note, cm.total_price, cm.vat, cm.extra_service_charge, cm.discount_price, cm.status, cm.add_date, c.id as cartId, c.service_id, c.price, c.service_charge, c.person, cpi.first_name, cpi.last_name, cpi.email, cpi.phone, cpi.address, cm.customer_id, s.title as serviceName, , s.title_ar as serviceNameAr, sc.category_name as serviceCategory, cm.invoice_number, cm.delete_note cancelNote, cm.is_deleted as flCancel, cm.deleted_from as cancelFrom, cm.deleted_id as cancel_user_id');
+        $this->db->select('cm.id as cartMasterId, cm.order_id, cm.booking_type, cm.service_date, cm.service_time, cm.booking_note, cm.total_price, cm.vat, cm.extra_service_charge, cm.discount_price, cm.status, cm.add_date, c.id as cartId, c.service_id, c.price, c.service_charge, c.person, cpi.first_name, cpi.last_name, cpi.email, cpi.phone, cpi.address, cm.customer_id, s.title as serviceName, , s.title_ar as serviceNameAr, sc.category_name as serviceCategory, cm.invoice_number, cm.delete_note cancelNote, cm.is_deleted as flCancel, cm.deleted_from as cancelFrom, cm.deleted_id as cancel_user_id, cm.cluster_id');
         $this->db->from('tbl_cartmaster as cm');
         $this->db->join('tbl_cart_personal_info as cpi', 'cm.id = cpi.cartmaster_id');
         $this->db->join('tbl_cart as c', 'cm.id = c.cartmaster_id');
@@ -111,7 +111,7 @@ class Booking_model extends CI_Model
 
     function getBookingServicerProductInfo($bookingId){
         $this->db->distinct();
-        $this->db->select('cs.id as cspId, cs.team_id, csp.product_id, t.first_name, t.last_name, t.is_deleted');
+        $this->db->select('cs.id as cspId, cs.team_id, cs.cart_id, csp.product_id, t.first_name, t.last_name, t.is_deleted');
         $this->db->from('tbl_cartmaster as cm');
         $this->db->join('tbl_cart_servicer as cs', 'cm.id = cs.cartmaster_id');
         $this->db->join('tbl_team as t', 't.id = cs.team_id');

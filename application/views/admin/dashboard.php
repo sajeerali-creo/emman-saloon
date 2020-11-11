@@ -204,7 +204,7 @@
         <div class="col-md-6">
             <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-info text-white">
                 <div class="h4 mb-2">
-                    <span class="font-weight-bold text-white"><?php echo $totalProductUse; ?></span><br>
+                    <span class="font-weight-bold text-white"><?php echo ($totalProductUse + $totalProductUsed); ?></span><br>
                     Total Product Use
                 </div>
             </div>

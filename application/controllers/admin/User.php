@@ -65,6 +65,7 @@ class User extends BaseController
         $data['totalSaloonServices'] = $this->fnFindTotalSaloonServices();
         $data['totalProductSale'] = $this->fnFindTotalProductSale();
         $data['totalProductUse'] = $this->fnFindTotalProductUse();
+        $data['totalProductUsed'] = $this->fnFindTotalProductUsed();
         $data['totalTeam'] = $this->fnFindTotalTeam();
         $data['totalBusyTeam'] = $this->fnFindTotalBusyTeam();
         $data['totalActiveTeam'] = $this->fnFindTotalActiveTeam();
@@ -117,6 +118,7 @@ class User extends BaseController
         $totalSaloonServices = $this->fnFindTotalSaloonServices();
         $totalProductSale = $this->fnFindTotalProductSale();
         $totalProductUse = $this->fnFindTotalProductUse();
+        $totalProductUsed = $this->fnFindTotalProductUsed();
         $totalTeam = $this->fnFindTotalTeam();
         $totalBusyTeam = $this->fnFindTotalBusyTeam();
         $totalActiveTeam = $this->fnFindTotalActiveTeam();
@@ -159,7 +161,7 @@ class User extends BaseController
                 array ('', ''),
                 array ('Inventory'),
                 array ('Total Product Sale', $totalProductSale),
-                array ('Total Product Use', $totalProductUse),
+                array ('Total Product Use', ($totalProductUse + $totalProductUsed)),
                 array ('Total Suppliers', $totalSuppliers),
                 );
 
@@ -215,6 +217,11 @@ class User extends BaseController
 
     function fnFindTotalProductUse(){
         $objRp = $this->cart_model->getTotalProductUse($this->startDate, $this->endDate);
+        return $objRp->totalCount;
+    }
+
+    function fnFindTotalProductUsed(){
+        $objRp = $this->cart_model->getTotalProductUsed($this->startDate, $this->endDate);
         return $objRp->totalCount;
     }
 

@@ -139,6 +139,74 @@ class Frontcontroller extends CI_Controller{
 
         $this->loadViews('frontend/contact', $data);
     }
+
+    public function contactSave(){
+        $data['title'] = PROJECT_NAME;
+        $data['description'] = PROJECT_NAME . ' - Contact';  
+        $data['currentpage'] = 'contactpage';
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('txtName','Name','trim|required|max_length[128]');
+        $this->form_validation->set_rules('txtEmail','Email','trim|required|valid_email|max_length[128]');
+        $this->form_validation->set_rules('txtSubject','Subject','trim|required');
+        $this->form_validation->set_rules('taMessage','Message','trim|required');
+
+        if($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect('contact');
+        }
+        else{
+            $txtName = $this->input->post("txtName");
+            $txtEmail = $this->input->post('txtEmail');
+            $txtSubject = $this->input->post('txtSubject');
+            $taMessage = $this->input->post('taMessage');
+
+            //Save Contact Details
+            $arrContactDetails = array();
+            $arrContactDetails['name'] = $txtName;
+            $arrContactDetails['email'] = $txtEmail;
+            $arrContactDetails['subject'] = $txtSubject;
+            $arrContactDetails['message'] = $taMessage;
+            $arrContactDetails['ip_address'] = $this->input->ip_address();
+            $arrContactDetails['add_date'] = date('Y-m-d H:i:s');
+            $InsUserId =$this->user_model->saveContactDetails($arrContactDetails);
+
+            if($this->sendContactUsEmail($arrContactDetails)){
+                $this->session->set_flashdata('success', 'Tank you for contacting us.');
+                redirect('contact');
+            }
+            else {
+                $this->session->set_flashdata('error', 'Someting went wrong. Please try again later');
+                redirect('contact');
+            }
+
+        }
+    }
+
+    function sendContactUsEmail($arrData){
+        $this->load->library('email');
+        $this->email->from('info@emansalon.com', PROJECT_NAME);
+        $this->email->to('testerdev111@gmail.com');
+        $this->email->subject(PROJECT_NAME . ' : Contact Us Inquiry');
+
+        $emailOuter = $this->load->view('email/emailoutertemplate',$arrData,true);
+        $userMessageBody = $this->load->view('email/contact',$arrData,true);
+        $userfullEmailMessage = str_replace('[contentarea]',$userMessageBody,$emailOuter);
+
+        $adminMessageBody = $this->load->view('email/contactadmin',$arrData,true);
+        $adminfullEmailMessage = str_replace('[contentarea]',$adminMessageBody,$emailOuter);
+
+        //echo $adminfullEmailMessage; die();
+        $this->email->set_mailtype("html");
+        $this->email->message($adminfullEmailMessage);
+        $rs = $this->email->send();
+
+        $this->email->to('testerdev111@gmail.com');
+        $this->email->message($userfullEmailMessage);
+        $rs1 = $this->email->send();
+
+        return true;
+    }
     /**
      * Index Page for this controller.
      */

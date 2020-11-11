@@ -65,6 +65,7 @@ $route['waxing'] = 'frontcontroller/waxing';
 $route['moroccan'] = 'frontcontroller/moroccan';
 $route['gallery'] = 'frontcontroller/gallery';
 $route['contact'] = 'frontcontroller/contact';
+$route['contactus'] = 'frontcontroller/contactSave';
 $route['service'] = 'frontcontroller/service';
 $route['date-select'] = 'frontcontroller/dateSelect';
 $route['add-personal-info'] = 'frontcontroller/addPersonalInfo';
@@ -210,12 +211,18 @@ $route['securepanel/edit-product'] = "admin/Invetory/editProduct";
 $route['securepanel/edit-product/(:num)'] = "admin/Invetory/editProduct/$1";
 $route['securepanel/update-product'] = "admin/Invetory/updateProduct";
 $route['securepanel/delete-product'] = "admin/Invetory/deleteProduct";
+$route['securepanel/use-product'] = "admin/Invetory/useProduct";
+$route['securepanel/add-use-product-info'] = "admin/Invetory/addUseProductInformation";
 $route['securepanel/sell-product'] = "admin/Invetory/sellProduct";
 $route['securepanel/add-sell-product-info-ajax'] = "admin/Invetory/addSellProductInformation";
 
 
 $route['securepanel/customers'] = "admin/Customers/listing";
 $route['securepanel/delete-customer'] = "admin/Customers/deleteCustomer";
+
+$route['securepanel/reports'] = "admin/Reports/listing";
+$route['securepanel/reports/sample'] = "admin/Reports/samplePdf";
+$route['securepanel/reports/generate'] = "admin/Reports/generatePDF";
 
 
 $route['serviceboy'] = 'serviceboycontroller/index';

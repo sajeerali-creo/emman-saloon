@@ -112,6 +112,7 @@ class Booking extends BaseController
             $data['productInfo'] = $this->getInventoryInfo();
             $data['arrTimeSlots'] = $this->getAllTimeSlots();
             $data['arrCustomers'] = $this->customers_model->customerListing();
+            $data['arrCluster'] = $this->getAllClusters();
             
             $this->global['pageTitle'] = PROJECT_NAME . ' : Add New Booking';
 
@@ -138,6 +139,7 @@ class Booking extends BaseController
             $this->form_validation->set_rules('txtCustomerName','Customer Name','trim|required|max_length[250]');
             $this->form_validation->set_rules('txtCustomerEmail','Email','trim|required|valid_email|max_length[250]');
             $this->form_validation->set_rules('txtCustomerPhone','Phone','trim|required|max_length[250]');
+            $this->form_validation->set_rules('lstCluster','Cluster','trim|required|max_length[250]');
          
             if($this->form_validation->run() == FALSE)
             {
@@ -145,7 +147,7 @@ class Booking extends BaseController
             }
             else
             {
-                $arrAllServices = $this->getFullServiceInfo();
+                $arrAllServices = $this->getFullServiceWithClusterInfo();
                 $arrAllSlots = $this->getAllTimeSlots();
 
                 $rdServiceType = $this->security->xss_clean($this->input->post('rdServiceType'));
@@ -163,6 +165,7 @@ class Booking extends BaseController
                 $txtCustomerPhone = $this->security->xss_clean($this->input->post('txtCustomerPhone'));
                 $taCustomerLocation = $this->security->xss_clean($this->input->post('taCustomerLocation'));
                 $taBookingNotes = $this->security->xss_clean($this->input->post('taBookingNotes'));
+                $lstCluster = $this->security->xss_clean($this->input->post('lstCluster'));
 
                 //check customer exist
                 $arrCustomerInfo = $this->customers_model->checkCustomerExist($txtCustomerEmail, $txtCustomerPhone);
@@ -186,6 +189,10 @@ class Booking extends BaseController
                 print_r($lstProduct);
                 die();*/
 
+
+                $txtServiceCharge = (empty($txtServiceCharge) ? 0 : $txtServiceCharge);
+                $txtDiscount = (empty($txtDiscount) ? 0 : $txtDiscount);
+
                 
                 $arrCartMasterInfo = array("customer_id" => $customerId, 
                                             "service_date" => $txtBookingDate, 
@@ -195,6 +202,7 @@ class Booking extends BaseController
                                             "vat" => $txtVat,
                                             "extra_service_charge" => $txtServiceCharge,
                                             "discount_price" => $txtDiscount,
+                                            "cluster_id" => $lstCluster,
                                             "status" => "PN",
                                             "booking_type" => ($rdServiceType == 'HS' ? 'home' : "saloon"),
                                             "total_price" => 0,
@@ -223,30 +231,34 @@ class Booking extends BaseController
                     $cartTotalPrice = 0;
                     $totalTeam = 0;
                     $arrSlots = array();
+                    $arrTeamMember = array();
 
                     foreach ($lstService as $key => $value) {
                         if(!empty($value)){
+                            
+                            $service_charge = (isset($arrAllServices[$value]['cluster'][$lstCluster]) ? $arrAllServices[$value]['cluster'][$lstCluster] : 0);
+
                             $arrCartInfo = array("cartmaster_id" => $cartMasterId,
                                                 "service_id" => $value,
-                                                "price" => $arrAllServices[$value]["price"],
+                                                "service_charge" => $service_charge,
+                                                "price" => $arrAllServices[$value]['info']["price"],
                                                 "person" => $txtPersonCount[$key],
                                                 "add_date" => date('Y-m-d H:i:s'),
                                                 'created_by'=>$this->vendorId
                                             );
                             $cartId = $this->cart_model->addIntoCartInfo($arrCartInfo);
 
-                            $cartTotalPrice += $txtPersonCount[$key] * $arrAllServices[$value]["price"];
+                            $cartTotalPrice += $txtPersonCount[$key] * ($arrAllServices[$value]['info']["price"] + $service_charge);
                             
-                            for($intSlotCount = 1; $intSlotCount <= ($arrAllServices[$value]["time_duration"] * 2); $intSlotCount++){
+                            for($intSlotCount = 1; $intSlotCount <= ($arrAllServices[$value]['info']["time_duration"] * 2); $intSlotCount++){
                                 $arrSlots[] = $value;
                             }
-                        }
-                    }
 
-                    foreach ($lstServicer as $key => $value) {
-                        if(!empty($value)){
+                            $arrTeamMember[] = $lstServicer[$key];
+
                             $arrServicerInfo = array("cartmaster_id" => $cartMasterId,
-                                                    "team_id" => $value,
+                                                    "cart_id" => $cartId,
+                                                    "team_id" => $lstServicer[$key],
                                                     "status" => "AC",
                                                     "add_date" => date('Y-m-d H:i:s'),
                                                     'created_by'=>$this->vendorId
@@ -254,11 +266,11 @@ class Booking extends BaseController
 
                             $cartServicerId = $this->cart_model->addIntoCartServicerInfo($arrServicerInfo);
                             
-
                             foreach ($lstProduct[$key] as $key1 => $value1) {
                                 $arrProductInfo = array("cartmaster_id" => $cartMasterId,
+                                                    "cart_id" => $cartId,
                                                     "cart_servicer_id" => $cartServicerId,
-                                                    "team_id" => $value,
+                                                    "team_id" => $lstServicer[$key],
                                                     "product_id" => $value1,
                                                     "status" => "AC",
                                                     "add_date" => date('Y-m-d H:i:s'),
@@ -266,6 +278,22 @@ class Booking extends BaseController
                                                 );
 
                                 $cartProductId = $this->cart_model->addIntoCartServicerProductInfo($arrProductInfo);
+
+                                $productInfo = array('product_id' => $value1,
+                                                    'team_id' => $lstServicer[$key],
+                                                    'customer_name' => '',
+                                                    'quantity' => '1',
+                                                    'item_price' => '0',
+                                                    'tax' => '0',
+                                                    'total_price' => '0',
+                                                    'sale_type' => 'cart',
+                                                    'related_cartmaster_id' => $cartMasterId,
+                                                    'related_cart_id' => $cartId,
+                                                    'status' => 'AC', 
+                                                    'created_by'=>$this->vendorId, 
+                                                    'add_date' => date('Y-m-d H:i:s'));
+
+                                $result123 = $this->invetory_model->addSellProduct($productInfo);
                             }
                             $totalTeam++;
                             //Function call for add into admin notification
@@ -274,6 +302,9 @@ class Booking extends BaseController
                     }
 
                     if(!empty($arrSlots) && $totalTeam > 0){
+                        
+                        $totalTeam = count(array_unique($arrTeamMember));
+
                         $indexOfSelectedSlot = array_search($hdAvailableTime, $arrAllSlots);
                         foreach ($arrSlots as $valueSlot) {
                             $arrSlotsInfo = array("cartmaster_id" => $cartMasterId,
@@ -297,7 +328,7 @@ class Booking extends BaseController
 
                     $cartTotalPrice += $cartTotalPrice * 0.05;
 
-                    $arrCartMasterInfo = array( "total_price" => $cartTotalPrice, "order_id" => "ES" . $cartMasterId, 'invoice_number' => date('Ymd') . "-" . $cartMasterId);
+                    $arrCartMasterInfo = array( "total_price" => $cartTotalPrice, "service_slots" => count($arrSlots), "order_id" => "ES" . $cartMasterId, 'invoice_number' => date('Ymd') . "-" . $cartMasterId);
                     $this->cart_model->updateCartMaster($arrCartMasterInfo, $cartMasterId);
 
                     $this->session->set_flashdata('success', 'Booking is added successfully');
@@ -341,6 +372,7 @@ class Booking extends BaseController
             $data['teamInfo'] = $this->getTeamInfo();
             $data['productInfo'] = $this->getInventoryInfo();
             $data['arrTimeSlots'] = $this->getAllTimeSlots();
+            $data['arrCluster'] = $this->getAllClusters();
 
             if(empty($data['bookingInfo']))
             {
@@ -382,7 +414,7 @@ class Booking extends BaseController
             else
             {
                 
-                $arrAllServices = $this->getFullServiceInfo();
+                $arrAllServices = $this->getFullServiceWithClusterInfo();
                 $arrAllSlots = $this->getAllTimeSlots();
 
                 $rdServiceType = $this->security->xss_clean($this->input->post('rdServiceType'));
@@ -398,6 +430,14 @@ class Booking extends BaseController
                 $hdCartIds = $this->security->xss_clean($this->input->post('hdCartIds'));
                 $hdCSPId = $this->security->xss_clean($this->input->post('hdCSPId'));
                 $taBookingNotes = $this->security->xss_clean($this->input->post('taBookingNotes'));
+                $lstCluster = $this->security->xss_clean($this->input->post('lstCluster'));
+
+                /*echo "<pre>";
+                print_r($arrAllServices);
+                die();*/
+
+                $txtServiceCharge = (empty($txtServiceCharge) ? 0 : $txtServiceCharge);
+                $txtDiscount = (empty($txtDiscount) ? 0 : $txtDiscount);
                              
                 $arrCartMasterInfo = array(
                                             "service_date" => $txtBookingDate, 
@@ -406,6 +446,7 @@ class Booking extends BaseController
                                             "booking_note" => $taBookingNotes,
                                             "vat" => $txtVat,
                                             "extra_service_charge" => $txtServiceCharge,
+                                            "cluster_id" => $lstCluster,
                                             "discount_price" => $txtDiscount,
                                             "status" => "CN",
                                             "booking_type" => ($rdServiceType == 'HS' ? 'home' : "saloon"),
@@ -419,9 +460,22 @@ class Booking extends BaseController
                     $cartTotalPrice = 0;
                     $totalTeam = 0;
                     $arrSlots = array();
+                    $arrTeamMember = array();
+
+                    $arrProductInfo = array(
+                                            'updated_by' => $this->vendorId, 
+                                            'update_date' => date('Y-m-d H:i:s'),
+                                            "is_deleted"    => "1",
+                                            "status"        => 'IN',
+                                        );
+                    $this->cart_model->updateCartServicerInfoUsingCMID($arrProductInfo, $bookingId);
+                    $this->cart_model->updateCartServicerProductInfoUsingCMID($arrProductInfo, $bookingId);
+                    $this->invetory_model->updateSellProductUsingCartId($arrProductInfo, $bookingId);
 
                     foreach ($lstService as $key => $value) {
                         if(!empty($value)){
+
+                            $service_charge = (isset($arrAllServices[$value]['cluster'][$lstCluster]) ? $arrAllServices[$value]['cluster'][$lstCluster] : 0);
 
 
                             if(isset($hdCartIds[$key]) && !empty($hdCartIds[$key])){
@@ -430,17 +484,21 @@ class Booking extends BaseController
                                 if(!empty($arrCart)){
                                     $arrCartInfo = array(
                                                 "service_id" => $value,
-                                                "price" => $arrAllServices[$value]["price"],
+                                                "service_charge" => $service_charge,
+                                                "price" => $arrAllServices[$value]['info']["price"],
                                                 "person" => $txtPersonCount[$key],
                                                 'updated_by' => $this->vendorId, 
                                                 'update_date' => date('Y-m-d H:i:s')
                                             );
-                                    $cartId = $this->cart_model->updateCartInfo($arrCartInfo, $hdCartIds[$key]);
+                                    $this->cart_model->updateCartInfo($arrCartInfo, $hdCartIds[$key]);
+
+                                    $cartId = $hdCartIds[$key];
                                 }
                                 else{
                                     $arrCartInfo = array("cartmaster_id" => $bookingId,
                                                 "service_id" => $value,
-                                                "price" => $arrAllServices[$value]["price"],
+                                                "service_charge" => $service_charge,
+                                                "price" => $arrAllServices[$value]['info']["price"],
                                                 "person" => $txtPersonCount[$key],
                                                 "add_date" => date('Y-m-d H:i:s'),
                                                 'created_by'=>$this->vendorId
@@ -451,36 +509,18 @@ class Booking extends BaseController
                             else{
                                 $arrCartInfo = array("cartmaster_id" => $bookingId,
                                                     "service_id" => $value,
-                                                    "price" => $arrAllServices[$value]["price"],
+                                                    "service_charge" => $service_charge,
+                                                    "price" => $arrAllServices[$value]['info']["price"],
                                                     "person" => $txtPersonCount[$key],
                                                     "add_date" => date('Y-m-d H:i:s'),
                                                     'created_by'=>$this->vendorId
                                                 );
                                 $cartId = $this->cart_model->addIntoCartInfo($arrCartInfo);
                             }
-                            
-                            $cartTotalPrice += $txtPersonCount[$key] * $arrAllServices[$value]["price"];
 
-                            for($intSlotCount = 1; $intSlotCount <= ($arrAllServices[$value]["time_duration"] * 2); $intSlotCount++){
-                                $arrSlots[] = $value;
-                            }
-                        }
-                    }
-
-
-                    $arrProductInfo = array(
-                                            'updated_by' => $this->vendorId, 
-                                            'update_date' => date('Y-m-d H:i:s'),
-                                            "is_deleted"    => "1",
-                                            "status"        => 'IN',
-                                        );
-                    $this->cart_model->updateCartServicerInfoUsingCMID($arrProductInfo, $bookingId);
-                    $this->cart_model->updateCartServicerProductInfoUsingCMID($arrProductInfo, $bookingId);
-
-                    foreach ($lstServicer as $key => $value) {
-                        if(!empty($value)){
                             $arrServicerInfo = array("cartmaster_id" => $bookingId,
-                                                    "team_id" => $value,
+                                                    "cart_id" => $cartId,
+                                                    "team_id" => $lstServicer[$key],
                                                     "status" => "AC",
                                                     "add_date" => date('Y-m-d H:i:s'),
                                                     'created_by'=>$this->vendorId
@@ -491,8 +531,9 @@ class Booking extends BaseController
                             if(isset($lstProduct[$key]) && !empty($lstProduct[$key])){
                                 foreach ($lstProduct[$key] as $key1 => $value1) {
                                     $arrProductInfo = array("cartmaster_id" => $bookingId,
+                                                        "cart_id" => $cartId,
                                                         "cart_servicer_id" => $cartServicerId,
-                                                        "team_id" => $value,
+                                                        "team_id" => $lstServicer[$key],
                                                         "product_id" => $value1,
                                                         "status" => "AC",
                                                         "add_date" => date('Y-m-d H:i:s'),
@@ -500,12 +541,35 @@ class Booking extends BaseController
                                                     );
 
                                     $cartProductId = $this->cart_model->addIntoCartServicerProductInfo($arrProductInfo);
+
+                                    $productInfo = array('product_id' => $value1,
+                                                        'team_id' => $lstServicer[$key],
+                                                        'customer_name' => '',
+                                                        'quantity' => '1',
+                                                        'item_price' => '0',
+                                                        'tax' => '0',
+                                                        'total_price' => '0',
+                                                        'sale_type' => 'cart',
+                                                        'related_cartmaster_id' => $bookingId,
+                                                        'related_cart_id' => $cartId,
+                                                        'status' => 'AC', 
+                                                        'created_by'=>$this->vendorId, 
+                                                        'add_date' => date('Y-m-d H:i:s'));
+
+                                    $result123 = $this->invetory_model->addSellProduct($productInfo);
                                 }
                             }
+
+                            $arrTeamMember[] = $lstServicer[$key];
                             
                             //Function call for add into admin notification
                             $this->cart_model->addIntoNotification($bookingId, "serviceboy", $value);
                             $totalTeam++;
+
+                            $cartTotalPrice += $txtPersonCount[$key] * ($arrAllServices[$value]['info']["price"] + $service_charge);
+                            for($intSlotCount = 1; $intSlotCount <= ($arrAllServices[$value]['info']["time_duration"] * 2); $intSlotCount++){
+                                $arrSlots[] = $value;
+                            }
                         }
                     }
 
@@ -518,6 +582,9 @@ class Booking extends BaseController
                     $this->cart_model->updateBookingTimeSlotsInfo($arrSlotsInfo, $bookingId);
 
                     if(!empty($arrSlots) && $totalTeam > 0){
+                        
+                        $totalTeam = count(array_unique($arrTeamMember));
+
                         $indexOfSelectedSlot = array_search($hdAvailableTime, $arrAllSlots);
                         foreach ($arrSlots as $valueSlot) {
                             $arrSlotsInfo = array("cartmaster_id" => $bookingId,
@@ -541,7 +608,7 @@ class Booking extends BaseController
 
                     $cartTotalPrice += $cartTotalPrice * 0.05;
 
-                    $arrCartMasterInfo = array( "total_price" => $cartTotalPrice);
+                    $arrCartMasterInfo = array( "total_price" => $cartTotalPrice, "service_slots" => count($arrSlots));
                     $this->cart_model->updateCartMaster($arrCartMasterInfo, $bookingId);
 
                     $this->session->set_flashdata('success', 'Booking is updated successfully');
@@ -592,10 +659,9 @@ class Booking extends BaseController
                 redirect('securepanel/booking');
             }
             
-            
             $data['bookingInfo'] = $this->booking_model->getBookingInfo($bookingId, true);
             $data['bookingTeamProductInfo'] = $this->booking_model->getBookingServicerProductInfo($bookingId);
-            $data['serviceInfo'] = $this->getFullServiceInfo(true);
+            $data['serviceInfo'] = $this->getFullServiceWithClusterInfo(true);
             $data['teamInfo'] = $this->getTeamInfo();
             $data['productInfo'] = $this->getInventoryInfo();
             $data['arrTimeSlots'] = $this->getAllTimeSlots();
@@ -639,7 +705,8 @@ class Booking extends BaseController
             else
             {
                 
-                $arrAllServices = $this->getFullServiceInfo();
+                //$arrAllServices = $this->getFullServiceInfo();
+                $arrAllServices = $this->getFullServiceWithClusterInfo();
 
                 $rdServiceType = $this->security->xss_clean($this->input->post('rdServiceType'));
                 $lstService = $this->security->xss_clean($this->input->post('lstService'));
@@ -653,6 +720,7 @@ class Booking extends BaseController
                 $txtVat = $this->security->xss_clean($this->input->post('txtVat'));
                 $hdCartIds = $this->security->xss_clean($this->input->post('hdCartIds'));
                 $hdCSPId = $this->security->xss_clean($this->input->post('hdCSPId'));
+                $lstCluster = $this->security->xss_clean($this->input->post('lstCluster'));
                              
                 $arrCartMasterInfo = array(
                                             "status" => "CN"
@@ -665,7 +733,8 @@ class Booking extends BaseController
 
                     foreach ($lstService as $key => $value) {
                         if(!empty($value)){
-                            $cartTotalPrice += $txtPersonCount[$key] * $arrAllServices[$value]["price"];
+                            $service_charge = (isset($arrAllServices[$value]['cluster'][$lstCluster]) ? $arrAllServices[$value]['cluster'][$lstCluster] : 0);
+                            $cartTotalPrice += $txtPersonCount[$key] * ($arrAllServices[$value]['info']["price"] + $service_charge);
                         }
                     }
 
@@ -759,6 +828,36 @@ class Booking extends BaseController
                 $arrReturn[$value->id] = (array)$value;
             }
         }
+
+        return $arrReturn;
+    }
+
+    function getFullServiceWithClusterInfo($flGroupByCategory = false)
+    {
+        $arrServices = $this->service_model->getAllServicesCluserCharge();
+        $arrReturn = array();
+        
+        if($flGroupByCategory){
+            foreach ($arrServices as $key => $value) {
+                $arrReturn[$value->category_id]['categoryName'] = $value->category_name;
+                $arrReturn[$value->category_id]['services'][$value->id]['id'] = $value->id;
+                $arrReturn[$value->category_id]['services'][$value->id]['title'] = $value->title;
+                $arrReturn[$value->category_id]['services'][$value->id]['price'] = $value->price;
+                $arrReturn[$value->category_id]['services'][$value->id]['price'] = $value->price;
+                $arrReturn[$value->category_id]['services'][$value->id]['cluster'][$value->cluster_id] = $value->service_charge;
+            }
+        }
+        else{
+            foreach ($arrServices as $key => $value) {
+                $temp = (array)$value;
+                $arrReturn[$value->id]['info'] = $temp;
+                $arrReturn[$value->id]['cluster'][$value->cluster_id] = $value->service_charge;
+            }
+        }
+
+        /*echo "<pre>";
+        print_r($arrReturn);
+        die();*/
 
         return $arrReturn;
     }
@@ -882,6 +981,15 @@ class Booking extends BaseController
         if(!empty($arrCustInfo)){
             echo(json_encode(array('status'=>TRUE, "custInfo" => $arrCustInfo))); 
         }
+    }
+
+    function getAllClusters(){
+        $objCluster = $this->service_model->getAllClusters();
+        $arrCluster = array();
+        foreach ($objCluster as $key => $value) {
+            $arrCluster[$value->id] = $value->title;
+        }
+        return $arrCluster;
     }
 }
 

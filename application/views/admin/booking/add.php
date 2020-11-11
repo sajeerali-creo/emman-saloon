@@ -96,9 +96,28 @@
                                 <div class="form-group col-md-12 col-sm-12 mb-2">
                                     <input type="text" class="form-control number_only" name="txtPersonCount[]" id="txtPersonCount1" value="" required placeholder="Number of Person">
                                 </div>
+                                <div class="form-group col-md-12 col-sm-12 mb-2">
+                                    <select class="custom-select" name="lstServicer[]" id="lstServicer1" required>
+                                        <option value="">Select servicer</option><?php
+                                        foreach ($teamInfo as $key => $value) {
+                                            ?><option value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></option><?php
+                                        }
+                                    ?></select>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 mb-2">
+                                    <select class="custom-select lstProductChoice" name="lstProduct[0][]" id="lstProduct1" multiple>
+                                        <option value="">Select Product</option><?php 
+                                        foreach ($productInfo as $key => $value) {
+                                            ?><option value="<?php echo $value['id']; ?>"><?php echo $value['title']; ?></option><?php
+                                        }
+                                    ?></select>
+                                </div>
+                                <input type="hidden" name="hdServicerJsonInfo" id="hdServicerJsonInfo" value='<?php echo(json_encode($teamInfo)); ?>'>
+                                <input type="hidden" name="hdProductJsonInfo" id="hdProductJsonInfo" value='<?php echo(json_encode($productInfo)); ?>'>
                             </div>
                         </div>
                         <input type="hidden" name="hdServiceCount" id="hdServiceCount" value="1">
+                        <input type="hidden" name="hdServicerProductCount" id="hdServicerProductCount" value="1">
                         <button type="button" class="btn btn-primary" id="btnAddMoreService">Add More Service</button>
                     </div>
                 </div>                
@@ -131,40 +150,6 @@
                     </div>
                 </div>
                 <!-- end Select time of Service -->
-
-                <!-- Beautician / Massager / Hairdresser -->
-                <div class="row mb-2">
-                    <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Beautician / Massager / Hairdresser<br>
-                            <small class="text-gray-600">you can select multiple servicer</small>
-                        </label>
-                        <div id="div_servicer_product_main">
-                            <div id="div_servicer_product_1" class="row mb-2">
-                                <div class="form-group col-md-12 col-sm-12 mb-2">
-                                    <select class="custom-select" name="lstServicer[]" id="lstServicer1" required>
-                                        <option value="">Select servicer</option><?php
-                                        foreach ($teamInfo as $key => $value) {
-                                            ?><option value="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></option><?php
-                                        }
-                                    ?></select>
-                                </div>
-                                <div class="form-group col-md-12 col-sm-12 mb-2">
-                                    <select class="custom-select lstProductChoice" name="lstProduct[0][]" id="lstProduct1" multiple>
-                                        <option value="">Select Product</option><?php 
-                                        foreach ($productInfo as $key => $value) {
-                                            ?><option value="<?php echo $value['id']; ?>"><?php echo $value['title']; ?></option><?php
-                                        }
-                                    ?></select>
-                                </div>
-                                <input type="hidden" name="hdServicerJsonInfo" id="hdServicerJsonInfo" value='<?php echo(json_encode($teamInfo)); ?>'>
-                                <input type="hidden" name="hdProductJsonInfo" id="hdProductJsonInfo" value='<?php echo(json_encode($productInfo)); ?>'>
-                            </div>
-                        </div>
-                        <input type="hidden" name="hdServicerProductCount" id="hdServicerProductCount" value="1">
-                        <button type="button" class="btn btn-primary" id="btnAddMoreServicer">Add More Servicer</button>
-                    </div>
-                </div>
-                <!-- end Beautician / Massager / Hairdresser -->
 
                 <!-- If any service charge extra? -->
                 <div class="row mb-2">
@@ -250,6 +235,25 @@
                 <!-- persons -->
                 <div class="row mb-2" id="divHomeServiceAddress">
                     <div class="form-group col-md-6 col-sm-12">
+                        <label class="text-primary">Location - Cluster</label>
+                        <div class="form-group">
+                            <?php 
+                            /*echo "<pre>";
+                            print_r($arrCluster);
+                            die();*/
+                            ?>
+                            <select class="custom-select" name="lstCluster" id="lstCluster" required>
+                                <option value="">Select cluster</option><?php
+                                foreach ($arrCluster as $key => $value) {
+                                    ?><option value="<?php echo $key; ?>"><?php echo $value; ?></option><?php
+                                }
+                            ?></select>
+                        </div>
+                    </div>
+                </div>
+                <!-- persons -->
+                <div class="row mb-2" id="divHomeServiceAddress">
+                    <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">If Home Service - Location Details</label>
                         <div class="form-group">
                             <textarea class="form-control" id="taCustomerLocation" name="taCustomerLocation" rows="3"></textarea>
@@ -257,7 +261,6 @@
                     </div>
                 </div>
                 <!-- end persons -->
-
                 <!-- Notes -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
@@ -281,78 +284,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-
-
-
-        <!-- bill -->
-        <div class="col-md-4 mb-3 mt-3 d-none">
-            <div class="sticky-top">
-                <div class="card shadow">
-                    <div class="card-header d-flex align-items-center justify-content-center">
-                        <img src="<?php echo base_url(); ?>assets/admin/img/logo-dark.png">
-                    </div>
-                    <!-- bill generated -->
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <div class="font-weight-bold text-gray-900"> Hair Cut Full</div>
-                                <div class="small">1person</div>
-                            </div>
-                            <div>
-                                <div class="text-right font-weight-bold text-gray-900">AED 300</div>
-                            </div>
-                        </div>
-                        <div>
-                            <hr>
-                        </div>
-                        <!-- vat -->
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <div class="font-weight-bold text-gray-900">Vat</div>
-                            </div>
-                            <div>
-                                <div class="text-right font-weight-bold text-gray-900">5%</div>
-                            </div>
-                        </div>
-                        <div>
-                            <hr>
-                        </div>
-                        <!-- service charge -->
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <div class="font-weight-bold text-gray-900">Service Charge</div>
-                            </div>
-                            <div>
-                                <div class="text-right font-weight-bold text-gray-900">AED 100</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- no bill generated -->
-                    <!-- <div class="card-body">
-                        <div class="p-5 text-center">
-                            No services selected yet
-                        </div>
-                    </div> -->
-                    <div class="card-footer text-muted d-flex justify-content-between">
-                        <div class="font-weight-bold text-gray-900">
-                            Total
-                        </div>
-                        <div class="text-gray-900 font-weight-bold">
-                            AED 400.00
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-md-12 col-sm-12 mt-2">
-                        <button class="btn btn-success btn-lg btn-block">
-                            <a href="date-select.html" class="text-white text-decoration-none">
-                                <i class="fas fa-print"></i>&nbsp;Print Recipt
-                            </a>
-                        </button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

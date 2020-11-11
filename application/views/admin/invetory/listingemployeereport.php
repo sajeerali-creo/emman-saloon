@@ -1,13 +1,43 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
+    <div class="row">
+        <div class="col-md-12">
+            <?php
+                $this->load->helper('form');
+                $error = $this->session->flashdata('error');
+                if($error)
+                {
+            ?>
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <?php echo $this->session->flashdata('error'); ?>                    
+            </div>
+            <?php } ?>
+            <?php  
+                $success = $this->session->flashdata('success');
+                if($success)
+                {
+            ?>
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <?php echo $this->session->flashdata('success'); ?>
+            </div>
+            <?php } ?>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <?php echo validation_errors('<div class="alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-12">
             <div class="list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action" id="list-home-list"
                     href="<?php echo (base_url() . 'securepanel/invetory'); ?>">Inventory</a>
                 <a class="list-group-item list-group-item-action active" id="list-profile-list" data-toggle="list"
-                    href="#list-employee" role="tab" aria-controls="profile">Employee</a>
+                    href="#list-employee" role="tab" aria-controls="profile">Employees Used</a>
                 <a class="list-group-item list-group-item-action" id="list-messages-list"
                     href="<?php echo (base_url() . 'securepanel/invetory-pooduct'); ?>">Product</a>
             </div>
@@ -27,7 +57,7 @@
                     <div>
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Employee Sales Report</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Employee Used Report</h1>
                             <div class="d-flex d-sm-block">
                                 <div class="mr-2 w-sm-100 mr-sm-0 mt-sm-1">
                                     <button class="card p-2 w-sm-100 mr-2" id="reportrange">
@@ -59,6 +89,9 @@
                                     <a href="#" id="btPrintReport"
                                         class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm"><i
                                             class="fas fa-file-download"></i>&nbsp;Export Report</a>
+                                    <a href="<?php echo base_url(); ?>securepanel/use-product"
+                                        class="d-none d-sm-inline-block btn btn-md btn-warning shadow-sm">
+                                        <i class="fas fa-house-user"></i>&nbsp;Use Products</a>
                                     <a href="<?php echo base_url(); ?>securepanel/sell-product"
                                         class="d-none d-sm-inline-block btn btn-md btn-dark shadow-sm">
                                         <i class="fas fa-cart-arrow-down"></i>&nbsp;Sell Products</a>
@@ -76,8 +109,7 @@
                                                 <th>Employee Name</th>
                                                 <th>Product Name</th>
                                                 <th>Quantity</th>
-                                                <th>Price</th>
-                                                <th>Date fo sell</th>
+                                                <th>Date fo use</th>
                                             </tr>
                                         </thead>
                                         <tbody><?php
@@ -92,7 +124,6 @@
                                                     <th><?php echo $value->productName; ?></th>
                                                     <th><?php echo $value->quantity; ?></th>
                                                     <th><?php echo $value->add_date; ?></th>
-                                                    <th><?php echo $value->total_price; ?></th>
                                                 </tr><?php
                                             }
                                         ?></tbody>

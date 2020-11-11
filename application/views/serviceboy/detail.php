@@ -4,6 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="<?php echo base_url() ?>assets/serviceboy/img/fav-icon.png" type="image/gif" sizes="16x16">
     <meta name="theme-color" content="#8a2be2" />
 
     <!-- Bootstrap CSS -->
@@ -69,7 +70,7 @@
                         foreach ($arrSubInfo['serviceAllInfo'] as $key => $value) {
                             ?><div class="d-flex justify-content-between">
                                 <div class="text-gray">
-                                    <?php echo(ucwords(strtolower($value['serviceCategory'])) ." " . $value['serviceName']); ?><br>
+                                    <?php echo(ucwords(strtolower($value['serviceCategory'])) ." " . $value['serviceName']); ?><br>Service Charge<br/>
                                     <?php 
                                     echo $value['person'];
                                     if($value['person'] > 1){
@@ -80,8 +81,9 @@
                                     }
                                     ?>
                                 </div>
-                                <div>
-                                    <strong>AED <?php echo $value['total_price']; ?></strong>
+                                <div style="text-align: right;">
+                                    <strong><?php echo $value['price']; ?> AED</strong><br/>
+                                    <strong><?php echo $value['service_charge']; ?> AED</strong>
                                 </div>
                             </div>
                             <div>
@@ -94,6 +96,15 @@
                             </div>
                             <div>
                                 <strong><?php echo $arrSubInfo['info']['vat']; ?>%</strong>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <div class="text-gray">
+                                Total
+                            </div>
+                            <div>
+                                <strong><?php echo $arrSubInfo['info']['total_price']; ?> AED</strong>
                             </div>
                         </div>
 

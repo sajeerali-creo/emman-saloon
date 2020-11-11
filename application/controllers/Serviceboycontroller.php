@@ -103,7 +103,16 @@ class Serviceboycontroller extends CI_Controller{
     }
 
     public function logout(){
-        $this->session->sess_destroy ();
+        //$this->session->sess_destroy ();
+        $sessionArray = array(                  
+                            'serviceboy_user_id'=> '',
+                            'serviceboy_username'=> '',
+                            'first_name'=> '',
+                            'last_name'=> '',
+                            'isServiceBoyLoggedIn' => false
+                        );
+
+        $this->session->set_userdata($sessionArray);
         redirect ( 'serviceboy/login' );
     }
 

@@ -61,30 +61,61 @@
 
         <div class="row mt-5">
             <div class="col-md-7 col-sm-12 col-xs-12">
-                <form action="">
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php
+                            $this->load->helper('form');
+                            $error = $this->session->flashdata('error');
+                            if($error)
+                            {
+                        ?>
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <?php echo $this->session->flashdata('error'); ?>                    
+                        </div>
+                        <?php } ?>
+                        <?php  
+                            $success = $this->session->flashdata('success');
+                            if($success)
+                            {
+                        ?>
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <?php echo $this->session->flashdata('success'); ?>
+                        </div>
+                        <?php } ?>
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php echo validation_errors('<div class="alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form  method="POST" action="<?php echo base_url() ?>contactus" id="js-index-request-form-2">
                     <div class="row">
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">Name</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1">
+                                <label for="txtName">Name</label>
+                                <input type="text" class="form-control" id="txtName" name="txtName" required="required">
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">E-mail</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1">
+                                <label for="txtEmail">E-mail</label>
+                                <input type="email" class="form-control" id="txtEmail" name="txtEmail" required="required">
                             </div>
                         </div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="exampleFormControlInput1">Subject</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1">
+                        <label for="txtSubject">Subject</label>
+                        <input type="text" class="form-control" id="txtSubject" name="txtSubject" required="required">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Message</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <label for="taMessage">Message</label>
+                        <textarea class="form-control" id="taMessage" name="taMessage" rows="3" required="required"></textarea>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary">Submit</button>

@@ -121,6 +121,7 @@ class Invetory_model extends CI_Model
         $this->db->join('tbl_invetory as i', 'i.id = ps.product_id');
         $this->db->join('tbl_team as t', 't.id = ps.team_id');
         $this->db->where('ps.is_deleted', '0');    
+        $this->db->where('ps.sale_type', 'sale');  
         $this->db->where('ps.status', 'AC');  
         $this->db->where('t.is_deleted', '0');    
         $this->db->where('t.status', 'AC');
@@ -147,7 +148,8 @@ class Invetory_model extends CI_Model
         $this->db->join('tbl_invetory as i', 'i.id = ps.product_id');
         $this->db->join('tbl_team as t', 't.id = ps.team_id');
         $this->db->where('ps.is_deleted', '0');    
-        $this->db->where('ps.status', 'AC');   
+        $this->db->where('ps.sale_type', 'use');  
+        $this->db->where('ps.status', 'AC');  
         $this->db->where('t.is_deleted', '0');    
         $this->db->where('t.status', 'AC');
 
@@ -158,13 +160,21 @@ class Invetory_model extends CI_Model
         if(!empty($endDate)){
             $this->db->where('ps.add_date <=', $endDate);
         }
-
+        
         $this->db->order_by("ps.add_date", "DESC");  
         $query = $this->db->get();
         
-        $result = $query->result(); // echo "<pre>"; print_r($result);    die();
+        $result = $query->result();  // print_r($this->db->last_query());    die();
      
         return $result;
+    }
+
+    function updateSellProductUsingCartId($cartInfo, $cartmaster_id)
+    {
+        $this->db->where('related_cartmaster_id', $cartmaster_id);
+        $this->db->where('is_deleted', '0');
+        $this->db->update('tbl_product_sales', $cartInfo);
+        return true;
     }
 }
 
