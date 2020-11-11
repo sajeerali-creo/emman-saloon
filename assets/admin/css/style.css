@@ -183,3 +183,14 @@ form.user .form-control-user{
   width: 130px;
 }
 
+.icon-report{
+  font-size: 40px;
+  color: #999;
+  margin-bottom: 30px;
+}
+
+.report-body{
+}
+.opacity-1{
+  opacity: 0.5;
+}

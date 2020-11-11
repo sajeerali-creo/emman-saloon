@@ -2,75 +2,103 @@
 <div class="container-fluid" onload="javascript: AutoRefresh(5000);">
 
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Bookings</h1>
-        <div class="d-flex d-sm-block">
-            
-        </div>
-
+    <div class="mb-3">
+        <h1 class="h3 mb-0 text-gray-800">All Reports</h1>
     </div>
 
+
+
     <!-- Begin Page Content -->
-    <div class="row mb-4 report-box">
-        <div class="col-lg-4 col-md-12">
-            <a class="font-weight-bold text-white download-trading-summary" data-type="TRSUM" data-label="Trading Summary">
-                <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-info text-white">
-                    <div class="h4 mb-2">Trading Summary<br>
-                        <i class="fas fa-file-download"></i>
+    <div class="row report-box">
+        <div class="col-md-3 col-sm-12  mb-4">
+            <a class="font-weight-bold download-trading-summary" data-type="TRSUM" data-label="Trading Summary">
+                <div class="card">
+                    <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
+                        alt="Card image cap">
+                    <div class="card-body report-body">
+                        <h5 class="card-title text-dark font-weight-bold">Trading Summary</h5>
+                        <p class="card-text font-weight-light">Download the report from the belwo button</p>
+                        <button class="btn btn-dark text-white">Download</button>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="col-lg-4 col-md-12">
-            <a class="font-weight-bold text-white download-trading-summary" data-type="PSU" data-label="Professional Stock Usage">
-                <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-info text-white">
-                    <div class="h4 mb-2">Professional Stock Usage<br>
-                        <i class="fas fa-file-download"></i>
+        <div class="col-md-3 col-sm-12  mb-4">
+            <a class="font-weight-bold download-trading-summary" data-type="PSU" data-label="Professional Stock Usage">
+                <div class="card">
+                    <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
+                        alt="Card image cap">
+                    <div class="card-body report-body">
+                        <h5 class="card-title text-dark font-weight-bold">Professional Stock Usage</h5>
+                        <p class="card-text font-weight-light">Download the report from the belwo button</p>
+                        <button class="btn btn-dark text-white">Download</button>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="col-lg-4 col-md-12">
-            <a class="font-weight-bold text-white download-trading-summary" data-type="TBE" data-label="Transactions by Employee">
-                <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-info text-white">
-                    <div class="h4 mb-2">Transactions by Employee<br>
-                        <i class="fas fa-file-download"></i>
+        <div class="col-md-3 col-sm-12  mb-4">
+            <a class="font-weight-bold download-trading-summary" data-type="TBE" data-label="Transactions by Employee">
+                <div class="card">
+                    <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
+                        alt="Card image cap">
+                    <div class="card-body report-body">
+                        <h5 class="card-title text-dark font-weight-bold">Transactions by Employee</h5>
+                        <p class="card-text font-weight-light">Download the report from the belwo button</p>
+                        <button class="btn btn-dark text-white">Download</button>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="col-lg-4 col-md-12">
-            <a class="font-weight-bold text-white download-trading-summary" data-type="SBDC" data-label="Service Breakdown by Category">
-                <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-info text-white">
-                    <div class="h4 mb-2">Service Breakdown by Category<br>
-                        <i class="fas fa-file-download"></i>
+        <div class="col-md-3 col-sm-12  mb-4">
+            <a class="font-weight-bold download-trading-summary" data-type="SBDC"
+                data-label="Service Breakdown by Category">
+                <div class="card">
+                    <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
+                        alt="Card image cap">
+                    <div class="card-body report-body">
+                        <h5 class="card-title text-dark font-weight-bold">Service Breakdown by Category</h5>
+                        <p class="card-text font-weight-light">Download the report from the belwo button</p>
+                        <button class="btn btn-dark text-white">Download</button>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="col-lg-4 col-md-12">
-            <a class="font-weight-bold text-white download-trading-summary" data-type="INSR" data-label="Stock Received">
-                <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-info text-white">
-                    <div class="h4 mb-2">Stock Received<br>
-                        <i class="fas fa-file-download"></i>
+        <div class="col-md-3 col-sm-12  mb-4">
+            <a class="font-weight-bold download-trading-summary" data-type="INSR" data-label="Stock Received">
+                <div class="card">
+                    <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
+                        alt="Card image cap">
+                    <div class="card-body report-body">
+                        <h5 class="card-title text-dark font-weight-bold">Stock Received</h5>
+                        <p class="card-text font-weight-light">Download the report from the belwo button</p>
+                        <button class="btn btn-dark text-white">Download</button>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="col-lg-4 col-md-12">
-            <a class="font-weight-bold text-white download-trading-summary" data-type="PUBE" data-label="Product Use by Employees">
-                <div class="card-block bg-white mt-1 mb-1 card-counter center  bg-gradient-info text-white">
-                    <div class="h4 mb-2">Product Use by Employees<br>
-                        <i class="fas fa-file-download"></i>
+        <div class="col-md-3 col-sm-12  mb-4">
+            <a class="font-weight-bold download-trading-summary" data-type="PUBE" data-label="Product Use by Employees">
+                <div class="card">
+                    <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
+                        alt="Card image cap">
+                    <div class="card-body report-body">
+                        <h5 class="card-title text-dark font-weight-bold">Product Use by Employees</h5>
+                        <p class="card-text font-weight-light">Download the report from the belwo button</p>
+                        <button class="btn btn-dark text-white">Download</button>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="col-lg-4 col-md-12">
-            <a class="font-weight-bold text-white download-trading-summary" data-type="EMSB" data-label="Employee Monthly Breakdown">
-                <div class="card-block bg-white mt-1 mb-1 card-counter center bg-gradient-info text-white">
-                    <div class="h4 mb-2">Employee Breakdown Report<br>
-                        <i class="fas fa-file-download"></i>
+        <div class="col-md-3 col-sm-12  mb-4">
+            <a class="font-weight-bold download-trading-summary" data-type="EMSB"
+                data-label="Employee Monthly Breakdown">
+                <div class="card">
+                    <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
+                        alt="Card image cap">
+                    <div class="card-body report-body">
+                        <h5 class="card-title text-dark font-weight-bold">Employee Breakdown Report</h5>
+                        <p class="card-text font-weight-light">Download the report from the belwo button</p>
+                        <button class="btn btn-dark text-white">Download</button>
                     </div>
                 </div>
             </a>
@@ -82,9 +110,9 @@
 
 <!-- delet services -->
 <div class="modal fade" id="download-report" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-body text-center f-24 shadow card-counter primary">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
+            <div class="modal-body text-center f-24 shadow card-counter bg-dark text-white">
                 <h5 class="modal-title model-main-title"></h5>
                 <h6 class="modal-title">Choose the date range</h6>
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -94,36 +122,39 @@
             <div class="modal-body">
                 <div class="form-group" style="text-align: center;">
                     <div class="mr-2 w-sm-100 mr-sm-0 mt-sm-1">
-                        <button class="card p-2 w-sm-100 mr-2" id="reportrange" style='margin-right: auto !important;margin-left: auto !important; margin-bottom: 9px;'>
+                        <button class="card p-2 w-sm-100 mr-2" id="reportrange"
+                            style='margin-right: auto !important;margin-left: auto !important; margin-bottom: 9px;'>
                             <i class="text-primary" data-feather="calendar"></i>
                             <span></span>
                             <i class="ml-1" data-feather="chevron-down"></i>
                         </button>
                         <form name="frmSearch" id="frmSearch" class="user w-sm-100"
-                            action="<?php echo base_url(); ?>securepanel/booking" method="get" enctype="multipart/form-data"
-                            style="display: none;">
+                            action="<?php echo base_url(); ?>securepanel/booking" method="get"
+                            enctype="multipart/form-data" style="display: none;">
                             <input type="hidden" name="sDate" id="hdStartDate" value="<?php echo($sDate); ?>">
                             <input type="hidden" name="eDate" id="hdEndDate" value="<?php echo($eDate); ?>">
                             <input type="hidden" name="reportType" id="reportType" value="">
-                            <button class="btn btn-dark" type="submit"><i
-                                    class="fas fa-search fa-sm"></i></button>
+                            <button class="btn btn-dark" type="submit"><i class="fas fa-search fa-sm"></i></button>
                         </form>
                     </div>
                     <div class="row mb-4 mt-4" id="divUserSelection">
                         <div class="col-lg-4 col-md-12"></div>
                         <div class="col-lg-4 col-md-12">
-                            <select name="lstIEmployee" id="lstIEmployee" class="custom-select"> 
+                            <select name="lstIEmployee" id="lstIEmployee" class="custom-select">
                                 <option value="all">All Employees</option>
                                 <?php 
                                 foreach ($teamInfo as $key => $value) {
-                                    ?><option value="<?php echo $value->id; ?>"><?php echo $value->first_name . " " . $value->last_name; ?></option><?php
+                                    ?><option value="<?php echo $value->id; ?>">
+                                    <?php echo $value->first_name . " " . $value->last_name; ?></option><?php
                                 }
                                 ?>
                             </select>
                         </div>
                         <div class="col-lg-4 col-md-12"></div>
                     </div>
-                    <a href="javascript:;" id="lnkDownloadReport" class="d-sm-inline-block btn btn-md btn-success shadow-sm h-40 w-sm-100 mt-sm-1" target="_blank"><i class="fas fa-file-download"></i></a>
+                    <a href="javascript:;" id="lnkDownloadReport"
+                        class="d-sm-inline-block btn btn-md btn-success shadow-sm h-40 w-sm-100 mt-sm-1"
+                        target="_blank"><i class="fas fa-file-download"></i>&nbsp;Download</a>
                 </div>
             </div>
         </div>
@@ -131,7 +162,7 @@
 </div>
 <div class="modal fade" id="delete-order-msg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content p-3">
             <div class="modal-body text-center f-24">
                 Are you sure to delete this item?
             </div>

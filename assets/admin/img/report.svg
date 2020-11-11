@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="375" height="143" viewBox="0 0 375 143">
+  <defs>
+    <clipPath id="clip-iPhone_X_XS_11_Pro_1">
+      <rect width="375" height="143"/>
+    </clipPath>
+  </defs>
+  <g id="iPhone_X_XS_11_Pro_1" data-name="iPhone X, XS, 11 Pro – 1" clip-path="url(#clip-iPhone_X_XS_11_Pro_1)">
+    <rect width="375" height="143" fill="rgba(132,67,255,0.16)"/>
+    <circle id="Ellipse_2258" data-name="Ellipse 2258" cx="126" cy="126" r="126" transform="translate(-120 31)" fill="#8443ff" opacity="0.041"/>
+    <g id="description-24px" transform="translate(159 43)">
+      <path id="Path_33094" data-name="Path 33094" d="M0,0H57.307V57.307H0Z" fill="none"/>
+      <path id="Path_33095" data-name="Path 33095" d="M27.878,2H8.776A4.769,4.769,0,0,0,4.024,6.776L4,44.98a4.769,4.769,0,0,0,4.752,4.776H37.429A4.79,4.79,0,0,0,42.2,44.98V16.327Zm4.776,38.2h-19.1V35.429h19.1Zm0-9.551h-19.1V25.878h19.1ZM25.49,18.714V5.582L38.623,18.714Z" transform="translate(5.551 2.776)" fill="#8443ff"/>
+    </g>
+    <circle id="Ellipse_2255" data-name="Ellipse 2255" cx="126" cy="126" r="126" transform="translate(243 -59)" fill="#8443ff" opacity="0.097"/>
+    <circle id="Ellipse_2257" data-name="Ellipse 2257" cx="126" cy="126" r="126" transform="translate(-139 81)" fill="#8443ff" opacity="0.023"/>
+    <circle id="Ellipse_2256" data-name="Ellipse 2256" cx="126" cy="126" r="126" transform="translate(262 -109)" fill="#8443ff" opacity="0.097"/>
+  </g>
+</svg>
