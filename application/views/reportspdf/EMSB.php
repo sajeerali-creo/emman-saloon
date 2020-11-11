@@ -164,106 +164,83 @@
                 <tr>
                     <th style="font-size:12px">Week Ending</th>
                     <th style="font-size:12px">Clients</th>
-                    <th style="font-size:12px;">BLEACH (Hair)</th>
-                    <th style="font-size:12px;">MASSAG E/M.BATH</th>
-                    <th style="font-size:12px;">BLOWDR Y/HAIRST</th>
-                    <th style="font-size:12px; text-align: right">HAIR COLORIN</th>
-                    <th style="font-size:12px; text-align: right">HAIR TREATME</th>
-                    <th style="font-size:12px; text-align: right">BOTOX TREATME</th>
-                    <th style="font-size:12px; text-align: right">MAKE-UP</th>
-                    <th style="font-size:12px; text-align: right">NAILS</th>
-                    <th style="font-size:12px; text-align: right">WAX/THR EADING/B</th>
-                    <th style="font-size:12px; text-align: right">HAIRCUT</th>
-                    <th style="font-size:12px; text-align: right">Amount w/o VAT</th>
-                    <th style="font-size:12px; text-align: right">VAT Amount</th>
+                    <th style="font-size:12px">Services</th>
+                    <th style="font-size:12px;">Amount w/o VAT</th>
+                    <th style="font-size:12px;">VAT Amount</th>
                     <th style="font-size:12px; text-align: right">Amount w/ VAT</th>
                 </tr>
                 <tr>
                     <td style="font-size:12px">07/01/2020</td>
                     <td style="font-size:12px">20</td>
                     <td style="font-size:12px">
-                        0<br>
-                        0.00
+                        <div style="font-size:12px;">BLEACH (Hair)</div><br>
+                        <div style="font-size:12px;">MASSAG E/M.BATH</div><br>
+                        <div style="font-size:12px;">BLOWDR Y/HAIRST</div><br>
+                        <div style="font-size:12px;">HAIR COLORIN</div><br>
+                        <div style="font-size:12px;">HAIR TREATME</div><br>
+                        <div style="font-size:12px;">BOTOX TREATME </div><br>
+                        <div style="font-size:12px;">MAKE-UP</div><br>
+                        <div style="font-size:12px;">NAILS</div><br>
+                        <div style="font-size:12px;">WAX/THR EADING/B</div><br>
+                        <div style="font-size:12px;">HAIRCUT</div>
                     </td>
-                    <td style="font-size:12px">
-                        0<br>
-                        0.00
+
+                    <td style="font-size:12px;">
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div>
                     </td>
-                    <td style="font-size:12px">
-                        0<br>
-                        0.00
+                    <td style="font-size:12px;">
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div><br>
+                        <div style="font-size:12px;">0.00</div>
                     </td>
-                    <td style="font-size:12px">
-                        0<br>
-                        0.00
+                    <td style="font-size:12px;">
+                        <div style="font-size:12px; text-align: right">0.00</div><br>
+                        <div style="font-size:12px; text-align: right">0.00</div><br>
+                        <div style="font-size:12px; text-align: right">0.00</div><br>
+                        <div style="font-size:12px; text-align: right">0.00</div><br>
+                        <div style="font-size:12px; text-align: right">0.00</div><br>
+                        <div style="font-size:12px; text-align: right">0.00</div><br>
+                        <div style="font-size:12px; text-align: right">0.00</div><br>
+                        <div style="font-size:12px; text-align: right">0.00</div><br>
+                        <div style="font-size:12px; text-align: right">0.00</div><br>
+                        <div style="font-size:12px; text-align: right">0.00</div>
                     </td>
-                    <td style="font-size:12px">
-                        0<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px">
-                        0<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px">
-                        0<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px">
-                        0<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px">
-                        0<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px">
-                        0<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px;">0</td>
-                    <td style="font-size:12px;">0.00</td>
-                    <td style="font-size:12px; text-align: right">0.00</td>
                 </tr>
-      
-               
-              
-                
+
+
+
+
                 <!-- total -->
                 <tr>
                     <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;">Totals</td>
                     <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
                     <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
                     <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
                     </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right"><strong>5,056.22</strong>
                     </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-              
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-              
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right"></td>
+
                 </tr>
                 <!-- total -->
             </table>
+
         </div>
     </div>
 
