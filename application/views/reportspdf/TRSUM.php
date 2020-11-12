@@ -101,7 +101,12 @@
     <!-- footer -->
     <div class="divFooter footer" style="font-size:12px; padding: 20px 0px; width: 100%">
         <hr>
-        Printed on: <?php echo date("l, d F, Y H:i:s A"); ?><br/>Page: <span class="pagenum"></span>
+        <table style="width:100%">
+            <tr>
+                <td style="width:50%" align="left">Printed on: <?php echo date("l, d F, Y h:i:s A"); ?></td>
+                <td style="text-align-right width:50%;" align="right">Page: <span class="pagenum"></span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+        </table>
     </div>
     <!-- end footer -->
     <div class="page">
@@ -123,7 +128,7 @@
                             </tr>
                             <tr>
                                 <td>Time Period:</td>
-                                <td><?php echo ($datePeriod); ?> Day</td>
+                                <td><?php echo ($datePeriod); ?></td>
                             </tr>
                         </table>
                     </td>

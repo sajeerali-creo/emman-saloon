@@ -15,7 +15,39 @@
                     <a href="<?php echo base_url(); ?>securepanel/add-supplier" class="d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"> <i class="fas fa-plus"></i>&nbsp;Add New Suppliers</a>
                 </div>
             </div>
+
             <div class="card-body">
+                <div class="row flash-message-box">
+                    <div class="col-md-12">
+                        <?php
+                            $this->load->helper('form');
+                            $error = $this->session->flashdata('error');
+                            if($error)
+                            {
+                        ?>
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <?php echo $this->session->flashdata('error'); ?>                    
+                        </div>
+                        <?php } ?>
+                        <?php  
+                            $success = $this->session->flashdata('success');
+                            if($success)
+                            {
+                        ?>
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <?php echo $this->session->flashdata('success'); ?>
+                        </div>
+                        <?php } ?>
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php echo validation_errors('<div class="alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>

@@ -487,6 +487,7 @@ class Cart_model extends CI_Model
         $this->db->select('count(id) as totalCount');
         $this->db->from('tbl_suppliers');
         $this->db->where('is_deleted', '0');
+        $this->db->where('status <> "SD"');
         $query = $this->db->get();
         return $query->row();
     }

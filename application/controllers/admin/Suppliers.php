@@ -29,7 +29,7 @@ class Suppliers extends BaseController
         }
         else
         {        
-            $data['supplierRecords'] = $this->supplier_model->supplierListing();
+            $data['supplierRecords'] = $this->supplier_model->supplierListing('', 'SD');
                         
             $this->global['pageTitle'] = PROJECT_NAME . ' : Suppliers';
             
@@ -141,6 +141,10 @@ class Suppliers extends BaseController
             {
                 redirect('securepanel/suppliers');
             }
+            else if( $data['supplierInfo']->status == 'SD'){
+                $this->session->set_flashdata('error', 'Sorry! Access restricted.');
+                redirect('securepanel/suppliers');
+            }
             $this->global['pagePath'] = 'supplier';
             $this->global['pageTitle'] = PROJECT_NAME . ' : Edit Supplier';
             
@@ -166,6 +170,10 @@ class Suppliers extends BaseController
 
             if(empty($data['supplierInfo']))
             {
+                redirect('securepanel/suppliers');
+            }
+            else if( $data['supplierInfo']->status == 'SD'){
+                $this->session->set_flashdata('error', 'Sorry! Access restricted.');
                 redirect('securepanel/suppliers');
             }
             
@@ -252,17 +260,25 @@ class Suppliers extends BaseController
         else
         {
             $supplierId = $this->input->post('supplierId');
-            $supplierInfo = array('is_deleted' => '1', 'updated_by' => $this->vendorId, 'deleted_date' => date('Y-m-d H:i:s'));
+
+            $supplierInfo = $this->supplier_model->getSupplierInfo($supplierId);
             
-            
-            $result = $this->supplier_model->deleteSupplier($supplierId, $supplierInfo);
-            
-            if ($result > 0) { 
-                        
-                echo(json_encode(array('status'=>TRUE))); 
+            if( $supplierInfo->status == 'SD'){
+                echo(json_encode(array('status'=>'access')));
             }
-            else { 
-                echo(json_encode(array('status'=>FALSE))); 
+            else{
+                $supplierUpInfo = array('is_deleted' => '1', 'updated_by' => $this->vendorId, 'deleted_date' => date('Y-m-d H:i:s'));
+                
+                
+                $result = $this->supplier_model->deleteSupplier($supplierId, $supplierUpInfo);
+                
+                if ($result > 0) { 
+                            
+                    echo(json_encode(array('status'=>TRUE))); 
+                }
+                else { 
+                    echo(json_encode(array('status'=>FALSE))); 
+                }
             }
         }
     }

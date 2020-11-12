@@ -61,7 +61,7 @@
 
         <div class="row mt-5">
             <div class="col-md-7 col-sm-12 col-xs-12">
-                <div class="row">
+                <div class="row flash-message-box">
                     <div class="col-md-12">
                         <?php
                             $this->load->helper('form');

@@ -203,7 +203,7 @@ class Booking extends BaseController
                                             "extra_service_charge" => $txtServiceCharge,
                                             "discount_price" => $txtDiscount,
                                             "cluster_id" => $lstCluster,
-                                            "status" => "PN",
+                                            "status" => "CN",
                                             "booking_type" => ($rdServiceType == 'HS' ? 'home' : "saloon"),
                                             "total_price" => 0,
                                             "add_date" => date('Y-m-d H:i:s'),
@@ -665,6 +665,7 @@ class Booking extends BaseController
             $data['teamInfo'] = $this->getTeamInfo();
             $data['productInfo'] = $this->getInventoryInfo();
             $data['arrTimeSlots'] = $this->getAllTimeSlots();
+            $data['arrCluster'] = $this->getAllClusters();
 
             if(empty($data['bookingInfo']))
             {

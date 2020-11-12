@@ -109,7 +109,7 @@
         <hr>
         <table style="width:100%">
             <tr>
-                <td style="width:50%" align="left">Printed on: <?php echo date("l, d F, Y H:i:s A"); ?></td>
+                <td style="width:50%" align="left">Printed on: <?php echo date("l, d F, Y h:i:s A"); ?></td>
                 <td style="text-align-right width:50%;" align="right">Page: <span class="pagenum"></span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
             </tr>
         </table>
@@ -135,7 +135,7 @@
                             </tr>
                             <tr>
                                 <td>Time Period:</td>
-                                <td><?php echo ($datePeriod); ?> Day</td>
+                                <td><?php echo ($datePeriod); ?></td>
                             </tr>
                         </table>
                     </td>
@@ -158,7 +158,7 @@
                                         For Employee:
                                     </strong>
                                 </td>
-                                <td>Laxmi</td>
+                                <td><?php echo $employeeName; ?></td>
                             </tr>
                         </table>
                     </td>
@@ -173,80 +173,61 @@
 
             <table id="customers" style="width:100%">
                 <tr>
-                    <th style="font-size:12px">Week Ending</th>
+                    <th style="font-size:12px">Date</th>
                     <th style="font-size:12px">Clients</th>
                     <th style="font-size:12px">Services</th>
+                    <th style="font-size:12px">Total Job</th>
                     <th style="font-size:12px;">Amount w/o VAT</th>
                     <th style="font-size:12px;">VAT Amount</th>
                     <th style="font-size:12px; text-align: right">Amount w/ VAT</th>
                 </tr>
-                <tr>
-                    <td style="font-size:12px">07/01/2020</td>
-                    <td style="font-size:12px">20</td>
-                    <td style="font-size:12px">
-                        <div style="font-size:12px;">BLEACH (Hair)</div><br>
-                        <div style="font-size:12px;">MASSAG E/M.BATH</div><br>
-                        <div style="font-size:12px;">BLOWDR Y/HAIRST</div><br>
-                        <div style="font-size:12px;">HAIR COLORIN</div><br>
-                        <div style="font-size:12px;">HAIR TREATME</div><br>
-                        <div style="font-size:12px;">BOTOX TREATME </div><br>
-                        <div style="font-size:12px;">MAKE-UP</div><br>
-                        <div style="font-size:12px;">NAILS</div><br>
-                        <div style="font-size:12px;">WAX/THR EADING/B</div><br>
-                        <div style="font-size:12px;">HAIRCUT</div>
-                    </td>
+                <?php
+                $totalClients = 0; 
+                $totalJobs = 0; 
+                $totalWOAmount = 0; 
+                $totalVatAmount = 0; 
+                $totalAmount = 0; 
+                foreach ($arrEmployeeServiceInfo as $date => $value) {
+                    $strCol1Html = '';
+                    $strCol2Html = '';
+                    $strCol3Html = '';
+                    $strCol4Html = '';
+                    $strCol5Html = '';
+                    foreach ($value['services'] as $catName => $serInfo) {
+                        $strCol1Html .= '<div style="font-size:12px;">' . $catName . '</div><br>';
+                        $strCol2Html .= '<div style="font-size:12px;">' . $serInfo['serviceQnty'] . '</div><br>';
+                        $strCol3Html .= '<div style="font-size:12px;">' . number_format($serInfo['servicePrice'], 2) . '</div><br>';
+                        $strCol4Html .= '<div style="font-size:12px;">' . number_format($serInfo['vatPrice'], 2) . '</div><br>';
+                        $strCol5Html .= '<div style="font-size:12px; text-align: right">' . number_format($serInfo['totalPrice'], 2) . '</div><br>';
 
-                    <td style="font-size:12px;">
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div>
-                    </td>
-                    <td style="font-size:12px;">
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div><br>
-                        <div style="font-size:12px;">0.00</div>
-                    </td>
-                    <td style="font-size:12px;">
-                        <div style="font-size:12px; text-align: right">0.00</div><br>
-                        <div style="font-size:12px; text-align: right">0.00</div><br>
-                        <div style="font-size:12px; text-align: right">0.00</div><br>
-                        <div style="font-size:12px; text-align: right">0.00</div><br>
-                        <div style="font-size:12px; text-align: right">0.00</div><br>
-                        <div style="font-size:12px; text-align: right">0.00</div><br>
-                        <div style="font-size:12px; text-align: right">0.00</div><br>
-                        <div style="font-size:12px; text-align: right">0.00</div><br>
-                        <div style="font-size:12px; text-align: right">0.00</div><br>
-                        <div style="font-size:12px; text-align: right">0.00</div>
-                    </td>
-                </tr>
-
-
-
-
+                        $totalJobs += $serInfo['serviceQnty']; 
+                        $totalWOAmount += $serInfo['servicePrice']; 
+                        $totalVatAmount += $serInfo['vatPrice']; 
+                        $totalAmount += $serInfo['totalPrice']; 
+                    }
+                    $totalClients += $value['client']; 
+                    ?><tr>
+                        <td style="font-size:12px;"><?php echo $date; ?></td>
+                        <td style="font-size:12px;"><?php echo $value['client']; ?></td>
+                        <td style="font-size:12px;"><?php echo(rtrim($strCol1Html, "<br>")); ?></td>
+                        <td style="font-size:12px;"><?php echo(rtrim($strCol2Html, "<br>")); ?></td>
+                        <td style="font-size:12px;"><?php echo(rtrim($strCol3Html, "<br>")); ?></td>
+                        <td style="font-size:12px;"><?php echo(rtrim($strCol4Html, "<br>")); ?></td>
+                        <td style="font-size:12px;"><?php echo(rtrim($strCol5Html, "<br>")); ?></td>
+                    </tr><?php
+                }
+                ?>
                 <!-- total -->
                 <tr>
                     <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;">Totals</td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo $totalClients; ?></strong></td>
                     <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo $totalJobs; ?></strong></td>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($totalWOAmount, 2); ?></strong></td>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($totalVatAmount, 2); ?></strong>
                     </td>
                     <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right">
-                        <strong>5,056.22</strong>
+                        <strong><?php echo number_format($totalAmount, 2); ?></strong>
                     </td>
 
                 </tr>

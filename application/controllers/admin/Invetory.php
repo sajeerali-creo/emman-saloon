@@ -94,7 +94,7 @@ class Invetory extends BaseController
             $data['eDate'] = $eDate;
             $data['dataRecords'] = $this->invetory_model->employeeProductSellingListing($this->startDate, $this->endDate);
                         
-            $this->global['pageTitle'] = PROJECT_NAME . ' : Inventory Employee Report';
+            $this->global['pageTitle'] = PROJECT_NAME . ' : Professional Use Report';
             
             $this->loadViews("admin/invetory/listingemployeereport", $this->global, $data, NULL);
         }

@@ -36,7 +36,7 @@
             <div class="list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
                     href="#list-inventory" role="tab" aria-controls="home">Inventory</a>
-                <a class="list-group-item list-group-item-action" id="list-profile-list" href="<?php echo (base_url() . 'securepanel/invetory-employee'); ?>" >Employees Used</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list" href="<?php echo (base_url() . 'securepanel/invetory-employee'); ?>" >Professional Use</a>
                 <a class="list-group-item list-group-item-action" id="list-messages-list"
                     href="<?php echo (base_url() . 'securepanel/invetory-pooduct'); ?>">Sales</a>
             </div>

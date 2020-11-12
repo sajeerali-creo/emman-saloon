@@ -58,7 +58,7 @@ class Reports extends BaseController
             $data['sDate'] = $sDate;
             $data['eDate'] = $eDate;
             $data['dataRecords'] = $this->booking_model->bookingListing($this->startDate, $this->endDate, true);
-            $data['teamInfo'] = $this->team_model->teamListing("AC");
+            $data['teamInfo'] = $this->team_model->teamListing();
                         
             $this->global['pageTitle'] = PROJECT_NAME . ' : Reports';
             $data['pagePath'] = 'ReportList';
@@ -151,7 +151,7 @@ class Reports extends BaseController
                 break;
         }
 
-        //echo $strHtml;die();
+        // echo $strHtml;die();
         $this->load->library('pdfgenerator');
         $this->pdfgenerator->generate($strHtml, $strFileName . "_" . date("YmdHis"));
     }
@@ -166,6 +166,31 @@ class Reports extends BaseController
         return $base64;
     }
 
+    function getDateDifference($startDate, $endDate){
+        $end_date = strtotime($endDate);
+        $start_date = strtotime($startDate);
+        $datediff = $end_date - $start_date;
+
+        $days = round($datediff / (60 * 60 * 24));
+
+        if($days < 7){
+            if($days == 1){
+                return $days . " Day";
+            }
+            else{
+                return $days . " Days";
+            }
+        }
+        else{
+            if($days == 7){
+                return $days . " Days (1 Week)";
+            }
+            else {
+                return $days . " Days (" . number_format($days / 7, 1) . " Weeks)";
+            }
+        }
+    }
+
 
     function getTradingSummaryReport($startDate, $endDate)
     {
@@ -174,7 +199,7 @@ class Reports extends BaseController
         $data['logo'] = $this->getLogoPath();
         $data["fromDate"] = date("l, d F, Y", strtotime($startDate));
         $data["toDate"] = date("l, d F, Y", strtotime($endDate));
-        $data["datePeriod"] = date("Ymd", strtotime($endDate)) - date("Ymd", strtotime($startDate)) + 1;
+        $data["datePeriod"] = $this->getDateDifference($startDate, $endDate);
 
 
 
@@ -223,7 +248,10 @@ class Reports extends BaseController
         $data['logo'] = $this->getLogoPath();
         $data["fromDate"] = date("l, d F, Y", strtotime($startDate));
         $data["toDate"] = date("l, d F, Y", strtotime($endDate));
-        $data["datePeriod"] = date("Ymd", strtotime($endDate)) - date("Ymd", strtotime($startDate)) + 1;
+        $data["datePeriod"] = $this->getDateDifference($startDate, $endDate);
+
+        $arrProductUseInfo = $this->getStoreUseProductInfo($startDate, $endDate);
+        $data["productInfo"] = $arrProductUseInfo;
 
         $reportTemplate = $this->load->view('reportspdf/PSU', $data, true);
 
@@ -236,7 +264,20 @@ class Reports extends BaseController
         $data['logo'] = $this->getLogoPath();
         $data["fromDate"] = date("l, d F, Y", strtotime($startDate));
         $data["toDate"] = date("l, d F, Y", strtotime($endDate));
-        $data["datePeriod"] = date("Ymd", strtotime($endDate)) - date("Ymd", strtotime($startDate)) + 1;
+        $data["datePeriod"] = $this->getDateDifference($startDate, $endDate);
+
+        $employeeName = '';
+        if($employee != 'all'){
+            $employeeName = $this->getEmployeeName($employee);
+        }
+        if(empty($employeeName)){
+            $employeeName = "All Employees";
+        }
+        $data["employeeName"] = $employeeName;
+
+        $arrData = $this->getEmployeeServiceFullInfo($startDate, $endDate, $employee);
+        $data["arrEmployeeServiceInfo"] = $arrData;
+
 
         $reportTemplate = $this->load->view('reportspdf/TBE', $data, true);
 
@@ -249,7 +290,12 @@ class Reports extends BaseController
         $data['logo'] = $this->getLogoPath();
         $data["fromDate"] = date("l, d F, Y", strtotime($startDate));
         $data["toDate"] = date("l, d F, Y", strtotime($endDate));
-        $data["datePeriod"] = date("Ymd", strtotime($endDate)) - date("Ymd", strtotime($startDate)) + 1;
+        $data["datePeriod"] = $this->getDateDifference($startDate, $endDate);
+        $data["arrClusterInfo"] = $this->getAllClusters();;
+
+        $arrServiceInfo = $this->getServicesByCategoryInfo($startDate, $endDate);
+
+        $data["arrAllServicesInfo"] = $arrServiceInfo;
 
         $reportTemplate = $this->load->view('reportspdf/SBDC', $data, true);
 
@@ -262,7 +308,11 @@ class Reports extends BaseController
         $data['logo'] = $this->getLogoPath();
         $data["fromDate"] = date("l, d F, Y", strtotime($startDate));
         $data["toDate"] = date("l, d F, Y", strtotime($endDate));
-        $data["datePeriod"] = date("Ymd", strtotime($endDate)) - date("Ymd", strtotime($startDate)) + 1;
+        $data["datePeriod"] = $this->getDateDifference($startDate, $endDate);
+
+        $arrData = $this->getSupplierInventoryInfo($startDate, $endDate);
+
+        $data["arrAllStockInfo"] = $arrData;
 
         $reportTemplate = $this->load->view('reportspdf/INSR', $data, true);
 
@@ -275,7 +325,19 @@ class Reports extends BaseController
         $data['logo'] = $this->getLogoPath();
         $data["fromDate"] = date("l, d F, Y", strtotime($startDate));
         $data["toDate"] = date("l, d F, Y", strtotime($endDate));
-        $data["datePeriod"] = date("Ymd", strtotime($endDate)) - date("Ymd", strtotime($startDate)) + 1;
+        $data["datePeriod"] = $this->getDateDifference($startDate, $endDate);
+
+        $employeeName = '';
+        if($employee != 'all'){
+            $employeeName = $this->getEmployeeName($employee);
+        }
+        if(empty($employeeName)){
+            $employeeName = "All Employees";
+        }
+        $data["employeeName"] = $employeeName;
+
+        $arrData = $this->getCustomerUseProductInfo($startDate, $endDate, $employee);
+        $data["arrEmployeeSaleInfo"] = $arrData;
 
         $reportTemplate = $this->load->view('reportspdf/PUBE', $data, true);
 
@@ -288,7 +350,19 @@ class Reports extends BaseController
         $data['logo'] = $this->getLogoPath();
         $data["fromDate"] = date("l, d F, Y", strtotime($startDate));
         $data["toDate"] = date("l, d F, Y", strtotime($endDate));
-        $data["datePeriod"] = date("Ymd", strtotime($endDate)) - date("Ymd", strtotime($startDate)) + 1;
+        $data["datePeriod"] = $this->getDateDifference($startDate, $endDate);
+
+        $arrData = $this->getEmployeeServiceWeeklyInfo($startDate, $endDate, $employee);
+        $data["arrEmployeeServiceInfo"] = $arrData;
+
+        $employeeName = '';
+        if($employee != 'all'){
+            $employeeName = $this->getEmployeeName($employee);
+        }
+        if(empty($employeeName)){
+            $employeeName = "All Employees";
+        }
+        $data["employeeName"] = $employeeName;
 
         $reportTemplate = $this->load->view('reportspdf/EMSB', $data, true);
 
@@ -445,7 +519,119 @@ class Reports extends BaseController
         }
 
         return $arrReturn;
-    }    
+    }
+
+    function getStoreUseProductInfo($startDate, $endDate)
+    {
+        $arrData = $this->invetory_model->getStoreUseProductInfo($startDate, $endDate);
+        
+        $arrTempResult = array();
+        $arrTempPrice = array();
+        foreach ($arrData as $key => $value) {
+            if(!isset($arrTempResult[$value->product_id])){
+                $arrTempResult[$value->product_id]["product_id"] = $value->product_id;
+                $arrTempResult[$value->product_id]["productName"] = $value->productName;
+                $arrTempResult[$value->product_id]["cost_of_sell"] = $value->cost_of_sell;
+                $arrTempResult[$value->product_id]["sell_tax"] = $value->sell_tax;
+                $arrTempResult[$value->product_id]["quantity"] = $value->quantity;
+                $total = number_format($value->cost_of_sell * $value->quantity, 2, '.', '');
+                $tax = number_format($total * ($value->sell_tax / 100), 2, '.', '');
+                $arrTempResult[$value->product_id]["totalExcludeTax"] = $total;
+                $arrTempResult[$value->product_id]["totalTax"] = $tax;
+                $arrTempResult[$value->product_id]["total"] = ($total + $tax);
+            }
+            else{
+                $arrTempResult[$value->product_id]["quantity"] += $value->quantity;
+                $total = number_format($value->cost_of_sell * $value->quantity, 2, '.', '');
+                $tax = number_format($total * ($value->sell_tax / 100), 2, '.', '');
+                $arrTempResult[$value->product_id]["totalExcludeTax"] += $total;
+                $arrTempResult[$value->product_id]["totalTax"] += $tax;
+                $arrTempResult[$value->product_id]["total"] += ($total + $tax);
+            }
+
+            $arrTempPrice[$value->product_id] = $arrTempResult[$value->product_id]["total"];
+        }
+
+        arsort($arrTempPrice);
+        $arrFinal = array();
+        foreach ($arrTempPrice as $key => $value) {
+            $arrFinal[] = $arrTempResult[$key]; 
+        }
+
+        unset($arrData);
+        unset($arrTempPrice);
+        unset($arrTempResult);
+
+        /*echo "<pre>";
+        print_r($arrFinal);
+        die();*/
+
+        return $arrFinal;
+    }
+
+    function getServicesByCategoryInfo($startDate, $endDate)
+    {
+        $arrData = $this->booking_model->getServicesByCategoryInfo($startDate, $endDate);
+
+        return $arrData;
+    }
+
+    function getAllClusters(){
+        $objCluster = $this->service_model->getAllClusters();
+        $arrCluster = array();
+        foreach ($objCluster as $key => $value) {
+            $arrCluster[$value->id] = $value->title;
+        }
+        return $arrCluster;
+    }
+
+    function getEmployeeName($employeeId){
+        $arrInfo = $this->team_model->getTeamInfo($employeeId);
+
+        if(!empty($arrInfo)){
+            return $arrInfo->first_name . " " . $arrInfo->last_name;
+        }
+        else{
+            return '';
+        }
+    }
+
+    function getSupplierInventoryInfo($startDate, $endDate)
+    {
+        $arrData = $this->invetory_model->getSupplierInventoryInfo($startDate, $endDate);
+
+        return $arrData;
+    }
+
+    function getCustomerUseProductInfo($startDate, $endDate, $employee)
+    {
+        if($employee == 'all'){
+            $employee = '';
+        }
+
+        $arrData = $this->invetory_model->getCustomerUseProductInfo($startDate, $endDate, $employee);
+        return $arrData;
+    }
+
+    function getEmployeeServiceWeeklyInfo($startDate, $endDate, $employee)
+    {
+        if($employee == 'all'){
+            $employee = '';
+        }
+
+        $arrData = $this->booking_model->getEmployeeServiceWeeklyInfo($startDate, $endDate, $employee);
+        return $arrData;
+    }
+
+    function getEmployeeServiceFullInfo($startDate, $endDate, $employee)
+    {
+        if($employee == 'all'){
+            $employee = '';
+        }
+
+        $arrData = $this->booking_model->getEmployeeServiceFullInfo($startDate, $endDate, $employee);
+        return $arrData;
+    }
 }
 
 ?>
