@@ -98,18 +98,18 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                            <th>ID</th>
                                                 <th>Supplier Name</th>
                                                 <th>Category</th>
                                                 <th>Product Name</th>
-                                                <th>Quantity</th>
+                                                <th>Total Qty</th>
                                                 <th>Date fo add</th>
                                                 <th>Cost fo Buy (AED)</th>
                                                 <th>Buy Tax</th>
                                                 <th>Cost Sales (AED)</th>
                                                 <th>Sell Tax</th>
                                                 <th>Profit</th>
-                                                <th>Balance Product</th>
+                                                <th>Qty Instock</th>
                                                 <th>Status</th>
                                                 <th>Actions</th>
                                             </tr>

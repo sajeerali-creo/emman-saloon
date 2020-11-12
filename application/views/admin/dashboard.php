@@ -100,7 +100,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="f-16 font-weight-bold text-info text-uppercase mb-1">
-                                            Online Booking</div>
+                                            New Customers</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                                             <?php echo $totalHomeServices; ?>
                                         </div>
@@ -113,7 +113,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="f-16 font-weight-bold text-info text-uppercase mb-1">
-                                            Front desk</div>
+                                        Existing Customers</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                                             <?php echo $totalSaloonServices; ?>
                                         </div>

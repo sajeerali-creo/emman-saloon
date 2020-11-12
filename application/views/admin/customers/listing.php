@@ -12,6 +12,7 @@
                 </h6>
                 <div>
                     <a href="#" id="btPrintReport" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm"><i class="fas fa-file-download"></i>&nbsp;Export Report</a>
+                    <a data-toggle="modal" data-target="#offer-send-customer" href="#" class="d-none d-sm-inline-block btn btn-md btn-dark shadow-sm"><i class="fas fa-gift"></i>&nbsp;Send Special Offer to All</a>
                 </div>
             </div>
             <div class="card-body">
@@ -89,6 +90,31 @@
         <div class="modal-content">
             <div class="modal-body text-center f-24">
                 Are you sure to delete this item?
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delet services -->
+<div class="modal fade" id="offer-send-customer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center f-24">
+                <div>
+                    Select Offer
+                </div>
+                <div class="p-2">
+                    <select>
+                        <option>Special Offer 1</option>
+                        <option>Special Offer 2</option>
+                        <option>Special Offer 3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Send to All</button>
+                
             </div>
         </div>
     </div>
