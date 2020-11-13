@@ -37,7 +37,7 @@
                 <a class="list-group-item list-group-item-action" id="list-home-list"
                     href="<?php echo (base_url() . 'securepanel/invetory'); ?>">Inventory</a>
                 <a class="list-group-item list-group-item-action active" id="list-profile-list" data-toggle="list"
-                    href="#list-employee" role="tab" aria-controls="profile">Employees Used</a>
+                    href="#list-employee" role="tab" aria-controls="profile">Professional Use</a>
                 <a class="list-group-item list-group-item-action" id="list-messages-list"
                     href="<?php echo (base_url() . 'securepanel/invetory-pooduct'); ?>">Product</a>
             </div>
@@ -57,7 +57,7 @@
                     <div>
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Employee Used Report</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Professional Use Report</h1>
                             <div class="d-flex d-sm-block">
                                 <div class="mr-2 w-sm-100 mr-sm-0 mt-sm-1">
                                     <button class="card p-2 w-sm-100 mr-2" id="reportrange">

@@ -101,7 +101,12 @@
     <!-- footer -->
     <div class="divFooter footer" style="font-size:12px; padding: 20px 0px; width: 100%">
         <hr>
-        Printed on: <?php echo date("l, d F, Y H:i:s A"); ?><br/>Page: <span class="pagenum"></span>
+        <table style="width:100%">
+            <tr>
+                <td style="width:50%" align="left">Printed on: <?php echo date("l, d F, Y h:i:s A"); ?></td>
+                <td style="text-align-right width:50%;" align="right">Page: <span class="pagenum"></span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+        </table>
     </div>
     <!-- end footer -->
     <div class="page">
@@ -123,7 +128,7 @@
                             </tr>
                             <tr>
                                 <td>Time Period:</td>
-                                <td><?php echo ($datePeriod); ?> Day</td>
+                                <td><?php echo ($datePeriod); ?></td>
                             </tr>
                         </table>
                     </td>
@@ -136,236 +141,132 @@
             <!-- end header -->
             <hr>
             <!-- header -->
+            <?php
 
-            <table style="width:100%">
-                <tr>
-                    <td style="width:100%">
-                        <table style="font-size:12px; margin-top: 20px; margin-bottom:20px;">
-                            <tr>
-                                <td colspan="2">
-                                    <strong style="color:#8443ff">
-                                        Cash Purrchase
-                                    </strong>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <!-- end header -->
-            <hr>
+            $totAllUnitCost = 0;
+            $totAllDiscount = 0;
+            $totAllCost = 0;
+            $totAllVat = 0;
+            $totAllTotal = 0;
 
-            <table id="customers" style="width:100%">
-                <tr>
-                    <th style="font-size:12px">Product</th>
-                    <th style="font-size:12px">Barcode</th>
-                    <th style="font-size:12px">Ordered:</th>
-                    <th style="font-size:12px">Received:</th>
-                    <th style="font-size:12px">Note</th>
-                    <th style="font-size:12px;">Qty</th>
-                    <th style="font-size:12px;">Unit Cost</th>
-                    <th style="font-size:12px;">Discount</th>
-                    <th style="font-size:12px;">Cost</th>
-                    <th style="font-size:12px; text-align: right">VAT 5%</th>
-                    <th style="font-size:12px; text-align: right">Total</th>
-                <tr>
-                    <td style="font-size:12px">IVY Natural TR Body Wash 1000ml</td>
-                    <td style="font-size:12px">0 / 00J46</td>
-                    <td style="font-size:12px">5 December 2019</td>
-                    <td style="font-size:12px">10 December 2019</td>
-                    <td style="font-size:12px">Purchase owner from ajman</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px">24.76</td>
-                    <td style="font-size:12px">0.00</td>
-                    <td style="font-size:12px">1.24</td>
-                    <td style="font-size:12px">26.00</td>
-                    <td style="font-size:12px; text-align:right">26.00</td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">IVY Natural TR Body Wash 1000ml</td>
-                    <td style="font-size:12px">0 / 00J46</td>
-                    <td style="font-size:12px">5 December 2019</td>
-                    <td style="font-size:12px">10 December 2019</td>
-                    <td style="font-size:12px">Purchase owner from ajman</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px">24.76</td>
-                    <td style="font-size:12px">0.00</td>
-                    <td style="font-size:12px">1.24</td>
-                    <td style="font-size:12px">26.00</td>
-                    <td style="font-size:12px; text-align:right">26.00</td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">IVY Natural TR Body Wash 1000ml</td>
-                    <td style="font-size:12px">0 / 00J46</td>
-                    <td style="font-size:12px">5 December 2019</td>
-                    <td style="font-size:12px">10 December 2019</td>
-                    <td style="font-size:12px">Purchase owner from ajman</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px">24.76</td>
-                    <td style="font-size:12px">0.00</td>
-                    <td style="font-size:12px">1.24</td>
-                    <td style="font-size:12px">26.00</td>
-                    <td style="font-size:12px; text-align:right">26.00</td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">IVY Natural TR Body Wash 1000ml</td>
-                    <td style="font-size:12px">0 / 00J46</td>
-                    <td style="font-size:12px">5 December 2019</td>
-                    <td style="font-size:12px">10 December 2019</td>
-                    <td style="font-size:12px">Purchase owner from ajman</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px">24.76</td>
-                    <td style="font-size:12px">0.00</td>
-                    <td style="font-size:12px">1.24</td>
-                    <td style="font-size:12px">26.00</td>
-                    <td style="font-size:12px; text-align:right">26.00</td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">IVY Natural TR Body Wash 1000ml</td>
-                    <td style="font-size:12px">0 / 00J46</td>
-                    <td style="font-size:12px">5 December 2019</td>
-                    <td style="font-size:12px">10 December 2019</td>
-                    <td style="font-size:12px">Purchase owner from ajman</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px">24.76</td>
-                    <td style="font-size:12px">0.00</td>
-                    <td style="font-size:12px">1.24</td>
-                    <td style="font-size:12px">26.00</td>
-                    <td style="font-size:12px; text-align:right">26.00</td>
-                </tr>
+            $intTotSuppliers = count($arrAllStockInfo);
+            $intCount = 0;
+            foreach ($arrAllStockInfo as $supplier => $arrItemValue) {
+                $intCount++;
+                ?><table style="width:100%">
+                    <tr>
+                        <td style="width:100%">
+                            <table style="font-size:12px; margin-top: 20px; margin-bottom:20px;">
+                                <tr>
+                                    <td colspan="2">
+                                        <strong style="color:#8443ff"><?php echo $supplier; ?></strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <!-- end header -->
+                <hr>
+                <table id="customers" style="width:100%">
+                    <tr>
+                        <th style="font-size:12px">Product</th>
+                        <th style="font-size:12px">Barcode</th>
+                        <th style="font-size:12px">Ordered:</th>
+                        <th style="font-size:12px">Received:</th>
+                        <th style="font-size:12px">Note</th>
+                        <th style="font-size:12px;">Qty</th>
+                        <th style="font-size:12px;">Unit Cost</th>
+                        <!-- <th style="font-size:12px;">Discount</th> -->
+                        <th style="font-size:12px;">Cost</th>
+                        <th style="font-size:12px; text-align: right">VAT 5%</th>
+                        <th style="font-size:12px; text-align: right">Total</th>
+                    </tr><?php 
 
- 
+                    $totCatUnitCost = 0;
+                    $totCatDiscount = 0;
+                    $totCatCost = 0;
+                    $totCatVat = 0;
+                    $totCatTotal = 0;
+                    foreach ($arrItemValue as $productId => $value) {
+                        ?><tr>
+                            <td style="font-size:12px"><?php echo $value['name']; ?></td>
+                            <td style="font-size:12px"><?php echo $value['invoice']; ?></td>
+                            <td style="font-size:12px"><?php echo $value['addDate']; ?></td>
+                            <td style="font-size:12px"><?php echo $value['addDate']; ?></td>
+                            <td style="font-size:12px"><?php echo $value['notes']; ?></td>
+                            <td style="font-size:12px"><?php echo number_format($value['quantity'], 2); ?></td>
+                            <td style="font-size:12px"><?php echo number_format($value['unitPrice'], 2); ?></td>
+                            <!-- <td style="font-size:12px"><?php echo $value['discount']; ?></td> -->
+                            <td style="font-size:12px"><?php echo number_format($value['totPriceExTax'], 2); ?></td>
+                            <td style="font-size:12px"><?php echo number_format($value['totTax'], 2); ?></td>
+                            <td style="font-size:12px; text-align:right"><?php echo number_format($value['totalPrice'], 2); ?></td>
+                        </tr><?php
 
+                        $totCatUnitCost += $value['unitPrice'];
+                        $totCatDiscount += $value['discount'];
+                        $totCatCost += $value['totPriceExTax'];
+                        $totCatVat += $value['totTax'];
+                        $totCatTotal += $value['totalPrice'];
+                    }
 
-                <!-- total -->
-                <tr>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong></strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong></strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong></strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right">
-                        <strong>5,056.22</strong>
-                    </td>
-                </tr>
-                <!-- total -->
-            </table>
+                    $totAllUnitCost += $totCatUnitCost;
+                    $totAllDiscount += $totCatDiscount;
+                    $totAllCost += $totCatCost;
+                    $totAllVat += $totCatVat;
+                    $totAllTotal += $totCatTotal;
+                    ?>
 
-            <table style="width:100%">
-                <tr>
-                    <td style="width:100%">
-                        <table style="font-size:12px; margin-top: 20px; margin-bottom:20px;">
-                            <tr>
-                                <td colspan="2">
-                                    <strong style="color:#8443ff">
-                                        VIA COSMO TRADING
-                                    </strong>
-                                </td>
-                            </tr>
-                           
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <!-- end header -->
-            <hr>
-
-            <table id="customers" style="width:100%">
-                <tr>
-                    <th style="font-size:12px">Product</th>
-                    <th style="font-size:12px">Barcode</th>
-                    <th style="font-size:12px">Ordered:</th>
-                    <th style="font-size:12px">Received:</th>
-                    <th style="font-size:12px">Note</th>
-                    <th style="font-size:12px;">Qty</th>
-                    <th style="font-size:12px;">Unit Cost</th>
-                    <th style="font-size:12px;">Discount</th>
-                    <th style="font-size:12px;">Cost</th>
-                    <th style="font-size:12px; text-align: right">VAT 5%</th>
-                    <th style="font-size:12px; text-align: right">Total</th>
-                <tr>
-                    <td style="font-size:12px">Blowdry NG- 3700</td>
-                    <td style="font-size:12px">400268002602</td>
-                    <td style="font-size:12px">5 December 2019</td>
-                    <td style="font-size:12px">10 December 2019</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px">246.67</td>
-                    <td style="font-size:12px">24.76</td>
-                    <td style="font-size:12px">160.34</td>
-                    <td style="font-size:12px">8.02</td>
-                    <td style="font-size:12px; text-align:right">26.00</td>
-                    <td style="font-size:12px; text-align:right">168.36</td>
-                </tr>
-
-                <tr>
-                    <td style="font-size:12px">Blowdry NG- 3700</td>
-                    <td style="font-size:12px">400268002602</td>
-                    <td style="font-size:12px">5 December 2019</td>
-                    <td style="font-size:12px">10 December 2019</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px">246.67</td>
-                    <td style="font-size:12px">24.76</td>
-                    <td style="font-size:12px">160.34</td>
-                    <td style="font-size:12px">8.02</td>
-                    <td style="font-size:12px; text-align:right">26.00</td>
-                    <td style="font-size:12px; text-align:right">168.36</td>
-                </tr>
-
-                <!-- total -->
-                <tr>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong></strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong></strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong></strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align:right"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right">
-                        <strong>5,056.22</strong>
-                    </td>
-                </tr>
-                <!-- total -->
-                <!-- total -->
-                <tr>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;"><strong></strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;"><strong></strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;"><strong></strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;  font-size: 20px;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;  font-size: 20px;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;  font-size: 20px;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;  font-size: 20px;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right; background-color: #f1f1f1; font-size: 20px;">
-                        <strong>5,056.22</strong>
-                    </td>
-                </tr>
-                <!-- total -->
-            </table>
+                    <!-- total -->
+                    <tr>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong></strong></td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong></strong>
+                        </td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong></strong></td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($totCatUnitCost, 2); ?></strong>
+                        </td>
+                        <!-- <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($totCatDiscount, 2); ?></strong> -->
+                        </td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($totCatCost, 2); ?></strong>
+                        </td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($totCatVat, 2); ?></strong>
+                        </td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right">
+                            <strong><?php echo number_format($totCatTotal, 2); ?></strong>
+                        </td>
+                    </tr>
+                    <!-- total -->
+                    <?php 
+                    if($intCount == $intTotSuppliers){
+                        ?><!-- total -->
+                        <tr>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;"></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;"></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;"></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;"><strong></strong></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;"><strong></strong>
+                            </td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;"><strong></strong></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;  font-size: 14px;"><strong><?php echo number_format($totAllUnitCost, 2); ?></strong>
+                            </td>
+                            <!-- <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;  font-size: 14px;"><strong><?php echo number_format($totAllDiscount, 2); ?></strong>
+                            </td> -->
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;  font-size: 14px;"><strong><?php echo number_format($totAllCost, 2); ?></strong>
+                            </td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; background-color: #f1f1f1;  font-size: 14px;"><strong><?php echo number_format($totAllVat, 2); ?></strong>
+                            </td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right; background-color: #f1f1f1; font-size: 14px;"><strong><?php echo number_format($totAllTotal, 2); ?></strong>
+                            </td>
+                        </tr>
+                        <!-- total --><?php
+                    }
+                    ?>
+                </table><?php
+            }
+            ?>
         </div>
     </div>
 

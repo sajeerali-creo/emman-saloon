@@ -233,7 +233,7 @@
                 </div>
                 <!-- end persons -->
                 <!-- persons -->
-                <div class="row mb-2" id="divHomeServiceAddress">
+                <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
                         <label class="text-primary">Location - Cluster</label>
                         <div class="form-group">

@@ -101,7 +101,12 @@
     <!-- footer -->
     <div class="divFooter footer" style="font-size:12px; padding: 20px 0px; width: 100%">
         <hr>
-        Printed on: <?php echo date("l, d F, Y H:i:s A"); ?><br/>Page: <span class="pagenum"></span>
+        <table style="width:100%">
+            <tr>
+                <td style="width:50%" align="left">Printed on: <?php echo date("l, d F, Y h:i:s A"); ?></td>
+                <td style="text-align-right width:50%;" align="right">Page: <span class="pagenum"></span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+        </table>
     </div>
     <!-- end footer -->
     <div class="page">
@@ -123,7 +128,7 @@
                             </tr>
                             <tr>
                                 <td>Time Period:</td>
-                                <td><?php echo ($datePeriod); ?> Day</td>
+                                <td><?php echo ($datePeriod); ?></td>
                             </tr>
                         </table>
                     </td>
@@ -136,283 +141,67 @@
             <!-- end header -->
             <hr>
             <table id="customers" style="width:100%">
-                <tr>
-                    <th style="font-size:12px">Service</th>
-                    <th style="font-size:12px">Qty</th>
-                    <th style="font-size:12px;">Cost</th>
-                    <th style="font-size:12px">Service charge (AED)</th>
-                    <th style="font-size:12px;">Total Cost (AED)</th>
-                </tr>
-                <tr>
-                    <td colspan="6">
-                        <strong>Blowdry Extra Long</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">Blowdry Extra Long</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px;">100</td>
-                    <td style="font-size:12px">
-                        Dubai (10)<br>
-                        Abu Dhabi (10)<br>
-                        Sharjah (10)<br>
-                        Al Ain (10)<br>
-                        Ajman (10)<br>
-                        RAK City (10)<br>
-                        Fujairah (10)<br>
-                        Umm Al Quwain (10)<br>
-                    </td>
-                    <td style="font-size:12px">
-                        Dubai (110)<br>
-                        Abu Dhabi (110)<br>
-                        Sharjah (110)<br>
-                        Al Ain (110)<br>
-                        Ajman (110)<br>
-                        RAK City (110)<br>
-                        Fujairah (110)<br>
-                        Umm Al Quwain (110)<br>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">Blowdry Extra Long</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px;">100</td>
-                    <td style="font-size:12px">
-                        Dubai (10)<br>
-                        Abu Dhabi (10)<br>
-                        Sharjah (10)<br>
-                        Al Ain (10)<br>
-                        Ajman (10)<br>
-                        RAK City (10)<br>
-                        Fujairah (10)<br>
-                        Umm Al Quwain (10)<br>
-                    </td>
-                    <td style="font-size:12px">
-                        Dubai (110)<br>
-                        Abu Dhabi (110)<br>
-                        Sharjah (110)<br>
-                        Al Ain (110)<br>
-                        Ajman (110)<br>
-                        RAK City (110)<br>
-                        Fujairah (110)<br>
-                        Umm Al Quwain (110)<br>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">Blowdry Extra Long</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px;">100</td>
-                    <td style="font-size:12px">
-                        Dubai (10)<br>
-                        Abu Dhabi (10)<br>
-                        Sharjah (10)<br>
-                        Al Ain (10)<br>
-                        Ajman (10)<br>
-                        RAK City (10)<br>
-                        Fujairah (10)<br>
-                        Umm Al Quwain (10)<br>
-                    </td>
-                    <td style="font-size:12px">
-                        Dubai (110)<br>
-                        Abu Dhabi (110)<br>
-                        Sharjah (110)<br>
-                        Al Ain (110)<br>
-                        Ajman (110)<br>
-                        RAK City (110)<br>
-                        Fujairah (110)<br>
-                        Umm Al Quwain (110)<br>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">Blowdry Extra Long</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px;">100</td>
-                    <td style="font-size:12px">
-                        Dubai (10)<br>
-                        Abu Dhabi (10)<br>
-                        Sharjah (10)<br>
-                        Al Ain (10)<br>
-                        Ajman (10)<br>
-                        RAK City (10)<br>
-                        Fujairah (10)<br>
-                        Umm Al Quwain (10)<br>
-                    </td>
-                    <td style="font-size:12px">
-                        Dubai (110)<br>
-                        Abu Dhabi (110)<br>
-                        Sharjah (110)<br>
-                        Al Ain (110)<br>
-                        Ajman (110)<br>
-                        RAK City (110)<br>
-                        Fujairah (110)<br>
-                        Umm Al Quwain (110)<br>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">Blowdry Extra Long</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px;">100</td>
-                    <td style="font-size:12px">
-                        Dubai (10)<br>
-                        Abu Dhabi (10)<br>
-                        Sharjah (10)<br>
-                        Al Ain (10)<br>
-                        Ajman (10)<br>
-                        RAK City (10)<br>
-                        Fujairah (10)<br>
-                        Umm Al Quwain (10)<br>
-                    </td>
-                    <td style="font-size:12px">
-                        Dubai (110)<br>
-                        Abu Dhabi (110)<br>
-                        Sharjah (110)<br>
-                        Al Ain (110)<br>
-                        Ajman (110)<br>
-                        RAK City (110)<br>
-                        Fujairah (110)<br>
-                        Umm Al Quwain (110)<br>
-                    </td>
-                </tr>
-            </table>
-            
-            <table id="customers" style="width:100%">
-                <tr>
-                    <th style="font-size:12px">Service</th>
-                    <th style="font-size:12px">Qty</th>
-                    <th style="font-size:12px;">Cost</th>
-                    <th style="font-size:12px">Service charge (AED)</th>
-                    <th style="font-size:12px;">Total Cost (AED)</th>
-                </tr>
-                <tr>
-                    <td colspan="6">
-                        <strong>Blowdry Extra Long</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">Blowdry Extra Long</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px;">100</td>
-                    <td style="font-size:12px">
-                        Dubai (10)<br>
-                        Abu Dhabi (10)<br>
-                        Sharjah (10)<br>
-                        Al Ain (10)<br>
-                        Ajman (10)<br>
-                        RAK City (10)<br>
-                        Fujairah (10)<br>
-                        Umm Al Quwain (10)<br>
-                    </td>
-                    <td style="font-size:12px">
-                        Dubai (110)<br>
-                        Abu Dhabi (110)<br>
-                        Sharjah (110)<br>
-                        Al Ain (110)<br>
-                        Ajman (110)<br>
-                        RAK City (110)<br>
-                        Fujairah (110)<br>
-                        Umm Al Quwain (110)<br>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">Blowdry Extra Long</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px;">100</td>
-                    <td style="font-size:12px">
-                        Dubai (10)<br>
-                        Abu Dhabi (10)<br>
-                        Sharjah (10)<br>
-                        Al Ain (10)<br>
-                        Ajman (10)<br>
-                        RAK City (10)<br>
-                        Fujairah (10)<br>
-                        Umm Al Quwain (10)<br>
-                    </td>
-                    <td style="font-size:12px">
-                        Dubai (110)<br>
-                        Abu Dhabi (110)<br>
-                        Sharjah (110)<br>
-                        Al Ain (110)<br>
-                        Ajman (110)<br>
-                        RAK City (110)<br>
-                        Fujairah (110)<br>
-                        Umm Al Quwain (110)<br>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">Blowdry Extra Long</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px;">100</td>
-                    <td style="font-size:12px">
-                        Dubai (10)<br>
-                        Abu Dhabi (10)<br>
-                        Sharjah (10)<br>
-                        Al Ain (10)<br>
-                        Ajman (10)<br>
-                        RAK City (10)<br>
-                        Fujairah (10)<br>
-                        Umm Al Quwain (10)<br>
-                    </td>
-                    <td style="font-size:12px">
-                        Dubai (110)<br>
-                        Abu Dhabi (110)<br>
-                        Sharjah (110)<br>
-                        Al Ain (110)<br>
-                        Ajman (110)<br>
-                        RAK City (110)<br>
-                        Fujairah (110)<br>
-                        Umm Al Quwain (110)<br>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">Blowdry Extra Long</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px;">100</td>
-                    <td style="font-size:12px">
-                        Dubai (10)<br>
-                        Abu Dhabi (10)<br>
-                        Sharjah (10)<br>
-                        Al Ain (10)<br>
-                        Ajman (10)<br>
-                        RAK City (10)<br>
-                        Fujairah (10)<br>
-                        Umm Al Quwain (10)<br>
-                    </td>
-                    <td style="font-size:12px">
-                        Dubai (110)<br>
-                        Abu Dhabi (110)<br>
-                        Sharjah (110)<br>
-                        Al Ain (110)<br>
-                        Ajman (110)<br>
-                        RAK City (110)<br>
-                        Fujairah (110)<br>
-                        Umm Al Quwain (110)<br>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">Blowdry Extra Long</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px;">100</td>
-                    <td style="font-size:12px">
-                        Dubai (10)<br>
-                        Abu Dhabi (10)<br>
-                        Sharjah (10)<br>
-                        Al Ain (10)<br>
-                        Ajman (10)<br>
-                        RAK City (10)<br>
-                        Fujairah (10)<br>
-                        Umm Al Quwain (10)<br>
-                    </td>
-                    <td style="font-size:12px">
-                        Dubai (110)<br>
-                        Abu Dhabi (110)<br>
-                        Sharjah (110)<br>
-                        Al Ain (110)<br>
-                        Ajman (110)<br>
-                        RAK City (110)<br>
-                        Fujairah (110)<br>
-                        Umm Al Quwain (110)<br>
-                    </td>
-                </tr>
+                <?php 
+                if(!empty($arrAllServicesInfo)){
+                    foreach ($arrAllServicesInfo as $key => $arrServiceItemInfo) {
+                        ?><tr>
+                            <th style="font-size:12px">Service</th>
+                            <th style="font-size:12px">Qty</th>
+                            <th style="font-size:12px;">Cost</th>
+                            <th style="font-size:12px">Service charge (AED)</th>
+                            <th style="font-size:12px;">Total Cost (AED)</th>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <strong><?php echo ucwords(strtolower($key)); ?></strong>
+                            </td>
+                        </tr><?php
+                        foreach ($arrServiceItemInfo as $key1 => $value) {
+                            ?><tr>
+                                <td style="font-size:12px"><?php echo ucwords(strtolower($key1)); ?></td>
+                                <td style="font-size:12px"><?php echo $value['qnty']; ?></td>
+                                <td style="font-size:12px;"><?php echo number_format($value['totalPrice'], 2); ?></td>
+                                <td style="font-size:12px"><?php 
+
+                                    foreach ($arrClusterInfo as $clusterId => $clusterName) {
+                                        echo $clusterName . " (";
+                                        if(isset($value['serviceCharge'][$clusterId])){
+                                            echo number_format($value['serviceCharge'][$clusterId], 2);
+                                        }
+                                        else{
+                                            echo "0.00";
+                                        }
+                                        echo ")<br/>";
+                                    }
+                                ?></td>
+                                <td style="font-size:12px"><?php 
+
+                                    foreach ($arrClusterInfo as $clusterId => $clusterName) {
+                                        echo $clusterName . " (";
+                                        if(isset($value['grnadTotalPrice'][$clusterId])){
+                                            echo number_format($value['grnadTotalPrice'][$clusterId], 2);
+                                        }
+                                        else{
+                                            echo "0.00";
+                                        }
+                                        echo ")<br/>";
+                                    }
+                                ?></td>
+                            </tr><?php
+                        }
+                    }
+                }
+                else{
+                    ?><tr>
+                        <th style="font-size:12px">Service</th>
+                        <th style="font-size:12px">Qty</th>
+                        <th style="font-size:12px;">Cost</th>
+                        <th style="font-size:12px">Service charge (AED)</th>
+                        <th style="font-size:12px;">Total Cost (AED)</th>
+                    </tr><?php
+                }
+                
+                ?>
             </table>
 
         </div>

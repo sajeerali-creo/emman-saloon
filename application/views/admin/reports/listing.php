@@ -15,7 +15,7 @@
                 <div class="card">
                     <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
                         alt="Card image cap">
-                    <div class="card-body report-body">
+                    <div class="card-body report-body text-center">
                         <h5 class="card-title text-dark font-weight-bold">Trading Summary</h5>
                         <p class="card-text font-weight-light">Download the report from the belwo button</p>
                         <button class="btn btn-dark text-white">Download</button>
@@ -28,7 +28,7 @@
                 <div class="card">
                     <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
                         alt="Card image cap">
-                    <div class="card-body report-body">
+                    <div class="card-body report-body text-center">
                         <h5 class="card-title text-dark font-weight-bold">Professional Stock Usage</h5>
                         <p class="card-text font-weight-light">Download the report from the belwo button</p>
                         <button class="btn btn-dark text-white">Download</button>
@@ -41,7 +41,7 @@
                 <div class="card">
                     <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
                         alt="Card image cap">
-                    <div class="card-body report-body">
+                    <div class="card-body report-body text-center">
                         <h5 class="card-title text-dark font-weight-bold">Transactions by Employee</h5>
                         <p class="card-text font-weight-light">Download the report from the belwo button</p>
                         <button class="btn btn-dark text-white">Download</button>
@@ -55,8 +55,8 @@
                 <div class="card">
                     <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
                         alt="Card image cap">
-                    <div class="card-body report-body">
-                        <h5 class="card-title text-dark font-weight-bold">Service Breakdown by Category</h5>
+                    <div class="card-body report-body text-center">
+                        <h5 class="card-title text-dark font-weight-bold">Services by Category</h5>
                         <p class="card-text font-weight-light">Download the report from the belwo button</p>
                         <button class="btn btn-dark text-white">Download</button>
                     </div>
@@ -68,7 +68,7 @@
                 <div class="card">
                     <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
                         alt="Card image cap">
-                    <div class="card-body report-body">
+                    <div class="card-body report-body text-center">
                         <h5 class="card-title text-dark font-weight-bold">Stock Received</h5>
                         <p class="card-text font-weight-light">Download the report from the belwo button</p>
                         <button class="btn btn-dark text-white">Download</button>
@@ -81,7 +81,7 @@
                 <div class="card">
                     <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
                         alt="Card image cap">
-                    <div class="card-body report-body">
+                    <div class="card-body report-body text-center">
                         <h5 class="card-title text-dark font-weight-bold">Product Use by Employees</h5>
                         <p class="card-text font-weight-light">Download the report from the belwo button</p>
                         <button class="btn btn-dark text-white">Download</button>
@@ -91,12 +91,12 @@
         </div>
         <div class="col-md-3 col-sm-12  mb-4">
             <a class="font-weight-bold download-trading-summary" data-type="EMSB"
-                data-label="Employee Monthly Breakdown">
+                data-label="Employee Breakdown Report">
                 <div class="card">
                     <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
                         alt="Card image cap">
-                    <div class="card-body report-body">
-                        <h5 class="card-title text-dark font-weight-bold">Employee Breakdown Report</h5>
+                    <div class="card-body report-body text-center">
+                        <h5 class="card-title text-dark font-weight-bold">Employee Breakdown</h5>
                         <p class="card-text font-weight-light">Download the report from the belwo button</p>
                         <button class="btn btn-dark text-white">Download</button>
                     </div>
@@ -138,8 +138,8 @@
                         </form>
                     </div>
                     <div class="row mb-4 mt-4" id="divUserSelection">
-                        <div class="col-lg-4 col-md-12"></div>
-                        <div class="col-lg-4 col-md-12">
+                        <div class="col-lg-2 col-md-12"></div>
+                        <div class="col-lg-8 col-md-12">
                             <select name="lstIEmployee" id="lstIEmployee" class="custom-select">
                                 <option value="all">All Employees</option>
                                 <?php 
@@ -150,7 +150,7 @@
                                 ?>
                             </select>
                         </div>
-                        <div class="col-lg-4 col-md-12"></div>
+                        <div class="col-lg-2 col-md-12"></div>
                     </div>
                     <a href="javascript:;" id="lnkDownloadReport"
                         class="d-sm-inline-block btn btn-md btn-success shadow-sm h-40 w-sm-100 mt-sm-1"

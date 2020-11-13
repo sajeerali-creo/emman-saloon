@@ -241,6 +241,11 @@ jQuery(document).ready(function(){
 		let sDate = $("#hdStartDate").val();
 		let eDate = $("#hdEndDate").val();
 		let employee = $("#lstIEmployee").val();
+		if(type == 'EMSB' && employee == 'all'){
+			alert("Please select an Employee");
+			return false;
+
+		}
 		url = baseURL + "securepanel/reports/generate?type=" + type + "&sDate=" + sDate + "&eDate=" + eDate;
 		if(type == 'TBE' || type == 'PUBE' || type == 'EMSB'){
 			url = url + "&employee=" + employee;

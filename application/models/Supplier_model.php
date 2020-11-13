@@ -2,13 +2,17 @@
 
 class Supplier_model extends CI_Model
 {
-    function supplierListing($selectedActiveStatus = '')
+    function supplierListing($selectedActiveStatus = '', $excludeStatus = '')
     {
         $this->db->select('id, title, country, city, postcode, phone, fax, web, email, category, status, add_date');
         $this->db->from('tbl_suppliers');
 
         if(!empty($selectedActiveStatus)){           
             $this->db->where('status', $selectedActiveStatus);
+        }
+
+        if(!empty($excludeStatus)){           
+            $this->db->where('status <> "' . $excludeStatus . '"');
         }
 
         $this->db->where('is_deleted', '0');

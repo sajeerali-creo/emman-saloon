@@ -101,7 +101,12 @@
     <!-- footer -->
     <div class="divFooter footer" style="font-size:12px; padding: 20px 0px; width: 100%">
         <hr>
-        Printed on: <?php echo date("l, d F, Y H:i:s A"); ?><br/>Page: <span class="pagenum"></span>
+        <table style="width:100%">
+            <tr>
+                <td style="width:50%" align="left">Printed on: <?php echo date("l, d F, Y h:i:s A"); ?></td>
+                <td style="text-align-right width:50%;" align="right">Page: <span class="pagenum"></span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+        </table>
     </div>
     <!-- end footer -->
     <div class="page">
@@ -123,7 +128,7 @@
                             </tr>
                             <tr>
                                 <td>Time Period:</td>
-                                <td><?php echo ($datePeriod); ?> Day</td>
+                                <td><?php echo ($datePeriod); ?></td>
                             </tr>
                             <tr>
                                 <td st>For:</td>
@@ -155,42 +160,53 @@
                     <th style="font-size:12px; text-align: right">Amount w/o VAT</th>
                     <th style="font-size:12px; text-align: right">VAT Amount</th>
                     <th style="font-size:12px; text-align: right">Amount w/ VAT</th>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">Bella Cream</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px">2,306.66</td>
-                    <td style="font-size:12px;">40.00</td>
-                    <td style="font-size:12px;">Saloon use</td>
-                    <td style="font-size:12px; text-align: right">2,306.66</td>
-                    <td style="font-size:12px; text-align: right">2,306.66</td>
-                    <td style="font-size:12px; text-align: right">2,306.66</td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">Bella Cream</td>
-                    <td style="font-size:12px">1</td>
-                    <td style="font-size:12px">2,306.66</td>
-                    <td style="font-size:12px;">40.00</td>
-                    <td style="font-size:12px;">Saloon use</td>
-                    <td style="font-size:12px; text-align: right">2,306.66</td>
-                    <td style="font-size:12px; text-align: right">2,306.66</td>
-                    <td style="font-size:12px; text-align: right">2,306.66</td>
-                </tr>
+                </tr><?php
+
+                $intTotalQnty = 0;
+                $intTotalAvgCost = 0;
+                $intTotalCost = 0;
+                $intTotalExTax = 0;
+                $intTotalTax = 0;
+                $intTotalPrice = 0;
+                foreach ($productInfo as $key => $value) {
+                    $itemTotalPrice = number_format($value['total'], 2, '.', '');
+                    $itemExTaxPrice = number_format($value['totalExcludeTax'], 2, '.', '');
+                    $itemTaxPrice = number_format($value['totalTax'], 2, '.', '');
+                    $averagePrice = number_format(($itemTotalPrice/$value['quantity']), 2, '.', '');
+                    ?><tr>
+                        <td style="font-size:12px"><?php echo $value['productName']; ?></td>
+                        <td style="font-size:12px"><?php echo number_format($value['quantity'], 2); ?></td>
+                        <td style="font-size:12px"><?php echo number_format($averagePrice, 2); ?></td>
+                        <td style="font-size:12px;"><?php echo number_format($itemTotalPrice, 2); ?></td>
+                        <td style="font-size:12px;">Saloon use</td>
+                        <td style="font-size:12px; text-align: right"><?php echo number_format($value['totalExcludeTax'], 2); ?></td>
+                        <td style="font-size:12px; text-align: right"><?php echo number_format($value['totalTax'], 2); ?></td>
+                        <td style="font-size:12px; text-align: right"><?php echo number_format($itemTotalPrice, 2); ?></td>
+                    </tr><?php
+
+                    $intTotalQnty += $value['quantity'];
+                    $intTotalAvgCost += $averagePrice;
+                    $intTotalCost += $itemTotalPrice;
+                    $intTotalExTax += $itemExTaxPrice;
+                    $intTotalTax += $itemTaxPrice;
+                    $intTotalPrice += $itemTotalPrice;
+                }
+                ?>
                 <!-- total -->
                 <tr>
                     <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($intTotalQnty, 2); ?></strong></td>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($intTotalAvgCost, 2); ?></strong>
                     </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($intTotalCost, 2); ?></strong></td>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong></strong>
                     </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($intTotalExTax, 2); ?></strong>
                     </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($intTotalTax, 2); ?></strong>
                     </td>
               
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right"><strong>168.54</strong></td>
+                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right"><strong><?php echo number_format($intTotalPrice, 2); ?></strong></td>
                 </tr>
                 <!-- total -->
             </table>

@@ -44,7 +44,7 @@ die();*/
 </style><div class="container mb-3" id="pageSellProduct">
     <!-- header -->
     <div class="d-flex justify-content-between mt-3 hide-print">
-        <div class="text-primary f-24 hide-print">Add New Product</div>
+        <div class="text-primary f-24 hide-print">Sell a Product</div>
         <a href="<?php echo base_url(); ?>securepanel/invetory" class="btn btn-dark hide-print">Back</a>
     </div>
     <div class="hide-print">
@@ -71,7 +71,7 @@ die();*/
                 <!-- name of product -->
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Select Of Product</label>
+                        <label class="text-primary">Select a Product</label>
                         <select class="custom-select" id="lstProduct" name="lstProduct" required>
                             <option value="" data-remaining="0">Select</option><?php
                             foreach ($productsInfo as $key => $value) {
@@ -87,7 +87,7 @@ die();*/
                 <!-- customers of product -->
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Name of Customers</label>
+                        <label class="text-primary">Name of Customer</label>
                         <input type="text" class="form-control" id="txtCustomerName" name="txtCustomerName" placeholder="Name" required>
                     </div>
                 </div>

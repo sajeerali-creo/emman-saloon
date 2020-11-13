@@ -72,11 +72,11 @@
                         </div>
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
-                        <label class="text-primary">Cost of Buy</label>
+                        <label class="text-primary">Cost of Buy(Single Product)</label>
                         <input type="text" class="form-control" id="txtCostOfBuy" name="txtCostOfBuy" placeholder="30" required>
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
-                        <label class="text-primary">Buy Tax</label>
+                        <label class="text-primary">Buy Tax(%)</label>
                         <input type="text" class="form-control" id="txtBuyTax" name="txtBuyTax" placeholder="VAT 5%" required>
                     </div>
                 </div>
@@ -85,11 +85,11 @@
                 <!-- Sell Tax -->
                 <div class="row">
                     <div class="form-group col-md-4 col-sm-12">
-                        <label class="text-primary">Cost of Sell</label>
+                        <label class="text-primary">Cost of Sell(Single Product)</label>
                         <input type="text" class="form-control" id="txtCostOfSell" name="txtCostOfSell" placeholder="30" required>
                     </div>
                     <div class="form-group col-md-4 col-sm-12">
-                        <label class="text-primary">Sell Tax</label>
+                        <label class="text-primary">Sell Tax(%)</label>
                         <input type="text" class="form-control" id="txtSellTax" name="txtSellTax" placeholder="VAT 5%" required>
                     </div>
                 </div>
