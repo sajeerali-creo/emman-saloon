@@ -11,8 +11,11 @@
                     <span class="text-gray-600">Customers</span>
                 </h6>
                 <div>
-                    <a href="#" id="btPrintReport" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm"><i class="fas fa-file-download"></i>&nbsp;Export Report</a>
-                    <a data-toggle="modal" data-target="#offer-send-customer" href="#" class="d-none d-sm-inline-block btn btn-md btn-dark shadow-sm"><i class="fas fa-gift"></i>&nbsp;Send Special Offer to All</a>
+                    <a href="#" id="btPrintReport" class="d-none d-sm-inline-block btn btn-md btn-success shadow-sm"><i
+                            class="fas fa-file-download"></i>&nbsp;Export Report</a>
+                    <a data-toggle="modal" data-target="#offer-send-customer" href="#"
+                        class="d-none d-sm-inline-block btn btn-md btn-dark shadow-sm"><i
+                            class="fas fa-gift"></i>&nbsp;Send Special Offer to All</a>
                 </div>
             </div>
             <div class="card-body">
@@ -34,12 +37,12 @@
                             if(!empty($dataRecords)){
                                 foreach($dataRecords as $record){
                                     ?><tr class="row_<?php echo $record->id; ?>">
-                                        <th>C<?php echo $record->id; ?></th>
-                                        <th><?php echo $record->first_name . " " . $record->last_name; ?></th>
-                                        <th><?php echo $record->email; ?></th>
-                                        <th><?php echo $record->phone_number; ?></th>
-                                        <th><?php echo $record->totalOrder; ?></th>
-                                        <th><?php echo $record->totalPrice; ?></th><?php
+                                <th>C<?php echo $record->id; ?></th>
+                                <th><?php echo $record->first_name . " " . $record->last_name; ?></th>
+                                <th><?php echo $record->email; ?></th>
+                                <th><?php echo $record->phone_number; ?></th>
+                                <th><?php echo $record->totalOrder; ?></th>
+                                <th><?php echo $record->totalPrice; ?></th><?php
 
                                         if ($record->status == 'PN') {
                                             ?><th class="text-warning">Inactive</th><?php
@@ -49,12 +52,12 @@
                                         }
                                         
                                         ?><th class="text-right">
-                                            <a data-toggle="modal" data-target="#delete-customer"
-                                                class="btn btn-light deleteCustomer" data-recordid="<?php echo $record->id; ?>">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                        </th>
-                                    </tr><?php
+                                    <a data-toggle="modal" data-target="#delete-customer"
+                                        class="btn btn-light deleteCustomer" data-recordid="<?php echo $record->id; ?>">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </th>
+                            </tr><?php
                                 }
                             }
                         ?></tbody>
@@ -104,17 +107,18 @@
                     Select Offer
                 </div>
                 <div class="p-2">
-                    <select>
-                        <option>Special Offer 1</option>
-                        <option>Special Offer 2</option>
-                        <option>Special Offer 3</option>
+                    <select class="custom-select">
+                        <option selected>Select Offer Service</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
                     </select>
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary">Send to All</button>
-                
+
             </div>
         </div>
     </div>
