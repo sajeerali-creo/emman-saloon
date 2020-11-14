@@ -28,7 +28,7 @@
                         <ul>
                             <li><a href="<?php echo base_url() ?>about">About</a></li>
                             <li><a href="<?php echo base_url() ?>services" class="active-menu">Services</a></li>
-                            <li><a href="<?php echo base_url() ?>gallery">Gallery</a></li>
+                            <li><a data-toggle="modal" data-target="#appointment">Appointment</a></li>
                             <li><a href="<?php echo base_url() ?>contact">Contact Us</a></li>
                             <?php 
                         if(!isset($frontLogin) || $frontLogin != true){
@@ -57,7 +57,7 @@
         <div>Services</div>
     </div>
 
-    <div class="container mt-5">
+    <div class="container mt-5 pb-5">
         <div class="row mt-5">
             <div class="col-md-12 col-sm-12 colxs-12">
                 <div class="font-weight-bold text-white h5 mb-3 text-center">Services Include</div>
@@ -70,9 +70,29 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="service-box-big">
                     <div class="overlay-1">
-                        <a href="<?php echo base_url() ?>face">
-                            Face & Body care
-                        </a>
+                        <div>
+
+                            <a href="<?php echo base_url() ?>face">
+                                Face & Body care
+                            </a>
+                            <div class="small-text">
+                                Booking by
+                            </div>
+                            <div class="d-flex text-center justify-content-center">
+                                <button class="app-email mr-2">
+                                    <a data-toggle="modal" data-target="#appointment" class="text-white">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </button>
+                                <button class="app-watsap">
+                                    <a href="https://api.whatsapp.com/send?phone=971564849878&text=book%20your%20service%20though%20whatsap"
+                                        target="_blank" class="text-white">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                     <img src="<?php echo base_url() ?>assets/web/img/service/s-1.jpg" alt="">
                 </div>
@@ -80,9 +100,28 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="service-box-big">
                     <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>hair">
-                        Hair Care
-                        </a>
+                        <div>
+
+                            <a href="<?php echo base_url() ?>hair">
+                                Hair Care
+                            </a>
+                            <div class="small-text">
+                                Booking by
+                            </div>
+                            <div class="d-flex text-center justify-content-center">
+                                <button class="app-email mr-2">
+                                    <a data-toggle="modal" data-target="#appointment" class="text-white">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </button>
+                                <button class="app-watsap">
+                                    <a href="https://api.whatsapp.com/send?phone=971564849878&text=book%20your%20service%20though%20whatsap"
+                                        target="_blank" class="text-white">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <img src="<?php echo base_url() ?>assets/web/img/service/s-2.jpg" alt="">
                 </div>
@@ -90,9 +129,27 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="service-box-big">
                     <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>nail">
-                        Nail Care
-                        </a>
+                        <div>
+                            <a href="<?php echo base_url() ?>nail">
+                                Nail Care
+                            </a>
+                            <div class="small-text">
+                                Booking by
+                            </div>
+                            <div class="d-flex text-center justify-content-center">
+                                <button class="app-email mr-2">
+                                    <a data-toggle="modal" data-target="#appointment" class="text-white">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </button>
+                                <button class="app-watsap">
+                                    <a href="https://api.whatsapp.com/send?phone=971564849878&text=book%20your%20service%20though%20whatsap"
+                                        target="_blank" class="text-white">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <img src="<?php echo base_url() ?>assets/web/img/service/s-3.jpg" alt="">
                 </div>
@@ -100,31 +157,101 @@
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="service-box-big">
                     <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>waxing">
-                        Waxing
-                        </a>
+                        <div>
+
+                            <a href="<?php echo base_url() ?>waxing">
+                                Waxing
+                            </a>
+                            <div class="small-text">
+                                Booking by
+                            </div>
+                            <div class="d-flex text-center justify-content-center">
+                                <button class="app-email mr-2">
+                                    <a data-toggle="modal" data-target="#appointment" class="text-white">
+                                        <i class="fas fa-envelope"></i>
+                                    </a>
+                                </button>
+                                <button class="app-watsap">
+                                    <a href="https://api.whatsapp.com/send?phone=971564849878&text=book%20your%20service%20though%20whatsap"
+                                        target="_blank" class="text-white">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <img src="<?php echo base_url() ?>assets/web/img/service/s-4.jpg" alt="">
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="service-box-big">
-                    <div class="overlay-1">
-                    <a href="<?php echo base_url() ?>moroccan">
-                        Moroccan Bath
-                        </a>
-                    </div>
-                    <img src="<?php echo base_url() ?>assets/web/img/service/s-5.jpg" alt="">
-                </div>
-            </div>
-
         </div>
 
     </div>
 
 </section>
 
-
+<!-- appointment -->
+<!-- Modal -->
+<div class="modal fade" id="appointment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form method="POST" action="<?php echo base_url() ?>contactus" id="js-index-request-form-2">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Appointment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="txtName">Name</label>
+                                <input type="text" class="form-control" id="txtName" name="txtName" required="required">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="txtEmail">E-mail</label>
+                                <input type="email" class="form-control" id="txtEmail" name="txtEmail"
+                                    required="required">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="txtName">Phone Number</label>
+                                <input type="text" class="form-control" id="txtName" name="txtName" required="required">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="txtEmail">Select Service</label>
+                                <select class="custom-select">
+                                    <option selected>Face & Body care</option>
+                                    <option value="1">Hair Care</option>
+                                    <option value="2">Nail Care</option>
+                                    <option value="3">Waxing</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="taMessage">Appointment Details</label>
+                        <textarea class="form-control" id="taMessage" name="taMessage" rows="3"
+                            required="required"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- end appintment -->
 
 <!-- Footer Section Begin -->
 <footer class="footer set-bg" data-setbg="<?php echo base_url() ?>assets/web/img/footer-bg.jpg">

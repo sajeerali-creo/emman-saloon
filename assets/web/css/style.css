@@ -394,10 +394,10 @@ ol {
   padding: 5px 0;
   position: relative;
 }
-.active-menu{
- color: #8443ff!important;
+.active-menu {
+  color: #8443ff !important;
 }
-.active-menu:after{
+.active-menu:after {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -405,7 +405,7 @@ ol {
   width: 100%;
   background: #8443ff;
   content: "";
-  transform: scale(1)!important;
+  transform: scale(1) !important;
 }
 
 .header__menu ul li a:after {
@@ -456,9 +456,26 @@ ol {
 .hero {
   position: relative;
 }
+.watsap-icon {
+  display: table;
+  font-family: sans-serif;
+  text-decoration: none;
+  margin: 1em auto;
+  color: #fff;
+  font-size: 0.9em;
+  padding: 1em 2em 1em 3.5em;
+  border-radius: 2em;
+  font-weight: bold;
+  background: #25d366 url("https://tochat.be/click-to-chat-directory/css/whatsapp.svg") no-repeat 1.5em center;
+  background-size: 1.6em;
+  position: absolute;
+  bottom: 42px;
+  z-index: 9;
+  left: 120px;
+}
 
 .hero__items {
-  height: 768px;
+  height: 100vh;
   padding: 0 40px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -515,7 +532,7 @@ ol {
   right: 0;
   left: 0;
   margin: 0 auto;
-  bottom: 40px;
+  bottom: 210px;
 }
 
 .hero__text .hero__social a {
@@ -2837,7 +2854,7 @@ ol {
     bottom: 20px !important;
   }
   .hero__items {
-    height: 710px;
+    height: 100vh;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3076,7 +3093,6 @@ ol {
   }
 }
 
-
 /* Small Device = 320px */
 
 @media only screen and (max-width: 479px) {
@@ -3166,8 +3182,8 @@ ol {
   background-color: #000 !important;
   color: #fff !important;
 }
-.modal-title{
-    color: #fff !important;
+.modal-title {
+  color: #fff !important;
 }
 .close {
   color: #fff;
@@ -3218,7 +3234,6 @@ form.user .btn-user {
   background-color: #000000 !important;
 }
 
-
 .btn-primary,
 .btn-dark,
 .btn-success,
@@ -3227,43 +3242,42 @@ form.user .btn-user {
   border-radius: 35px;
   min-width: 100px;
 }
-.not-avaialble{
+.not-avaialble {
   text-decoration: line-through;
-  background-color: #ffdddb!important;
-  cursor: not-allowed!important;
-
+  background-color: #ffdddb !important;
+  cursor: not-allowed !important;
 }
-.not-avaialble:hover{
-  background-color: #ffdddb!important;
-  cursor: not-allowed!important;
-}
-
-#drift-widget{
-  bottom: 119px!important;
-  right: 115px!important;
+.not-avaialble:hover {
+  background-color: #ffdddb !important;
+  cursor: not-allowed !important;
 }
 
-.watsap-button{
-  border-radius: .3125rem!important;
-  width: 52px!important;
-  height: 52px!important;
-  bottom: 130px!important;
-  left: 115px!important;
+#drift-widget {
+  bottom: 119px !important;
+  right: 115px !important;
+}
+
+.watsap-button {
+  border-radius: 0.3125rem !important;
+  width: 52px !important;
+  height: 52px !important;
+  bottom: 130px !important;
+  left: 115px !important;
 }
 
 @media (max-width: 576px) {
-  #drift-widget{
-    bottom: 4px!important;
-    right: 10px!important;
+  #drift-widget {
+    bottom: 4px !important;
+    right: 10px !important;
   }
-  
-  .watsap-button{
-    bottom: 10px!important;
-    left: 10px!important;
+
+  .watsap-button {
+    bottom: 10px !important;
+    left: 10px !important;
   }
 }
 
-.sp-offer{
+.sp-offer {
   background: #ffe18c;
   color: #c19104;
   padding: 1px 6px;
@@ -3273,12 +3287,12 @@ form.user .btn-user {
   margin-top: 1rem;
 }
 
-.pac-target-input{
+.pac-target-input {
   z-index: 0;
   position: absolute;
-  left: 25%!important;
-  top: 10px!important;
-  border: none!important;
+  left: 25% !important;
+  top: 10px !important;
+  border: none !important;
   border-radius: 6px;
   width: 50vw;
   height: 40px;
@@ -3289,22 +3303,54 @@ form.user .btn-user {
   background-position: 99%;
   background-size: 23px;
 }
-.text-small{
-  font-size: 12px!important;
+.text-small {
+  font-size: 12px !important;
 }
-.tel a:hover{
+.tel a:hover {
   color: #673ab7;
 }
 
+.app-email{
+  width: 50px;
+  height: 50px;
+  background: #8443ff;
+  color: #fff;
+  border-radius: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+.app-watsap{
+  width: 50px;
+  height: 50px;
+  background: #1cc88a;
+  color: #fff;
+  border-radius: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+.small-text{
+  font-size: 16px!important;
+  margin: 20px 0px;
+}
+
 @media only screen and (max-width: 768px) {
-  .pac-target-input{
-    left: 3%!important;
-    width: 90vw!important;
+  .pac-target-input {
+    left: 3% !important;
+    width: 90vw !important;
+  }
+  .watsap-icon{
+    bottom: 0px;
+    left: 5%;
+    width: 90%;
+    display: block;
   }
 }
 
-
-.banner-about{
+.banner-about {
   height: 360px;
   display: flex;
   align-items: center;
@@ -3315,49 +3361,49 @@ form.user .btn-user {
   font-size: 36px;
   color: #fff;
 }
-.services{
-  background-image: url(../img/service/banner.png)!important;
+.services {
+  background-image: url(../img/service/banner.png) !important;
   background-attachment: fixed;
   background-position: center;
   background-size: contain;
 }
-.inner-header{
+.inner-header {
   background: #000;
   height: 90px;
-  position: static!important;
+  position: static !important;
 }
-.inner-header img{
+.inner-header img {
   height: 40px;
 }
-.opacity-1{
+.opacity-1 {
   opacity: 0.5;
 }
-.opacity-1-1{
+.opacity-1-1 {
   opacity: 0.1;
 }
-.mb-5{
+.mb-5 {
   margin-bottom: 5rem;
 }
 
-.s-box{
-  border:1px solid rgba(255, 255, 255, 0.2);
+.s-box {
+  border: 1px solid rgba(255, 255, 255, 0.2);
   min-height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
   margin-bottom: 2rem;
-  transition: .3s linear all;
+  transition: 0.3s linear all;
   text-align: center;
 }
-.s-box:hover{
+.s-box:hover {
   background-color: #8443ff;
   border-color: #8443ff;
 }
-.w-70{
+.w-70 {
   width: 70%;
 }
-.misson-bx{
+.misson-bx {
   height: 268px;
   display: flex;
   align-content: center;
@@ -3366,31 +3412,31 @@ form.user .btn-user {
   background-color: #8443ff;
   color: #fff;
 }
-.icon-sv{
+.icon-sv {
   height: 50px;
   opacity: 0.5;
   margin-bottom: 10px;
 }
 
-.service-box-big{
+.service-box-big {
   background: #333;
   height: 25vw;
   margin-bottom: 20px;
   position: relative;
 }
-.service-box-big img{
+.service-box-big img {
   width: 100%;
   object-fit: cover;
   height: 25vw;
 }
-.overlay-1 a{
+.overlay-1 a {
   color: #fff;
   display: block;
 }
-.overlay-1{
+.overlay-1 {
   width: 100%;
   height: 100%;
-  background-color:rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   text-align: center;
   color: #fff;
@@ -3400,87 +3446,87 @@ form.user .btn-user {
   justify-content: center;
 }
 
-.face{
-  background-image: url(../img/service/face-banner.jpg)!important;
+.face {
+  background-image: url(../img/service/face-banner.jpg) !important;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
-.hair{
-  background-image: url(../img/service/hair-banner.jpg)!important;
+.hair {
+  background-image: url(../img/service/hair-banner.jpg) !important;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
-.gallery{
-  background-image: url(../img/gallery.jpg)!important;
+.gallery {
+  background-image: url(../img/gallery.jpg) !important;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
-.waxing{
-  background-image: url(../img/service/waxing-banner.jpg)!important;
+.waxing {
+  background-image: url(../img/service/waxing-banner.jpg) !important;
   background-attachment: fixed;
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
 }
-.nail{
-  background-image: url(../img/service/nail-banner.jpg)!important;
+.nail {
+  background-image: url(../img/service/nail-banner.jpg) !important;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
-.moroccan{
-  background-image: url(../img/service/moroccan-banner.jpg)!important;
+.moroccan {
+  background-image: url(../img/service/moroccan-banner.jpg) !important;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
-.contact{
-  background-image: url(../img/contact.jpg)!important;
+.contact {
+  background-image: url(../img/contact.jpg) !important;
   background-attachment: fixed;
   background-position: center;
   background-size: contain;
 }
 
-.sp-offer-v2{
+.sp-offer-v2 {
   text-align: center;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.details-c a{
+.details-c a {
   color: #fff;
 }
-.bg-dark1{
+.bg-dark1 {
   background-color: #333;
   min-height: 230px;
 }
-.h-290px{
+.h-290px {
   min-height: 290px;
 }
-.h-350px{
+.h-350px {
   min-height: 350px;
 }
-.details-c div{
+.details-c div {
   margin-top: 10px;
 }
-.details-c div i{
+.details-c div i {
   display: inline-block;
-    width: 25px;
-    text-align: center;
-    background: #8443ff;
-    height: 25px;
-    margin-right: 10px;
-    border-radius: 4px;
-    /* display: flex; */
-    line-height: 25px;
-    color: #fff;
+  width: 25px;
+  text-align: center;
+  background: #8443ff;
+  height: 25px;
+  margin-right: 10px;
+  border-radius: 4px;
+  /* display: flex; */
+  line-height: 25px;
+  color: #fff;
 }
