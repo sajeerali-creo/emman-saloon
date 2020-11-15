@@ -59,7 +59,7 @@
             <div class="hero__text">
                 <h2>Book your <br>Next services with Us</h2>
                 <!-- <h4 class="text-white">Select where you want our Services</h4> -->
-                <a href="<?php echo base_url() ?>map" class="primary-btn">Book Now</a>
+                <a href="<?php echo base_url() ?>contact" class="primary-btn">Book Now</a>
 
                 <div class="hero__social">
                     <a href="https://www.facebook.com/emansalondubai" target="_blank"><i

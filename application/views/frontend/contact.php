@@ -145,10 +145,50 @@
                         </span>www.emansalon.com</span>
                     </a>
                 </div>
-                <div class="d-flex">
-                    <i class="fas fa-clock"></i>
-                    <span>at - Thu 10:00am - 8:00 pm</span>
-                </div>
+<div>
+    <span>Business Hours</span>
+
+    <span class="d-flex">
+        <span class="w-30">Sunday</span>
+        <span>10:00AM - 8:00PM</span>
+    </span>
+
+    <span class="d-flex">
+        <span class="w-30">Sunday</span>
+        <span>10:00AM - 8:00PM</span>
+    </span>
+
+    <span class="d-flex">
+        <span class="w-30">Monday</span>
+        <span>10:00AM - 8:00PM</span>
+    </span>
+
+    <span class="d-flex">
+        <span class="w-30">Tuesday</span>
+        <span>10:00AM - 8:00PM</span>
+    </span>
+
+    <span class="d-flex">
+        <span class="w-30">Wednesday</span>
+        <span>10:00AM - 8:00PM</span>
+    </span>
+
+    <span class="d-flex">
+        <span class="w-30">Thursday</span>
+        <span>10:00AM - 8:00PM</span>
+    </span>
+
+    <span class="d-flex">
+        <span class="w-30">Friday</span>
+        <span>10:00AM - 8:00PM</span>
+    </span>
+
+    <span class="d-flex">
+        <span class="w-30">Saturday</span>
+        <span>10:00AM - 8:00PM</span>
+    </span>
+
+</div>
                 <!-- <div class="d-flex"> -->
                     <!-- <i class="fas fa-map-marker-alt"></i> -->
                     <!-- <span>
