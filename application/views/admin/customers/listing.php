@@ -107,18 +107,28 @@
                     Select Offer
                 </div>
                 <div class="p-2">
-                    <select class="custom-select">
-                        <option selected>Select Offer Service</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                    <select class="custom-select" id="lstOfferService" name="lstOfferService" required>
+                        <option value="">Select Offer Service</option><?php
+                        foreach ($serviceRecords as $key => $value) {
+                            ?><option value="<?php echo $value->id; ?>"><?php echo $value->title; ?></option><?php
+                        }
+                    ?></select>
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary">Send to All</button>
 
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="offer-send-customer-msg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center f-24">
+                <div class="msg">Offer mail send to all the customers successfully.</div>
+                <div class="loader">Promotion mail sending...</div>
             </div>
         </div>
     </div>

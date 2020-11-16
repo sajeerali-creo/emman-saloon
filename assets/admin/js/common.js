@@ -253,6 +253,44 @@ jQuery(document).ready(function(){
 		window.open(url, '_blank');
 	});
 
+	jQuery(document).on("click", "#offer-send-customer .btn-primary", function(){
+		let recordId = $("#lstOfferService").val(),
+		hitURL = baseURL + "securepanel/send-offers-to-customers";
+
+		if(recordId == ''){
+			alert("Please select an Offer Service");
+			return '';
+		}
+		$("#offer-send-customer-msg .modal-body .msg").hide();
+		$("#offer-send-customer-msg .modal-body .loader").show();
+		$('#offer-send-customer').modal('hide');
+		$('#offer-send-customer-msg').modal('show');
+
+		jQuery.ajax({
+			type : "POST",
+			dataType : "json",
+			url : hitURL,
+			data : { serviceId : recordId } 
+		}).done(function(data){
+			console.log(data);
+			if(data.status == true) { 
+				$("#offer-send-customer-msg .modal-body .msg").text("Offer mail send to all the customers successfully."); 
+			}
+			else if(data.status == false) {
+				$("#offer-send-customer-msg .modal-body .msg").text("Offer mail Not send to all the customers."); 
+			}
+			else { 
+				$("#offer-send-customer-msg .modal-body .msg").text("Access denied..!"); 
+			}
+			$("#offer-send-customer-msg .modal-body .msg").show();
+			$("#offer-send-customer-msg .modal-body .loader").hide();
+		}).fail(function() {
+		    $("#offer-send-customer-msg .modal-body .msg").text("Offer mail Not send to all the customers."); 
+		    $("#offer-send-customer-msg .modal-body .msg").show();
+			$("#offer-send-customer-msg .modal-body .loader").hide();
+		});
+	});
+
 	$("#pageSellProduct #frmAddForm").submit(function(e) {
 		e.preventDefault();
 		let hitURL = baseURL + "securepanel/add-sell-product-info-ajax";

@@ -108,7 +108,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-between mb-3">
+                        <div class="d-flex justify-content-between mb-2">
                             <div class="text-gray">
                                 Payment Type
                             </div>
@@ -123,13 +123,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-none justify-content-between mb-3" id="divCardNumber">
+                        <div class="d-none justify-content-between mb-1" id="divCardNumber">
                             <div class="text-gray">
                                 Card Number (Last 4 digit)
                             </div>
                             <div class="row">
                                 <div class="form-group">
                                     <input type="text" class="form-control number_only" id="txtCardNumber" name="txtCardNumber" placeholder="XXXX" maxlength="4">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-none justify-content-between mb-3" id="divCardType">
+                            <div class="text-gray">
+                                Card Type
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="txtCardType" name="txtCardType" placeholder="Visa/Master" maxlength="50">
                                 </div>
                             </div>
                         </div>
@@ -175,12 +185,13 @@
             let hitURL = "<?php echo base_url() ?>serviceboy/complete-order"
             let orderId = $(this).attr("data-orderid");
             let cardNumber = $("#txtCardNumber").val();
+            let cardType = $("#txtCardType").val();
             let paymentType = $(".rdPaymentType:checked").val();
             $.ajax({
                 type : "POST",
                 url : hitURL,
                 dataType : "json",
-                data: { orderId : orderId, paymentType: paymentType, cardNumber: cardNumber} , // serializes the form's elements.
+                data: { orderId : orderId, paymentType: paymentType, cardNumber: cardNumber, cardType: cardType} , // serializes the form's elements.
             }).done(function(data){
                 console.log(data);
                 if(data.status == true) { 
@@ -199,10 +210,14 @@
             if($(this).val() == 'card'){
                 $("#divCardNumber").addClass("d-flex");
                 $("#divCardNumber").removeClass("d-none");
+                $("#divCardType").addClass("d-flex");
+                $("#divCardType").removeClass("d-none");
             }
             else{
                 $("#divCardNumber").addClass("d-none");
                 $("#divCardNumber").removeClass("d-flex");
+                $("#divCardType").addClass("d-none");
+                $("#divCardType").removeClass("d-flex");
             }
         });
 

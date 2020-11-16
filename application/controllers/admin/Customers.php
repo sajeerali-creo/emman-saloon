@@ -18,6 +18,7 @@ class Customers extends BaseController
     {
         parent::__construct();
         $this->load->model('customers_model');
+        $this->load->model('service_model');
         $this->isLoggedIn();   
     }
    
@@ -30,6 +31,7 @@ class Customers extends BaseController
         else
         {        
             $data['dataRecords'] = $this->customers_model->customerListing();
+            $data['serviceRecords'] = $this->service_model->fnGetSpecialServices();
                         
             $this->global['pageTitle'] = PROJECT_NAME . ' : Customers';
             
@@ -66,6 +68,67 @@ class Customers extends BaseController
         $this->global['pageTitle'] = PROJECT_NAME . ' : 404 - Page Not Found';
         
         $this->loadViews("404", $this->global, NULL, NULL);
+    }
+
+    function sendOffersToCustomers()
+    {
+        if($this->isAdminCommon() == TRUE)
+        {
+            echo(json_encode(array('status'=>'access')));
+        }
+        else
+        {
+            $serviceId = $this->input->post('serviceId');  
+
+            $arrCustomers = $this->getAllActiveCustomers();  
+            $serviceInfo = $this->service_model->getServiceInfo($serviceId);
+
+            $flSuccess = false;
+            foreach ($arrCustomers as $key => $value) {
+                $flSuccess = $this->sendOfferMail($value['name'], $value['email'], $serviceInfo->title);
+            }
+            
+            if ($flSuccess) { 
+                echo(json_encode(array('status'=>TRUE))); 
+            }
+            else { 
+                echo(json_encode(array('status'=>FALSE))); 
+            }
+        }
+    }
+
+    function sendOfferMail($strCustName, $strCustEmail, $strOfferName)
+    {
+        $emailOuter = $this->load->view('email/offer', array(),true);
+        $userfullEmailMessage = str_replace('[service_name]',$strOfferName, $emailOuter);
+
+        $this->load->library('email');
+        $this->email->from('info@emansalon.com', PROJECT_NAME);
+        $this->email->to($strCustEmail, $strCustName);
+        $this->email->to("testerdev111@gmail.com", $strCustName);
+        $this->email->subject(PROJECT_NAME . ' : Special Offers');
+        $this->email->set_mailtype("html");
+        $this->email->message($userfullEmailMessage);
+        $rs = $this->email->send();
+
+        if($rs){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    function getAllActiveCustomers()
+    {
+        $arrData = $this->customers_model->customerListing("AC");
+        $arrRetutn = array();
+
+        foreach ($arrData as $key => $value) {
+            $arrRetutn[] = array('email' => $value->email, 'name' => $value->customerFullName);
+        }
+
+        return $arrRetutn;
     }
 }
 

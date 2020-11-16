@@ -370,14 +370,18 @@
                 jQuery("#page-top").addClass('sidebar-toggled');
             }
         });
-        $('.number_only').bind('paste', function() {
+        $('.number_only').bind('paste change', function() {
             var number_only = this;
             setTimeout(function() {
                 number_only.value = number_only.value.replace(/\D\./g, '');
+                number_only.value = number_only.value.replace(/(\.)+/g, '.');
+                number_only.value = number_only.value.indexOf('.') == 0 ? number_only.value.substring(1) : number_only.value;
+                number_only.value = number_only.value.lastIndexOf('.') == (number_only.value.length - 1) ? number_only.value.substring(0,  (number_only.value.length - 1)) : number_only.value;
             }, 0);
         });
 
         $('.number_only').keypress(function(evt) {
+            var number_only = this;
             var regex = new RegExp("^[0-9\.]+$");
             var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
             if (!regex.test(key)) {
@@ -583,30 +587,31 @@
                 });
 
             }
-            const choicesCustomerEmail = new Choices($('#lstCustomerEmail')[0], {
+            const choicesCustomerPhone = new Choices($('#lstCustomerPhone')[0], {
                 removeItemButton: false,
                 itemSelectText: ' ',
                 placeholder: true,
                 delimiter: ',_,_,',
             });
 
-            choicesCustomerEmail.passedElement.element.addEventListener(
+            choicesCustomerPhone.passedElement.element.addEventListener(
               'change',
                 function(event) {
-                    let customerEmail = event.detail.value;
-                    $("#txtCustomerEmail").val(customerEmail);
-                    if(customerEmail != ''){
+                    let customerPhone = event.detail.value;
+                    $("#txtCustomerPhone").val(customerPhone);
+                    if(customerPhone != ''){
                         hitURL = baseURL + "securepanel/check-customer-info-ajax",
                         $.ajax({
                             type : "POST",
                             dataType : "json",
                             url : hitURL,
-                            data : { customerEmail : customerEmail} 
+                            data : { customerPhone : customerPhone} 
                         }).done(function(data){
                             console.log(data);
                             if(data.status == true) { 
                                $("#txtCustomerName").val(data.custInfo.first_name + " " + data.custInfo.last_name);
                                $("#txtCustomerPhone").val(data.custInfo.phone_number);
+                               $("#txtCustomerEmail").val(data.custInfo.email);
                                $("#taCustomerLocation").val(data.custInfo.location_full_address);
                             }
                         });

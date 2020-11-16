@@ -140,13 +140,12 @@ $lstDuration        = isset($lstDuration) ? $lstDuration : $serviceInfo->time_du
                         foreach ($arrCluster as $key => $value) {
                             $serviceChargeInfo[$key] = (isset($serviceChargeInfo[$key]) ? $serviceChargeInfo[$key] : '');
 
-                            $txtServicePrice   = isset($txtServicePrice[$key]) ? $txtServicePrice[$key] : $serviceChargeInfo[$key];
+                            $txtServicePrice   = $serviceChargeInfo[$key];
                             ?><input type="text" class="form-control mb-1 number_only" id="txtServicePrice_<?php echo $key; ?>" name="txtServicePrice[<?php echo $key; ?>]" maxlength="50" value="<?php echo $txtServicePrice; ?>" placeholder="<?php echo $value; ?>" title="<?php echo $value; ?>"><?php
                         }
                     ?></div>
                 </div>
                 <!-- end persons --><?php
-
                 if($rdStatus == 'AC'){
                     $checkedAC = 'checked';
                     $checkedIN = '';

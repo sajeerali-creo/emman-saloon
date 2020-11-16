@@ -184,11 +184,6 @@ class Frontcontroller extends CI_Controller{
     }
 
     function sendContactUsEmail($arrData){
-        $this->load->library('email');
-        $this->email->from('info@emansalon.com', PROJECT_NAME);
-        $this->email->to('testerdev111@gmail.com');
-        $this->email->subject(PROJECT_NAME . ' : Contact Us Inquiry');
-
         $emailOuter = $this->load->view('email/emailoutertemplate',$arrData,true);
         $userMessageBody = $this->load->view('email/contact',$arrData,true);
         $userfullEmailMessage = str_replace('[contentarea]',$userMessageBody,$emailOuter);
@@ -197,10 +192,19 @@ class Frontcontroller extends CI_Controller{
         $adminfullEmailMessage = str_replace('[contentarea]',$adminMessageBody,$emailOuter);
 
         //echo $adminfullEmailMessage; die();
+
+        $this->load->library('email');
+        $this->email->from('info@emansalon.com', PROJECT_NAME);
+        $this->email->to('testerdev111@gmail.com');
+        $this->email->subject(PROJECT_NAME . ' : Contact Us Inquiry');
         $this->email->set_mailtype("html");
         $this->email->message($adminfullEmailMessage);
         $rs = $this->email->send();
 
+        $this->load->library('email');
+        $this->email->from('info@emansalon.com', PROJECT_NAME);
+        $this->email->subject(PROJECT_NAME . ' : Contact Us Inquiry');
+        $this->email->set_mailtype("html");
         $this->email->to('testerdev111@gmail.com');
         $this->email->message($userfullEmailMessage);
         $rs1 = $this->email->send();

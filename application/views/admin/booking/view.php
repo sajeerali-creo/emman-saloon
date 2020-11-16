@@ -364,14 +364,14 @@ if(!isset($lstServicer)){
                                 <div class="small"><?php echo $arrValue['person']; ?> person</div>
                             </div>
                             <div>
-                                <div class="text-right font-weight-bold text-gray-900"><?php echo $arrValue['service']['price']; ?> AED</div>
+                                <div class="text-right font-weight-bold text-gray-900"><?php echo number_format($arrValue['service']['price'], 2, '.', ','); ?> AED</div>
                             </div>
                         </div>
                         <div>
                             <hr>
                         </div><?php
 
-                            $intTotal += $arrValue['person'] * ($arrValue['service']['price'] + $service_charge);
+                            $intTotal += $arrValue['person'] * (number_format($arrValue['service']['price'], 2, '.', '') + number_format($service_charge, 2, '.', ''));
                             $intTotalServiceCharge += $arrValue['person'] * $service_charge;
                         }
                         ?>
@@ -425,7 +425,7 @@ if(!isset($lstServicer)){
                             $intTotal -= $intTotal * ($txtDiscount / 100);
                             $intTotal += $txtServiceCharge;
                             $intTotal += ($intTotal * ($txtVat / 100));
-                            echo $intTotal; ?> AED
+                            echo number_format($intTotal, 2, '.', ','); ?> AED
                         </div>
                     </div>
                 </div><?php

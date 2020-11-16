@@ -5,13 +5,17 @@ class Customers_model extends CI_Model
     function customerListing($selectedActiveStatus = '')
     {
         $this->db->distinct();
-        $this->db->select('c.id, c.first_name, c.last_name, c.email, c.phone_number, c.location_full_address, c.location_lat, c.location_lng, c.status, sum(cm.total_price) as totalPrice, count(cm.id) as totalOrder');
+        $this->db->select('c.id, c.first_name, c.last_name, c.email, c.phone_number, c.location_full_address, c.location_lat, c.location_lng, c.status, sum(cm.total_price) as totalPrice, count(cm.id) as totalOrder, CONCAT(c.first_name, " ", c.last_name) as customerFullName');
         $this->db->from('tbl_customers c');
         $this->db->join('tbl_cartmaster as cm', 'c.id = cm.customer_id');
 
+        if(!empty($selectedActiveStatus)){
+            $this->db->where('c.status', $selectedActiveStatus);
+        }
+
         $this->db->where('c.is_deleted', '0');
         $this->db->where('cm.is_deleted', '0');
-        //$this->db->where('cm.status', 'CN');
+        
         $this->db->group_by('c.id');
         $query = $this->db->get();
 		
@@ -89,10 +93,10 @@ class Customers_model extends CI_Model
         return $insert_id;
     }
 
-    function getCustomerInfoUsingEmail($strEmail){
+    function getCustomerInfoUsingEmail($strPhone){
         $this->db->select('id, first_name, last_name, email, phone_number, location_full_address, location_lat, location_lng');
         $this->db->from('tbl_customers');
-        $this->db->where('email', $strEmail);
+        $this->db->where('phone_number', $strPhone);
         $this->db->where('is_deleted', "0");
         $this->db->where('status', 'AC');
         $query = $this->db->get();

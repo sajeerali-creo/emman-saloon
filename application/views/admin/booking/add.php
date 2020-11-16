@@ -199,11 +199,11 @@
                 </div>
                 <div class="row mb-2" id="divSearchEmail" style="display: none;">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Email</label>
-                        <select name="lstCustomerEmail" class="form-control" id="lstCustomerEmail">
-                            <option value="">Search Email</option><?php
+                        <label class="text-primary">Phone Number</label>
+                        <select name="lstCustomerPhone" class="form-control" id="lstCustomerPhone">
+                            <option value="">Search Phone Number</option><?php
                             foreach ($arrCustomers as $key => $value) {
-                                ?><option value="<?php echo $value->email; ?>" data-name="<?php echo $value->first_name . " " . $value->last_name; ?>" data-phone="<?php echo $value->phone_number; ?>"><?php echo $value->email; ?></option><?php
+                                ?><option value="<?php echo $value->phone_number; ?>" data-name="<?php echo $value->first_name . " " . $value->last_name; ?>" data-phone="<?php echo $value->phone_number; ?>"><?php echo $value->phone_number; ?></option><?php
                             }
                         ?></select>
                     </div>
@@ -211,8 +211,8 @@
                 <!-- persons -->
                 <div class="row mb-2" id="divEnterEmail">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Email</label>
-                        <input type="email" class="form-control" id="txtCustomerEmail" name="txtCustomerEmail" value="" placeholder="abc@example.com" required>
+                        <label class="text-primary">Phone Number</label>
+                        <input type="tel" class="form-control number_only" id="txtCustomerPhone" name="txtCustomerPhone" value="" placeholder="+971" required>
                     </div>
                 </div>
                 <!-- end persons -->
@@ -227,8 +227,8 @@
                 <!-- persons -->
                 <div class="row mb-2">
                     <div class="form-group col-md-6 col-sm-12">
-                        <label class="text-primary">Phone Number</label>
-                        <input type="tel" class="form-control number_only" id="txtCustomerPhone" name="txtCustomerPhone" value="" placeholder="+971" required>
+                        <label class="text-primary">Email</label>
+                        <input type="email" class="form-control" id="txtCustomerEmail" name="txtCustomerEmail" value="" placeholder="abc@example.com" required>
                     </div>
                 </div>
                 <!-- end persons -->

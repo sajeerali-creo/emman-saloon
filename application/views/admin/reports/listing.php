@@ -77,6 +77,19 @@
             </a>
         </div>
         <div class="col-md-3 col-sm-12  mb-4">
+            <a class="font-weight-bold download-trading-summary" data-type="INR" data-label="Inventory Report">
+                <div class="card">
+                    <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"
+                        alt="Card image cap">
+                    <div class="card-body report-body text-center">
+                        <h5 class="card-title text-dark font-weight-bold">Inventory Report</h5>
+                        <p class="card-text font-weight-light">Download the report from the belwo button</p>
+                        <button class="btn btn-dark text-white">Download</button>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-12  mb-4">
             <a class="font-weight-bold download-trading-summary" data-type="PUBE" data-label="Product Use by Employees">
                 <div class="card">
                     <img class="card-img-top" src="<?php echo base_url() ?>assets/admin/img/report.svg"

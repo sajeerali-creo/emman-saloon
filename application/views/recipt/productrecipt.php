@@ -62,6 +62,7 @@
                     $itemTotal -= $itemTotal * ($discount / 100);
                     $itemTotal  = (int)number_format($itemTotal, 2, '.', '');
                     $intOrderTotal += $itemTotal;
+                    $itemTotalNew = $itemTotal + ($itemTotal * ($intVat / 100));
                     ?><tr>
                         <td class="no"><?php echo $intCount++; ?></td>
                         <td class="desc">
@@ -75,7 +76,7 @@
                         </td>
                         <td class="qty"><?php echo $price; ?> AED</td>
                         <td class="unit"><?php echo $quantity; ?></td>
-                        <td class="total"><?php echo number_format($itemTotal, 2, '.', ','); ?> AED</td>
+                        <td class="total"><?php echo number_format($itemTotalNew, 2, '.', ','); ?> AED</td>
                     </tr><?php
                     
                     $intVatAmount = $intOrderTotal * ($intVat / 100);
@@ -85,12 +86,12 @@
                 <tfoot>
                     <tr>
                         <td colspan="2"></td>
-                        <td colspan="2">SUBTOTAL</td>
+                        <td colspan="2">EXCLUSIVE</td>
                         <td><?php echo number_format($intOrderTotal, 2, '.', ',') ?> AED</td>
                     </tr>
                     <tr>
                         <td colspan="2"></td>
-                        <td colspan="2">TAX <?php echo $intVat; ?>%</td>
+                        <td colspan="2">VAT <?php echo $intVat; ?>%</td>
                         <td><?php echo number_format($intVatAmount, 2, '.', ',') ?> AED</td>
                     </tr>
                     <tr>

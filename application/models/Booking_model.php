@@ -309,9 +309,10 @@ class Booking_model extends CI_Model
 
     function getEmployeeServiceFullInfo($startDate, $endDate, $employee = '')
     {
-        $this->db->select('cm.id as cartMasterId, cm.total_price, cm.vat, cm.extra_service_charge, cm.discount_price, cm.status, cm.add_date, cm.cluster_id, c.id as cartId, c.service_id, c.price, c.person, c.service_charge, cm.customer_id, s.title as serviceName, sc.category_name as serviceCategory, WEEK(cm.add_date) weekCount, DATE_FORMAT(cm.add_date, "%Y/%m/%d") as addDate');
+        $this->db->select('cm.id as cartMasterId, cm.total_price, cm.vat, cm.extra_service_charge, cm.discount_price, cm.status, cm.add_date, cm.cluster_id, c.id as cartId, c.service_id, c.price, c.person, c.service_charge, cm.customer_id, s.title as serviceName, sc.category_name as serviceCategory, WEEK(cm.add_date) weekCount, DATE_FORMAT(cm.add_date, "%d/%m/%Y %h:%i:%s %p") as addDate, CONCAT(t.first_name, " ", t.last_name) teamMemberName, CONCAT(cpi.first_name, " ", cpi.last_name) customerName, cpi.address, t.id as employeeId');
         $this->db->from('tbl_cartmaster as cm');
         $this->db->join('tbl_cart as c', 'cm.id = c.cartmaster_id');
+        $this->db->join('tbl_cart_personal_info as cpi', 'cm.id = cpi.cartmaster_id');
         $this->db->join('tbl_cart_servicer as cs', 'c.id = cs.cart_id');
         $this->db->join('tbl_team as t', 't.id = cs.team_id');
         $this->db->join('tbl_services as s', 's.id = c.service_id');
@@ -355,35 +356,49 @@ class Booking_model extends CI_Model
                 $arrCart = (array) $objCart;
 
                 $totalPrice = number_format($objCart->person * $objCart->price, 2, '.', '');
+                $discount = number_format($totalPrice * ($objCart->discount_price/100), 2, '.', '');
                 $totalServiceCharge = number_format($objCart->person * $objCart->service_charge, 2, '.', '');
-                $vatPrice = number_format(($totalPrice + $totalServiceCharge) * ($objCart->vat / 100), 2, '.', '');
+                $vatPrice = number_format(($totalPrice + $totalServiceCharge - $discount) * ($objCart->vat / 100), 2, '.', '');
+                $total = number_format($totalPrice + $totalServiceCharge + $vatPrice - $discount, 2, '.', '');
 
-                if(!isset($arrReturn[$objCart->addDate])){
-                    $arrReturn[$objCart->addDate]['client'] = 1;
-                    $arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory]['serviceQnty'] = $objCart->person;
-                    $arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory]['servicePrice'] = ($totalPrice + $totalServiceCharge);
-                    $arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory]['vatPrice'] = $vatPrice;
-                    $arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory]['totalPrice'] = ($totalPrice + $totalServiceCharge + $vatPrice);
-
+                if(!isset($arrReturn[$objCart->employeeId])){
+                    $arrReturn[$objCart->employeeId]['empName'] = $objCart->teamMemberName;
+                    $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['addDate'] = $objCart->addDate;
+                    $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['trans'] = $objCart->person;
+                    $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['client_name'] = $objCart->customerName;
+                    $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['address'] = $objCart->address;
+                    $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['serviceName'] = $objCart->serviceName;
+                    $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['serviceCatName'] = $objCart->serviceCategory;
+                    $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['price'] = $totalPrice;
+                    $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['discount'] = $discount;
+                    $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['serviceCharge'] = $totalServiceCharge;
+                    $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['vat'] = $vatPrice;
+                    $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['total'] = $total;
                 }
                 else{
 
-                    $arrSelectedCartInfo[] = $objCart->cartMasterId;
-                    if(!in_array($objCart->cartMasterId, $arrSelectedCartInfo)){
-                        $arrReturn[$objCart->addDate]['client'] += 1;
-                    }
-
-                    if(!isset($arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory])){
-                        $arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory]['serviceQnty'] = $objCart->person;
-                        $arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory]['servicePrice'] = ($totalPrice + $totalServiceCharge);
-                        $arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory]['vatPrice'] = $vatPrice;
-                        $arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory]['totalPrice'] = ($totalPrice + $totalServiceCharge + $vatPrice);
+                    if(!isset($arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId])){
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['addDate'] = $objCart->addDate;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['trans'] = $objCart->person;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['client_name'] = $objCart->customerName;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['address'] = $objCart->address;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['serviceName'] = $objCart->serviceName;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['serviceCatName'] = $objCart->serviceCategory;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['price'] = $totalPrice;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['discount'] = $discount;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['serviceCharge'] = $totalServiceCharge;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['vat'] = $vatPrice;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['total'] = $total;
                     }
                     else{
-                        $arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory]['serviceQnty'] += $objCart->person;
-                        $arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory]['servicePrice'] += ($totalPrice + $totalServiceCharge);
-                        $arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory]['vatPrice'] += $vatPrice;
-                        $arrReturn[$objCart->addDate]['services'][$objCart->serviceCategory]['totalPrice'] += ($totalPrice + $totalServiceCharge + $vatPrice);
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['trans'] += $objCart->person;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['serviceName'] = $objCart->serviceName;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['serviceCatName'] = $objCart->serviceCategory;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['price'] = $totalPrice;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['discount'] = $discount;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['serviceCharge'] = $totalServiceCharge;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['vat'] = $vatPrice;
+                        $arrReturn[$objCart->employeeId]['services'][$objCart->cartMasterId]['service'][$objCart->cartId]['total'] = $total;
                     }
                     
                 }

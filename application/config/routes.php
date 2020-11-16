@@ -219,6 +219,7 @@ $route['securepanel/add-sell-product-info-ajax'] = "admin/Invetory/addSellProduc
 
 $route['securepanel/customers'] = "admin/Customers/listing";
 $route['securepanel/delete-customer'] = "admin/Customers/deleteCustomer";
+$route['securepanel/send-offers-to-customers'] = "admin/Customers/sendOffersToCustomers";
 
 $route['securepanel/reports'] = "admin/Reports/listing";
 $route['securepanel/reports/sample'] = "admin/Reports/samplePdf";

@@ -189,7 +189,6 @@ class Booking extends BaseController
                 print_r($lstProduct);
                 die();*/
 
-
                 $txtServiceCharge = (empty($txtServiceCharge) ? 0 : $txtServiceCharge);
                 $txtDiscount = (empty($txtDiscount) ? 0 : $txtDiscount);
 
@@ -248,7 +247,7 @@ class Booking extends BaseController
                                             );
                             $cartId = $this->cart_model->addIntoCartInfo($arrCartInfo);
 
-                            $cartTotalPrice += $txtPersonCount[$key] * ($arrAllServices[$value]['info']["price"] + $service_charge);
+                            $cartTotalPrice += $txtPersonCount[$key] * (number_format($arrAllServices[$value]['info']["price"], 2, '.', '') + number_format($service_charge, 2, '.', ''));
                             
                             for($intSlotCount = 1; $intSlotCount <= ($arrAllServices[$value]['info']["time_duration"] * 2); $intSlotCount++){
                                 $arrSlots[] = $value;
@@ -325,11 +324,20 @@ class Booking extends BaseController
 
                         if($cartTotalPrice < 0) $cartTotalPrice = 0;
                     }
+                    $cartTotalPrice += $txtServiceCharge;
+                    $cartTotalPrice += $cartTotalPrice * ($txtVat / 100);
 
-                    $cartTotalPrice += $cartTotalPrice * 0.05;
-
-                    $arrCartMasterInfo = array( "total_price" => $cartTotalPrice, "service_slots" => count($arrSlots), "order_id" => "ES" . $cartMasterId, 'invoice_number' => date('Ymd') . "-" . $cartMasterId);
+                    $arrCartMasterInfo = array( "total_price" => number_format($cartTotalPrice, 2, '.', ''), "service_slots" => count($arrSlots), "order_id" => "ES" . $cartMasterId, 'invoice_number' => date('Ymd') . "-" . $cartMasterId);
                     $this->cart_model->updateCartMaster($arrCartMasterInfo, $cartMasterId);
+
+                    $arrBookingMailInfo = array();
+                    $arrBookingMailInfo['name'] = $txtCustomerName;
+                    $arrBookingMailInfo['email'] = $txtCustomerEmail;
+                    $arrBookingMailInfo['orderDateTime'] = date("d M, Y | h:i:s A");
+                    $arrBookingMailInfo['order_id'] = "ES" . $cartMasterId;
+                    $arrBookingMailInfo['invoice_number'] = date('Ymd') . "-" . $cartMasterId;
+
+                    $this->fnSendBookingMail($arrBookingMailInfo);
 
                     $this->session->set_flashdata('success', 'Booking is added successfully');
 
@@ -350,6 +358,22 @@ class Booking extends BaseController
 
             }
         }
+    }
+
+    function fnSendBookingMail($arrData)
+    {
+        $emailOuter = $this->load->view('email/emailoutertemplate',$arrData,true);
+        $userMessageBody = $this->load->view('email/orderconfirm',$arrData,true);
+        $userfullEmailMessage = str_replace('[contentarea]',$userMessageBody,$emailOuter);
+
+        $this->load->library('email');
+        $this->email->from('info@emansalon.com', PROJECT_NAME);
+        $this->email->to('testerdev111@gmail.com');
+        $this->email->to($arrData['email'], $arrData['name']);
+        $this->email->subject(PROJECT_NAME . ' : Booking Confirmed');
+        $this->email->set_mailtype("html");
+        $this->email->message($userfullEmailMessage);
+        $rs = $this->email->send();
     }
 
     function editBooking($bookingId = NULL)
@@ -566,7 +590,7 @@ class Booking extends BaseController
                             $this->cart_model->addIntoNotification($bookingId, "serviceboy", $value);
                             $totalTeam++;
 
-                            $cartTotalPrice += $txtPersonCount[$key] * ($arrAllServices[$value]['info']["price"] + $service_charge);
+                            $cartTotalPrice += $txtPersonCount[$key] * (number_format($arrAllServices[$value]['info']["price"], 2, '.', '') + number_format($service_charge, 2, '.', ''));
                             for($intSlotCount = 1; $intSlotCount <= ($arrAllServices[$value]['info']["time_duration"] * 2); $intSlotCount++){
                                 $arrSlots[] = $value;
                             }
@@ -606,9 +630,10 @@ class Booking extends BaseController
                         if($cartTotalPrice < 0) $cartTotalPrice = 0;
                     }
 
-                    $cartTotalPrice += $cartTotalPrice * 0.05;
+                    $cartTotalPrice += $txtServiceCharge;
+                    $cartTotalPrice += $cartTotalPrice * ($txtVat / 100);
 
-                    $arrCartMasterInfo = array( "total_price" => $cartTotalPrice, "service_slots" => count($arrSlots));
+                    $arrCartMasterInfo = array( "total_price" => number_format($cartTotalPrice, 2, '.', ''), "service_slots" => count($arrSlots));
                     $this->cart_model->updateCartMaster($arrCartMasterInfo, $bookingId);
 
                     $this->session->set_flashdata('success', 'Booking is updated successfully');
@@ -973,14 +998,17 @@ class Booking extends BaseController
     }
 
     function checkCustomerInfo(){
-        $customerEmail = $this->security->xss_clean($this->input->post('customerEmail'));
+        $customerPhone = $this->security->xss_clean($this->input->post('customerPhone'));
 
-        $objCustInfo = $this->customers_model->getCustomerInfoUsingEmail($customerEmail);
+        $objCustInfo = $this->customers_model->getCustomerInfoUsingEmail($customerPhone);
 
         $arrCustInfo = (array) $objCustInfo;
 
         if(!empty($arrCustInfo)){
             echo(json_encode(array('status'=>TRUE, "custInfo" => $arrCustInfo))); 
+        }
+        else{
+            echo(json_encode(array('status'=>false, "custInfo" => array()))); 
         }
     }
 

@@ -12,6 +12,7 @@ class Serviceboycontroller extends CI_Controller{
 
         $this->load->model('serviceboy_model');
         $this->load->model('booking_model');
+        $this->load->model('team_model');
 
         /*$this->load->model('Contactus_model');
         $this->load->model('Classes_model');*/
@@ -145,15 +146,20 @@ class Serviceboycontroller extends CI_Controller{
             $orderId = $this->input->post('orderId');
             $paymentType = $this->input->post('paymentType');
             $cardNumber = $this->input->post('cardNumber');
+            $cardType = $this->input->post('cardType');
 
             if($paymentType != 'card'){
                 $cardNumber = '';
+                $cardType = 'Cash';
             }
 
             $serviceInfo = array('cartmaster_id' => $orderId, 'team_id' => $this->serviceBoyUserId, 'action' => 'complete', 'payment_type' => $paymentType, 'card_number' => $cardNumber, 'note' => '', 'add_date' => date('Y-m-d H:i:s'));
             $result = $this->serviceboy_model->addNewServiceBoyOrderAction($serviceInfo);
             if ($result > 0) { 
-                $this->cart_model->updateCartMaster(array('status' => 'CM', 'payment_type' => $paymentType, 'card_number' => $cardNumber), $orderId);
+                $this->cart_model->updateCartMaster(array('status' => 'CM', 'card_type' => $cardType, 'payment_type' => $paymentType, 'card_number' => $cardNumber), $orderId);
+                // Function call for the mail sending.
+                $this->fnSendBookingMail($orderId);
+
                 //Function call for add into admin notification
                 $this->cart_model->addIntoNotification($orderId, "admin");
                 echo(json_encode(array('status'=>TRUE))); 
@@ -162,6 +168,28 @@ class Serviceboycontroller extends CI_Controller{
                 echo(json_encode(array('status'=>FALSE))); 
             }
         }
+    }
+
+    function fnSendBookingMail($bookingId)
+    {   
+        $data = array();
+        $data['bookingInfo'] = $this->booking_model->getBookingInfo($bookingId);
+        $data['bookingTeamProductInfo'] = $this->booking_model->getBookingServicerProductInfo($bookingId);
+        $data['serviceInfo'] = $this->getAllServices(false);
+        $data['teamInfo'] = $this->getTeamInfo();
+
+        $userMessageBody = $this->load->view('email/ordercomplete', $data,true);
+
+        $this->load->library('email');
+        $this->email->from('info@emansalon.com', PROJECT_NAME);
+        $this->email->to('testerdev111@gmail.com');
+        $this->email->to($data['bookingInfo']['info']['email'], $data['bookingInfo']['info']['first_name']);
+        $this->email->subject(PROJECT_NAME . ' : ' . $data['bookingInfo']['info']['invoice_number'] . 'Booking Completed');
+        $this->email->set_mailtype("html");
+        $this->email->message($userMessageBody);
+        $rs = $this->email->send();
+
+        return $rs;
     }
 
     public function rejectOrder(){
@@ -227,6 +255,33 @@ class Serviceboycontroller extends CI_Controller{
         /*echo "<pre>";
         print_r($arrReturn);
         die();*/
+        return $arrReturn;
+    }
+
+    function getAllServices($flGroupByCategory = true, $type = '')
+    {
+        $arrServices = $this->service_model->serviceListing("AC", true, $type);
+
+        $arrFinal = array();
+        foreach ($arrServices as $record) {
+            if($flGroupByCategory){
+                $arrFinal[$record->category_name][] = $record;
+            }
+            else{
+                $arrFinal[$record->id] = (array)$record;
+            }
+        }
+        return $arrFinal;
+    }
+
+    function getTeamInfo()
+    {
+        $arrTeam = $this->team_model->teamListing();
+        $arrReturn = array();
+        foreach ($arrTeam as $key => $value) {
+            $arrReturn[] = array("id" => $value->id, 
+                                "name" => $value->first_name . " " . $value->last_name);
+        }
         return $arrReturn;
     }
 

@@ -24,6 +24,7 @@ class Reports extends BaseController
         $this->load->model('cart_model');
         $this->load->model('report_model');
         $this->load->model('invetory_model');
+        $this->load->model('supplier_model');
         $this->isLoggedIn();   
     }
    
@@ -131,6 +132,12 @@ class Reports extends BaseController
                 //Function for generate trading summary report
                 $strHtml = $this->getStockReceivedReport($this->startDate, $this->endDate);
                 $strFileName = 'Stock_Received';
+                break;
+
+            case 'INR':
+                //Function for generate trading summary report
+                $strHtml = $this->getInventoryReport($this->startDate, $this->endDate);
+                $strFileName = 'Inventory_Report';
                 break;
 
             case 'PUBE':
@@ -315,6 +322,21 @@ class Reports extends BaseController
         $data["arrAllStockInfo"] = $arrData;
 
         $reportTemplate = $this->load->view('reportspdf/INSR', $data, true);
+
+        return $reportTemplate;
+    }
+
+    function getInventoryReport($startDate, $endDate)
+    {
+        $data = array();
+        $data['logo'] = $this->getLogoPath();
+        $data["fromDate"] = date("l, d F, Y", strtotime($startDate));
+        $data["toDate"] = date("l, d F, Y", strtotime($endDate));
+        $data["datePeriod"] = $this->getDateDifference($startDate, $endDate);
+        $data["dataRecords"] = $this->invetory_model->productListing('', $startDate, $endDate);
+        $data["supplierRecords"] = $this->getAllSupplierInfo();
+
+        $reportTemplate = $this->load->view('reportspdf/INR', $data, true);
 
         return $reportTemplate;
     }
@@ -631,6 +653,20 @@ class Reports extends BaseController
 
         $arrData = $this->booking_model->getEmployeeServiceFullInfo($startDate, $endDate, $employee);
         return $arrData;
+    }
+
+    function getAllSupplierInfo(){
+        $objSupplierInfo = $this->supplier_model->supplierListing();
+
+        $arrReturn = array();
+
+        foreach ($objSupplierInfo as $key => $value) {
+            $arrReturn[$value->id] = (array)$value;
+            $arrCategory = explode(',_,_,', $value->category);
+            $arrReturn[$value->id]['category'] = $arrCategory;
+        }
+
+        return $arrReturn;
     }
 }
 

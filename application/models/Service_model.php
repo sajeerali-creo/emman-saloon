@@ -213,6 +213,26 @@ class Service_model extends CI_Model
      
         return $result;
     }
+
+
+    function fnGetSpecialServices()
+    {
+        $this->db->select('BaseTbl.id, BaseTbl.title, BaseTbl.title_ar, BaseTbl.category_id, BaseTbl.price, BaseTbl.status, BaseTbl.add_date, sc.category_name, BaseTbl.type, BaseTbl.fl_special, BaseTbl.time_duration, BaseTbl.fl_special');
+        $this->db->from('tbl_services as BaseTbl');
+        $this->db->join('tbl_services_category as sc', 'sc.id = BaseTbl.category_id');
+        $this->db->where('BaseTbl.status', 'AC');
+        $this->db->where('BaseTbl.fl_special', 'Y');
+        $this->db->where('sc.status', 'AC');
+        $this->db->where('sc.is_deleted', '0');
+        $this->db->where('BaseTbl.is_deleted', '0');
+        $this->db->order_by("BaseTbl.title", "ASC");
+        $this->db->order_by("BaseTbl.add_date", "DESC");
+
+        $query = $this->db->get();
+        $result = $query->result();  //print_r($this->db->last_query());    die();
+     
+        return $result;
+    }
 }
 
   

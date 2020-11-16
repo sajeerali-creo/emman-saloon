@@ -156,7 +156,13 @@
                                 <strong><?php echo ucwords(strtolower($key)); ?></strong>
                             </td>
                         </tr><?php
+                        $intQntyTot = 0;
+                        $intCostTot = 0;
+                        $arrClusterServieTot = array();
+                        $arrClusterFullTot = array();
                         foreach ($arrServiceItemInfo as $key1 => $value) {
+                            $intQntyTot += $value['qnty'];
+                            $intCostTot += number_format($value['totalPrice'], 2, '.', '');
                             ?><tr>
                                 <td style="font-size:12px"><?php echo ucwords(strtolower($key1)); ?></td>
                                 <td style="font-size:12px"><?php echo $value['qnty']; ?></td>
@@ -165,12 +171,16 @@
 
                                     foreach ($arrClusterInfo as $clusterId => $clusterName) {
                                         echo $clusterName . " (";
-                                        if(isset($value['serviceCharge'][$clusterId])){
-                                            echo number_format($value['serviceCharge'][$clusterId], 2);
+                                        if(!isset($value['serviceCharge'][$clusterId])){
+                                            $value['serviceCharge'][$clusterId] = 0;
+                                        }
+                                        if(!isset($arrClusterServieTot[$clusterId])){
+                                            $arrClusterServieTot[$clusterId] = number_format($value['serviceCharge'][$clusterId], 2, '.', '');
                                         }
                                         else{
-                                            echo "0.00";
+                                            $arrClusterServieTot[$clusterId] += number_format($value['serviceCharge'][$clusterId], 2, '.', '');
                                         }
+                                        echo number_format($value['serviceCharge'][$clusterId], 2);
                                         echo ")<br/>";
                                     }
                                 ?></td>
@@ -178,17 +188,49 @@
 
                                     foreach ($arrClusterInfo as $clusterId => $clusterName) {
                                         echo $clusterName . " (";
-                                        if(isset($value['grnadTotalPrice'][$clusterId])){
-                                            echo number_format($value['grnadTotalPrice'][$clusterId], 2);
+                                        if(!isset($value['grnadTotalPrice'][$clusterId])){
+                                            $value['grnadTotalPrice'][$clusterId] = 0;
+                                        }
+                                        if(!isset($arrClusterFullTot[$clusterId])){
+                                            $arrClusterFullTot[$clusterId] = number_format($value['grnadTotalPrice'][$clusterId], 2, '.', '');
                                         }
                                         else{
-                                            echo "0.00";
+                                            $arrClusterFullTot[$clusterId] += number_format($value['grnadTotalPrice'][$clusterId], 2, '.', '');
                                         }
+                                        echo number_format($value['grnadTotalPrice'][$clusterId], 2);
                                         echo ")<br/>";
                                     }
                                 ?></td>
                             </tr><?php
                         }
+                        ?><!-- total -->
+                        <tr style="background-color: #f2f2f2;">
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo $intQntyTot; ?></strong></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($intCostTot, 2); ?></strong>
+                            </td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php 
+                                foreach ($arrClusterInfo as $clusterId => $clusterName) {
+                                    echo $clusterName . " (";
+                                    if(!isset($arrClusterServieTot[$clusterId])){
+                                        $arrClusterServieTot[$clusterId] = 0;
+                                    }
+                                    echo number_format($arrClusterServieTot[$clusterId], 2);
+                                    echo ")<br/>";
+                                }
+                            ?></strong></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php 
+                                foreach ($arrClusterInfo as $clusterId => $clusterName) {
+                                    echo $clusterName . " (";
+                                    if(!isset($arrClusterFullTot[$clusterId])){
+                                        $arrClusterFullTot[$clusterId] = 0;
+                                    }
+                                    echo number_format($arrClusterFullTot[$clusterId], 2);
+                                    echo ")<br/>";
+                                }
+                            ?></strong></td>
+                        </tr>
+                        <!-- total --><?php
                     }
                 }
                 else{

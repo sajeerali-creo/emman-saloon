@@ -103,8 +103,8 @@
                                                 <th>Category</th>
                                                 <th>Product Name</th>
                                                 <th>Total Qty</th>
-                                                <th>Date fo add</th>
-                                                <th>Cost fo Buy (AED)</th>
+                                                <th>Date of add</th>
+                                                <th>Cost of Buy (AED)</th>
                                                 <th>Buy Tax</th>
                                                 <th>Cost Sales (AED)</th>
                                                 <th>Sell Tax</th>

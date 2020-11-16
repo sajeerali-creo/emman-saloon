@@ -104,8 +104,8 @@
                                             ?><th class="text-info status-booking-<?php echo $record['info']['cartMasterId']; ?>">Servicer Confirmed</th><?php
                                         }
                                         else{
-                                            ?><th class="text-success">
-                                                Completed<br/>
+                                            ?><th>
+                                                <div class="text-success">Completed</div>
                                                 <?php 
                                                 if($record['info']['payment_type'] == 'card'){
                                                     echo "Paid by Card";

@@ -102,9 +102,9 @@ define('SEGMENT',								100);
 
 /************************** EMAIL CONSTANTS *****************************/
 
-define('EMAIL_FROM',                            'Your from email');		// e.g. email@example.com
+define('EMAIL_FROM',                            'info@emansalon.com');		// e.g. email@example.com
 define('EMAIL_BCC',                            	'Your bcc email');		// e.g. email@example.com
-define('FROM_NAME',                             'CIAS Admin System');	// Your system name
+define('FROM_NAME',                             'Eman Saloon');	// Your system name
 define('EMAIL_PASS',                            'Your email password');	// Your email password
 define('PROTOCOL',                             	'smtp');				// mail, sendmail, smtp
 define('SMTP_HOST',                             'Your smtp host');		// your smtp host e.g. smtp.gmail.com

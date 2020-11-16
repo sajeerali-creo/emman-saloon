@@ -69,7 +69,7 @@
         #customers td,
         #customers th {
             padding: 8px;
-            font-size: 12px;
+            font-size: 8px;
         }
 
         #customers tr:nth-child(even) {
@@ -166,301 +166,129 @@
                     </td>
                 </tr>
             </table>
-            <hr>
+            <hr><?php
 
+            foreach ($arrEmployeeServiceInfo as $empId => $arrEmpValue) {
 
-            <!-- each employee loop start here -->
-            <table id="customers" style="width:100%; margin-bottom: 20px;">
-                <tr>
-                    <th style="font-size:12px">Date</th>
-                    <th style="font-size:12px">Tranc</th>
-                    <th style="font-size:12px">Client</th>
-                    <th style="font-size:12px">Item</th>
-                    <th style="font-size:12px;">Amount</th>
-                    <th style="font-size:12px;">Discount</th>
-                    <th style="font-size:12px;">Service Charge</th>
-                    <th style="font-size:12px;">Vat(5%)</th>
-                    <th style="font-size:12px;text-align: right">Total Amount Session</th>
-                </tr>
-                <tr>
-                    <td colspan="9">
-                        <strong>Joy.</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">
-                        31/10/2020 03:18:04PM
-                    </td>
-                    <td style="font-size:12px">12</td>
-                    <td style="font-size:12px"><b>Arjun</b><br>Dubai, United Arab Emirates</td>
-                    <td style="font-size:12px">
-                        Pedicure<br>
-                        Nail polish hand/Nail polish<br>
-                        Manicure/Manicure<br>
-                    </td>
-                    <td style="font-size:12px;">
-                        74.00<br>
-                        61.00<br>
-                        63.00
-                    </td>
-                    <td style="font-size:12px;">
-                        0.00<br>
-                        0.00<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px;">
-                        0.00<br>
-                        0.00<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px;">
-                        74.00<br>
-                        61.00<br>
-                        63.00</td>
-                    <td style="font-size:12px; text-align: right">
-                        74.00<br>
-                        61.00<br>
-                        63.00</td>
-                </tr>
-                <!-- total -->
-                <tr>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>20</strong>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right">
-                        <strong>168.54</strong></td>
-                </tr>
-                <!-- total -->
-                <tr>
-                    <td style="font-size:12px">
-                        31/10/2020 03:18:04PM
-                    </td>
-                    <td style="font-size:12px">12</td>
-                    <td style="font-size:12px"><b>Arjun</b><br>Dubai, United Arab Emirates</td>
-                    <td style="font-size:12px">
-                        Pedicure<br>
-                        Nail polish hand/Nail polish<br>
-                        Manicure/Manicure<br>
-                    </td>
-                    <td style="font-size:12px;">
-                        74.00<br>
-                        61.00<br>
-                        63.00
-                    </td>
-                    <td style="font-size:12px;">
-                        0.00<br>
-                        0.00<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px;">
-                        0.00<br>
-                        0.00<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px;">
-                        74.00<br>
-                        61.00<br>
-                        63.00</td>
-                    <td style="font-size:12px; text-align: right">
-                        74.00<br>
-                        61.00<br>
-                        63.00</td>
-                </tr>
-                <!-- total -->
-                <tr>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>20</strong>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right">
-                        <strong>168.54</strong></td>
-                </tr>
-                <!-- total -->
-                <!-- grand total -->
-                <tr>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 20px;">
-                            <strong>20</strong>
+                $intPersonTransTot = 0;
+                $intPersonAmtTot = 0;
+                $intPersonDisTot = 0;
+                $intPersonSerChgTot = 0;
+                $intPersonVatTot = 0;
+                $intPersonTotAmtTot = 0;
+
+                ?> <!-- each employee loop start here -->
+                <table id="customers" style="width:100%; margin-bottom: 20px;">
+                    <tr>
+                        <th style="font-size:8px">Date</th>
+                        <th style="font-size:8px">Tranc</th>
+                        <th style="font-size:8px">Client</th>
+                        <th style="font-size:8px">Item</th>
+                        <th style="font-size:8px;">Amount</th>
+                        <th style="font-size:8px;">Discount</th>
+                        <th style="font-size:8px;">Service Charge</th>
+                        <th style="font-size:8px;">Vat(5%)</th>
+                        <th style="font-size:8px;text-align: right">Total Amount Session</th>
+                    </tr>
+                    <tr>
+                        <td colspan="9">
+                            <strong><?php echo $arrEmpValue['empName']; ?></strong>
                         </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 20px;">
-                        <strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 20px;">
-                        <strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 20px;">
-                        <strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 20px;">
-                        <strong>0.00</strong></td>
-                    <td
-                        style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right; font-size: 20px;">
-                        <strong>168.54</strong></td>
-                </tr>
-                <!-- grand total -->
-            </table>
-            <!-- end each employee loop start here -->
-            <!-- each employee loop start here -->
-            <table id="customers" style="width:100%; margin-bottom: 20px;">
-                <tr>
-                    <th style="font-size:12px">Date</th>
-                    <th style="font-size:12px">Tranc</th>
-                    <th style="font-size:12px">Client</th>
-                    <th style="font-size:12px">Item</th>
-                    <th style="font-size:12px;">Amount</th>
-                    <th style="font-size:12px;">Discount</th>
-                    <th style="font-size:12px;">Service Charge</th>
-                    <th style="font-size:12px;">Vat(5%)</th>
-                    <th style="font-size:12px;text-align: right">Total Amount Session</th>
-                </tr>
-                <tr>
-                    <td colspan="9">
-                        <strong>Joy.</strong>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size:12px">
-                        31/10/2020 03:18:04PM
-                    </td>
-                    <td style="font-size:12px">12</td>
-                    <td style="font-size:12px"><b>Arjun</b><br>Dubai, United Arab Emirates</td>
-                    <td style="font-size:12px">
-                        Pedicure<br>
-                        Nail polish hand/Nail polish<br>
-                        Manicure/Manicure<br>
-                    </td>
-                    <td style="font-size:12px;">
-                        74.00<br>
-                        61.00<br>
-                        63.00
-                    </td>
-                    <td style="font-size:12px;">
-                        0.00<br>
-                        0.00<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px;">
-                        0.00<br>
-                        0.00<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px;">
-                        74.00<br>
-                        61.00<br>
-                        63.00</td>
-                    <td style="font-size:12px; text-align: right">
-                        74.00<br>
-                        61.00<br>
-                        63.00</td>
-                </tr>
-                <!-- total -->
-                <tr>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>20</strong>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right">
-                        <strong>168.54</strong></td>
-                </tr>
-                <!-- total -->
-                <tr>
-                    <td style="font-size:12px">
-                        31/10/2020 03:18:04PM
-                    </td>
-                    <td style="font-size:12px">12</td>
-                    <td style="font-size:12px"><b>Arjun</b><br>Dubai, United Arab Emirates</td>
-                    <td style="font-size:12px">
-                        Pedicure<br>
-                        Nail polish hand/Nail polish<br>
-                        Manicure/Manicure<br>
-                    </td>
-                    <td style="font-size:12px;">
-                        74.00<br>
-                        61.00<br>
-                        63.00
-                    </td>
-                    <td style="font-size:12px;">
-                        0.00<br>
-                        0.00<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px;">
-                        0.00<br>
-                        0.00<br>
-                        0.00
-                    </td>
-                    <td style="font-size:12px;">
-                        74.00<br>
-                        61.00<br>
-                        63.00</td>
-                    <td style="font-size:12px; text-align: right">
-                        74.00<br>
-                        61.00<br>
-                        63.00</td>
-                </tr>
-                <!-- total -->
-                <tr>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>20</strong>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right">
-                        <strong>168.54</strong></td>
-                </tr>
-                <!-- total -->
-                <!-- grand total -->
-                <tr>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 20px;">
-                            <strong>20</strong>
+                    </tr><?php
+
+                    foreach ($arrEmpValue['services'] as $cartMasterId => $arrServiceInfo) {
+                        $intServiceTransTot = 0;
+                        $intServiceAmtTot = 0;
+                        $intServiceDisTot = 0;
+                        $intServiceSerChgTot = 0;
+                        $intServiceVatTot = 0;
+                        $intServiceTotAmtTot = 0;
+
+                        $intServiceTransTot = $arrServiceInfo['trans'];
+                        $strServiceName = '';
+                        $strServiceAmt = '';
+                        $strServiceDis = '';
+                        $strServiceSerChg = '';
+                        $strServiceVat = '';
+                        $strServiceTotAmt = '';
+
+                        foreach ($arrServiceInfo['service'] as $cartId => $value) {
+                            $strServiceName .= $value['serviceName'] . "<br/>";
+                            $strServiceAmt .= number_format($value['price'], 2) . "<br/>";
+                            $strServiceDis .= number_format($value['discount'], 2) . "<br/>";
+                            $strServiceSerChg .= number_format($value['serviceCharge'], 2) . "<br/>";
+                            $strServiceVat .= number_format($value['vat'], 2) . "<br/>";
+                            $strServiceTotAmt .= number_format($value['total'], 2) . "<br/>";
+
+                            $intServiceAmtTot += $value['price'];
+                            $intServiceDisTot += $value['discount'];
+                            $intServiceSerChgTot += $value['serviceCharge'];
+                            $intServiceVatTot += $value['vat'];
+                            $intServiceTotAmtTot += $value['total'];
+                        }
+
+                        ?><tr>
+                            <td style="font-size:8px"><?php echo $arrServiceInfo['addDate']; ?></td>
+                            <td style="font-size:8px"><?php echo $arrServiceInfo['trans']; ?></td>
+                            <td style="font-size:8px"><b><?php echo $arrServiceInfo['client_name']; ?></b><br><?php echo $arrServiceInfo['address']; ?></td>
+                            <td style="font-size:8px"><?php echo $strServiceName; ?></td>
+                            <td style="font-size:8px;"><?php echo $strServiceAmt; ?></td>
+                            <td style="font-size:8px;"><?php echo $strServiceDis; ?></td>
+                            <td style="font-size:8px;"><?php echo $strServiceSerChg; ?></td>
+                            <td style="font-size:8px;"><?php echo $strServiceVat; ?></td>
+                            <td style="font-size:8px; text-align: right"><?php echo $strServiceTotAmt; ?></td>
+                        </tr>
+                        <?php
+
+                        ?><!-- total -->
+                        <tr style="background-color: #f2f2f2;">
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo $intServiceTransTot; ?></strong></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($intServiceAmtTot, 2); ?></strong>
+                            </td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($intServiceDisTot, 2); ?></strong></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($intServiceSerChgTot, 2); ?></strong></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"><strong><?php echo number_format($intServiceVatTot, 2); ?></strong></td>
+                            <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right">
+                                <strong><?php echo number_format($intServiceTotAmtTot, 2); ?></strong></td>
+                        </tr>
+                        <!-- total --><?php
+
+                        $intPersonTransTot += $intServiceTransTot;
+                        $intPersonAmtTot += $intServiceAmtTot;
+                        $intPersonDisTot += $intServiceDisTot;
+                        $intPersonSerChgTot += $intServiceSerChgTot;
+                        $intPersonVatTot += $intServiceVatTot;
+                        $intPersonTotAmtTot += $intServiceTotAmtTot;
+                    }
+
+                    ?><!-- grand total -->
+                    <tr>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 12px;">
+                                <strong><?php echo $intPersonTransTot; ?></strong>
+                            </td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 12px;">
+                            <strong><?php echo number_format($intPersonAmtTot, 2); ?></strong>
                         </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333;"></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 20px;">
-                        <strong>5,056.22</strong>
-                    </td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 20px;">
-                        <strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 20px;">
-                        <strong>0.00</strong></td>
-                    <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 20px;">
-                        <strong>0.00</strong></td>
-                    <td
-                        style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right; font-size: 20px;">
-                        <strong>168.54</strong></td>
-                </tr>
-                <!-- grand total -->
-            </table>
-            <!-- end each employee loop start here -->
-
-        
-
-
-
-
-            
-
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 12px;">
+                            <strong><?php echo number_format($intPersonDisTot, 2); ?></strong></td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 12px;">
+                            <strong><?php echo number_format($intPersonSerChgTot, 2); ?></strong></td>
+                        <td style="border-top: 2px solid #333; border-bottom: 2px solid #333; font-size: 12px;">
+                            <strong><?php echo number_format($intPersonVatTot, 2); ?></strong></td>
+                        <td
+                            style="border-top: 2px solid #333; border-bottom: 2px solid #333; text-align: right; font-size: 12px;">
+                            <strong><?php echo number_format($intPersonTotAmtTot, 2); ?></strong></td>
+                    </tr>
+                    <!-- grand total -->
+                </table><?php
+            }
+            ?>
         </div>
     </div>
 
