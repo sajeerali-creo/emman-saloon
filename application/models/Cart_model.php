@@ -511,4 +511,18 @@ class Cart_model extends CI_Model
             return false;
         }
     }
+
+    function getOldNewCustomers($startDate, $endDate){
+        $this->db->select('SUM(IF(cu.add_date >= "' . $startDate . '", 1, 0)) as newCust, SUM(IF(cu.add_date < "' . $startDate . '", 1, 0)) as oldCust');
+        $this->db->from('tbl_cartmaster cm');
+        $this->db->join('tbl_customers cu', 'cu.id = cm.customer_id');
+        $this->db->where('cm.is_deleted', '0');
+        $this->db->where('cu.is_deleted', '0');
+        $this->db->where('cm.add_date >=', $startDate);
+        $this->db->where('cm.add_date <=', $endDate);
+        $query = $this->db->get();
+        //print_r($this->db->last_query());    die();
+
+        return $query->row();
+    }
 }

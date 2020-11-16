@@ -52,68 +52,79 @@
                 <a class="nav-link" href="<?php echo base_url(); ?>securepanel/dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
-            </li>
+            </li><?php
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Bookings -->
-            <li class="nav-item <?php echo( ( $currBaseUrl == 'booking') ? "active" : ""); ?>">
-                <a class="nav-link" href="<?php echo base_url(); ?>securepanel/booking">
-                    <i class="far fa-hand-pointer"></i>
-                    <span>Bookings</span></a>
-            </li>
+            if($vendorId != 10){
+                ?><!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Nav Item - Bookings -->
+                <li class="nav-item <?php echo( ( $currBaseUrl == 'booking') ? "active" : ""); ?>">
+                    <a class="nav-link" href="<?php echo base_url(); ?>securepanel/booking">
+                        <i class="far fa-hand-pointer"></i>
+                        <span>Bookings</span></a>
+                </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Services -->
-            <li class="nav-item <?php echo( ( $currBaseUrl == 'services') ? "active" : ""); ?>">
-                <a class="nav-link" href="<?php echo base_url(); ?>securepanel/services">
-                    <i class="fab fa-servicestack"></i>
-                    <span>Services</span></a>
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Team -->
-            <li class="nav-item <?php echo( ( $currBaseUrl == 'team') ? "active" : ""); ?>">
-                <a class="nav-link" href="<?php echo base_url(); ?>securepanel/team">
-                    <i class="fas fa-user-friends"></i>
-                    <span>Team</span></a>
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Invetory -->
-            <li class="nav-item <?php echo( ( $currBaseUrl == 'invetory') ? "active" : ""); ?> ">
-                <a class="nav-link" href="<?php echo base_url(); ?>securepanel/invetory">
-                    <i class="fas fa-list-ul"></i>
-                    <span>Inventory</span></a>
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Suppliers -->
-            <li class="nav-item <?php echo( ( $currBaseUrl == 'suppliers') ? "active" : ""); ?>">
-                <a class="nav-link" href="<?php echo base_url(); ?>securepanel/suppliers">
-                    <i class="fas fa-truck-loading"></i>
-                    <span>Suppliers</span></a>
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Customers -->
-            <li class="nav-item <?php echo( ( $currBaseUrl == 'customers') ? "active" : ""); ?>">
-                <a class="nav-link" href="<?php echo base_url(); ?>securepanel/customers">
-                    <i class="fas fa-user"></i>
-                    <span>Customers</span></a>
-            </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Nav Item - Services -->
+                <li class="nav-item <?php echo( ( $currBaseUrl == 'services') ? "active" : ""); ?>">
+                    <a class="nav-link" href="<?php echo base_url(); ?>securepanel/services">
+                        <i class="fab fa-servicestack"></i>
+                        <span>Services</span></a>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Nav Item - Team -->
+                <li class="nav-item <?php echo( ( $currBaseUrl == 'team') ? "active" : ""); ?>">
+                    <a class="nav-link" href="<?php echo base_url(); ?>securepanel/team">
+                        <i class="fas fa-user-friends"></i>
+                        <span>Team</span></a>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Nav Item - Invetory -->
+                <li class="nav-item <?php echo( ( $currBaseUrl == 'invetory') ? "active" : ""); ?> ">
+                    <a class="nav-link" href="<?php echo base_url(); ?>securepanel/invetory">
+                        <i class="fas fa-list-ul"></i>
+                        <span>Inventory</span></a>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Nav Item - Suppliers -->
+                <li class="nav-item <?php echo( ( $currBaseUrl == 'suppliers') ? "active" : ""); ?>">
+                    <a class="nav-link" href="<?php echo base_url(); ?>securepanel/suppliers">
+                        <i class="fas fa-truck-loading"></i>
+                        <span>Suppliers</span></a>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Nav Item - Customers -->
+                <li class="nav-item <?php echo( ( $currBaseUrl == 'customers') ? "active" : ""); ?>">
+                    <a class="nav-link" href="<?php echo base_url(); ?>securepanel/customers">
+                        <i class="fas fa-user"></i>
+                        <span>Customers</span></a>
+                </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Customers -->
-            <li class="nav-item <?php echo( ( $currBaseUrl == 'reports') ? "active" : ""); ?>">
-                <a class="nav-link" href="<?php echo base_url(); ?>securepanel/reports">
-                    <i class="fas fa-poll"></i>
-                    <span>Reports</span></a>
-            </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Nav Item - Customers -->
+                <li class="nav-item <?php echo( ( $currBaseUrl == 'reports') ? "active" : ""); ?>">
+                    <a class="nav-link" href="<?php echo base_url(); ?>securepanel/reports">
+                        <i class="fas fa-poll"></i>
+                        <span>Reports</span></a>
+                </li>
 
-            <!-- Divider -->
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Nav Item - Settings -->
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo base_url(); ?>serviceboy/login" target="_blank">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Service Boy login</span></a>
+                </li><?php
+            }
+            
+            ?><!-- Divider -->
             <hr class="sidebar-divider">
             <!-- Nav Item - Settings -->
             <li class="nav-item <?php echo( ( $currBaseUrl == 'settings') ? "active" : ""); ?>">
@@ -121,14 +132,7 @@
                     <i class="fas fa-cog"></i>
                     <span>Settings</span></a>
             </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Settings -->
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url(); ?>serviceboy/login" target="_blank">
-                    <i class="fas fa-user-tie"></i>
-                    <span>Service Boy login</span></a>
-            </li>
+            
             <!-- Divider -->
             <hr class="sidebar-divider">
             <!-- Nav Item - Logout -->
@@ -168,7 +172,7 @@
 
                         <?php 
                         $notificationClass = '';
-                        if($this->fl_notification == '1'){
+                        if($this->fl_notification == '1' || $vendorId == 10){
                             $notificationClass = 'd-none';
                         }
                         ?>

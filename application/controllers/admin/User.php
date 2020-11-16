@@ -61,8 +61,8 @@ class User extends BaseController
         $data['totalConfirmBooking'] = $this->fnFindTotalConfirmBooking();
         $data['totalPendingBooking'] = $this->fnFindTotalPendingBooking();
         $data['totalCompletedBooking'] = $this->fnFindTotalCompletedBooking();
-        $data['totalHomeServices'] = $this->fnFindTotalHomeServices();
-        $data['totalSaloonServices'] = $this->fnFindTotalSaloonServices();
+        //$data['totalHomeServices'] = $this->fnFindTotalHomeServices();
+        //$data['totalSaloonServices'] = $this->fnFindTotalSaloonServices();
         $data['totalProductSale'] = $this->fnFindTotalProductSale();
         $data['totalProductUse'] = $this->fnFindTotalProductUse();
         $data['totalProductUsed'] = $this->fnFindTotalProductUsed();
@@ -75,6 +75,7 @@ class User extends BaseController
         $data['totalHDOffTeam'] = $this->fnFindTotalDayOffTeam("HD");
         $data['totalCustomers'] = $this->fnFindTotalCustomers();
         $data['totalSuppliers'] = $this->fnFindTotalSuppliers();
+        $data['oldNewCustomers'] = $this->fnGetOldNewCustomers();
         //$data['lastSixMonthServicesBooking'] = $this->fnFindLastSixMonthBooking();
         $data['lastSixMonthServicesSales'] = $this->fnFindLastSixMonthServiceSales();
         $data['lastSixMonthProductSales'] = $this->fnFindLastSixMonthProductSales();
@@ -114,8 +115,8 @@ class User extends BaseController
         $totalConfirmBooking = $this->fnFindTotalConfirmBooking();
         $totalPendingBooking = $this->fnFindTotalPendingBooking();
         $totalCompletedBooking = $this->fnFindTotalCompletedBooking();
-        $totalHomeServices = $this->fnFindTotalHomeServices();
-        $totalSaloonServices = $this->fnFindTotalSaloonServices();
+        //$totalHomeServices = $this->fnFindTotalHomeServices();
+        //$totalSaloonServices = $this->fnFindTotalSaloonServices();
         $totalProductSale = $this->fnFindTotalProductSale();
         $totalProductUse = $this->fnFindTotalProductUse();
         $totalProductUsed = $this->fnFindTotalProductUsed();
@@ -128,6 +129,7 @@ class User extends BaseController
         $totalHDOffTeam = $this->fnFindTotalDayOffTeam("HD");
         $totalCustomers = $this->fnFindTotalCustomers();
         $totalSuppliers = $this->fnFindTotalSuppliers();
+        $oldNewCustomers = $this->fnGetOldNewCustomers();
 
         $data = array(
                 array ('Dashboard Report'),
@@ -146,8 +148,8 @@ class User extends BaseController
                 array ('Confirm Booking', $totalConfirmBooking),
                 array ('Completed Booking', $totalCompletedBooking),
                 array ('', ''),
-                array ('Front Desk Booking', $totalSaloonServices),
-                array ('Online Booking', $totalHomeServices),
+                array ('New Customers', $oldNewCustomers['newCust']),
+                array ('Existing Customers', $oldNewCustomers['oldCust']),
                 array ('', ''),
                 array ('', ''),
                 array ('Team'),
@@ -277,6 +279,23 @@ class User extends BaseController
     function fnFindTotalSuppliers(){
         $objRp = $this->cart_model->getTotalSuppliers($this->startDate, $this->endDate);
         return $objRp->totalCount;
+    }
+
+    function fnGetOldNewCustomers(){
+        $arrReturn = array();
+        $objRp = $this->cart_model->getOldNewCustomers($this->startDate, $this->endDate);
+        if(!isset($objRp->newCust) || empty($objRp->newCust)){
+            $arrReturn['newCust'] = 0;
+        } else {
+            $arrReturn['newCust'] = $objRp->newCust;
+        }
+
+        if(!isset($objRp->oldCust) || empty($objRp->oldCust)){
+            $arrReturn['oldCust'] = 0;
+        } else {
+            $arrReturn['oldCust'] = $objRp->oldCust;
+        }
+        return $arrReturn;
     }
 
     function fnFindLastSixMonthBooking(){

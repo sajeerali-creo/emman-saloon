@@ -102,7 +102,7 @@
                                         <div class="f-16 font-weight-bold text-info text-uppercase mb-1">
                                             New Customers</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <?php echo $totalHomeServices; ?>
+                                            <?php echo $oldNewCustomers['newCust']; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +115,7 @@
                                         <div class="f-16 font-weight-bold text-info text-uppercase mb-1">
                                         Existing Customers</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <?php echo $totalSaloonServices; ?>
+                                            <?php echo $oldNewCustomers['oldCust']; ?>
                                         </div>
                                     </div>
                                 </div>
